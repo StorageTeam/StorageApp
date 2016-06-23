@@ -1,0 +1,6 @@
+framework module Pods_StorageApp {
+  umbrella header "Pods-StorageApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
