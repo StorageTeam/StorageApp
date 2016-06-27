@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PKHUD
+import SnapKit
 
 class DSSBaseViewController: UIViewController {
 
@@ -21,6 +23,11 @@ class DSSBaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - HUD
+    
+    func showHUD(text: String?) {
+        HUD.flash(.Label(text), delay: 2)
+    }
 
     /*
     // MARK: - Navigation

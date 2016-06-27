@@ -11,6 +11,7 @@ import Foundation
 class DSSRequestHeader: NSObject {
     static func requestHeader() -> [String : AnyObject] {
         
-        return ["p" : "i"]
+        return ["p" : "i",
+                "d_id" : "e Mini Capsule Microphon"]
     }
 }

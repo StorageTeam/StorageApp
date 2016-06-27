@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SnapKit
 
-class DSSLoginController: UIViewController, UITextFieldDelegate, DSSDataCenterDelegate {
+class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCenterDelegate {
     static let DSS_LOGIN_REQUEST_IDENTIFY: Int = 0
     
     init() {
@@ -45,11 +44,16 @@ class DSSLoginController: UIViewController, UITextFieldDelegate, DSSDataCenterDe
     
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
-        print(response)
+        if header.code == DSSResponseCode.Normal {
+            DSSAccount.saveAccount(response["data"]?["user"])
+            self.dismissViewControllerAnimated(true, completion: {})
+        } else {
+            super.showHUD(header.msg)
+        }
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
-        print(error!)
+        super.showHUD(error)
     }
     
     // MARK: - UITextFieldDelegate
@@ -63,9 +67,9 @@ class DSSLoginController: UIViewController, UITextFieldDelegate, DSSDataCenterDe
     
     // MARK: - Actions
     @objc private func loginAction() {
-        DSSLoginService.login(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY
+        DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY
             , delegate: self
-            , mobile: "18855314935"
+            , mobile: "18656396627"
             , password: "111111")
     }
     

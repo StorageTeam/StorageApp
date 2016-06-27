@@ -31,36 +31,57 @@ class DSSNetwork: NSObject {
             }
         }
         
-        Alamofire.request(.POST, url!, parameters: parameters)
-            .validate()
-            .responseData { response in
-                let header = DSSResponseHeader.init()
-                header.code = DSSResponseCode.Normal
-                
-                switch response.result {
-                case .Success:
-                    do {
-                        let responseJSON = try NSJSONSerialization.JSONObjectWithData(response.data!, options: []) as! [String: AnyObject]
-                        if let code = responseJSON["code"] as? DSSResponseCode {
-                            header.code = code
-                            
-                            if code == DSSResponseCode.BusinessError || code == DSSResponseCode.BusinessError {
-                                if let msg = responseJSON["message"] as? String {
-                                    header.msg = msg
+        Alamofire.upload(.POST
+            , url!
+            , multipartFormData: { multipartFormData in
+                // submit with form data
+                for (key, value) in parameters {
+                    if let dict = (value as? Dictionary<String, AnyObject>) {
+                        do {
+                            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
+                            multipartFormData.appendBodyPart(data: data, name: key)
+                        } catch {
+                        }
+                    } else if let string = value as? String {
+                        let data = string.dataUsingEncoding(NSUTF8StringEncoding)
+                        multipartFormData.appendBodyPart(data: data!, name: key)
+                    }
+                }
+            }
+            , encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload.responseString { response in
+                        // response
+                        let header = DSSResponseHeader.init()
+                        header.code = DSSResponseCode.Normal
+                        
+                        if let responseString = response.result.value {
+                            do {
+                                if let json = try NSJSONSerialization.JSONObjectWithData(responseString.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments) as? [String: AnyObject] {
+                                    print(json, separator: "", terminator: "")
+                                    if let code = json["code"] as? String {
+                                        let responseCode = DSSResponseCode(rawValue: Int(code)!)
+                                        header.code = responseCode
+                                    
+                                        if responseCode == DSSResponseCode.Normal || responseCode == DSSResponseCode.BusinessError {
+                                            if let msg = json["message"] as? String {
+                                                header.msg = msg
+                                            }
+                                            delegate.networkDidResponseSuccess(identify, header: header, response: json, userInfo: userInfo)
+                                        } else if responseCode == DSSResponseCode.AccessError {
+                                            // show login page
+                                        }
+                                    }
                                 }
-                                delegate.networkDidResponseSuccess(identify, header: header, response: responseJSON, userInfo: userInfo)
-                            } else if code == DSSResponseCode.AccessError {
-                                // show login page
+                            } catch {
                             }
                         }
-                    } catch {
-                        header.msg = DSSNetwork.errorMSG
-                        delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: userInfo)
                     }
-                case .Failure(let error):
-                    header.msg = DSSNetwork.errorMSG
-                    delegate.networkDidResponseError?(identify, header: header, error: error.localizedDescription, userInfo: userInfo)
+                case .Failure(let encodingError):
+                    print(encodingError)
                 }
-        }
+            }
+        )
     }
 }

@@ -9,16 +9,17 @@
 import Foundation
 
 class DSSLoginService: NSObject {
-    static func login(identify: Int, delegate: DSSDataCenterDelegate, mobile: String, password: String) -> Void {
+    static func requestLogin(identify: Int, delegate: DSSDataCenterDelegate, mobile: String, password: String) -> Void {
         var para = [String : String]()
         para["mobile"]   = mobile
         para["password"] = password
         para["p"]        = "i"
+        para["d_id"]     = "adsfafd"
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/api/crm_user/offline_login2.json"
-            , para: ["data_json" : para.description]
+            , path: "/link-site/api/crm_user/offline_login.json"
+            , para: ["data_json" : para]
             , userInfo: nil)
     }
 }

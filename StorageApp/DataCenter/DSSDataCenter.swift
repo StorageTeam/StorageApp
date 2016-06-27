@@ -9,10 +9,10 @@
 import Foundation
 
 enum DSSResponseCode: Int {
-    case Unknown
-    case Normal
-    case BusinessError
-    case AccessError
+    case Unknown            = 0
+    case Normal             = 1
+    case BusinessError      = 42000
+    case AccessError        = 46000
 }
 
 @objc protocol DSSDataCenterDelegate {
