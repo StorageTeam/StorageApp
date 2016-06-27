@@ -7,20 +7,22 @@
 //
 
 import UIKit
-import Alamofire
 
-class ViewController: UIViewController {
+class DSSProductListController: DSSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let loginCon = DSSLoginController()
+        self.navigationController?.presentViewController(loginCon, animated: true, completion: { 
+            
+        });
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
