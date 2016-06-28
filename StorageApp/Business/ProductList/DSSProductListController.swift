@@ -36,6 +36,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             let controller = DSSLoginController()
             self.navigationController?.presentViewController(controller, animated: true, completion: {});
         }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .Edit, target: self, action: #selector(clickButton))
+    }
+    
+    func clickButton(sender: UIButton){
+        print("push eidt")
+        let editController = EditViewController()
+        self.navigationController?.pushViewController(editController, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
