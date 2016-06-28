@@ -9,7 +9,7 @@
 import UIKit
 
 class DSSProductListController: DSSBaseViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,6 +26,14 @@ class DSSProductListController: DSSBaseViewController {
             let controller = DSSLoginController()
             self.navigationController?.presentViewController(controller, animated: true, completion: {});
         }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .Edit, target: self, action: #selector(clickButton))
+    }
+    
+    func clickButton(sender: UIButton){
+        print("push eidt")
+        let editController = EditViewController()
+        self.navigationController?.pushViewController(editController, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
