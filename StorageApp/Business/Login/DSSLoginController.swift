@@ -67,10 +67,10 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     
     // MARK: - Actions
     @objc private func loginAction() {
-        DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY
-            , delegate: self
-            , mobile: "18656396627"
-            , password: "111111")
+        DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
+                                     delegate: self,
+                                     mobile: "18656396627",
+                                     password: "111111")
     }
     
     // MARK: - loadView

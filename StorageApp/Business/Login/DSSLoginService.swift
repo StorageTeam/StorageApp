@@ -16,10 +16,10 @@ class DSSLoginService: NSObject {
         para["p"]        = "i"
         para["d_id"]     = "adsfafd"
         
-        DSSDataCenter.Request(identify
-            , delegate: delegate
-            , path: "/link-site/api/crm_user/offline_login.json"
-            , para: ["data_json" : para]
-            , userInfo: nil)
+        DSSDataCenter.Request(identify,
+                              delegate: delegate,
+                              path: "/link-site/api/crm_user/offline_login.json",
+                              para: ["data_json" : para],
+                              userInfo: nil)
     }
 }

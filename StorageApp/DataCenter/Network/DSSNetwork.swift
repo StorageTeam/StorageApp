@@ -12,12 +12,12 @@ import Alamofire
 class DSSNetwork: NSObject {
     static let errorMSG: String = "数据解析异常"
     
-    class func Request(identify: Int
-        , delegate: DSSDataCenterDelegate
-        , path: String
-        , para: [String : AnyObject]?
-        , userInfo: [String : AnyObject]?
-        , server: String = DSSServer.apiServer()) {
+    class func Request(identify: Int,
+                       delegate: DSSDataCenterDelegate,
+                       path: String,
+                       para: [String : AnyObject]?,
+                       userInfo: [String : AnyObject]?,
+                       server: String = DSSServer.apiServer()) {
         
         // construct url with sever and path
         var url = NSURL.init(string: server)
@@ -31,24 +31,23 @@ class DSSNetwork: NSObject {
             }
         }
         
-        Alamofire.upload(.POST
-            , url!
-            , multipartFormData: { multipartFormData in
-                // submit with form data
-                for (key, value) in parameters {
-                    if let dict = (value as? Dictionary<String, AnyObject>) {
-                        do {
-                            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
-                            multipartFormData.appendBodyPart(data: data, name: key)
-                        } catch {
-                        }
-                    } else if let string = value as? String {
-                        let data = string.dataUsingEncoding(NSUTF8StringEncoding)
-                        multipartFormData.appendBodyPart(data: data!, name: key)
-                    }
-                }
-            }
-            , encodingCompletion: { encodingResult in
+        Alamofire.upload(.POST,
+                         url!,
+                         multipartFormData: { multipartFormData in
+                            // submit with form data
+                            for (key, value) in parameters {
+                                if let dict = (value as? Dictionary<String, AnyObject>) {
+                                    do {
+                                        let data = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
+                                        multipartFormData.appendBodyPart(data: data, name: key)
+                                    } catch {
+                                    }
+                                } else if let string = value as? String {
+                                    let data = string.dataUsingEncoding(NSUTF8StringEncoding)
+                                    multipartFormData.appendBodyPart(data: data!, name: key)
+                                }
+                            }
+            }, encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .Success(let upload, _, _):
                     upload.responseString { response in
@@ -63,7 +62,7 @@ class DSSNetwork: NSObject {
                                     if let code = json["code"] as? String {
                                         let responseCode = DSSResponseCode(rawValue: Int(code)!)
                                         header.code = responseCode
-                                    
+                                        
                                         if responseCode == DSSResponseCode.Normal || responseCode == DSSResponseCode.BusinessError {
                                             if let msg = json["message"] as? String {
                                                 header.msg = msg

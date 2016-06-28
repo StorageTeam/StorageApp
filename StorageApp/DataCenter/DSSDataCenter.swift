@@ -22,18 +22,18 @@ enum DSSResponseCode: Int {
 }
 
 class DSSDataCenter: NSObject {
-    class func Request(identify: Int
-        , delegate: DSSDataCenterDelegate
-        , path: String
-        , para: [String : AnyObject]?
-        , userInfo: [String : AnyObject]?
-        , server: String = DSSServer.apiServer()) {
+    class func Request(identify: Int,
+                       delegate: DSSDataCenterDelegate,
+                       path: String,
+                       para: [String : AnyObject]?,
+                       userInfo: [String : AnyObject]?,
+                       server: String = DSSServer.apiServer()) {
         
-        DSSNetwork.Request(identify
-            , delegate: delegate
-            , path: path
-            , para: para
-            , userInfo: userInfo)
+        DSSNetwork.Request(identify,
+                           delegate: delegate,
+                           path: path,
+                           para: para,
+                           userInfo: userInfo)
     }
 
 }

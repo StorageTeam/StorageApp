@@ -8,14 +8,23 @@
 
 import UIKit
 
-class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate {
+class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate, DSSDataCenterDelegate {
+    static let DSS_PRODUCTLIST_REQUEST_IDENTIFY: Int      = 0
+    static let DSS_PRODUCTLIST_NEXT_REQUEST_IDENTIFY: Int = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         self.navigationItem.title = "Item Managerment"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "测试", style: .Done, target: nil, action: nil)
+        
+        DSSProductListService.requestList(DSSProductListController.DSS_PRODUCTLIST_REQUEST_IDENTIFY,
+                                          delegate: self,
+                                          status: "2",
+                                          startRow: "0")
+        DSSProductListService.requestList(DSSProductListController.DSS_PRODUCTLIST_REQUEST_IDENTIFY,
+                                          delegate: self,
+                                          status: "1",
+                                          startRow: "0")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -32,6 +41,11 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - DSSDataCenterDelegate
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        
     }
     
     // MARK: - DSSSegmentControlDelegate
