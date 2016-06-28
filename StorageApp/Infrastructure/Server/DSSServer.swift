@@ -9,7 +9,7 @@
 import Foundation
 
 class DSSServer: NSObject {
-    static func apiServer() -> String {
+    class func apiServer() -> String {
         return "http://112.124.40.161"
     }
 }

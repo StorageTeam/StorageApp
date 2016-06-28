@@ -39,6 +39,15 @@
 		CE3DDD7B1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
 		CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
 		CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
+		CEBBA7C51D22114500187B07 /* DSSAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C41D22114500187B07 /* DSSAppearance.swift */; };
+		CEBBA7C61D22114500187B07 /* DSSAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C41D22114500187B07 /* DSSAppearance.swift */; };
+		CEBBA7C71D22114500187B07 /* DSSAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C41D22114500187B07 /* DSSAppearance.swift */; };
+		CEBBA7CA1D221AB800187B07 /* DSSSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C91D221AB800187B07 /* DSSSegmentControl.swift */; };
+		CEBBA7CB1D221AB800187B07 /* DSSSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C91D221AB800187B07 /* DSSSegmentControl.swift */; };
+		CEBBA7CC1D221AB800187B07 /* DSSSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7C91D221AB800187B07 /* DSSSegmentControl.swift */; };
+		CEBBA7CE1D22612A00187B07 /* DSSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7CD1D22612A00187B07 /* DSSColorExtension.swift */; };
+		CEBBA7CF1D22612A00187B07 /* DSSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7CD1D22612A00187B07 /* DSSColorExtension.swift */; };
+		CEBBA7D01D22612A00187B07 /* DSSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7CD1D22612A00187B07 /* DSSColorExtension.swift */; };
 		CEF0CAE31D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
 		CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
 		CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
@@ -104,6 +113,9 @@
 		CE3DDD721D1C2A7F005459B6 /* DSSNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSNetwork.swift; sourceTree = "<group>"; };
 		CE3DDD761D1C2A8F005459B6 /* DSSStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSStorage.swift; sourceTree = "<group>"; };
 		CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSDataCenter.swift; sourceTree = "<group>"; };
+		CEBBA7C41D22114500187B07 /* DSSAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSAppearance.swift; sourceTree = "<group>"; };
+		CEBBA7C91D221AB800187B07 /* DSSSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSegmentControl.swift; sourceTree = "<group>"; };
+		CEBBA7CD1D22612A00187B07 /* DSSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSColorExtension.swift; sourceTree = "<group>"; };
 		CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSServer.swift; sourceTree = "<group>"; };
 		CEF0CAE61D1D12DE003C5357 /* DSSRequestHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRequestHeader.swift; sourceTree = "<group>"; };
 		CEF0CAEA1D1D1CB8003C5357 /* DSSLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSLoginService.swift; sourceTree = "<group>"; };
@@ -261,6 +273,7 @@
 			children = (
 				CE13DD751D1BBA840072D045 /* BaseController */,
 				CE3DDD5B1D1BD8A1005459B6 /* LoginInput */,
+				CEBBA7C81D221AA400187B07 /* SegmentControl */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -342,6 +355,7 @@
 		CE3DDD671D1BF483005459B6 /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
+				CEBBA7C41D22114500187B07 /* DSSAppearance.swift */,
 			);
 			path = Appearance;
 			sourceTree = "<group>";
@@ -363,10 +377,19 @@
 			path = Server;
 			sourceTree = "<group>";
 		};
+		CEBBA7C81D221AA400187B07 /* SegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				CEBBA7C91D221AB800187B07 /* DSSSegmentControl.swift */,
+			);
+			path = SegmentControl;
+			sourceTree = "<group>";
+		};
 		CEF0CAF31D1D313E003C5357 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				CEF0CAF41D1D31CA003C5357 /* DSSDictionaryExtension.swift */,
+				CEBBA7CD1D22612A00187B07 /* DSSColorExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -633,6 +656,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEBBA7CA1D221AB800187B07 /* DSSSegmentControl.swift in Sources */,
 				CE13DD7B1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CEF0CAE71D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE3DDD6F1D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
@@ -646,6 +670,8 @@
 				CEF0CAEB1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				CE3DDD771D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				CEF0CAF51D1D31CA003C5357 /* DSSDictionaryExtension.swift in Sources */,
+				CEBBA7CE1D22612A00187B07 /* DSSColorExtension.swift in Sources */,
+				CEBBA7C51D22114500187B07 /* DSSAppearance.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,8 +684,11 @@
 				CEF0CAE81D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE13DD781D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */,
+				CEBBA7C61D22114500187B07 /* DSSAppearance.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
+				CEBBA7CB1D221AB800187B07 /* DSSSegmentControl.swift in Sources */,
+				CEBBA7CF1D22612A00187B07 /* DSSColorExtension.swift in Sources */,
 				CE3DDD781D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				CE3DDD741D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
@@ -678,8 +707,11 @@
 				CEF0CAE91D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE13DD791D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */,
+				CEBBA7C71D22114500187B07 /* DSSAppearance.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
+				CEBBA7CC1D221AB800187B07 /* DSSSegmentControl.swift in Sources */,
+				CEBBA7D01D22612A00187B07 /* DSSColorExtension.swift in Sources */,
 				CE3DDD791D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				CE3DDD751D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,

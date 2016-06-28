@@ -8,20 +8,21 @@
 
 import UIKit
 
-class DSSProductListController: DSSBaseViewController {
+class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
+        self.navigationItem.title = "Item Managerment"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "测试", style: .Done, target: nil, action: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if DSSAccount.isLogin() {
-            print("user login")
+//            print("user login")
         } else {
             let controller = DSSLoginController()
             self.navigationController?.presentViewController(controller, animated: true, completion: {});
@@ -33,6 +34,40 @@ class DSSProductListController: DSSBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - DSSSegmentControlDelegate
+    func segmentControlDidSelected(control: DSSSegmentControl, index: Int) {
+        print(index)
+    }
+    
     // MARK: - Method
+    
+    // MARK: - loadView
+    override func loadView() {
+        super.loadView()
+        
+        self.view.addSubview(self.segmentControl)
+        self.segmentControl.snp_makeConstraints { (make) in
+            make.left.top.right.equalTo(self.view)
+            make.height.equalTo(52)
+        }
+        
+        let line = UIView.init()
+        line.backgroundColor = UIColor.init(rgb: 0xf5f5f5)
+        self.view.addSubview(line)
+        line.snp_makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.top.equalTo(self.segmentControl.snp_bottom)
+            make.height.equalTo(0.5)
+        }
+        
+    }
+    
+    // MARK: - Property
+    lazy var segmentControl: DSSSegmentControl = {
+        let control = DSSSegmentControl.init(imageNames: ["SegmentReserveNormal", "SegmentOnsaleNormal"], selectedImageNames: ["SegmentReserveSelected", "SegmentOnsaleSelected"], titles: ["Reserve", "On Sale"])
+        control.backgroundColor = UIColor(white: 0.5, alpha: 1)
+        control.delegate = self
+        return control
+    }()
 }
 

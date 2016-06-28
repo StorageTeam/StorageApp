@@ -12,7 +12,7 @@ import Alamofire
 class DSSNetwork: NSObject {
     static let errorMSG: String = "数据解析异常"
     
-    static func Request(identify: Int
+    class func Request(identify: Int
         , delegate: DSSDataCenterDelegate
         , path: String
         , para: [String : AnyObject]?
@@ -59,7 +59,7 @@ class DSSNetwork: NSObject {
                         if let responseString = response.result.value {
                             do {
                                 if let json = try NSJSONSerialization.JSONObjectWithData(responseString.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments) as? [String: AnyObject] {
-                                    print(json, separator: "", terminator: "")
+                                    print(json, separator: "", terminator: "\r\n")
                                     if let code = json["code"] as? String {
                                         let responseCode = DSSResponseCode(rawValue: Int(code)!)
                                         header.code = responseCode

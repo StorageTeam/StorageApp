@@ -9,7 +9,7 @@
 import Foundation
 
 class DSSLoginService: NSObject {
-    static func requestLogin(identify: Int, delegate: DSSDataCenterDelegate, mobile: String, password: String) -> Void {
+    class func requestLogin(identify: Int, delegate: DSSDataCenterDelegate, mobile: String, password: String) -> Void {
         var para = [String : String]()
         para["mobile"]   = mobile
         para["password"] = password

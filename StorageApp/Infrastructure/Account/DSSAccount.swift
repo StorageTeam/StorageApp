@@ -20,7 +20,7 @@ class DSSAccount: NSObject, Mappable {
     private var level       : String!
     private var status      : String!
     
-    static func saveAccount(json: AnyObject?) -> Void {
+    class func saveAccount(json: AnyObject?) -> Void {
         let account = Mapper<DSSAccount>().map(json)
         
         DSSAccount.gAccount.userid   = account?.userid
@@ -32,7 +32,7 @@ class DSSAccount: NSObject, Mappable {
         DSSAccount.gAccount.status   = account?.status
     }
     
-    static func isLogin() -> Bool {
+    class func isLogin() -> Bool {
         if DSSAccount.gAccount.token != nil {
             return true
         }

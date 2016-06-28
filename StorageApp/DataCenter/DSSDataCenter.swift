@@ -22,7 +22,7 @@ enum DSSResponseCode: Int {
 }
 
 class DSSDataCenter: NSObject {
-    static func Request(identify: Int
+    class func Request(identify: Int
         , delegate: DSSDataCenterDelegate
         , path: String
         , para: [String : AnyObject]?
