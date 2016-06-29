@@ -60,7 +60,7 @@ public class DSSLoginTextInput: UIView {
         return imgIcon
     }()
     
-    public lazy var textField: UITextField = {
+    lazy var textField: UITextField = {
         let textField = UITextField.init()
         textField.font = UIFont.systemFontOfSize(14)
         return textField

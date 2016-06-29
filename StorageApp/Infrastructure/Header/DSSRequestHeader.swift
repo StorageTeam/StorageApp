@@ -12,6 +12,11 @@ class DSSRequestHeader: NSObject {
     class func requestHeader() -> [String : AnyObject] {
         
         return ["p" : "i",
-                "d_id" : "e Mini Capsule Microphon"]
+                "d_id" : "eMiniCapsuleMicrophon",
+                "tk" : DSSAccount.getToken(),
+                "u_id" : "15001",
+                "ts" : "15001000",
+                "ver" : "1.2.1",
+                "c_id" : "eMiniCapsuleMicrophon"]
     }
 }

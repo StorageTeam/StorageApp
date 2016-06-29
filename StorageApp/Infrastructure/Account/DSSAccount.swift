@@ -39,6 +39,13 @@ class DSSAccount: NSObject, Mappable {
         return false
     }
     
+    class func getToken() -> String {
+        if let token = DSSAccount.gAccount.token {
+            return token
+        }
+        return ""
+    }
+    
     override init() {
         super.init()
     }

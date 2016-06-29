@@ -56,6 +56,27 @@
 		CEBBA7DF1D22777600187B07 /* DSSProductListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7DE1D22777600187B07 /* DSSProductListService.swift */; };
 		CEBBA7E11D22778500187B07 /* DSSCommonDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E01D22778500187B07 /* DSSCommonDefine.swift */; };
 		CEBBA7E31D2277A600187B07 /* DSSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E21D2277A600187B07 /* DSSColorExtension.swift */; };
+		CEBBA7E51D2288B600187B07 /* DSSProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E41D2288B600187B07 /* DSSProductListViewModel.swift */; };
+		CEBBA7E61D2288B600187B07 /* DSSProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E41D2288B600187B07 /* DSSProductListViewModel.swift */; };
+		CEBBA7E71D2288B600187B07 /* DSSProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E41D2288B600187B07 /* DSSProductListViewModel.swift */; };
+		CEBBA7E91D228A7100187B07 /* DSSProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E81D228A7100187B07 /* DSSProductListModel.swift */; };
+		CEBBA7EA1D228A7100187B07 /* DSSProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E81D228A7100187B07 /* DSSProductListModel.swift */; };
+		CEBBA7EB1D228A7100187B07 /* DSSProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7E81D228A7100187B07 /* DSSProductListModel.swift */; };
+		CEBBA7EE1D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7ED1D23625600187B07 /* DSSObjectMapperTransform.swift */; };
+		CEBBA7EF1D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7ED1D23625600187B07 /* DSSObjectMapperTransform.swift */; };
+		CEBBA7F01D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7ED1D23625600187B07 /* DSSObjectMapperTransform.swift */; };
+		CEBBA7F21D239C1200187B07 /* DSSProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F11D239C1200187B07 /* DSSProductListCell.swift */; };
+		CEBBA7F31D239C1200187B07 /* DSSProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F11D239C1200187B07 /* DSSProductListCell.swift */; };
+		CEBBA7F41D239C1200187B07 /* DSSProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F11D239C1200187B07 /* DSSProductListCell.swift */; };
+		CEBBA7F61D23A2F000187B07 /* DSSIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F51D23A2F000187B07 /* DSSIntExtension.swift */; };
+		CEBBA7F71D23A2F000187B07 /* DSSIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F51D23A2F000187B07 /* DSSIntExtension.swift */; };
+		CEBBA7F81D23A2F000187B07 /* DSSIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F51D23A2F000187B07 /* DSSIntExtension.swift */; };
+		CEBBA7FA1D23A69700187B07 /* DSSStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F91D23A69700187B07 /* DSSStringExtension.swift */; };
+		CEBBA7FB1D23A69700187B07 /* DSSStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F91D23A69700187B07 /* DSSStringExtension.swift */; };
+		CEBBA7FC1D23A69700187B07 /* DSSStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7F91D23A69700187B07 /* DSSStringExtension.swift */; };
+		CEBBA7FE1D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7FD1D23AD6B00187B07 /* DSSImageViewExtension.swift */; };
+		CEBBA7FF1D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7FD1D23AD6B00187B07 /* DSSImageViewExtension.swift */; };
+		CEBBA8001D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7FD1D23AD6B00187B07 /* DSSImageViewExtension.swift */; };
 		CEF0CAE31D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
 		CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
 		CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */; };
@@ -137,6 +158,13 @@
 		CEBBA7DE1D22777600187B07 /* DSSProductListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSProductListService.swift; sourceTree = "<group>"; };
 		CEBBA7E01D22778500187B07 /* DSSCommonDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSCommonDefine.swift; sourceTree = "<group>"; };
 		CEBBA7E21D2277A600187B07 /* DSSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSColorExtension.swift; sourceTree = "<group>"; };
+		CEBBA7E41D2288B600187B07 /* DSSProductListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSProductListViewModel.swift; sourceTree = "<group>"; };
+		CEBBA7E81D228A7100187B07 /* DSSProductListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSProductListModel.swift; sourceTree = "<group>"; };
+		CEBBA7ED1D23625600187B07 /* DSSObjectMapperTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSObjectMapperTransform.swift; sourceTree = "<group>"; };
+		CEBBA7F11D239C1200187B07 /* DSSProductListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSProductListCell.swift; sourceTree = "<group>"; };
+		CEBBA7F51D23A2F000187B07 /* DSSIntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSIntExtension.swift; sourceTree = "<group>"; };
+		CEBBA7F91D23A69700187B07 /* DSSStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSStringExtension.swift; sourceTree = "<group>"; };
+		CEBBA7FD1D23AD6B00187B07 /* DSSImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSImageViewExtension.swift; sourceTree = "<group>"; };
 		CEF0CAE21D1D0EE0003C5357 /* DSSServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSServer.swift; sourceTree = "<group>"; };
 		CEF0CAE61D1D12DE003C5357 /* DSSRequestHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRequestHeader.swift; sourceTree = "<group>"; };
 		CEF0CAEA1D1D1CB8003C5357 /* DSSLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSLoginService.swift; sourceTree = "<group>"; };
@@ -375,6 +403,7 @@
 		CE13DD5F1D1B87CA0072D045 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				CEBBA7EC1D23622100187B07 /* ObjectMapper */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -383,7 +412,10 @@
 			isa = PBXGroup;
 			children = (
 				CE13DD711D1BBA040072D045 /* DSSProductListController.swift */,
+				CEBBA7F11D239C1200187B07 /* DSSProductListCell.swift */,
 				CEBBA7DE1D22777600187B07 /* DSSProductListService.swift */,
+				CEBBA7E41D2288B600187B07 /* DSSProductListViewModel.swift */,
+				CEBBA7E81D228A7100187B07 /* DSSProductListModel.swift */,
 			);
 			path = ProductList;
 			sourceTree = "<group>";
@@ -424,10 +456,10 @@
 		CE3DDD651D1BF299005459B6 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				CE3DDD691D1BF483005459B6 /* Server */,
-				CE3DDD661D1BF483005459B6 /* Account */,
 				CE3DDD681D1BF483005459B6 /* Header */,
 				CE3DDD671D1BF483005459B6 /* Appearance */,
+				CE3DDD661D1BF483005459B6 /* Account */,
+				CE3DDD691D1BF483005459B6 /* Server */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -473,6 +505,14 @@
 			path = SegmentControl;
 			sourceTree = "<group>";
 		};
+		CEBBA7EC1D23622100187B07 /* ObjectMapper */ = {
+			isa = PBXGroup;
+			children = (
+				CEBBA7ED1D23625600187B07 /* DSSObjectMapperTransform.swift */,
+			);
+			path = ObjectMapper;
+			sourceTree = "<group>";
+		};
 		CEF0CAF31D1D313E003C5357 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +520,9 @@
 				CEF0CAF41D1D31CA003C5357 /* DSSDictionaryExtension.swift */,
 				04C028291D2261360060CD7C /* UIColor+Extension.swift */,
 				CEBBA7E21D2277A600187B07 /* DSSColorExtension.swift */,
+				CEBBA7F51D23A2F000187B07 /* DSSIntExtension.swift */,
+				CEBBA7F91D23A69700187B07 /* DSSStringExtension.swift */,
+				CEBBA7FD1D23AD6B00187B07 /* DSSImageViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -747,9 +790,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */,
+				CEBBA7FE1D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */,
+				CEBBA7F21D239C1200187B07 /* DSSProductListCell.swift in Sources */,
 				CE13DD7B1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CEF0CAE71D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE3DDD6F1D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
+				CEBBA7E91D228A7100187B07 /* DSSProductListModel.swift in Sources */,
+				CEBBA7EE1D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */,
 				CEBBA7DD1D22776100187B07 /* DSSAppearance.swift in Sources */,
 				04C028201D2258190060CD7C /* FKScanController.swift in Sources */,
 				CE13DD721D1BBA040072D045 /* DSSProductListController.swift in Sources */,
@@ -757,6 +804,7 @@
 				04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */,
 				04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */,
 				04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */,
+				CEBBA7E51D2288B600187B07 /* DSSProductListViewModel.swift in Sources */,
 				04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */,
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
 				CE3DDD6B1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
@@ -765,6 +813,7 @@
 				CEBBA7E11D22778500187B07 /* DSSCommonDefine.swift in Sources */,
 				CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				CE3DDD7B1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
+				CEBBA7FA1D23A69700187B07 /* DSSStringExtension.swift in Sources */,
 				CEBBA7DF1D22777600187B07 /* DSSProductListService.swift in Sources */,
 				CEF0CAE31D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CEF0CAEB1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
@@ -776,6 +825,7 @@
 				04C0282A1D2261360060CD7C /* UIColor+Extension.swift in Sources */,
 				04C028141D224EFC0060CD7C /* FKSexChooseCell.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
+				CEBBA7F61D23A2F000187B07 /* DSSIntExtension.swift in Sources */,
 				CEBBA7E31D2277A600187B07 /* DSSColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -785,17 +835,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF0CAEC1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
+				CEBBA7FB1D23A69700187B07 /* DSSStringExtension.swift in Sources */,
 				CEF0CAE81D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE13DD781D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
+				CEBBA7E61D2288B600187B07 /* DSSProductListViewModel.swift in Sources */,
+				CEBBA7EA1D228A7100187B07 /* DSSProductListModel.swift in Sources */,
 				CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CE3DDD781D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				CE3DDD741D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
+				CEBBA7EF1D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */,
+				CEBBA7F31D239C1200187B07 /* DSSProductListCell.swift in Sources */,
 				CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
+				CEBBA7FF1D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */,
 				CE3DDD701D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
 				CE13DD381D1AA65C0072D045 /* StorageAppTests.swift in Sources */,
+				CEBBA7F71D23A2F000187B07 /* DSSIntExtension.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionaryExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -805,17 +862,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF0CAED1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
+				CEBBA7FC1D23A69700187B07 /* DSSStringExtension.swift in Sources */,
 				CEF0CAE91D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CE13DD791D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
+				CEBBA7E71D2288B600187B07 /* DSSProductListViewModel.swift in Sources */,
+				CEBBA7EB1D228A7100187B07 /* DSSProductListModel.swift in Sources */,
 				CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CE3DDD791D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				CE3DDD751D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
+				CEBBA7F01D23625600187B07 /* DSSObjectMapperTransform.swift in Sources */,
+				CEBBA7F41D239C1200187B07 /* DSSProductListCell.swift in Sources */,
 				CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
+				CEBBA8001D23AD6B00187B07 /* DSSImageViewExtension.swift in Sources */,
 				CE3DDD711D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
 				CE13DD431D1AA65C0072D045 /* StorageAppUITests.swift in Sources */,
+				CEBBA7F81D23A2F000187B07 /* DSSIntExtension.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionaryExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
