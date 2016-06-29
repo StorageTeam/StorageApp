@@ -25,7 +25,7 @@ class FKEditHeaderView: UITableViewHeaderFooterView {
     func initializeSub(){
         
         titleLabel.font = UIFont.systemFontOfSize(13)
-        titleLabel.textColor = UIColor.colorFromHexStr("9b9b9b")
+        titleLabel.textColor = UIColor.init(rgb: 0x9b9b9b)
 //        titleLabel.text = "Description"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }

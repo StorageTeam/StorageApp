@@ -30,7 +30,7 @@ class FKSexChooseCell: UITableViewCell {
         
         titleLabel = UILabel.init()
         titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.colorFromHexStr("4a4a4a")
+        titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
         titleLabel.text = "Group"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -63,6 +63,26 @@ class FKSexChooseCell: UITableViewCell {
             make.centerY.equalTo(self.contentView)
         }
         
+    }
+    
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let editModel = viewModel as? EditViewModel {
+            
+            var groupStr = ""
+            
+            switch editModel.groupType {
+            case .kGroupTypeNeuter:
+                groupStr = "Neuter"
+            case .kGroupTypeFemale:
+                groupStr = "Female"
+            case .kGroupTypeMale:
+                groupStr = "Male"
+            default:
+                break
+            }
+            
+            self.subLabel.text = groupStr
+        }
     }
 
 

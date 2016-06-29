@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04805D731D239A6200CA12CE /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D721D239A6200CA12CE /* UIImage+Extension.swift */; };
 		04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028051D224EDF0060CD7C /* EditViewController.swift */; };
 		04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028091D224EFC0060CD7C /* FKEditDescCell.swift */; };
 		04C028111D224EFC0060CD7C /* FKEditInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */; };
@@ -18,7 +19,7 @@
 		04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */; };
 		04C028201D2258190060CD7C /* FKScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0281F1D2258190060CD7C /* FKScanController.swift */; };
 		04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028211D2258270060CD7C /* FKScanCoverView.swift */; };
-		04C0282A1D2261360060CD7C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028291D2261360060CD7C /* UIColor+Extension.swift */; };
+		04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */; };
 		B2E38D1E4BF0E3D09266E721 /* Pods_StorageApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C31FD8A599DE8BA2F67955A /* Pods_StorageApp.framework */; };
 		CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13DD221D1AA65C0072D045 /* AppDelegate.swift */; };
 		CE13DD281D1AA65C0072D045 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE13DD261D1AA65C0072D045 /* Main.storyboard */; };
@@ -90,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04805D721D239A6200CA12CE /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		04C028051D224EDF0060CD7C /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		04C028091D224EFC0060CD7C /* FKEditDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditDescCell.swift; sourceTree = "<group>"; };
 		04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditInputCell.swift; sourceTree = "<group>"; };
@@ -101,7 +103,7 @@
 		04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		04C0281F1D2258190060CD7C /* FKScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanController.swift; sourceTree = "<group>"; };
 		04C028211D2258270060CD7C /* FKScanCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanCoverView.swift; sourceTree = "<group>"; };
-		04C028291D2261360060CD7C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditImgContainer.swift; sourceTree = "<group>"; };
 		06E61592EBE20614F3E03F57 /* Pods-StorageApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F57C8D15AF55EF3A4B57067 /* Pods-StorageAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageAppUITests/Pods-StorageAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		287305FD4034B5187F9F7754 /* Pods-StorageApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				04C028151D224F0A0060CD7C /* FKEditHeaderView.swift */,
+				04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -478,8 +481,8 @@
 			children = (
 				04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */,
 				CEF0CAF41D1D31CA003C5357 /* DSSDictionaryExtension.swift */,
-				04C028291D2261360060CD7C /* UIColor+Extension.swift */,
 				CEBBA7E21D2277A600187B07 /* DSSColorExtension.swift */,
+				04805D721D239A6200CA12CE /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -756,6 +759,7 @@
 				CE13DD771D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */,
 				04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */,
+				04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */,
 				04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */,
 				04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */,
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
@@ -772,8 +776,8 @@
 				04C028161D224F0A0060CD7C /* FKEditHeaderView.swift in Sources */,
 				CEF0CAF51D1D31CA003C5357 /* DSSDictionaryExtension.swift in Sources */,
 				CEBBA7DB1D22774D00187B07 /* DSSSegmentControl.swift in Sources */,
+				04805D731D239A6200CA12CE /* UIImage+Extension.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
-				04C0282A1D2261360060CD7C /* UIColor+Extension.swift in Sources */,
 				04C028141D224EFC0060CD7C /* FKSexChooseCell.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CEBBA7E31D2277A600187B07 /* DSSColorExtension.swift in Sources */,

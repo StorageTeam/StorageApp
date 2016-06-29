@@ -9,22 +9,32 @@
 import Foundation
 import UIKit
 
-enum kEditCellType: Int{
+public enum kEditCellType: Int{
     case kEditCellTypeNone = 0
     case kEditCellTypeTitle
     case kEditCellTypeName
     case kEditCellTypePic
-    case kEditCellTypeGroup
+//    case kEditCellTypeGroup
     case kEditCellTypeBrand
     case kEditCellTypeDesc
     case kEditCellTypePrice
     case kEditCellTypeStock
+    case kEditCellTypeWeight
     case kEditCellTypeUPC
     case kEditCellTypeItemNo
 }
 
+
+public enum kGroupType: Int{
+    case kGroupTypeNone = 0
+    case kGroupTypeNeuter
+    case kGroupTypeMale
+    case kGroupTypeFemale
+}
+
+
 public let PIC_CELL_IDENTIFY = "PIC_CELL_IDENTIFY"
-public let SEX_CELL_IDENTIFY = "SEX_CELL_IDENTIFY"
+//public let SEX_CELL_IDENTIFY = "SEX_CELL_IDENTIFY"
 public let DESC_CELL_IDENTIFY = "DESC_CELL_IDENTIFY"
 public let UPC_CELL_IDENTIFY = "UPC_CELL_IDENTIFY"
 public let EDIT_COMMON_CELL_IDENTIFY = "EDIT_COMMON_CELL_IDENTIFY"
@@ -34,19 +44,23 @@ public let EDIT_HEADER_VIEW_IDENTIFY = "EDIT_HEADER_VIEW_IDENTIFY"
 class EditViewModel: NSObject {
 
     var currentUpcStr : String?
+    var proImgArray: [UIImage] = []
+    internal var groupType: kGroupType = kGroupType.kGroupTypeNeuter
+    
     
     func numberOfSection() -> Int {
+        
         return 3
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 2 + self.getPicCellCount()
         case 1:
-            return 3
+            return 2
         case 2:
-            return 4
+            return 5
         default:
             return 0
         }
@@ -77,20 +91,16 @@ class EditViewModel: NSObject {
                     return .kEditCellTypeTitle
                 case 1:
                     return .kEditCellTypeName
-                case 2:
-                    return .kEditCellTypePic
                 default:
-                    return .kEditCellTypeNone
+                    return .kEditCellTypePic
             }
             
         }else if indexPath.section == 1{
             
             switch indexPath.row {
                 case 0:
-                    return .kEditCellTypeGroup
-                case 1:
                     return .kEditCellTypeBrand
-                case 2:
+                case 1:
                     return .kEditCellTypeDesc
                 default:
                     return .kEditCellTypeNone
@@ -104,8 +114,10 @@ class EditViewModel: NSObject {
                 case 1:
                     return .kEditCellTypeStock
                 case 2:
+                    return .kEditCellTypeWeight
+                case 3:
                     return .kEditCellTypeUPC
-                case 2:
+                case 4:
                     return .kEditCellTypeItemNo
                 default:
                     return .kEditCellTypeNone
@@ -122,8 +134,8 @@ class EditViewModel: NSObject {
         switch cellType {
         case .kEditCellTypePic:
             return PIC_CELL_IDENTIFY
-        case .kEditCellTypeGroup:
-            return SEX_CELL_IDENTIFY
+//        case .kEditCellTypeGroup:
+//            return SEX_CELL_IDENTIFY
         case .kEditCellTypeDesc:
             return DESC_CELL_IDENTIFY
         case .kEditCellTypeUPC:
@@ -133,5 +145,40 @@ class EditViewModel: NSObject {
         }
     }
     
+    // 获取图片cell的数量
+    func getPicCellCount() -> Int{
+        var picCellCount = Int(ceil(CGFloat(self.proImgArray.count) / 3.0))
+        if picCellCount > 10 {
+            picCellCount = 10
+        }
+        
+        if picCellCount == 0 {
+            return 1
+        }
+        
+        return picCellCount
+    }
+    
+    func getPicImgsAtIndexPath(indexPath: NSIndexPath) -> [UIImage]? {
+        
+        if indexPath.section != 0 || indexPath.row <= 1{
+            return nil
+        }
+        
+        let startIndex = (indexPath.row - 2) * 3
+        var imageArray: [UIImage] = []
+        
+        for index in 0...2 {
+            if index + startIndex < self.proImgArray.count {
+                imageArray.append(self.proImgArray[index + startIndex])
+            }
+        }
+        
+        if imageArray.count > 0 {
+            return imageArray
+        }
+        
+        return nil
+    }
     
 }

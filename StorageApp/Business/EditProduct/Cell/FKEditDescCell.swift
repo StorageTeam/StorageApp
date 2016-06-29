@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FKEditDescCell: UITableViewCell {
+class FKEditDescCell: UITableViewCell , UITextFieldDelegate{
 
     var titleLabel: UILabel!
     var textField: UITextField!
@@ -42,13 +42,16 @@ class FKEditDescCell: UITableViewCell {
         
         titleLabel = UILabel.init()
         titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.colorFromHexStr("4a4a4a")
+        titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
         titleLabel.text = "Description"
+        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         textField = UITextField.init()
-        textField.textColor = UIColor.colorFromHexStr("cccccc")
+        textField.textColor = UIColor.init(rgb: 0xcccccc)
         textField.placeholder = "optional"
+        textField.returnKeyType = .Done
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         
     }
@@ -68,6 +71,11 @@ class FKEditDescCell: UITableViewCell {
             make.right.equalTo(self.contentView).offset(-10)
             make.top.equalTo(titleLabel);
         }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
 }
