@@ -36,15 +36,15 @@ class DSSNetwork: NSObject {
                          multipartFormData: { multipartFormData in
                             // submit with form data
                             for (key, value) in parameters {
-                                if let dict = (value as? Dictionary<String, AnyObject>) {
+                                if let string = value as? String {
+                                    let data = string.dataUsingEncoding(NSUTF8StringEncoding)
+                                    multipartFormData.appendBodyPart(data: data!, name: key)
+                                } else {
                                     do {
-                                        let data = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
+                                        let data = try NSJSONSerialization.dataWithJSONObject(value, options: NSJSONWritingOptions.PrettyPrinted)
                                         multipartFormData.appendBodyPart(data: data, name: key)
                                     } catch {
                                     }
-                                } else if let string = value as? String {
-                                    let data = string.dataUsingEncoding(NSUTF8StringEncoding)
-                                    multipartFormData.appendBodyPart(data: data!, name: key)
                                 }
                             }
             }, encodingCompletion: { encodingResult in

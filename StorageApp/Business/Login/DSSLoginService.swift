@@ -13,8 +13,6 @@ class DSSLoginService: NSObject {
         var para = [String : String]()
         para["mobile"]   = mobile
         para["password"] = password
-        para["p"]        = "i"
-        para["d_id"]     = "adsfafd"
         
         DSSDataCenter.Request(identify,
                               delegate: delegate,

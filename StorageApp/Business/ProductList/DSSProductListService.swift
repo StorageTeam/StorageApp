@@ -18,9 +18,17 @@ class DSSProductListService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/api/product_shipoffline_json/find_product_shipoffline.json"
+            , path: "/link-site/web/product_shipoffline_json/find_product_shipoffline.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
+    }
+    
+    class func deleteList(identify: Int, delegate: DSSDataCenterDelegate, ids: [Int], userInfo: [String : Int]) -> Void {
+        DSSDataCenter.Request(identify
+            , delegate: delegate
+            , path: "/link-site/web/product_shipoffline_json/remove_product_shipoffline_status.json"
+            , para: ["product_shipoffline_json" : ids]
+            , userInfo: userInfo)
     }
     
     class func parseList(json:[String : AnyObject]) -> (total: Int, items: [DSSProductListModel]) {

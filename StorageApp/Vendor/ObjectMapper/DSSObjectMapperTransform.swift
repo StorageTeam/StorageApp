@@ -24,6 +24,10 @@ public class DSSStringTransform: TransformType {
             return String(format:"%.2f", v)
         }
         
+        if let v = value as? String {
+            return v
+        }
+        
         return nil
     }
     

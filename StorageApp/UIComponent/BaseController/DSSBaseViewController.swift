@@ -17,6 +17,15 @@ class DSSBaseViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !DSSAccount.isLogin() {
+            let controller = DSSLoginController()
+            self.navigationController?.presentViewController(controller, animated: true, completion: {});
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
