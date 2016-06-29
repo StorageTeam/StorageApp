@@ -10,4 +10,6 @@ import Foundation
 
 class DSSConst: NSObject {
     static let PageSize = "20"
+    static let UPLOAD_PHOTO_LENGTH = 320.0
+
 }

@@ -10,10 +10,12 @@ import UIKit
 
 class FKEditPicCell: UITableViewCell {
     
-    var imagBgView  : UIImageView!
-    var titleLabel   : UILabel!
+    var firstContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
+    var secondContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
+    var thirdContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
+    
+    weak var delegate: FKEditPicCellDelegate?
 
-    // 为什么重载实例化方法，不能写 override func init
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -28,35 +30,128 @@ class FKEditPicCell: UITableViewCell {
     
     func initializeSub(){
         
-        titleLabel = UILabel.init()
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.blackColor()
-        titleLabel.text = "Main\nPicture"
-        titleLabel.numberOfLines = 2
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.firstContainer.tapButton.tag = 0
+        self.secondContainer.tapButton.tag = 1
+        self.thirdContainer.tapButton.tag = 2
         
-        imagBgView = UIImageView.init()
-        imagBgView.backgroundColor = UIColor.redColor()
-        imagBgView.translatesAutoresizingMaskIntoConstraints = false
+        self.firstContainer.deleteBtn.tag = 0
+        self.secondContainer.deleteBtn.tag = 1
+        self.thirdContainer.deleteBtn.tag = 2
         
+        self.firstContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        self.secondContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        self.thirdContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        
+        self.firstContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
+        self.secondContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
+        self.thirdContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
     }
     
     func addAllSubviews() -> Void {
         
-        self.contentView.addSubview(self.imagBgView)
-        self.contentView.addSubview(self.titleLabel)
+        let imgMargin = FKEditImgContainer.getImgMargin()
+        let itemSpace = (UIScreen.mainScreen().bounds.size.width - CGFloat(imgMargin * 3)) / 8.0
+        let itemSize = imgMargin + itemSpace * 2
         
-        self.imagBgView.snp_makeConstraints { (make) in
-            make.left.equalTo(self.contentView).offset(10)
-            make.centerY.equalTo(self.titleLabel)
-            make.size.equalTo(CGSizeMake(90, 90))
+        self.contentView.addSubview(self.firstContainer)
+        self.contentView.addSubview(self.secondContainer)
+        self.contentView.addSubview(self.thirdContainer)
+        
+        self.firstContainer.snp_makeConstraints { (make) in
+            make.left.equalTo(self.contentView).offset(itemSpace)
+            make.centerY.equalTo(self.contentView)
+            make.width.equalTo(itemSize)
+            make.height.equalTo(self.contentView)
+//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
         }
         
-        self.titleLabel.snp_makeConstraints { (make) in
-            make.center.equalTo(self.contentView)
+        self.secondContainer.snp_makeConstraints { (make) in
+            make.left.equalTo(self.firstContainer.snp_right)
+            make.centerY.equalTo(self.contentView)
+            make.width.equalTo(itemSize)
+            make.height.equalTo(self.contentView)
+//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
+        }
+        
+        self.thirdContainer.snp_makeConstraints { (make) in
+            make.left.equalTo(self.secondContainer.snp_right)
+            make.centerY.equalTo(self.contentView)
+            make.width.equalTo(itemSize)
+            make.height.equalTo(self.contentView)
+//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
         }
 
     }
+    
+    func setContentImgs(imgs: [UIImage]!){
+        
+        self.clearContent()
+        
+        if imgs == nil {
+            self.firstContainer.hidden = false
+            self.firstContainer.tapButton.userInteractionEnabled = true
+            return
+        }
+        
+        let imageCount = imgs.count
+        var containerArray = [self.firstContainer, self.secondContainer, self.thirdContainer]
+        
+        for imageItem in imgs {
+            let index = imgs.indexOf(imageItem)
+            if index <= 2 {
+                let container = containerArray[index!]
+                container.hidden = false
+                container.setProductImg(imageItem)
+            }
+        }
+        
+        if imageCount <= 2 {
+            let emptContainer = containerArray[imageCount]
+            emptContainer.hidden = false
+            emptContainer.tapButton.userInteractionEnabled = true
+        }
+        
+    }
+    
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let EditModel = viewModel as? EditViewModel {
+            
+            let imageArray = EditModel.getPicImgsAtIndexPath(indexPath)
+            self.setContentImgs(imageArray)
+        }
+    }
+    
+    func clearContent() {
+        
+        self.firstContainer.setProductImg(nil)
+        self.secondContainer.setProductImg(nil)
+        self.thirdContainer.setProductImg(nil)
+        
+        self.firstContainer.tapButton.userInteractionEnabled = false
+        self.secondContainer.tapButton.userInteractionEnabled = false
+        self.thirdContainer.tapButton.userInteractionEnabled = false
+        
+        self.firstContainer.hidden = true
+        self.secondContainer.hidden = true
+        self.thirdContainer.hidden = true
+    }
+    
+    func clickContainer(sender: UIButton){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditPicCellDelegate.clickAddImg)){
+            self.delegate!.clickAddImg!()
+        }
+    }
+    
+    func clickDeleteBtn(sender: UIButton){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditPicCellDelegate.clickDeleteImg(_:index:))){
+            self.delegate!.clickDeleteImg(self, index: sender.tag)
+        }
+    }
+}
 
-
+@objc protocol FKEditPicCellDelegate: NSObjectProtocol {
+    
+    optional
+    func clickAddImg()
+    func clickDeleteImg(picCell: FKEditPicCell, index: Int)
 }

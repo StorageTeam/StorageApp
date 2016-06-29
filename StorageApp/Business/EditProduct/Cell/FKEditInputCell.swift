@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FKEditInputCell: UITableViewCell {
+class FKEditInputCell: UITableViewCell, UITextFieldDelegate {
     var titleLabel: UILabel! = nil
     var textField : UITextField!
     let bottomLine = UIView.init()  // 两种实例化方式
@@ -33,15 +33,17 @@ class FKEditInputCell: UITableViewCell {
         
         titleLabel = UILabel.init()
         titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.colorFromHexStr("4a4a4a")
+        titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         textField = UITextField.init()
-        textField.textColor = UIColor.colorFromHexStr("cccccc")
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textColor = UIColor.init(rgb: 0xcccccc)
         textField.font = UIFont.systemFontOfSize(14)
+        textField.returnKeyType = .Done
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        bottomLine.backgroundColor = UIColor.blackColor()
+        bottomLine.backgroundColor = UIColor.init(rgb: 0xcccccc)
         bottomLine.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -88,6 +90,9 @@ class FKEditInputCell: UITableViewCell {
             case .kEditCellTypeStock:
                 self.titleLabel.text = "Stock"
                 self.textField.placeholder = nil
+            case .kEditCellTypeWeight:
+                self.titleLabel.text = "Weight(g)"
+                self.textField.placeholder = nil
             case .kEditCellTypeItemNo:
                 self.titleLabel.text = "Item No."
                 self.textField.placeholder = nil
@@ -97,5 +102,10 @@ class FKEditInputCell: UITableViewCell {
                 break
             }
         }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
