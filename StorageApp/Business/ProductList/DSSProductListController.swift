@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PullToRefreshSwift
 
 class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate, DSSDataCenterDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     static let PRODUCTLIST_ONSALE_REQUEST          : Int   = 0
@@ -15,7 +14,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     static let PRODUCTLIST_WAITSALE_REQUEST        : Int   = 2
     static let PRODUCTLIST_WAITSALE_NEXT_REQUEST   : Int   = 3
     static let PRODUCTLIST_DELETE_LIST_REQUEST     : Int   = 4
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -46,9 +45,19 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     }
     
     // MARK: - Request
-//    func requestData(<#parameters#>) -> <#return type#> {
-//        <#function body#>
-//    }
+    func pullRequestCurrentPage(isPullDown: Bool) -> Void {
+        var status      = "2"
+        var identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST : DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST)
+        if self.viewModel.listType == DSSProductListType.OnSale {
+            status      = "1"
+            identify = (isPullDown ? DSSProductListController.PRODUCTLIST_ONSALE_REQUEST : DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST)
+        }
+        
+        DSSProductListService.requestList(identify,
+                                          delegate: self,
+                                          status: status,
+                                          startRow: (isPullDown ? "0" : String(self.viewModel.numberOfRowsInSection)))
+    }
     
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
@@ -132,7 +141,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
                 editType = kEditType.kEditTypeEdit
             }
             
-            let controller = EditViewController.init(editType: editType, productID: String(model.prodID))
+            let controller = EditViewController.init(editType: editType, productID: String(model.itemID))
             controller.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -227,12 +236,16 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         tableView.backgroundColor = UIColor.init(rgb: 0xffffff)
         tableView.registerClass(DSSProductListCell.self, forCellReuseIdentifier: String(DSSProductListCell))
         
-        tableView.addPullToRefresh({
-            
-        })
-        tableView.addPullToRefresh({
-            
-        })
+//        tableView.addPullRefreshHandler({ [weak self] in
+//            if let strongSelf = self {
+//                strongSelf.pullRequestCurrentPage(true)
+//            }
+//        })
+//        tableView.addPushRefreshHandler({ [weak self] in
+//            if let strongSelf = self {
+//                strongSelf.pullRequestCurrentPage(false)
+//            }
+//        })
         
         return tableView
     }()
