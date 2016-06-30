@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		04805D731D239A6200CA12CE /* DSSUIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D721D239A6200CA12CE /* DSSUIImage+Extension.swift */; };
+		04805D761D23B1A000CA12CE /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D751D23B1A000CA12CE /* DSSObjectMapperTransform.swift */; };
+		04805D801D23BB7500CA12CE /* DSSEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D7F1D23BB7500CA12CE /* DSSEditItem.swift */; };
+		04805D821D23BBB700CA12CE /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D811D23BBB700CA12CE /* DSSEditInfoItem.swift */; };
+		04805D841D23C25E00CA12CE /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D831D23C25E00CA12CE /* DSSEditSpecItem.swift */; };
+		04805D861D23C48600CA12CE /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D851D23C48600CA12CE /* DSSEditImgItem.swift */; };
+		04805D881D23C84F00CA12CE /* DSSEditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D871D23C84F00CA12CE /* DSSEditService.swift */; };
+		04805D8C1D23F49B00CA12CE /* FKEditDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D8B1D23F49B00CA12CE /* FKEditDeleteCell.swift */; };
+		04805D8E1D240D9A00CA12CE /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D8D1D240D9A00CA12CE /* FKEditBaseCell.swift */; };
 		04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028051D224EDF0060CD7C /* EditViewController.swift */; };
 		04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028091D224EFC0060CD7C /* FKEditDescCell.swift */; };
 		04C028111D224EFC0060CD7C /* FKEditInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */; };
@@ -98,6 +106,14 @@
 
 /* Begin PBXFileReference section */
 		04805D721D239A6200CA12CE /* DSSUIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DSSUIImage+Extension.swift"; sourceTree = "<group>"; };
+		04805D751D23B1A000CA12CE /* DSSObjectMapperTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSObjectMapperTransform.swift; sourceTree = "<group>"; };
+		04805D7F1D23BB7500CA12CE /* DSSEditItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditItem.swift; sourceTree = "<group>"; };
+		04805D811D23BBB700CA12CE /* DSSEditInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditInfoItem.swift; sourceTree = "<group>"; };
+		04805D831D23C25E00CA12CE /* DSSEditSpecItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditSpecItem.swift; sourceTree = "<group>"; };
+		04805D851D23C48600CA12CE /* DSSEditImgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditImgItem.swift; sourceTree = "<group>"; };
+		04805D871D23C84F00CA12CE /* DSSEditService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditService.swift; sourceTree = "<group>"; };
+		04805D8B1D23F49B00CA12CE /* FKEditDeleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditDeleteCell.swift; sourceTree = "<group>"; };
+		04805D8D1D240D9A00CA12CE /* FKEditBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditBaseCell.swift; sourceTree = "<group>"; };
 		04C028051D224EDF0060CD7C /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		04C028091D224EFC0060CD7C /* FKEditDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditDescCell.swift; sourceTree = "<group>"; };
 		04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditInputCell.swift; sourceTree = "<group>"; };
@@ -185,9 +201,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04805D741D23B1A000CA12CE /* ObjectMapper */ = {
+			isa = PBXGroup;
+			children = (
+				04805D751D23B1A000CA12CE /* DSSObjectMapperTransform.swift */,
+			);
+			path = ObjectMapper;
+			sourceTree = "<group>";
+		};
+		04805D771D23B58500CA12CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04805D7F1D23BB7500CA12CE /* DSSEditItem.swift */,
+				04805D811D23BBB700CA12CE /* DSSEditInfoItem.swift */,
+				04805D831D23C25E00CA12CE /* DSSEditSpecItem.swift */,
+				04805D851D23C48600CA12CE /* DSSEditImgItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04805D781D23B5B900CA12CE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				04805D871D23C84F00CA12CE /* DSSEditService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		04C028011D224E910060CD7C /* EditProduct */ = {
 			isa = PBXGroup;
 			children = (
+				04805D781D23B5B900CA12CE /* Service */,
+				04805D771D23B58500CA12CE /* Model */,
 				04C028171D224F9C0060CD7C /* ViewModel */,
 				04C028031D224EC00060CD7C /* Controller */,
 				04C028021D224EC00060CD7C /* Cell */,
@@ -203,6 +248,8 @@
 				04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */,
 				04C0280B1D224EFC0060CD7C /* FKEditPicCell.swift */,
 				04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */,
+				04805D8B1D23F49B00CA12CE /* FKEditDeleteCell.swift */,
+				04805D8D1D240D9A00CA12CE /* FKEditBaseCell.swift */,
 				04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */,
 			);
 			path = Cell;
@@ -390,6 +437,7 @@
 		CE13DD5F1D1B87CA0072D045 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				04805D741D23B1A000CA12CE /* ObjectMapper */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -767,6 +815,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04805D881D23C84F00CA12CE /* DSSEditService.swift in Sources */,
 				04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */,
 				CEBBA80C1D23AF6700187B07 /* DSSString+Extension.swift in Sources */,
 				CE13DD7B1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -778,6 +827,8 @@
 				CEBBA8051D23AF5F00187B07 /* DSSProductListModel.swift in Sources */,
 				CE13DD721D1BBA040072D045 /* DSSProductListController.swift in Sources */,
 				CE13DD771D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
+				04805D821D23BBB700CA12CE /* DSSEditInfoItem.swift in Sources */,
+				04805D841D23C25E00CA12CE /* DSSEditSpecItem.swift in Sources */,
 				04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */,
 				04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */,
 				04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */,
@@ -786,6 +837,8 @@
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
 				CE3DDD6B1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				04C028121D224EFC0060CD7C /* FKEditPicCell.swift in Sources */,
+				04805D861D23C48600CA12CE /* DSSEditImgItem.swift in Sources */,
+				04805D8E1D240D9A00CA12CE /* FKEditBaseCell.swift in Sources */,
 				04C028111D224EFC0060CD7C /* FKEditInputCell.swift in Sources */,
 				CEBBA7E11D22778500187B07 /* DSSCommonDefine.swift in Sources */,
 				CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
@@ -796,12 +849,15 @@
 				CEBBA8041D23AF5F00187B07 /* DSSProductListCell.swift in Sources */,
 				CEF0CAEB1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				CEBBA80B1D23AF6700187B07 /* DSSInt+Extension.swift in Sources */,
+				04805D801D23BB7500CA12CE /* DSSEditItem.swift in Sources */,
 				CE3DDD771D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				04C028161D224F0A0060CD7C /* FKEditHeaderView.swift in Sources */,
+				04805D8C1D23F49B00CA12CE /* FKEditDeleteCell.swift in Sources */,
 				CEF0CAF51D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEBBA7DB1D22774D00187B07 /* DSSSegmentControl.swift in Sources */,
 				04805D731D239A6200CA12CE /* DSSUIImage+Extension.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
+				04805D761D23B1A000CA12CE /* DSSObjectMapperTransform.swift in Sources */,
 				04C028141D224EFC0060CD7C /* FKSexChooseCell.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CEBBA7E31D2277A600187B07 /* DSSColor+Extension.swift in Sources */,

@@ -83,25 +83,28 @@ class FKEditPicCell: UITableViewCell {
 
     }
     
-    func setContentImgs(imgs: [UIImage]!){
+    func setContentImgs(imgs: [DSSEditImgItem]?, canEdit: Bool){
         
         self.clearContent()
         
         if imgs == nil {
-            self.firstContainer.hidden = false
-            self.firstContainer.tapButton.userInteractionEnabled = true
+            
+            if canEdit {
+                self.firstContainer.hidden = false
+                self.firstContainer.tapButton.userInteractionEnabled = true
+            }
             return
         }
         
-        let imageCount = imgs.count
+        let imageCount = imgs!.count
         var containerArray = [self.firstContainer, self.secondContainer, self.thirdContainer]
         
-        for imageItem in imgs {
-            let index = imgs.indexOf(imageItem)
+        for imageItem in imgs! {
+            let index = imgs!.indexOf(imageItem)
             if index <= 2 {
                 let container = containerArray[index!]
                 container.hidden = false
-                container.setProductImg(imageItem)
+                container.setProductImg(imageItem, canEdit: canEdit)
             }
         }
         
@@ -114,18 +117,25 @@ class FKEditPicCell: UITableViewCell {
     }
     
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
-        if let EditModel = viewModel as? EditViewModel {
+        if let editModel = viewModel as? EditViewModel {
             
-            let imageArray = EditModel.getPicImgsAtIndexPath(indexPath)
-            self.setContentImgs(imageArray)
+            let imageArray = editModel.getPicImgsAtIndexPath(indexPath)
+            
+            var canEdit = true
+            if editModel.editType == kEditType.kEditTypeCheck {
+                canEdit = false
+            }
+            self.setContentImgs(imageArray, canEdit: canEdit)
+            
+            
         }
     }
     
     func clearContent() {
         
-        self.firstContainer.setProductImg(nil)
-        self.secondContainer.setProductImg(nil)
-        self.thirdContainer.setProductImg(nil)
+        self.firstContainer.setProductImg(nil, canEdit: false)
+        self.secondContainer.setProductImg(nil, canEdit: false)
+        self.thirdContainer.setProductImg(nil, canEdit: false)
         
         self.firstContainer.tapButton.userInteractionEnabled = false
         self.secondContainer.tapButton.userInteractionEnabled = false

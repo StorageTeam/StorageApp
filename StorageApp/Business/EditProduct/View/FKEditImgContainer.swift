@@ -82,14 +82,22 @@ class FKEditImgContainer: UIView {
         return CGFloat(90.0)
     }
     
-    func setProductImg(image: UIImage?){
+    func setProductImg(picItem: DSSEditImgItem?, canEdit: Bool){
      
-        if image == nil {
+        if picItem == nil {
             self.targetImgView.image = nil
             self.deleteBtn.hidden = true
+            self.deleteBtn.hidden = true
         }else{
-            self.targetImgView.image = image
             self.deleteBtn.hidden = false
+            self.deleteBtn.hidden = !canEdit
+            
+            if picItem!.image != nil {
+                self.targetImgView.image = picItem!.image
+            } else if picItem?.picUrl != nil {
+                let marigin = Int(FKEditImgContainer.getImgMargin())
+                self.targetImgView.dss_setImageFromURLString((picItem?.picUrl)!, cdnWidth: marigin)
+            }
         }
     }
 }

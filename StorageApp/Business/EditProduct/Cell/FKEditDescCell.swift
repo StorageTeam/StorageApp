@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FKEditDescCell: UITableViewCell , UITextFieldDelegate{
+class FKEditDescCell: FKEditBaseCell , UITextFieldDelegate{
 
     var titleLabel: UILabel!
     var textField: UITextField!
@@ -73,9 +73,28 @@ class FKEditDescCell: UITableViewCell , UITextFieldDelegate{
         }
     }
     
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let editModel = viewModel as? EditViewModel {
+            self.textField.text = editModel.dataItem?.infoItem?.desc
+            
+            var canEdit = true
+            if editModel.editType == kEditType.kEditTypeCheck {
+                canEdit = false
+            }
+            self.textField.userInteractionEnabled = canEdit
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
+            self.delegate?.finishInput(self, text: textField.text)
+        }
     }
 
 }

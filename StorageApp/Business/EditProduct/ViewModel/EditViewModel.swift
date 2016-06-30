@@ -14,7 +14,6 @@ public enum kEditCellType: Int{
     case kEditCellTypeTitle
     case kEditCellTypeName
     case kEditCellTypePic
-//    case kEditCellTypeGroup
     case kEditCellTypeBrand
     case kEditCellTypeDesc
     case kEditCellTypePrice
@@ -22,34 +21,35 @@ public enum kEditCellType: Int{
     case kEditCellTypeWeight
     case kEditCellTypeUPC
     case kEditCellTypeItemNo
+    case kEditCellTypeDelete
 }
 
-
-public enum kGroupType: Int{
-    case kGroupTypeNone = 0
-    case kGroupTypeNeuter
-    case kGroupTypeMale
-    case kGroupTypeFemale
+public enum kEditType: Int{
+    case kEditTypeAdd = 0
+    case kEditTypeCheck
+    case kEditTypeEdit
 }
-
 
 public let PIC_CELL_IDENTIFY = "PIC_CELL_IDENTIFY"
-//public let SEX_CELL_IDENTIFY = "SEX_CELL_IDENTIFY"
 public let DESC_CELL_IDENTIFY = "DESC_CELL_IDENTIFY"
 public let UPC_CELL_IDENTIFY = "UPC_CELL_IDENTIFY"
+public let DELETE_CELL_IDENTIFY = "DELETE_CELL_IDENTIFY"
 public let EDIT_COMMON_CELL_IDENTIFY = "EDIT_COMMON_CELL_IDENTIFY"
 
 public let EDIT_HEADER_VIEW_IDENTIFY = "EDIT_HEADER_VIEW_IDENTIFY"
 
 class EditViewModel: NSObject {
 
-    var currentUpcStr : String?
-    var proImgArray: [UIImage] = []
-    internal var groupType: kGroupType = kGroupType.kGroupTypeNeuter
-    
-    
+    var productID: String?
+//    var currentUpcStr : String?
+    var editType = kEditType.kEditTypeAdd
+    var dataItem: DSSEditItem?
+
     func numberOfSection() -> Int {
         
+        if self.editType == kEditType.kEditTypeEdit {
+            return 4
+        }
         return 3
     }
     
@@ -61,6 +61,8 @@ class EditViewModel: NSObject {
             return 2
         case 2:
             return 5
+        case 3:
+            return 1
         default:
             return 0
         }
@@ -75,6 +77,8 @@ class EditViewModel: NSObject {
             return 120.0
         case .kEditCellTypeDesc:
             return 75.0
+        case .kEditCellTypeDelete:
+            return 125.0
         case .kEditCellTypeNone:
             return 0.0
         default:
@@ -122,6 +126,8 @@ class EditViewModel: NSObject {
                 default:
                     return .kEditCellTypeNone
             }
+        }else if indexPath.section == 3 {
+            return .kEditCellTypeDelete
         }
         
         return .kEditCellTypeNone
@@ -140,6 +146,8 @@ class EditViewModel: NSObject {
             return DESC_CELL_IDENTIFY
         case .kEditCellTypeUPC:
             return UPC_CELL_IDENTIFY
+        case .kEditCellTypeDelete:
+            return DELETE_CELL_IDENTIFY
         default:
             return EDIT_COMMON_CELL_IDENTIFY
         }
@@ -147,7 +155,12 @@ class EditViewModel: NSObject {
     
     // 获取图片cell的数量
     func getPicCellCount() -> Int{
-        var picCellCount = Int(ceil(CGFloat(self.proImgArray.count) / 3.0))
+        
+        var picCellCount = 0
+        if self.dataItem?.picItems != nil {
+            picCellCount = Int(ceil(CGFloat((self.dataItem?.picItems?.count)!) / 3.0))
+        }
+        
         if picCellCount > 10 {
             picCellCount = 10
         }
@@ -155,22 +168,27 @@ class EditViewModel: NSObject {
         if picCellCount == 0 {
             return 1
         }
-        
+     
         return picCellCount
     }
     
-    func getPicImgsAtIndexPath(indexPath: NSIndexPath) -> [UIImage]? {
+    func getPicImgsAtIndexPath(indexPath: NSIndexPath) -> [DSSEditImgItem]? {
         
         if indexPath.section != 0 || indexPath.row <= 1{
             return nil
         }
         
         let startIndex = (indexPath.row - 2) * 3
-        var imageArray: [UIImage] = []
+        var imageArray: [DSSEditImgItem] = []
         
         for index in 0...2 {
-            if index + startIndex < self.proImgArray.count {
-                imageArray.append(self.proImgArray[index + startIndex])
+            if index + startIndex < self.dataItem?.picItems?.count {
+//                let picItem = self.dataItem?.picItems![index + startIndex]
+////                imageArray
+                let imgItem = self.dataItem?.picItems?[index + startIndex]
+                if imgItem != nil {
+                    imageArray.append(imgItem!)
+                }
             }
         }
         
