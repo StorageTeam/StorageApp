@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public enum kEditCellType: Int{
+enum kEditCellType: Int{
     case kEditCellTypeNone = 0
     case kEditCellTypeTitle
     case kEditCellTypeName
@@ -24,7 +24,7 @@ public enum kEditCellType: Int{
     case kEditCellTypeDelete
 }
 
-public enum kEditType: Int{
+enum kEditType: Int{
     case kEditTypeAdd = 0
     case kEditTypeCheck
     case kEditTypeEdit
@@ -140,8 +140,6 @@ class EditViewModel: NSObject {
         switch cellType {
         case .kEditCellTypePic:
             return PIC_CELL_IDENTIFY
-//        case .kEditCellTypeGroup:
-//            return SEX_CELL_IDENTIFY
         case .kEditCellTypeDesc:
             return DESC_CELL_IDENTIFY
         case .kEditCellTypeUPC:
@@ -197,6 +195,111 @@ class EditViewModel: NSObject {
         }
         
         return nil
+    }
+    
+    func getSavePara() -> [String : AnyObject]? {
+        let res = self.dataItem?.isDataComplete()
+        if res?.complete == false {
+            return nil
+        }
+        
+        var para : [String : AnyObject] = [:]
+        
+        var infoPara : [String : AnyObject] = [:]
+        
+        if self.dataItem?.infoItem?.name != nil {
+            infoPara["name"] = self.dataItem?.infoItem?.name
+        }
+        
+        if self.dataItem?.infoItem?.chinaName != nil {
+            infoPara["name_cn"] = self.dataItem?.infoItem?.chinaName
+        }
+        
+        if self.dataItem?.infoItem?.desc != nil {
+            infoPara["description"] = self.dataItem?.infoItem?.chinaName
+        }
+        
+        if self.dataItem?.infoItem?.brand != nil {
+            infoPara["brand"] = self.dataItem?.infoItem?.brand
+        }
+        
+        if (self.editType == kEditType.kEditTypeEdit) {
+            para["operation"] = "save"
+            
+            if self.productID != nil {
+                infoPara["id"] = self.productID
+            }
+        }
+        
+        infoPara["currency"] = "USD"
+        para["product_shipoffline"] = infoPara
+        
+        
+        var latitudePara : [String : AnyObject] = [:]
+        latitudePara["规格"] = "标配"
+        
+        var goodsInfoPara : [String : AnyObject] = [:]
+        
+        if self.dataItem?.specItem?.upcStr != nil {
+            goodsInfoPara["upc"] = self.dataItem?.specItem?.upcStr
+        }
+        
+        if self.dataItem?.specItem?.siteSku != nil {
+            goodsInfoPara["site_sku"] = self.dataItem?.specItem?.siteSku
+         }
+        
+        if self.dataItem?.infoItem?.price > 0 {
+            goodsInfoPara["price"] = self.dataItem?.infoItem?.price
+        }
+        
+        if self.dataItem?.specItem?.stock != nil {
+            goodsInfoPara["stock"] = self.dataItem?.specItem?.stock
+        }
+        
+        if self.dataItem?.specItem?.weight != nil {
+            goodsInfoPara["weight"] = self.dataItem?.specItem?.weight
+        }
+        
+        if self.dataItem?.specItem?.weight != nil {
+            goodsInfoPara["weight"] = self.dataItem?.specItem?.weight
+        }
+        
+        if self.dataItem?.picItems != nil {
+            let imageItem = self.dataItem?.picItems?.first
+            if imageItem != nil && imageItem?.picUrl != nil{
+                goodsInfoPara["image"] = imageItem?.picUrl
+            }
+        }
+        
+        var specItemPara : [String : AnyObject] = [:]
+        specItemPara["goods_latitude"] = latitudePara
+        specItemPara["goods_info"] = goodsInfoPara
+        let specItemArray = [specItemPara]
+        
+        var specInfoPara : [String : AnyObject] = [:]
+        specInfoPara["product_shipoffline_goods_list"] = specItemArray
+        
+        var picDescItemArray : [[String : AnyObject]] = []
+        for imageItem in (self.dataItem?.picItems)! {
+            if imageItem.picUrl != nil {
+                let picDict = ["pic_url" : imageItem.picUrl!]
+                picDescItemArray.append(picDict)
+            }
+        }
+        specInfoPara["product_shipoffline_pic_list"] = picDescItemArray
+        
+     
+        
+        let valArray = ["标配"]
+        var valDict : [String : AnyObject] = [:]
+        valDict["product_spec_val_list"] = valArray
+        valDict["product_spec_def"] = "规格"
+        let specListArray = [valDict]
+        
+        specInfoPara["product_spec_list"] = specListArray
+        
+        
+        return para
     }
     
 }

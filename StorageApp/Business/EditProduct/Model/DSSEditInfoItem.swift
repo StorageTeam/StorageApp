@@ -18,11 +18,14 @@ class DSSEditInfoItem: NSObject, Mappable{
     var desc            : String?
     var brand           : String?
     var currency        : String?
-    var price           : Int?
+    var price           : Float?
     var status          : Int?
     
+    override init() {
+        super.init()
+    }
+    
     required init?(_ map: Map) {
-        
     }
     
     func mapping(map: Map) {

@@ -22,6 +22,10 @@ class DSSEditSpecItem: NSObject, Mappable {
         
     }
     
+    override init() {
+        super.init()
+    }
+    
     func mapping(map: Map) {
         upcStr              <- map["upc"]
         siteSku             <- map["site_sku"]
