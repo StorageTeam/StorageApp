@@ -14,10 +14,14 @@ class DSSNetwork: NSObject {
     
     class func Request(identify: Int,
                        delegate: DSSDataCenterDelegate,
-                       path: String,
-                       para: [String : AnyObject]?,
-                       userInfo: [String : AnyObject]?,
-                       server: String = DSSServer.apiServer()) {
+                       path         : String,
+                       para         : [String : AnyObject]?,
+                       userInfo     : [String : AnyObject]?,
+                       fileData     : NSData? = nil,
+                       name         : String = "name",
+                       fileName     : String = "photo.jpeg",
+                       mimeType     : String = "image/jpeg",
+                       server       : String = DSSServer.apiServer()) {
         
         // construct url with sever and path
         var url = NSURL.init(string: server)
@@ -34,6 +38,10 @@ class DSSNetwork: NSObject {
         Alamofire.upload(.POST,
                          url!,
                          multipartFormData: { multipartFormData in
+                            if let data = fileData {
+                                multipartFormData.appendBodyPart(data: data, name: name, fileName: fileName, mimeType: mimeType)
+                            }
+                            
                             // submit with form data
                             for (key, value) in parameters {
                                 if let string = value as? String {
@@ -82,5 +90,6 @@ class DSSNetwork: NSObject {
                 }
             }
         )
+        
     }
 }

@@ -27,13 +27,14 @@ class DSSDataCenter: NSObject {
                        path: String,
                        para: [String : AnyObject]?,
                        userInfo: [String : AnyObject]?,
-                       server: String = DSSServer.apiServer()) {
+                       fileData: NSData? = nil) {
         
         DSSNetwork.Request(identify,
                            delegate: delegate,
                            path: path,
                            para: para,
-                           userInfo: userInfo)
+                           userInfo: userInfo,
+                           fileData: fileData)
     }
 
 }
