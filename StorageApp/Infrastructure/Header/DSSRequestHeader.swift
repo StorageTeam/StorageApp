@@ -7,16 +7,21 @@
 //
 
 import Foundation
+import UIKit
+import AdSupport
 
 class DSSRequestHeader: NSObject {
     class func requestHeader() -> [String : AnyObject] {
+        let did = UIDevice.currentDevice().identifierForVendor?.UUIDString ?? ""
+        let aid = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString ?? ""
         
         return ["p" : "i",
-                "d_id" : "eMiniCapsuleMicrophon",
+                "d_id" : did,
+                "a_id" : aid,
                 "tk" : DSSAccount.getToken(),
-                "u_id" : "15001",
-                "ts" : "15001000",
+                "u_id" : DSSAccount.getUserID(),
+                "ts" : String.init(Int(NSDate().timeIntervalSince1970 * 1000)), // 毫秒
                 "ver" : "1.2.1",
-                "c_id" : "eMiniCapsuleMicrophon"]
+                "c_id" : "1"]
     }
 }

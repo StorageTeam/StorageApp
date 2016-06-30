@@ -22,30 +22,23 @@ class DSSProductListCell: UITableViewCell {
             make.size.equalTo(CGSizeMake(60, 60))
         }
         
-        self.contentView.addSubview(self.priceLabel)
-        self.priceLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.phototView.snp_right).offset(12)
-            make.right.equalTo(self.contentView).offset(-12)
-            make.centerY.equalTo(self.contentView)
-        }
-        
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.priceLabel)
+            make.left.equalTo(self.phototView.snp_right).offset(12)
             make.right.equalTo(self.contentView).offset(-12)
-            make.bottom.equalTo(self.priceLabel.snp_top).offset(-6)
+            make.top.equalTo(self.contentView).offset(16)
         }
         
         self.contentView.addSubview(self.stockLabel)
         self.stockLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.priceLabel)
-            make.top.equalTo(self.priceLabel.snp_bottom).offset(6)
+            make.left.equalTo(self.titleLabel)
+            make.bottom.equalTo(self.contentView).offset(-16)
         }
         
-        self.contentView.addSubview(self.saleLabel)
-        self.saleLabel.snp_makeConstraints { (make) in
+        self.contentView.addSubview(self.priceLabel)
+        self.priceLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self.stockLabel.snp_right).offset(26)
-            make.top.equalTo(self.stockLabel.snp_top)
+            make.centerY.equalTo(self.stockLabel)
         }
         
         let line = UIView.init()
@@ -53,7 +46,7 @@ class DSSProductListCell: UITableViewCell {
         self.contentView.addSubview(line)
         line.snp_makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.contentView)
-            make.height.equalTo(0.5)
+            make.height.equalTo(DSSConst.pixelHeight)
         }
     }
     
@@ -66,7 +59,7 @@ class DSSProductListCell: UITableViewCell {
             if let model = viewModel.itemAtIndexPath(indexPath) {
                 self.phototView.dss_setImageFromURLString(model.photoURL, cdnWidth: 60)
                 self.titleLabel.text = model.desc
-                self.priceLabel.text = model.price.dss_fen2Yuan()
+                self.priceLabel.text = "$" + model.price.dss_fen2Yuan()
                 self.stockLabel.text = String.init(format: "stocks: %d", model.stock)
 //                self.saleLabel.text = model.te
             }

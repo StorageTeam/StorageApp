@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum DSSProductListType: Int {
     case Unknown
@@ -17,8 +18,8 @@ enum DSSProductListType: Int {
 class DSSProductListViewModel: NSObject {
     var listType = DSSProductListType.Unknown
     
-    var waitSaleProds = [DSSProductListModel]()
-    var onSaleProds   = [DSSProductListModel]()
+    var waitSaleProds = NSMutableArray.init(capacity: 2)
+    var onSaleProds   = NSMutableArray.init(capacity: 2)
     
     override init() {
         super.init()
@@ -34,13 +35,28 @@ class DSSProductListViewModel: NSObject {
         }
         
         if type == .WaitSale {
-            self.waitSaleProds += objs
+            self.waitSaleProds.addObjectsFromArray(objs)
         } else if type == .OnSale {
-            self.onSaleProds += objs
+            self.onSaleProds.addObjectsFromArray(objs)
         }
     }
     
-    func arrayWithType(type: DSSProductListType) -> Array<DSSProductListModel> {
+    func removeAll(type:DSSProductListType) {
+        if type == .WaitSale {
+            self.waitSaleProds.removeAllObjects()
+        } else if type == .OnSale {
+            self.onSaleProds.removeAllObjects()
+        }
+    }
+    
+    func removeModel(indexPath: NSIndexPath, type:DSSProductListType) -> Void {
+        let array = self.arrayWithType(type)
+        if indexPath.row < array.count {
+            array.removeObjectAtIndex(indexPath.row)
+        }
+    }
+    
+    func arrayWithType(type: DSSProductListType) -> NSMutableArray {
         if self.listType == .WaitSale {
             return self.waitSaleProds
         }
@@ -54,7 +70,7 @@ class DSSProductListViewModel: NSObject {
     func itemAtIndexPath(indexPath: NSIndexPath) -> DSSProductListModel? {
         let array = self.arrayWithType(self.listType)
         if indexPath.row < array.count {
-            return array[indexPath.row]
+            return array.objectAtIndex(indexPath.row) as? DSSProductListModel
         }
         
         return nil

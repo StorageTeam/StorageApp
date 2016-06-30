@@ -46,6 +46,13 @@ class DSSAccount: NSObject, Mappable {
         return ""
     }
     
+    class func getUserID() -> String {
+        if let userid = DSSAccount.gAccount.userid {
+            return userid
+        }
+        return ""
+    }
+    
     override init() {
         super.init()
     }
@@ -55,12 +62,12 @@ class DSSAccount: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        userid      <- map["userid"]
+        userid      <- (map["userid"], DSSStringTransform())
         token       <- map["token"]
-        mobile      <- map["mobile"]
+        mobile      <- (map["mobile"], DSSStringTransform())
         nickname    <- map["nickname"]
         headurl     <- map["headurl"]
-        level       <- map["level"]
-        status      <- map["status"]
+        level       <- (map["level"], DSSStringTransform())
+        status      <- (map["status"], DSSStringTransform())
     }
 }
