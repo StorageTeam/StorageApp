@@ -57,6 +57,7 @@ public class DSSLoginTextInput: UIView {
     // MARK: - Property
     lazy var imgIcon: UIImageView = {
         let imgIcon = UIImageView()
+        imgIcon.contentMode = .ScaleAspectFit
         return imgIcon
     }()
     

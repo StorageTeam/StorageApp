@@ -123,6 +123,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         return UITableViewCell.init()
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.viewModel.listType == DSSProductListType.WaitSale {
+            if let model = viewModel.itemAtIndexPath(indexPath) {
+//                let controller = EditViewController.
+            }
+        }
+    }
+    
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if self.viewModel.listType == DSSProductListType.WaitSale {
             return true
