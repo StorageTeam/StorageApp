@@ -67,6 +67,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         super.loadView()
         
         var offset = (DSSConst.IS_iPhone4() ? 40 : 80)
+        let width:CGFloat = (DSSConst.IS_iPhone4() ? CGFloat(260) : CGFloat(276))
         
         self.view.addSubview(self.logoImgView)
         self.logoImgView.snp_makeConstraints { (make) in
@@ -80,7 +81,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         self.mobileInputView.snp_makeConstraints { (make) in
             make.top.equalTo(self.logoImgView.snp_bottom).offset(offset)
             make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(260, 42))
+            make.size.equalTo(CGSizeMake(width, 42))
         }
         
         offset = (DSSConst.IS_iPhone4() ? 8 : 16)
@@ -88,15 +89,15 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         self.passwordInputView.snp_makeConstraints { (make) in
             make.top.equalTo(self.mobileInputView.snp_bottom).offset(offset)
             make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(260, 42))
+            make.size.equalTo(CGSizeMake(width, 42))
         }
         
-        offset = (DSSConst.IS_iPhone4() ? 20 : 60)
+        offset = (DSSConst.IS_iPhone4() ? 20 : 40)
         self.view.addSubview(self.loginBtn)
         self.loginBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self.passwordInputView.snp_bottom).offset(20)
+            make.top.equalTo(self.passwordInputView.snp_bottom).offset(offset)
             make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(260, 44))
+            make.size.equalTo(CGSizeMake(width, 44))
         }
     }
     
@@ -108,7 +109,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     }()
     
     lazy var mobileInputView: DSSLoginTextInput = {
-        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Phone number", secure: false)
+        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Username", secure: false)
         mobileInputView.backgroundColor = UIColor.init(white: 1, alpha: 1)
         mobileInputView.textField.delegate = self;
         mobileInputView.textField.returnKeyType = .Done
@@ -127,7 +128,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
 
     lazy var loginBtn: UIButton = {
         let loginBtn = UIButton(type: UIButtonType.Custom)
-        loginBtn.layer.cornerRadius = 6
+        loginBtn.layer.cornerRadius = 4
         loginBtn.setTitle("Sign in", forState: UIControlState.Normal)
         loginBtn.backgroundColor = UIColor(red: 232.0/255.0, green: 97.0/255.0, blue: 31.0/255.0, alpha: 1.0)
         loginBtn.titleLabel?.font = UIFont.systemFontOfSize(14)

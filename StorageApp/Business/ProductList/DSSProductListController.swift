@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PullToRefreshSwift
 
 class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate, DSSDataCenterDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     static let PRODUCTLIST_ONSALE_REQUEST          : Int   = 0
@@ -118,16 +119,22 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSProductListCell)) {
             cell.fk_configWith(self.viewModel, indexPath: indexPath)
+            cell.selectionStyle = .None
             return cell
         }
         return UITableViewCell.init()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.viewModel.listType == DSSProductListType.WaitSale {
-            if let model = viewModel.itemAtIndexPath(indexPath) {
-//                let controller = EditViewController.
+        if let model = viewModel.itemAtIndexPath(indexPath) {
+            var editType = kEditType.kEditTypeCheck
+            if self.viewModel.listType == DSSProductListType.WaitSale {
+                editType = kEditType.kEditTypeEdit
             }
+            
+            let controller = EditViewController.init(editType: editType, productID: String(model.prodID))
+            controller.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
@@ -219,6 +226,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         tableView.allowsMultipleSelection = false
         tableView.backgroundColor = UIColor.init(rgb: 0xffffff)
         tableView.registerClass(DSSProductListCell.self, forCellReuseIdentifier: String(DSSProductListCell))
+        
+        tableView.addPullToRefresh({
+            
+        })
+        tableView.addPullToRefresh({
+            
+        })
+        
         return tableView
     }()
     

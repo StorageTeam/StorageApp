@@ -16,7 +16,7 @@ class DSSLoginService: NSObject {
         
         DSSDataCenter.Request(identify,
                               delegate: delegate,
-                              path: "/link-site/api/crm_user/offline_login.json",
+                              path: "/link-site/web/crm_user/offline_login.json",
                               para: ["data_json" : para],
                               userInfo: nil)
     }

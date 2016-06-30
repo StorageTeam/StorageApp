@@ -95,6 +95,20 @@
 		CE30BF2C1D24B72000A3969D /* DSSAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA7DC1D22776100187B07 /* DSSAppearance.swift */; };
 		CE30BF2D1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA80E1D23B30400187B07 /* DSSObjectMapperTransform.swift */; };
 		CE30BF2E1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBA80E1D23B30400187B07 /* DSSObjectMapperTransform.swift */; };
+		CE30BF2F1D24BE4900A3969D /* FKEditDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditDeleteCell.swift */; };
+		CE30BF301D24BE4A00A3969D /* FKEditDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditDeleteCell.swift */; };
+		CE30BF311D24BE5F00A3969D /* DSSEditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F81D24B067008BBFEF /* DSSEditService.swift */; };
+		CE30BF321D24BE6000A3969D /* DSSEditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F81D24B067008BBFEF /* DSSEditService.swift */; };
+		CE30BF331D24BE6200A3969D /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
+		CE30BF341D24BE6300A3969D /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
+		CE30BF351D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
+		CE30BF361D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
+		CE30BF371D24BE6C00A3969D /* DSSEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F11D24B053008BBFEF /* DSSEditItem.swift */; };
+		CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F11D24B053008BBFEF /* DSSEditItem.swift */; };
+		CE30BF391D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */; };
+		CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */; };
+		CE30BF3B1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
+		CE30BF3C1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
 		CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
 		CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
 		CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
@@ -926,6 +940,7 @@
 				CE30BF061D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE30BF101D24B69200A3969D /* FKEditUpcCell.swift in Sources */,
 				CE30BF271D24B71200A3969D /* DSSInt+Extension.swift in Sources */,
+				CE30BF311D24BE5F00A3969D /* DSSEditService.swift in Sources */,
 				CE30BF041D24B68200A3969D /* FKScanCoverView.swift in Sources */,
 				CE30BF231D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1B1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
@@ -936,12 +951,15 @@
 				CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF021D24B67F00A3969D /* FKScanController.swift in Sources */,
 				CE30BF001D24B67600A3969D /* DSSProductListModel.swift in Sources */,
+				CE30BF371D24BE6C00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CE30BF251D24B70E00A3969D /* DSSImageView+Extension.swift in Sources */,
 				CE3DDD781D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
+				CE30BF351D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */,
 				CE30BF0E1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF0A1D24B68B00A3969D /* FKEditDescCell.swift in Sources */,
+				CE30BF331D24BE6200A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1D1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
 				CE3DDD741D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
@@ -950,6 +968,7 @@
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
 				CE30BF0C1D24B68D00A3969D /* FKEditInputCell.swift in Sources */,
 				CE30BF2D1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
+				CE30BF391D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
 				CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				CE30BF2B1D24B72000A3969D /* DSSAppearance.swift in Sources */,
 				CE3DDD701D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
@@ -957,11 +976,13 @@
 				CE13DD381D1AA65C0072D045 /* StorageAppTests.swift in Sources */,
 				CE30BEF81D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
 				CE30BF141D24B69700A3969D /* FKEditHeaderView.swift in Sources */,
+				CE30BF2F1D24BE4900A3969D /* FKEditDeleteCell.swift in Sources */,
 				CE30BF1F1D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
 				CE30BEFC1D24B67000A3969D /* DSSProductListService.swift in Sources */,
 				CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF081D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
+				CE30BF3B1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,6 +994,7 @@
 				CE30BF071D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE30BF111D24B69200A3969D /* FKEditUpcCell.swift in Sources */,
 				CE30BF281D24B71200A3969D /* DSSInt+Extension.swift in Sources */,
+				CE30BF321D24BE6000A3969D /* DSSEditService.swift in Sources */,
 				CE30BF051D24B68200A3969D /* FKScanCoverView.swift in Sources */,
 				CE30BF241D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1C1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
@@ -983,12 +1005,15 @@
 				CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF031D24B68000A3969D /* FKScanController.swift in Sources */,
 				CE30BF011D24B67600A3969D /* DSSProductListModel.swift in Sources */,
+				CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				CE30BF261D24B70E00A3969D /* DSSImageView+Extension.swift in Sources */,
 				CE3DDD791D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
+				CE30BF361D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */,
 				CE30BF0F1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF0B1D24B68B00A3969D /* FKEditDescCell.swift in Sources */,
+				CE30BF341D24BE6300A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1E1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
 				CE3DDD751D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
@@ -997,6 +1022,7 @@
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
 				CE30BF0D1D24B68E00A3969D /* FKEditInputCell.swift in Sources */,
 				CE30BF2E1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
+				CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
 				CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				CE30BF2C1D24B72000A3969D /* DSSAppearance.swift in Sources */,
 				CE3DDD711D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
@@ -1004,11 +1030,13 @@
 				CE13DD431D1AA65C0072D045 /* StorageAppUITests.swift in Sources */,
 				CE30BEF91D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
 				CE30BF151D24B69700A3969D /* FKEditHeaderView.swift in Sources */,
+				CE30BF301D24BE4A00A3969D /* FKEditDeleteCell.swift in Sources */,
 				CE30BF201D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
 				CE30BEFD1D24B67100A3969D /* DSSProductListService.swift in Sources */,
 				CE30BF171D24B69E00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF091D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
+				CE30BF3C1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

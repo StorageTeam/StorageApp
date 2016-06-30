@@ -13,6 +13,7 @@ target 'StorageApp' do
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'ReachabilitySwift'
+    pod 'PullToRefreshSwift'
     pod 'PKHUD'
 
 end
@@ -24,6 +25,7 @@ target 'StorageAppTests' do
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'ReachabilitySwift'
+    pod 'PullToRefreshSwift'
     pod 'PKHUD'
 
 end
@@ -35,6 +37,7 @@ target 'StorageAppUITests' do
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'ReachabilitySwift'
+    pod 'PullToRefreshSwift'
     pod 'PKHUD'
 
 end
