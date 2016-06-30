@@ -76,24 +76,34 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
+                
                 self.viewModel.dataItem = DSSEditService.parseEditDetail(response)
                 self.tableView.reloadData()
+                
             } else if identify == DELETE_PRO_REQ {
-                print("delete success")
-                self.clickBackAction()
+                
+                self.showHUD("删除成功")
+                self.popAfterTime(2)
+                
             } else if identify == UPLOAD_IMG_REQ {
+                
                 let imgUrl = DSSEditService.parserImgUrl(response)
                 let imgIndex : Int = (userInfo![IMG_INDEX_KEY]?.integerValue)!
                 if (imgUrl != nil) {
                     self.savePicUrl(imgUrl!, index: imgIndex)
                     self.checkAndSave()
                 }
+                
             } else if identify == CREATE_PRO_REQ {
-                print("create success")
+                
+                self.showHUD("创建成功")
+                self.popAfterTime(2)
                 self.navigationController?.popViewControllerAnimated(true)
+                
             } else if identify == EDIT_SAVE__REQ {
-                print("save edit success")
-                self.navigationController?.popViewControllerAnimated(true)
+                
+                self.showHUD("修改保存成功")
+                self.popAfterTime(2)
             }
             
         } else {
@@ -121,6 +131,13 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         self.tableView.registerClass(FKEditUpcCell.self, forCellReuseIdentifier: UPC_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditDeleteCell.self, forCellReuseIdentifier: DELETE_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditHeaderView.self, forHeaderFooterViewReuseIdentifier: EDIT_HEADER_VIEW_IDENTIFY)
+    }
+    
+    func popAfterTime(second: UInt64) {
+        weak var weakSelf = self
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(second * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+            weakSelf!.navigationController?.popViewControllerAnimated(true)
+        })
     }
     
     func finishInput(cell: FKEditBaseCell, text: String?) {
