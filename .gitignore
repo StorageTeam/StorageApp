@@ -3,3 +3,10 @@ StorageApp.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/StorageApp.xcscheme
 StorageApp.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/xcschememanagement.plist
 StorageApp.xcworkspace/xcuserdata/jack.xcuserdatad/UserInterfaceState.xcuserstate
 StorageApp.xcworkspace/xcuserdata/jack.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/Pods-StorageApp.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/Pods-StorageAppTests.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/Pods-StorageAppUITests.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/PullToRefreshSwift.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/ReachabilitySwift.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/SnapKit.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/jack.xcuserdatad/xcschemes/SwiftyJSON.xcscheme

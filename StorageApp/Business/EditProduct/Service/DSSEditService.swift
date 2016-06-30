@@ -17,7 +17,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/get_product_shipoffline.json"
+            , path: "/link-site/web/product_shipoffline_json/get_product_shipoffline_for_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -28,7 +28,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/remove_product_shipoffline_status.json"
+            , path: "/link-site/web/product_shipoffline_json/remove_product_shipoffline_status_for_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -37,7 +37,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/modify_product_shipoffline.json"
+            , path: "/link-site/web/product_shipoffline_json/modify_product_shipoffline_for_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -46,7 +46,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/create_product_shipoffline.json"
+            , path: "/link-site/web/product_shipoffline_json/create_product_shipoffline_for_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -79,6 +79,13 @@ class DSSEditService: NSObject {
             }
             
             return editItem
+        }
+        return nil
+    }
+    
+    class func parserImgUrl(json: [String : AnyObject]) -> String? {
+        if let data = json["data"] as? [String:AnyObject] {
+            return data["url"] as? String
         }
         return nil
     }

@@ -55,7 +55,9 @@ class FKEditImgContainer: UIView {
         self.addSubview(self.tapButton)
         
         self.imgBgView.snp_makeConstraints { (make) in
-            make.center.equalTo(self)
+            make.left.equalTo(self)
+            make.centerY.equalTo(self)
+//            make.center.equalTo(self)
             make.size.equalTo(CGSizeMake(FKEditImgContainer.getImgMargin(), FKEditImgContainer.getImgMargin()))
         }
         

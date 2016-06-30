@@ -19,15 +19,19 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     private let DELETE_PRO_REQ = 1001
     private let CREATE_PRO_REQ = 1002
     private let EDIT_SAVE__REQ = 1003
+    private let UPLOAD_IMG_REQ = 1004
+    
+    private let IMG_INDEX_KEY = "IMG_INDEX_KEY"
     
     override func viewDidLoad() {
         self.buildTableView()
         self.addAllSubviews()
         self.configNavItem()
+        self.addKeyboardObser()
         
-//        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
-//            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
-//        }
+        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
+            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
+        }
         
     }
     
@@ -51,6 +55,15 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         }
     }
     
+    func addKeyboardObser() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyBoardChange(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyBoardChange(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func configNavItem() -> Void {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBackAction))
@@ -68,10 +81,28 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
             } else if identify == DELETE_PRO_REQ {
                 print("delete success")
                 self.clickBackAction()
+            } else if identify == UPLOAD_IMG_REQ {
+                let imgUrl = DSSEditService.parserImgUrl(response)
+                let imgIndex : Int = (userInfo![IMG_INDEX_KEY]?.integerValue)!
+                if (imgUrl != nil) {
+                    self.savePicUrl(imgUrl!, index: imgIndex)
+                    self.checkAndSave()
+                }
+            } else if identify == CREATE_PRO_REQ {
+                print("create success")
+                self.navigationController?.popViewControllerAnimated(true)
+            } else if identify == EDIT_SAVE__REQ {
+                print("save edit success")
+                self.navigationController?.popViewControllerAnimated(true)
             }
+            
         } else {
             print("error = \(response)")
         }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        print("receive error identify = \(identify), header = \(header), error = \(error)")
     }
     
     private func buildTableView() -> Void{
@@ -98,9 +129,9 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
             let cellType = self.viewModel.cellTypeForIndexPath(indexPath!)
             
             switch cellType {
-            case .kEditCellTypeName:
-                self.viewModel.dataItem?.infoItem?.name = text
             case .kEditCellTypeTitle:
+                self.viewModel.dataItem?.infoItem?.name = text
+            case .kEditCellTypeName:
                 self.viewModel.dataItem?.infoItem?.chinaName = text
             case .kEditCellTypeBrand:
                 self.viewModel.dataItem?.infoItem?.brand = text
@@ -108,12 +139,14 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 self.viewModel.dataItem?.infoItem?.desc = text
             case .kEditCellTypePrice:
                 var priceInt : Float = 0.0
-                if (text != nil) {
+                if (text != nil && text?.characters.count > 0) {
                     priceInt = Float(text!)!
                 }
                 self.viewModel.dataItem?.infoItem?.price = priceInt
             case .kEditCellTypeStock:
                 self.viewModel.dataItem?.specItem?.stock = text
+            case .kEditCellTypeWeight:
+                self.viewModel.dataItem?.specItem?.weight = text
             case .kEditCellTypeItemNo:
                 self.viewModel.dataItem?.specItem?.siteSku = text
             default:
@@ -123,6 +156,10 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     func clickScanAction(sender: UIButton){
+        
+        if self.viewModel.editType == kEditType.kEditTypeCheck {
+            return
+        }
         
         weak var weakself = self
         let scanController = FKScanController.init { (resStr) -> Void in
@@ -146,25 +183,80 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     func clickReleaseBtn() {
-        self.view.endEditing(true)
         
+        self.view.endEditing(true)
+    
         let res = self.viewModel.dataItem?.isDataComplete()
         if (res?.complete == false){
             self.showHUD(res?.error)
-//            print("not complete error = \(res?.error)")
+            //            print("not complete error = \(res?.error)")
             return
         }
         
+        // 上传图片
+        if self.viewModel.isAllImgUploaded() {
+            self.requestSaveData()
+        } else {
+            
+            for imgItem in (self.viewModel.dataItem?.picItems)! {
+                if imgItem.image != nil && imgItem.picUrl == nil {
+                    let index = self.viewModel.dataItem?.picItems?.indexOf(imgItem)
+                    var imgData = UIImagePNGRepresentation(imgItem.image!)
+                    if imgData == nil {
+                        imgData = UIImageJPEGRepresentation(imgItem.image!, 1.0)
+                    }
+                    
+                    if imgData == nil {
+                        continue
+                    }
+                    
+                    let info : [String : AnyObject] = [IMG_INDEX_KEY : index!]
+                    DSSDataCenter.Request(UPLOAD_IMG_REQ,
+                                          delegate: self,
+                                          path:  "/link-site/web/product_shipoffline_json/uploadFile.json",
+                                          para: nil,
+                                          userInfo: info,
+                                          fileData: imgData)
+                    
+                }
+            }
+        }
+        
+    }
+    
+    func savePicUrl(picUrl: String, index: Int) {
+        if index < self.viewModel.dataItem?.picItems?.count {
+            let imgItem = self.viewModel.dataItem?.picItems![index]
+            imgItem?.picUrl = picUrl
+        }
+    }
+    
+    func checkAndSave() {
+        if self.viewModel.isAllImgUploaded() {
+            print("all img loaded then save")
+            self.requestSaveData()
+        }
+    }
+    
+    func requestSaveData() {
         if self.viewModel.editType == kEditType.kEditTypeAdd {
             // 新建
             DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
-    
+            
         }else if self.viewModel.editType == kEditType.kEditTypeEdit {
             // 修改
-            DSSEditService.requestCreate(EDIT_SAVE__REQ, delegate: self, para: self.viewModel.getSavePara()!)
+            DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: self.viewModel.getSavePara()!)
         }
+    }
+    
+    func keyBoardChange(sender: NSNotification) {
         
-        
+        if sender.name == UIKeyboardWillShowNotification {
+            let keyboardHeight = sender.userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight!, 0)
+        } else if sender.name == UIKeyboardWillHideNotification {
+            self.tableView.contentInset = UIEdgeInsetsZero
+        }
     }
     
 }
