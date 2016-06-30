@@ -67,7 +67,7 @@ class DSSEditService: NSObject {
             if let shipDict = data["product_shipoffline_goods"] as? NSDictionary {
                 if let specArrayDict = shipDict["product_shipoffline_goods_list"] as? [NSDictionary] {
                     if let itemDict = specArrayDict.first {
-                        if let goodsDict = itemDict["goods_info"] {
+                        if let goodsDict = itemDict["goods_info"] as? NSDictionary {
                             editItem.specItem = Mapper<DSSEditSpecItem>().map(goodsDict)
                         }
                     }
