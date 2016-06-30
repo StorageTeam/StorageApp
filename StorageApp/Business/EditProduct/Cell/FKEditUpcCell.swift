@@ -36,14 +36,6 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
         titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-//        contentLabel = UILabel.init()
-//        contentLabel.font = UIFont.systemFontOfSize(14)
-//        contentLabel.textColor = UIColor.blackColor()
-//        contentLabel.numberOfLines = 1
-//        contentLabel.lineBreakMode = .ByTruncatingTail
-//        contentLabel.textAlignment = .Left
-//        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         textField = UITextField.init()
         textField.textColor = UIColor.init(rgb: 0xcccccc)
         textField.font = UIFont.systemFontOfSize(14)
@@ -53,8 +45,6 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
         
         addButton = UIButton.init(type:.Custom)
         addButton.titleLabel?.font = UIFont.systemFontOfSize(25)
-//        addButton.setTitle("+", forState: .Normal)
-        //        addButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
         addButton.setImage(UIImage.init(named: "upc_add"), forState: .Normal)
         addButton.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -74,6 +64,7 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
             make.left.equalTo(self.titleLabel.snp_right).offset(15)
             make.right.equalTo(self.addButton.snp_left)
             make.centerY.equalTo(self.contentView)
+            make.height.equalTo(self.contentView)
         }
         
         self.addButton.snp_makeConstraints { (make) in

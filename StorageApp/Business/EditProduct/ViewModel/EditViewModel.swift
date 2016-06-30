@@ -76,7 +76,7 @@ class EditViewModel: NSObject {
         case .kEditCellTypePic:
             return 120.0
         case .kEditCellTypeDesc:
-            return 75.0
+            return 95.0
         case .kEditCellTypeDelete:
             return 125.0
         case .kEditCellTypeNone:
@@ -156,7 +156,7 @@ class EditViewModel: NSObject {
         
         var picCellCount = 0
         if self.dataItem?.picItems != nil {
-            picCellCount = Int(ceil(CGFloat((self.dataItem?.picItems?.count)!) / 3.0))
+            picCellCount = Int(floor(CGFloat((self.dataItem?.picItems?.count)!) / 3.0)) + 1
         }
         
         if picCellCount > 10 {
@@ -195,6 +195,20 @@ class EditViewModel: NSObject {
         }
         
         return nil
+    }
+    
+    func isAllImgUploaded() -> Bool {
+        
+        if (self.dataItem?.picItems == nil) {
+            return false
+        }
+        
+        for imageItem in (self.dataItem?.picItems)! {
+            if imageItem.image != nil && imageItem.picUrl == nil {
+                return false
+            }
+        }
+        return true
     }
     
     func getSavePara() -> [String : AnyObject]? {
@@ -288,8 +302,6 @@ class EditViewModel: NSObject {
         }
         specInfoPara["product_shipoffline_pic_list"] = picDescItemArray
         
-     
-        
         let valArray = ["标配"]
         var valDict : [String : AnyObject] = [:]
         valDict["product_spec_val_list"] = valArray
@@ -298,6 +310,7 @@ class EditViewModel: NSObject {
         
         specInfoPara["product_spec_list"] = specListArray
         
+        para["product_shipoffline_goods"] = specInfoPara
         
         return para
     }

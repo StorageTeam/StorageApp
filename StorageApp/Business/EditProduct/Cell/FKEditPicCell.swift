@@ -50,8 +50,8 @@ class FKEditPicCell: UITableViewCell {
     func addAllSubviews() -> Void {
         
         let imgMargin = FKEditImgContainer.getImgMargin()
-        let itemSpace = (UIScreen.mainScreen().bounds.size.width - CGFloat(imgMargin * 3)) / 8.0
-        let itemSize = imgMargin + itemSpace * 2
+        let itemSpace = (UIScreen.mainScreen().bounds.size.width - CGFloat(imgMargin * 3)) / 4.0
+        let itemSize = imgMargin + itemSpace
         
         self.contentView.addSubview(self.firstContainer)
         self.contentView.addSubview(self.secondContainer)
@@ -108,7 +108,7 @@ class FKEditPicCell: UITableViewCell {
             }
         }
         
-        if imageCount <= 2 {
+        if imageCount <= 2 && canEdit{
             let emptContainer = containerArray[imageCount]
             emptContainer.hidden = false
             emptContainer.tapButton.userInteractionEnabled = true
