@@ -18,9 +18,6 @@ class DSSNetwork: NSObject {
                        para         : [String : AnyObject]?,
                        userInfo     : [String : AnyObject]?,
                        fileData     : NSData? = nil,
-                       name         : String = "name",
-                       fileName     : String = "photo.jpeg",
-                       mimeType     : String = "image/jpeg",
                        server       : String = DSSServer.apiServer()) {
         
         // construct url with sever and path
@@ -39,7 +36,10 @@ class DSSNetwork: NSObject {
                          url!,
                          multipartFormData: { multipartFormData in
                             if let data = fileData {
-                                multipartFormData.appendBodyPart(data: data, name: name, fileName: fileName, mimeType: mimeType)
+                                let base64 = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
+                                if let base64Data = base64.dataUsingEncoding(NSUTF8StringEncoding) {
+                                    multipartFormData.appendBodyPart(data: base64Data, name: "stream")
+                                }
                             }
                             
                             // submit with form data
