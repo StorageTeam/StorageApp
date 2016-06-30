@@ -17,7 +17,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/api/product_shipoffline_json/get_product_shipoffline.json"
+            , path: "/link-site/web/product_shipoffline_json/get_product_shipoffline.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -28,7 +28,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/api/product_shipoffline_json/remove_product_shipoffline_status.json"
+            , path: "/link-site/web/product_shipoffline_json/remove_product_shipoffline_status.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }

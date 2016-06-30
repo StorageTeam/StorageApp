@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-class EditViewController: UIViewController, DSSDataCenterDelegate, FKEditBaseCellDelegate{
+class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBaseCellDelegate{
 
 //    private var editType = kEditType.kEditTypeAdd
     private var tableView : UITableView! = nil
@@ -29,7 +29,7 @@ class EditViewController: UIViewController, DSSDataCenterDelegate, FKEditBaseCel
         
     }
     
-    convenience init(editType: kEditType, productID: String) {
+    convenience init(editType: kEditType, productID: String?) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel.editType = editType
         self.viewModel.productID = productID
@@ -143,6 +143,13 @@ class EditViewController: UIViewController, DSSDataCenterDelegate, FKEditBaseCel
     
     func clickReleaseBtn() {
         self.view.endEditing(true)
+        
+        let res = self.viewModel.dataItem?.isDataComplete()
+        if (res?.complete == false){
+            print("not complete error = \(res?.error)")
+            return
+        }
+        
         
     }
     

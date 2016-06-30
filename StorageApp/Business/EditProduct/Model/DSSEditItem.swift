@@ -20,7 +20,7 @@ class DSSEditItem: NSObject {
         var complete = true
         var errorStr: String?
         
-        if self.infoItem?.name?.characters.count != 0 {
+        if self.infoItem?.name?.characters.count == 0 {
             complete = false
             errorStr = "请输入name"
         } else if self.picItems?.count == 0 {
