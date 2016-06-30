@@ -33,6 +33,28 @@ class DSSEditService: NSObject {
             , userInfo: nil)
     }
     
+    class func requestEdit(identify: Int, delegate: DSSDataCenterDelegate, para:[String : AnyObject]) -> Void {
+        
+        DSSDataCenter.Request(identify
+            , delegate: delegate
+            , path: "/link-site/web/product_shipoffline_json/modify_product_shipoffline.json"
+            , para: ["product_shipoffline_json" : para]
+            , userInfo: nil)
+    }
+    
+    class func requestCreate(identify: Int, delegate: DSSDataCenterDelegate, para:[String : AnyObject]) -> Void {
+        
+        DSSDataCenter.Request(identify
+            , delegate: delegate
+            , path: "/link-site/web/product_shipoffline_json/create_product_shipoffline.json"
+            , para: ["product_shipoffline_json" : para]
+            , userInfo: nil)
+    }
+    
+//    class func reqCreate(identify: Int, delegate: DSSDataCenterDelegate, para:[String : AnyObject]) -> Void {
+//        
+//    }
+    
     class func parseEditDetail(json:[String : AnyObject]) -> DSSEditItem? {
         if let data = json["data"] as? [String:AnyObject] {
             

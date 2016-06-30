@@ -17,6 +17,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     
     private let DETAIL_DATA_REQ = 1000
     private let DELETE_PRO_REQ = 1001
+    private let CREATE_PRO_REQ = 1002
+    private let EDIT_SAVE__REQ = 1003
     
     override func viewDidLoad() {
         self.buildTableView()
@@ -37,6 +39,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         if editType == kEditType.kEditTypeAdd {
             self.viewModel.dataItem = DSSEditItem.init()
             self.viewModel.dataItem?.picItems = [DSSEditImgItem]()
+            self.viewModel.dataItem?.infoItem = DSSEditInfoItem.init()
+            self.viewModel.dataItem?.specItem = DSSEditSpecItem.init()
         }
     }
     
@@ -103,9 +107,9 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
             case .kEditCellTypeDesc:
                 self.viewModel.dataItem?.infoItem?.desc = text
             case .kEditCellTypePrice:
-                var priceInt : Int = 0
+                var priceInt : Float = 0.0
                 if (text != nil) {
-                    priceInt = Int(text!)!
+                    priceInt = Float(text!)!
                 }
                 self.viewModel.dataItem?.infoItem?.price = priceInt
             case .kEditCellTypeStock:
@@ -146,8 +150,18 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         
         let res = self.viewModel.dataItem?.isDataComplete()
         if (res?.complete == false){
-            print("not complete error = \(res?.error)")
+            self.showHUD(res?.error)
+//            print("not complete error = \(res?.error)")
             return
+        }
+        
+        if self.viewModel.editType == kEditType.kEditTypeAdd {
+            // 新建
+            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+    
+        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
+            // 修改
+            DSSEditService.requestCreate(EDIT_SAVE__REQ, delegate: self, para: self.viewModel.getSavePara()!)
         }
         
         
