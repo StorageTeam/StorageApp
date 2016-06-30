@@ -8,16 +8,11 @@
 
 import UIKit
 
-class FKEditUpcCell: UITableViewCell {
+class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
 
     private var titleLabel: UILabel!
-    private var contentLabel: UILabel!
+    private var textField: UITextField!
     var addButton : UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,13 +36,20 @@ class FKEditUpcCell: UITableViewCell {
         titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        contentLabel = UILabel.init()
-        contentLabel.font = UIFont.systemFontOfSize(14)
-        contentLabel.textColor = UIColor.blackColor()
-        contentLabel.numberOfLines = 1
-        contentLabel.lineBreakMode = .ByTruncatingTail
-        contentLabel.textAlignment = .Left
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+//        contentLabel = UILabel.init()
+//        contentLabel.font = UIFont.systemFontOfSize(14)
+//        contentLabel.textColor = UIColor.blackColor()
+//        contentLabel.numberOfLines = 1
+//        contentLabel.lineBreakMode = .ByTruncatingTail
+//        contentLabel.textAlignment = .Left
+//        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField = UITextField.init()
+        textField.textColor = UIColor.init(rgb: 0xcccccc)
+        textField.font = UIFont.systemFontOfSize(14)
+        textField.returnKeyType = .Done
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         addButton = UIButton.init(type:.Custom)
         addButton.titleLabel?.font = UIFont.systemFontOfSize(25)
@@ -60,7 +62,7 @@ class FKEditUpcCell: UITableViewCell {
     func addAllSubviews() -> Void {
         
         self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.contentLabel)
+        self.contentView.addSubview(self.textField)
         self.contentView.addSubview(self.addButton)
         
         self.titleLabel.snp_makeConstraints { (make) in
@@ -68,7 +70,7 @@ class FKEditUpcCell: UITableViewCell {
             make.centerY.equalTo(self.contentView)
         }
         
-        self.contentLabel.snp_makeConstraints { (make) in
+        self.textField.snp_makeConstraints { (make) in
             make.left.equalTo(self.titleLabel.snp_right).offset(15)
             make.right.equalTo(self.addButton.snp_left)
             make.centerY.equalTo(self.contentView)
@@ -84,8 +86,27 @@ class FKEditUpcCell: UITableViewCell {
     
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
         if let editViewModel = viewModel as? EditViewModel{
-            self.contentLabel.text = editViewModel.currentUpcStr
+            self.textField.text = editViewModel.dataItem?.specItem?.upcStr
+            
+            var canEdit = true
+            if editViewModel.editType == kEditType.kEditTypeCheck {
+                canEdit = false
+            }
+            self.textField.userInteractionEnabled = canEdit
         }
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
+            self.delegate?.finishInput(self, text: textField.text)
+        }
+    }
+
 
 }

@@ -65,25 +65,25 @@ class FKSexChooseCell: UITableViewCell {
         
     }
     
-    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
-        if let editModel = viewModel as? EditViewModel {
-            
-            var groupStr = ""
-            
-            switch editModel.groupType {
-            case .kGroupTypeNeuter:
-                groupStr = "Neuter"
-            case .kGroupTypeFemale:
-                groupStr = "Female"
-            case .kGroupTypeMale:
-                groupStr = "Male"
-            default:
-                break
-            }
-            
-            self.subLabel.text = groupStr
-        }
-    }
+//    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+////        if let editModel = viewModel as? EditViewModel {
+//        
+////            var groupStr = ""
+//            
+////            switch editModel.groupType {
+////            case .kGroupTypeNeuter:
+////                groupStr = "Neuter"
+////            case .kGroupTypeFemale:
+////                groupStr = "Female"
+////            case .kGroupTypeMale:
+////                groupStr = "Male"
+////            default:
+////                break
+////            }
+//            
+////            self.subLabel.text = groupStr
+////        }
+//    }
 
 
 }

@@ -153,7 +153,8 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - Action
     func clickRightNaviBarButton(sender: UIButton) {
-        let editController = EditViewController()
+        
+        let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
         self.navigationController?.pushViewController(editController, animated: true)
     }
     

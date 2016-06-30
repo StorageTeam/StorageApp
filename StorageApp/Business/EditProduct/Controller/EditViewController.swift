@@ -9,15 +9,35 @@
 import UIKit
 import MobileCoreServices
 
-class EditViewController: UIViewController{
+class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBaseCellDelegate{
 
+//    private var editType = kEditType.kEditTypeAdd
     private var tableView : UITableView! = nil
     private var viewModel : EditViewModel = EditViewModel()
     
+    private let DETAIL_DATA_REQ = 1000
+    private let DELETE_PRO_REQ = 1001
     
     override func viewDidLoad() {
         self.buildTableView()
         self.addAllSubviews()
+        self.configNavItem()
+        
+//        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
+//            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
+//        }
+        
+    }
+    
+    convenience init(editType: kEditType, productID: String?) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel.editType = editType
+        self.viewModel.productID = productID
+        
+        if editType == kEditType.kEditTypeAdd {
+            self.viewModel.dataItem = DSSEditItem.init()
+            self.viewModel.dataItem?.picItems = [DSSEditImgItem]()
+        }
     }
     
     func addAllSubviews() -> Void {
@@ -25,17 +45,33 @@ class EditViewController: UIViewController{
         self.tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsetsZero)
         }
+    }
+    
+    func configNavItem() -> Void {
         
-//        self.viewModel.proImgArray.append(UIImage.init(named: "upc_add")!)
-//        self.viewModel.proImgArray.append(UIImage.init(named: "Clear")!)
-//        self.viewModel.proImgArray.append(UIImage.init(named: "edit_rightArrow")!)
-//        self.viewModel.proImgArray.append(UIImage.init(named: "test")!)
-//        
-//        self.viewModel.proImgArray.append(UIImage.init(named: "SegmentOnsaleNormal")!)
-//        self.viewModel.proImgArray.append(UIImage.init(named: "SegmentOnsaleSelected")!)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBackAction))
+        
+        if self.viewModel.editType != kEditType.kEditTypeCheck {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Release", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickReleaseBtn))
+        }
+    }
+    
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSSResponseCode.Normal {
+            if identify == DETAIL_DATA_REQ {
+                self.viewModel.dataItem = DSSEditService.parseEditDetail(response)
+                self.tableView.reloadData()
+            } else if identify == DELETE_PRO_REQ {
+                print("delete success")
+                self.clickBackAction()
+            }
+        } else {
+            print("error = \(response)")
+        }
     }
     
     private func buildTableView() -> Void{
+        
         self.tableView = UITableView.init(frame: CGRectZero, style: .Grouped)
         self.tableView.backgroundColor = UIColor.init(rgb: 0xf8f8f8)
         self.tableView.delegate = self;
@@ -46,14 +82,40 @@ class EditViewController: UIViewController{
         
         self.tableView.registerClass(FKEditInputCell.self, forCellReuseIdentifier: EDIT_COMMON_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditPicCell.self, forCellReuseIdentifier: PIC_CELL_IDENTIFY)
-//        self.tableView.registerClass(FKSexChooseCell.self, forCellReuseIdentifier: SEX_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditDescCell.self, forCellReuseIdentifier: DESC_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditUpcCell.self, forCellReuseIdentifier: UPC_CELL_IDENTIFY)
+        self.tableView.registerClass(FKEditDeleteCell.self, forCellReuseIdentifier: DELETE_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditHeaderView.self, forHeaderFooterViewReuseIdentifier: EDIT_HEADER_VIEW_IDENTIFY)
     }
     
-    func setUpcWithString(string: String){
-        
+    func finishInput(cell: FKEditBaseCell, text: String?) {
+        let indexPath = self.tableView.indexPathForCell(cell)
+        if (indexPath != nil) {
+            let cellType = self.viewModel.cellTypeForIndexPath(indexPath!)
+            
+            switch cellType {
+            case .kEditCellTypeName:
+                self.viewModel.dataItem?.infoItem?.name = text
+            case .kEditCellTypeTitle:
+                self.viewModel.dataItem?.infoItem?.chinaName = text
+            case .kEditCellTypeBrand:
+                self.viewModel.dataItem?.infoItem?.brand = text
+            case .kEditCellTypeDesc:
+                self.viewModel.dataItem?.infoItem?.desc = text
+            case .kEditCellTypePrice:
+                var priceInt : Int = 0
+                if (text != nil) {
+                    priceInt = Int(text!)!
+                }
+                self.viewModel.dataItem?.infoItem?.price = priceInt
+            case .kEditCellTypeStock:
+                self.viewModel.dataItem?.specItem?.stock = text
+            case .kEditCellTypeItemNo:
+                self.viewModel.dataItem?.specItem?.siteSku = text
+            default:
+                break
+            }
+        }
     }
     
     func clickScanAction(sender: UIButton){
@@ -61,11 +123,36 @@ class EditViewController: UIViewController{
         weak var weakself = self
         let scanController = FKScanController.init { (resStr) -> Void in
             print("scan res string = \(resStr)")
-            weakself?.viewModel.currentUpcStr = resStr
+            weakself?.viewModel.dataItem?.specItem?.upcStr = resStr
+            weakself?.viewModel.dataItem?.specItem?.siteSku = resStr
             weakself?.tableView.reloadData()
         }
         self.navigationController?.pushViewController(scanController, animated: true)
     }
+    
+    func clickDeleteAction(sender: UIButton){
+        if self.viewModel.productID != nil {
+            DSSEditService.reqDelete(DELETE_PRO_REQ, delegate: self, productId: self.viewModel.productID!)
+        }
+    
+    }
+    
+    func clickBackAction() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func clickReleaseBtn() {
+        self.view.endEditing(true)
+        
+        let res = self.viewModel.dataItem?.isDataComplete()
+        if (res?.complete == false){
+            print("not complete error = \(res?.error)")
+            return
+        }
+        
+        
+    }
+    
 }
 
 extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEditPicCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -88,11 +175,17 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
             cell = UITableViewCell.init(style: .Default, reuseIdentifier: nil)
         }
         
+        if let baseCell = cell as? FKEditBaseCell {
+            baseCell.delegate = self
+        }
+        
         if let upcCell = cell as? FKEditUpcCell{
             upcCell.addButton.addTarget(self, action: #selector(self.clickScanAction(_:)), forControlEvents: .TouchUpInside)
         }else if let picCell = cell as? FKEditPicCell {
             picCell.delegate = self
             picCell.tag = indexPath.row - 2
+        }else if let deleteCell = cell as? FKEditDeleteCell {
+            deleteCell.deleteBtn.addTarget(self, action: #selector(self.clickDeleteAction(_:)), forControlEvents: .TouchUpInside)
         }
         
         cell?.fk_configWith(self.viewModel, indexPath: indexPath);
@@ -101,6 +194,10 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
     
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 3 {
+            return nil
+        }
         
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(EDIT_HEADER_VIEW_IDENTIFY) as? FKEditHeaderView
         
@@ -120,42 +217,14 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 3 {
+            return CGFloat.min
+        }
         return 33.0
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.view.endEditing(true)
-        
-//        let cellType = self.viewModel.cellTypeForIndexPath(indexPath)
-//        if cellType == .kEditCellTypeGroup {
-//            
-//            weak var weakSelf = self
-//            let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .ActionSheet)
-//            
-//            let action0 = UIAlertAction.init(title: "Neuter", style: .Default, handler: { (action: UIAlertAction) in
-//                weakSelf?.viewModel.groupType = .kGroupTypeNeuter
-//                weakSelf?.tableView.reloadData()
-//            })
-//            
-//            let action1 = UIAlertAction.init(title: "Male", style: .Default, handler: { (action: UIAlertAction) in
-//                weakSelf?.viewModel.groupType = .kGroupTypeMale
-//                weakSelf?.tableView.reloadData()
-//            })
-//            
-//            let action2 = UIAlertAction.init(title: "Female", style: .Default, handler: { (action: UIAlertAction) in
-//                weakSelf?.viewModel.groupType = .kGroupTypeFemale
-//                weakSelf?.tableView.reloadData()
-//            })
-//            
-//            let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler:nil)
-//            
-//            sheet.addAction(action0)
-//            sheet.addAction(action1)
-//            sheet.addAction(action2)
-//            sheet.addAction(cancelAction)
-//            
-//            self.presentViewController(sheet, animated: true, completion: nil)
-//        }
     }
     
     func clickAddImg() {
@@ -184,8 +253,8 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
     
     func clickDeleteImg(picCell: FKEditPicCell, index: Int) {
         let imgIndex = picCell.tag * 3 + index
-        if imgIndex < self.viewModel.proImgArray.count {
-            self.viewModel.proImgArray.removeAtIndex(imgIndex)
+        if imgIndex < self.viewModel.dataItem?.picItems!.count {
+            self.viewModel.dataItem?.picItems?.removeAtIndex(imgIndex)
             self.tableView.reloadData()
         }
     }
@@ -212,6 +281,7 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
         let mediaType = info[UIImagePickerControllerMediaType] as! String
         
         var image : UIImage?
@@ -224,7 +294,14 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
             
             if image != nil {
                 image = UIImage.scaleImage(image!, toSize: CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH)))
-                self.viewModel.proImgArray.append(image!)
+                
+                let newImgItem = DSSEditImgItem()
+                newImgItem.image = image
+                
+                if self.viewModel.dataItem?.picItems != nil {
+                    self.viewModel.dataItem?.picItems!.append(newImgItem)
+                }
+
                 self.tableView.reloadData()
             }
         }
