@@ -21,7 +21,7 @@ class DSSRequestHeader: NSObject {
                 "tk" : DSSAccount.getToken(),
                 "u_id" : DSSAccount.getUserID(),
                 "ts" : String.init(Int64(NSDate().timeIntervalSince1970 * 1000)), // 毫秒
-                "ver" : "1.2.1",
+                "ver" : "1.0",
                 "c_id" : "1"]
     }
 }

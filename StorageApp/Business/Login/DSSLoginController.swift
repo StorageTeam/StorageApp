@@ -71,7 +71,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
                                          mobile: mobile!,
                                          password: password!)
         } else {
-            self.showText("Please input mobile and password")
+            self.showText("please enter phone number and password")
         }
     }
     
@@ -122,7 +122,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     }()
     
     lazy var mobileInputView: DSSLoginTextInput = {
-        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Username", secure: false)
+        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Phone number", secure: false)
         mobileInputView.backgroundColor = UIColor.init(white: 1, alpha: 1)
         mobileInputView.textField.delegate = self;
         mobileInputView.textField.returnKeyType = .Done
