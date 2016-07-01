@@ -102,6 +102,13 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
             self.delegate?.finishInput(self, text: textView.text)
         }
     }
+    
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+            self.delegate?.shouldBeginEditing(textView)
+        }
+        return true
+    }
 
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {

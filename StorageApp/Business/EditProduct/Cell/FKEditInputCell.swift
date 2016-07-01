@@ -49,6 +49,7 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
     }
     
     func addAllSubviews() -> Void {
+        
         self.contentView.addSubview(self.titleLabel)
         self.contentView.addSubview(self.textField)
         self.contentView.addSubview(self.bottomLine)
@@ -132,6 +133,13 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+            self.delegate?.shouldBeginEditing(textField)
+        }
         return true
     }
     

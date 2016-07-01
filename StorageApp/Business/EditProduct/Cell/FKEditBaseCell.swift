@@ -11,6 +11,7 @@ import UIKit
 @objc protocol FKEditBaseCellDelegate: NSObjectProtocol{
     
     func finishInput(cell:FKEditBaseCell, text: String?)
+    func shouldBeginEditing(view: UIView)
 }
 
 class FKEditBaseCell: UITableViewCell {

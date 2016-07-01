@@ -92,6 +92,14 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
         return true
     }
     
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+            self.delegate?.shouldBeginEditing(textView)
+        }
+        return true
+    }
+    
+    
     func textFieldDidEndEditing(textField: UITextField) {
         
         if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
