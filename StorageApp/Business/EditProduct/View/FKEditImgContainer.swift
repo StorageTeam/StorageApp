@@ -12,7 +12,7 @@ class FKEditImgContainer: UIView {
     
     private let targetImgView: UIImageView = UIImageView.init()
     private let imgBgView: UIImageView = UIImageView.init(image: UIImage.init(named: "line_rect"))
-    private let titleLabel: UILabel = UILabel.init()
+    let titleLabel: UILabel = UILabel.init()
     
     let deleteBtn: UIButton = UIButton.init(type: UIButtonType.Custom)
     let tapButton: UIButton = UIButton.init(type: UIButtonType.Custom)
@@ -31,7 +31,7 @@ class FKEditImgContainer: UIView {
         
         titleLabel.font = UIFont.systemFontOfSize(14)
         titleLabel.textColor = UIColor.init(rgb: 0xcccccc)
-        titleLabel.text = "Main\nPicture"
+        titleLabel.text = "More"
         titleLabel.numberOfLines = 2
         titleLabel.textAlignment = .Center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

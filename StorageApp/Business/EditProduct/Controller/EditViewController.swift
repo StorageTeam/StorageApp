@@ -141,6 +141,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        self.hidHud(false)
         self.showText(header?.msg)
     }
     

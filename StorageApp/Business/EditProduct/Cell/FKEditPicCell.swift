@@ -83,7 +83,7 @@ class FKEditPicCell: UITableViewCell {
 
     }
     
-    func setContentImgs(imgs: [DSSEditImgItem]?, canEdit: Bool){
+    func setContentImgs(imgs: [DSSEditImgItem]?, canEdit: Bool, firstLine: Bool){
         
         self.clearContent()
         
@@ -92,6 +92,9 @@ class FKEditPicCell: UITableViewCell {
             if canEdit {
                 self.firstContainer.hidden = false
                 self.firstContainer.tapButton.userInteractionEnabled = true
+                if (firstLine) {
+                    self.firstContainer.titleLabel.text = "Main\nPicture"
+                }
             }
             return
         }
@@ -111,6 +114,7 @@ class FKEditPicCell: UITableViewCell {
         if imageCount <= 2 && canEdit{
             let emptContainer = containerArray[imageCount]
             emptContainer.hidden = false
+//            emptContainer.titleLabel.text = "More"
             emptContainer.tapButton.userInteractionEnabled = true
         }
         
@@ -120,14 +124,13 @@ class FKEditPicCell: UITableViewCell {
         if let editModel = viewModel as? EditViewModel {
             
             let imageArray = editModel.getPicImgsAtIndexPath(indexPath)
+            let isFirstLine = (indexPath.row - 2 == 0) ? true : false
             
             var canEdit = true
             if editModel.editType == kEditType.kEditTypeCheck {
                 canEdit = false
             }
-            self.setContentImgs(imageArray, canEdit: canEdit)
-            
-            
+            self.setContentImgs(imageArray, canEdit: canEdit, firstLine: isFirstLine)
         }
     }
     
@@ -144,6 +147,10 @@ class FKEditPicCell: UITableViewCell {
         self.firstContainer.hidden = true
         self.secondContainer.hidden = true
         self.thirdContainer.hidden = true
+        
+        self.firstContainer.titleLabel.text = "More"
+        self.secondContainer.titleLabel.text = "More"
+        self.thirdContainer.titleLabel.text = "More"
     }
     
     func clickContainer(sender: UIButton){

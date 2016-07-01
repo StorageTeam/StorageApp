@@ -26,10 +26,13 @@ class DSSEditItem: NSObject {
         } else if self.infoItem?.price == nil || self.infoItem?.price == 0 {
             complete = false
             errorStr = "请输入价格"
-        } else if self.specItem?.stock == nil || (self.specItem?.stock)! == 0 {
+        } else if self.specItem?.stock == nil || Int((self.specItem?.stock)!) <= 0 {
             complete = false
             errorStr = "请输入库存"
-        } else if self.specItem?.upcStr == nil || self.specItem?.upcStr?.characters.count == 0 {
+        } else if self.specItem?.weight == nil || Int((self.specItem?.weight)!) <= 0 {
+            complete = false
+            errorStr = "请输入重量"
+        }else if self.specItem?.upcStr == nil || self.specItem?.upcStr?.characters.count == 0 {
             complete = false
             errorStr = "请输入条码"
         } else if self.specItem?.siteSku == nil || self.specItem?.siteSku?.characters.count == 0 {

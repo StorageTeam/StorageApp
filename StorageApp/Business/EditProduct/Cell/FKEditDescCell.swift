@@ -44,7 +44,8 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         titleLabel = UILabel.init()
         titleLabel.font = UIFont.systemFontOfSize(14)
         titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
-        titleLabel.text = "Description"
+        titleLabel.text = "Description\n(optional)"
+        titleLabel.numberOfLines = 2
         titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -53,16 +54,9 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         textView.returnKeyType = .Done
         textView.font = UIFont.systemFontOfSize(14)
         textView.delegate = self
-        textView.textAlignment = .Center
+//        textView.textAlignment = .Center
         textView.showsVerticalScrollIndicator = false
         textView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        textField = UITextField.init()
-//        textField.textColor = UIColor.init(rgb: 0xcccccc)
-//        textField.placeholder = "optional"
-//        textField.returnKeyType = .Done
-//        textField.delegate = self
-//        textField.translatesAutoresizingMaskIntoConstraints = false
         
     }
     
