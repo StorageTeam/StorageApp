@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-StorageApp/Alamofire.framework"
+  install_framework "Pods-StorageApp/DGElasticPullToRefresh.framework"
   install_framework "Pods-StorageApp/Haneke.framework"
   install_framework "Pods-StorageApp/ObjectMapper.framework"
   install_framework "Pods-StorageApp/PKHUD.framework"
@@ -94,6 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-StorageApp/Alamofire.framework"
+  install_framework "Pods-StorageApp/DGElasticPullToRefresh.framework"
   install_framework "Pods-StorageApp/Haneke.framework"
   install_framework "Pods-StorageApp/ObjectMapper.framework"
   install_framework "Pods-StorageApp/PKHUD.framework"

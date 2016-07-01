@@ -22,9 +22,14 @@ class DSSBaseViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if !DSSAccount.isLogin() {
-            let controller = DSSLoginController()
-            self.navigationController?.presentViewController(controller, animated: true, completion: {});
+            self.presentLoginController()
         }
+    }
+    
+    func presentLoginController() -> Void {
+        let controller = DSSLoginController()
+        self.navigationController?.presentViewController(controller, animated: true, completion: {});
+
     }
 
     override func didReceiveMemoryWarning() {

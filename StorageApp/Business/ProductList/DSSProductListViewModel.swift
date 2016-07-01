@@ -10,13 +10,12 @@ import Foundation
 import UIKit
 
 enum DSSProductListType: Int {
-    case Unknown
-    case OnSale
     case WaitSale
+    case OnSale
 }
 
 class DSSProductListViewModel: NSObject {
-    var listType = DSSProductListType.Unknown
+    var listType = DSSProductListType.WaitSale
     
     var waitSaleProds = NSMutableArray.init(capacity: 2)
     var onSaleProds   = NSMutableArray.init(capacity: 2)

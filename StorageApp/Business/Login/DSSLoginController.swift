@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCenterDelegate {
     static let DSS_LOGIN_REQUEST_IDENTIFY: Int = 0
@@ -56,10 +57,22 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     
     // MARK: - Actions
     @objc private func clickLoginAction() {
-        DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
-                                     delegate: self,
-                                     mobile: "18656396627",
-                                     password: "111111")
+//        DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
+//                                     delegate: self,
+//                                     mobile: "18656396627",
+//                                     password: "111111")
+        
+        let mobile      = self.mobileInputView.textField.text
+        let password    = self.passwordInputView.textField.text
+        
+        if mobile?.characters.count > 0 && password?.characters.count > 0 {
+            DSSLoginService.requestLogin(DSSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
+                                         delegate: self,
+                                         mobile: mobile!,
+                                         password: password!)
+        } else {
+            self.showText("Please input mobile and password")
+        }
     }
     
     // MARK: - loadView

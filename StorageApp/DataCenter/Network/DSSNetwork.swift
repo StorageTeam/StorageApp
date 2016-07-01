@@ -10,15 +10,15 @@ import Foundation
 import Alamofire
 
 class DSSNetwork: NSObject {
-    static let errorMSG: String = "数据解析异常"
+    static let errorMSG: String = "数据返回异常"
     
-    class func Request(identify: Int,
-                       delegate: DSSDataCenterDelegate,
-                       path         : String,
-                       para         : [String : AnyObject]?,
-                       userInfo     : [String : AnyObject]?,
-                       fileData     : NSData? = nil,
-                       server       : String = DSSServer.apiServer()) {
+    class func Request(identify : Int,
+                       delegate : DSSDataCenterDelegate,
+                       path     : String,
+                       para     : [String : AnyObject]?,
+                       userInfo : [String : AnyObject]?,
+                       fileData : NSData? = nil,
+                       server   : String  = DSSServer.apiServer()) {
         
         // construct url with sever and path
         var url = NSURL.init(string: server)
@@ -51,22 +51,24 @@ class DSSNetwork: NSObject {
                                     do {
                                         let data = try NSJSONSerialization.dataWithJSONObject(value, options: NSJSONWritingOptions.PrettyPrinted)
                                         multipartFormData.appendBodyPart(data: data, name: key)
-                                    } catch {
-                                    }
+                                    } catch { }
                                 }
                             }
             }, encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .Success(let upload, _, _):
                     upload.responseString { response in
-                        // response
                         let header = DSSResponseHeader.init()
-                        header.code = DSSResponseCode.Normal
+                        header.code = DSSResponseCode.BusinessError
+                        header.msg = DSSNetwork.errorMSG
                         
+                        // response
                         if let responseString = response.result.value {
                             do {
                                 if let json = try NSJSONSerialization.JSONObjectWithData(responseString.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.AllowFragments) as? [String: AnyObject] {
+                                    
                                     print(json, separator: "", terminator: "\r\n")
+                                    
                                     if let code = json["code"] as? String {
                                         let responseCode = DSSResponseCode(rawValue: Int(code)!)
                                         header.code = responseCode
@@ -76,17 +78,21 @@ class DSSNetwork: NSObject {
                                                 header.msg = msg
                                             }
                                             delegate.networkDidResponseSuccess(identify, header: header, response: json, userInfo: userInfo)
+                                            return
                                         } else if responseCode == DSSResponseCode.AccessError {
                                             // show login page
                                         }
                                     }
                                 }
                             } catch {
+                                delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: nil)
                             }
                         }
+                        delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: nil)
                     }
                 case .Failure(let encodingError):
                     print(encodingError)
+                    delegate.networkDidResponseError?(identify, header: nil, error: nil, userInfo: nil)
                 }
             }
         )

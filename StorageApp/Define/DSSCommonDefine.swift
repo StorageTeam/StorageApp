@@ -11,7 +11,7 @@ import UIKit
 
 class DSSConst: NSObject {
     // const
-    static let PageSize            = "20"
+    static let PageSize            = "200"
     static let UPLOAD_PHOTO_LENGTH = 320.0
     static let pixelHeight         = 1.0/UIScreen.mainScreen().scale
     
