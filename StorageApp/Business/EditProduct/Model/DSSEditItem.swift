@@ -22,61 +22,40 @@ class DSSEditItem: NSObject {
         
         if self.picItems?.count == 0 {
             complete = false
-            errorStr = "请至少选择一张照片"
+            errorStr = "Add at least one photo"
         } else if self.infoItem?.price == nil || self.infoItem?.price == 0 {
             complete = false
-            errorStr = "请输入价格"
+            errorStr = "Type Price"
         } else if self.specItem?.stock == nil || Int((self.specItem?.stock)!) <= 0 {
             complete = false
-            errorStr = "请输入库存"
+            errorStr = "Type Inventory"
         } else if self.specItem?.weight == nil || Int((self.specItem?.weight)!) <= 0 {
             complete = false
-            errorStr = "请输入重量"
+            errorStr = "Type Weight"
         }else if self.specItem?.upcStr == nil || self.specItem?.upcStr?.characters.count == 0 {
             complete = false
-            errorStr = "请输入条码"
+            errorStr = "Type UPC"
         } else if self.specItem?.siteSku == nil || self.specItem?.siteSku?.characters.count == 0 {
             complete = false
-            errorStr = "请输入Item no"
+            errorStr = "Type Item number"
         }
         
         if self.infoItem?.name != nil && self.infoItem?.name?.characters.count > 255 {
             complete = false
-            errorStr = "名称不能超过255个字符"
+            errorStr = "Product name can not exceed 255 characters"
         }
         
         if self.infoItem?.chinaName != nil && self.infoItem?.chinaName?.characters.count > 255 {
             complete = false
-            errorStr = "中文名称不能超过255个字符"
+            errorStr = "Product name in Chinese can not exceed 255 characters"
         }
         
         if self.infoItem?.brand != nil && self.infoItem?.brand?.characters.count > 126 {
             complete = false
-            errorStr = "品牌名称不能超过126个字符"
+            errorStr = "Brand name can not exceed 126 characters"
         }
     
         return (complete, errorStr)
         
     }
-    
-//    required init?(_ map: Map) {
-//        
-//    }
-//    
-//    func mapping(map: Map) {
-//    
-//        infoItem            <- map["product_shipoffline"]
-//        picItems            <- map["product_shipoffline_goods.product_shipoffline_pic_list"]
-////        specItem            <- map["product_shipoffline_goods.product_shipoffline_goods_list"]
-//        //        name            <- map["name"]
-//        //        desc            <- map["description"]
-//        //        photoURL        <- map["first_pic"]
-//        //        brand           <- map["brand"]
-//        //        price           <- map["purchase_price"]
-//        //        stock           <- map["stock"]
-//        //        suppID          <- map["supplier_id"]
-//        //        status          <- map["status"]
-//        //        createTime      <- map["create_time"]
-//        //        updateTime      <- map["update_time"]
-//    }
 }
