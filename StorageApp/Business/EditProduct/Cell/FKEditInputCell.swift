@@ -101,7 +101,7 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
                 self.textField.placeholder = "optional"
                 self.textField.text = editModel.dataItem?.infoItem?.brand
             case .kEditCellTypePrice:
-                self.titleLabel.text = "Price"
+                self.titleLabel.text = "Price($)"
                 self.textField.placeholder = nil
                 keyboardType = .DecimalPad
                 if (editModel.dataItem?.infoItem?.price != nil) {
