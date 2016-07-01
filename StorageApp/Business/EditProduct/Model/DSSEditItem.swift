@@ -25,19 +25,19 @@ class DSSEditItem: NSObject {
             errorStr = "Add at least one photo"
         } else if self.infoItem?.price == nil || self.infoItem?.price == 0 {
             complete = false
-            errorStr = "Type Price"
+            errorStr = "Enter Price"
         } else if self.specItem?.stock == nil || Int((self.specItem?.stock)!) <= 0 {
             complete = false
-            errorStr = "Type Inventory"
+            errorStr = "Enter Inventory"
         } else if self.specItem?.weight == nil || Int((self.specItem?.weight)!) <= 0 {
             complete = false
-            errorStr = "Type Weight"
+            errorStr = "Enter Weight"
         }else if self.specItem?.upcStr == nil || self.specItem?.upcStr?.characters.count == 0 {
             complete = false
-            errorStr = "Type UPC"
+            errorStr = "Enter UPC"
         } else if self.specItem?.siteSku == nil || self.specItem?.siteSku?.characters.count == 0 {
             complete = false
-            errorStr = "Type Item number"
+            errorStr = "Enter Item number"
         }
         
         if self.infoItem?.name != nil && self.infoItem?.name?.characters.count > 255 {
