@@ -30,9 +30,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         self.configNavItem()
         self.addKeyboardObser()
         
-        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
-            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
-        }
+        self.requestInitalData()
         
     }
     
@@ -74,16 +72,44 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         }
     }
     
+    
+    // MARK: - reuqest
+    func requestInitalData() {
+        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
+            self.showHUD()
+            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
+        }
+    }
+    
+    func requestSaveData() {
+        
+        self.showHUD()
+        
+        if self.viewModel.editType == kEditType.kEditTypeAdd {
+            // 新建
+            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+            
+        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
+            // 修改
+            DSSEditService.requestEdit(EDIT_SAVE__REQ,
+                                       delegate: self,
+                                       para: self.viewModel.getSavePara()!)
+        }
+    }
+    
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        
+        
         if header.code == DSSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
-                
+                self.hidHud(false)
                 self.viewModel.dataItem = DSSEditService.parseEditDetail(response)
                 self.tableView.reloadData()
                 
             } else if identify == DELETE_PRO_REQ {
                 
-                self.showHUD("删除成功")
+                self.hidHud(false)
+                self.showText("删除成功")
                 self.popAfterTime(2)
                 
             } else if identify == UPLOAD_IMG_REQ {
@@ -97,13 +123,15 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 
             } else if identify == CREATE_PRO_REQ {
                 
-                self.showHUD("创建成功")
+                self.hidHud(false)
+                self.showText("创建成功")
                 self.popAfterTime(2)
                 self.navigationController?.popViewControllerAnimated(true)
                 
             } else if identify == EDIT_SAVE__REQ {
                 
-                self.showHUD("修改保存成功")
+                self.hidHud(false)
+                self.showText("修改保存成功")
                 self.popAfterTime(2)
             }
             
@@ -113,7 +141,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
-        self.showHUD(header?.msg)
+        self.showText(header?.msg)
     }
     
     private func buildTableView() -> Void{
@@ -215,7 +243,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     
         let res = self.viewModel.dataItem?.isDataComplete()
         if (res?.complete == false){
-            self.showHUD(res?.error)
+            self.showText(res?.error)
             //            print("not complete error = \(res?.error)")
             return
         }
@@ -260,18 +288,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     
     func checkAndSave() {
         if self.viewModel.isAllImgUploaded() {
+            self.hidHud(false)
             self.requestSaveData()
-        }
-    }
-    
-    func requestSaveData() {
-        if self.viewModel.editType == kEditType.kEditTypeAdd {
-            // 新建
-            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
-            
-        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
-            // 修改
-            DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: self.viewModel.getSavePara()!)
         }
     }
     

@@ -53,6 +53,7 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         textView.returnKeyType = .Done
         textView.font = UIFont.systemFontOfSize(14)
         textView.delegate = self
+        textView.textAlignment = .Center
         textView.showsVerticalScrollIndicator = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         

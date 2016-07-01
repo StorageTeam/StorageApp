@@ -34,8 +34,16 @@ class DSSBaseViewController: UIViewController {
     
     // MARK: - HUD
     
-    func showHUD(text: String?) {
+    func showText(text: String?) {
         HUD.flash(.Label(text), delay: 2)
+    }
+    
+    func showHUD(){
+        HUD.show(.Progress)
+    }
+    
+    func hidHud(animated: Bool){
+        HUD.hide(animated: animated)
     }
 
     /*
