@@ -108,7 +108,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         self.tableView.dg_stopLoading()
         
         if let errorString = error {
-            self.showHUD(errorString)
+            self.showText(errorString)
         }
     }
     

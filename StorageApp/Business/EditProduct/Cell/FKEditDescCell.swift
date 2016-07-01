@@ -53,6 +53,7 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         textView.returnKeyType = .Done
         textView.font = UIFont.systemFontOfSize(14)
         textView.delegate = self
+        textView.textAlignment = .Center
         textView.showsVerticalScrollIndicator = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -101,6 +102,13 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
             self.delegate?.finishInput(self, text: textView.text)
         }
+    }
+    
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+            self.delegate?.shouldBeginEditing(textView)
+        }
+        return true
     }
 
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

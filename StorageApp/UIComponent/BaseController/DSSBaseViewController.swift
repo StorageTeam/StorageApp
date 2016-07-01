@@ -25,6 +25,12 @@ class DSSBaseViewController: UIViewController {
             self.presentLoginController()
         }
     }
+    
+    func presentLoginController() -> Void {
+        let controller = DSSLoginController()
+        self.navigationController?.presentViewController(controller, animated: true, completion: {});
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -33,13 +39,16 @@ class DSSBaseViewController: UIViewController {
     
     // MARK: - HUD
     
-    func showHUD(text: String?) {
+    func showText(text: String?) {
         HUD.flash(.Label(text), delay: 2)
     }
     
-    func presentLoginController() -> Void {
-        let controller = DSSLoginController()
-        self.navigationController?.presentViewController(controller, animated: true, completion: {});
+    func showHUD(){
+        HUD.show(.Progress)
+    }
+    
+    func hidHud(animated: Bool){
+        HUD.hide(animated: animated)
     }
 
     /*

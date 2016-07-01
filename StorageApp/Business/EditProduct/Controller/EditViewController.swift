@@ -14,6 +14,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
 //    private var editType = kEditType.kEditTypeAdd
     private var tableView : UITableView! = nil
     private var viewModel : EditViewModel = EditViewModel()
+    weak private var firstRespond : UIView?
     
     private let DETAIL_DATA_REQ = 1000
     private let DELETE_PRO_REQ = 1001
@@ -29,9 +30,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         self.configNavItem()
         self.addKeyboardObser()
         
-        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
-            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
-        }
+        self.requestInitalData()
         
     }
     
@@ -73,16 +72,44 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         }
     }
     
+    
+    // MARK: - reuqest
+    func requestInitalData() {
+        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
+            self.showHUD()
+            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
+        }
+    }
+    
+    func requestSaveData() {
+        
+        self.showHUD()
+        
+        if self.viewModel.editType == kEditType.kEditTypeAdd {
+            // 新建
+            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+            
+        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
+            // 修改
+            DSSEditService.requestEdit(EDIT_SAVE__REQ,
+                                       delegate: self,
+                                       para: self.viewModel.getSavePara()!)
+        }
+    }
+    
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        
+        
         if header.code == DSSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
-                
+                self.hidHud(false)
                 self.viewModel.dataItem = DSSEditService.parseEditDetail(response)
                 self.tableView.reloadData()
                 
             } else if identify == DELETE_PRO_REQ {
                 
-                self.showHUD("删除成功")
+                self.hidHud(false)
+                self.showText("删除成功")
                 self.popAfterTime(2)
                 
             } else if identify == UPLOAD_IMG_REQ {
@@ -96,13 +123,15 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 
             } else if identify == CREATE_PRO_REQ {
                 
-                self.showHUD("创建成功")
+                self.hidHud(false)
+                self.showText("创建成功")
                 self.popAfterTime(2)
                 self.navigationController?.popViewControllerAnimated(true)
                 
             } else if identify == EDIT_SAVE__REQ {
                 
-                self.showHUD("修改保存成功")
+                self.hidHud(false)
+                self.showText("修改保存成功")
                 self.popAfterTime(2)
             }
             
@@ -112,7 +141,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
-        print("receive error identify = \(identify), header = \(header), error = \(error)")
+        self.showText(header?.msg)
     }
     
     private func buildTableView() -> Void{
@@ -138,6 +167,11 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(second * NSEC_PER_SEC)), dispatch_get_main_queue(), {
             weakSelf!.navigationController?.popViewControllerAnimated(true)
         })
+    }
+    
+    // MARK:  textFiedl delegate
+    func shouldBeginEditing(view: UIView) {
+        self.firstRespond = view
     }
     
     func finishInput(cell: FKEditBaseCell, text: String?) {
@@ -199,13 +233,17 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    func clickHeaderView() {
+        self.view.endEditing(true)
+    }
+    
     func clickReleaseBtn() {
         
         self.view.endEditing(true)
     
         let res = self.viewModel.dataItem?.isDataComplete()
         if (res?.complete == false){
-            self.showHUD(res?.error)
+            self.showText(res?.error)
             //            print("not complete error = \(res?.error)")
             return
         }
@@ -250,28 +288,25 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     
     func checkAndSave() {
         if self.viewModel.isAllImgUploaded() {
-            print("all img loaded then save")
+            self.hidHud(false)
             self.requestSaveData()
-        }
-    }
-    
-    func requestSaveData() {
-        if self.viewModel.editType == kEditType.kEditTypeAdd {
-            // 新建
-            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
-            
-        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
-            // 修改
-            DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: self.viewModel.getSavePara()!)
         }
     }
     
     func keyBoardChange(sender: NSNotification) {
         
         if sender.name == UIKeyboardWillShowNotification {
-            let keyboardHeight = sender.userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight!, 0)
+            
+            let keyboardEndFrame = sender.userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+            let firstRespondRect = self.view.window?.convertRect((self.firstRespond?.frame)!, fromView: self.firstRespond?.superview)
+            let margin = (keyboardEndFrame?.origin.y)! - ((firstRespondRect?.origin.y)! + (firstRespondRect?.size.height)!)
+            
+            if margin < 20.0 {
+                let upMargin = 20 - margin
+                self.tableView.frame = CGRectOffset(self.tableView.frame, 0, -upMargin)
+            }
         } else if sender.name == UIKeyboardWillHideNotification {
+            self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)
             self.tableView.contentInset = UIEdgeInsetsZero
         }
     }
@@ -323,6 +358,7 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
         }
         
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(EDIT_HEADER_VIEW_IDENTIFY) as? FKEditHeaderView
+        headerView?.tapButton.addTarget(self, action: #selector(self.clickHeaderView), forControlEvents: .TouchUpInside)
         
         if section == 0 {
             headerView?.titleLabel.text = "name&photo"
@@ -370,8 +406,6 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
         sheet.addAction(cancelAction)
         
         self.presentViewController(sheet, animated: true, completion: nil)
-//        self.viewModel.proImgArray.append(UIImage.init(named: "SegmentReserveSelected")!)
-//        self.tableView.reloadData()
     }
     
     func clickDeleteImg(picCell: FKEditPicCell, index: Int) {

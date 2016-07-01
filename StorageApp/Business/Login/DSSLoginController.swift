@@ -38,12 +38,12 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
             DSSAccount.saveAccount(response["data"]?["user"])
             self.dismissViewControllerAnimated(true, completion: {})
         } else {
-            super.showHUD(header.msg)
+            super.showText(header.msg)
         }
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
-        super.showHUD(error)
+        super.showText(error)
     }
     
     // MARK: - UITextFieldDelegate
@@ -71,7 +71,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
                                          mobile: mobile!,
                                          password: password!)
         } else {
-            self.showHUD("Please input mobile and password")
+            self.showText("Please input mobile and password")
         }
     }
     
