@@ -7,19 +7,29 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
 class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate, DSSDataCenterDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
-    static let PRODUCTLIST_ONSALE_REQUEST          : Int   = 0
-    static let PRODUCTLIST_ONSALE_NEXT_REQUEST     : Int   = 1
-    static let PRODUCTLIST_WAITSALE_REQUEST        : Int   = 2
-    static let PRODUCTLIST_WAITSALE_NEXT_REQUEST   : Int   = 3
-    static let PRODUCTLIST_DELETE_LIST_REQUEST     : Int   = 4
+    private static let PRODUCTLIST_ONSALE_REQUEST          : Int   = 0
+    private static let PRODUCTLIST_ONSALE_NEXT_REQUEST     : Int   = 1
+    private static let PRODUCTLIST_WAITSALE_REQUEST        : Int   = 2
+    private static let PRODUCTLIST_WAITSALE_NEXT_REQUEST   : Int   = 3
+    private static let PRODUCTLIST_DELETE_LIST_REQUEST     : Int   = 4
+    
+    private static let ALERT_VIEW_DELETE     : String   = "ALERT_VIEW_DELETE"
+    private static let ALERT_VIEW_LOGOUT     : String   = "ALERT_VIEW_LOGOUT"
+    
+    deinit {
+        self.tableView.dg_removePullToRefresh()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.title = "Item Managerment"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .Edit, target: self, action: #selector(clickRightNaviBarButton))
+        
+        self.navigationItem.leftBarButtonItem  = UIBarButtonItem.init(image: UIImage.init(named: "LeftBarIcon"), style: .Done, target: self, action: #selector(clickLeftNaviBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(clickRightNaviBarButton))
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -27,14 +37,8 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         
         if DSSAccount.isLogin() {
             if self.viewModel.isEmpty() {
-                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_ONSALE_REQUEST,
-                                                  delegate: self,
-                                                  status: "1",
-                                                  startRow: "0")
-                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST,
-                                                  delegate: self,
-                                                  status: "2",
-                                                  startRow: "0")
+                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST, delegate: self, status: "2", startRow: "0")
+                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_ONSALE_REQUEST, delegate: self, status: "1", startRow: "0")
             }
         }
     }
@@ -46,11 +50,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - Request
     func pullRequestCurrentPage(isPullDown: Bool) -> Void {
-        var status      = "2"
-        var identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST : DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST)
+        var status   = ""
+        var identify = 0
         if self.viewModel.listType == DSSProductListType.OnSale {
             status      = "1"
-            identify = (isPullDown ? DSSProductListController.PRODUCTLIST_ONSALE_REQUEST : DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST)
+            identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_ONSALE_REQUEST : DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST)
+        } else {
+            status      = "2"
+            identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST : DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST)
         }
         
         DSSProductListService.requestList(identify,
@@ -61,6 +68,8 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        self.tableView.dg_stopLoading()
+        
         if header.code == DSSResponseCode.Normal {
             let (total, items) = DSSProductListService.parseList(response)
             
@@ -95,6 +104,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         }
     }
     
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        self.tableView.dg_stopLoading()
+        
+        if let errorString = error {
+            self.showHUD(errorString)
+        }
+    }
+    
     // MARK: - DSSSegmentControlDelegate
     func segmentControlDidSelected(control: DSSSegmentControl, index: Int) {
         if let type = DSSProductListType(rawValue: index) {
@@ -105,13 +122,25 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - UIAlertViewDelegate
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 1 {
-            if let model = self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) {
-                DSSProductListService.deleteList(DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST,
-                                                 delegate: self,
-                                                 ids: [model.itemID],
-                                                 userInfo: ["row"   : alertView.tag,
-                                                            "type"  : self.viewModel.listType.rawValue])
+        if let name = alertView.describeName {
+            switch name {
+            case DSSProductListController.ALERT_VIEW_DELETE:
+                if buttonIndex == 1 {
+                    if let model = self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) {
+                        DSSProductListService.deleteList(DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST,
+                                                         delegate: self,
+                                                         ids: [model.itemID],
+                                                         userInfo: ["row"   : alertView.tag,
+                                                                    "type"  : self.viewModel.listType.rawValue])
+                    }
+                }
+            case DSSProductListController.ALERT_VIEW_LOGOUT:
+                if buttonIndex == 1 {
+                    DSSAccount.logout()
+                    self.presentLoginController()
+                }
+            default:
+                break
             }
         }
     }
@@ -162,14 +191,28 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
                                          delegate: self,
                                          cancelButtonTitle: "Cancel",
                                          otherButtonTitles: "Confirm")
+            alert.describeName = DSSProductListController.ALERT_VIEW_DELETE
             alert.tag = indexPath.row
             alert.show()
         }
     }
     
     // MARK: - Action
+    func clickLeftNaviBarButton(sender: UIButton) {
+        if DSSAccount.isLogin() {
+            let alert = UIAlertView.init(title: "Confirm",
+                                         message: "Logout?",
+                                         delegate: self,
+                                         cancelButtonTitle: "Cancel",
+                                         otherButtonTitles: "Confirm")
+            alert.describeName = DSSProductListController.ALERT_VIEW_LOGOUT
+            alert.show()
+        } else {
+            self.presentLoginController()
+        }
+    }
+    
     func clickRightNaviBarButton(sender: UIButton) {
-        
         let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
         self.navigationController?.pushViewController(editController, animated: true)
     }
@@ -213,10 +256,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         }
         
         self.view.addSubview(self.tableView)
-        self.tableView.snp_makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self.view)
-            make.top.equalTo(line.snp_bottom)
-        }
+        self.tableView.frame = CGRectMake(0, 53, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds)-53)
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
+        tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            self?.pullRequestCurrentPage(true)
+            }, loadingView: loadingView)
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
     
     // MARK: - Property
@@ -235,18 +282,6 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         tableView.allowsMultipleSelection = false
         tableView.backgroundColor = UIColor.init(rgb: 0xffffff)
         tableView.registerClass(DSSProductListCell.self, forCellReuseIdentifier: String(DSSProductListCell))
-        
-//        tableView.addPullRefreshHandler({ [weak self] in
-//            if let strongSelf = self {
-//                strongSelf.pullRequestCurrentPage(true)
-//            }
-//        })
-//        tableView.addPushRefreshHandler({ [weak self] in
-//            if let strongSelf = self {
-//                strongSelf.pullRequestCurrentPage(false)
-//            }
-//        })
-        
         return tableView
     }()
     

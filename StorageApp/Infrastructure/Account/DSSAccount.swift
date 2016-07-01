@@ -20,7 +20,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     private var level       : String!
     private var status      : String!
     
-    
     private override init() { }
     required init?(_ map: Map) { }
     
@@ -54,7 +53,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     }
     
     // MARK: - Method
-    
+
     private class func archivePath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let homePath: NSString = paths[0]
@@ -85,6 +84,25 @@ class DSSAccount: NSObject, Mappable, NSCoding {
             return true
         }
         return false
+    }
+    
+    class func logout() -> Void {
+        DSSAccount.gAccount.userid   = nil
+        DSSAccount.gAccount.token    = nil
+        DSSAccount.gAccount.mobile   = nil
+        DSSAccount.gAccount.nickname = nil
+        DSSAccount.gAccount.headurl  = nil
+        DSSAccount.gAccount.level    = nil
+        DSSAccount.gAccount.status   = nil
+        
+        let fileManager = NSFileManager.defaultManager()
+        if fileManager.fileExistsAtPath(DSSAccount.archivePath()) {
+            do {
+                try fileManager.removeItemAtPath(DSSAccount.archivePath())
+            } catch {
+                print("error")
+            }
+        }
     }
     
     class func getToken() -> String {

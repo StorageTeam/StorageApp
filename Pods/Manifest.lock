@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
+  - DGElasticPullToRefresh (1.0.3)
   - HanekeSwift (0.10.1)
   - ObjectMapper (1.3.0)
   - PKHUD (3.1.0)
@@ -9,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - DGElasticPullToRefresh
   - HanekeSwift
   - ObjectMapper
   - PKHUD
@@ -18,6 +20,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  DGElasticPullToRefresh: 040f39ae69840b3261d163fe6735c5901bf851e9
   HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
   PKHUD: 4167eccdb1b3a892fd80ce2b51cb6ba412a889ab

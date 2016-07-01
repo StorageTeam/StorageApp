@@ -109,6 +109,9 @@
 		CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */; };
 		CE30BF3B1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
 		CE30BF3C1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
+		CE3118CA1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
+		CE3118CB1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
+		CE3118CC1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
 		CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
 		CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
 		CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */; };
@@ -217,6 +220,7 @@
 		CE13DD711D1BBA040072D045 /* DSSProductListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSProductListController.swift; sourceTree = "<group>"; };
 		CE13DD761D1BBAFB0072D045 /* DSSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBaseViewController.swift; sourceTree = "<group>"; };
 		CE13DD7A1D1BBBE90072D045 /* DSSLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSLoginController.swift; sourceTree = "<group>"; };
+		CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DSSView+Extension.swift"; sourceTree = "<group>"; };
 		CE3DDD5C1D1BD8A1005459B6 /* DSSLoginTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSLoginTextInput.swift; sourceTree = "<group>"; };
 		CE3DDD6A1D1BF4A3005459B6 /* DSSAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSAccount.swift; sourceTree = "<group>"; };
 		CE3DDD6E1D1C290A005459B6 /* DSSResponseHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSResponseHeader.swift; sourceTree = "<group>"; };
@@ -611,10 +615,11 @@
 			isa = PBXGroup;
 			children = (
 				04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */,
+				CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */,
+				CEBBA8071D23AF6700187B07 /* DSSImageView+Extension.swift */,
 				04805D721D239A6200CA12CE /* DSSUIImage+Extension.swift */,
 				CEF0CAF41D1D31CA003C5357 /* DSSDictionary+Extension.swift */,
 				CEBBA7E21D2277A600187B07 /* DSSColor+Extension.swift */,
-				CEBBA8071D23AF6700187B07 /* DSSImageView+Extension.swift */,
 				CEBBA8081D23AF6700187B07 /* DSSInt+Extension.swift */,
 				CEBBA8091D23AF6700187B07 /* DSSString+Extension.swift */,
 			);
@@ -889,6 +894,7 @@
 				CEF0CAE71D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CEBBA8061D23AF5F00187B07 /* DSSProductListViewModel.swift in Sources */,
 				CE3DDD6F1D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
+				CE3118CA1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				0435D7F61D24B053008BBFEF /* DSSEditSpecItem.swift in Sources */,
 				CEBBA7DD1D22776100187B07 /* DSSAppearance.swift in Sources */,
 				0435D7F51D24B053008BBFEF /* DSSEditItem.swift in Sources */,
@@ -967,6 +973,7 @@
 				CE30BEFA1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
 				CE30BF0C1D24B68D00A3969D /* FKEditInputCell.swift in Sources */,
+				CE3118CB1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				CE30BF2D1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
 				CE30BF391D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
 				CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
@@ -1021,6 +1028,7 @@
 				CE30BEFB1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
 				CE30BF0D1D24B68E00A3969D /* FKEditInputCell.swift in Sources */,
+				CE3118CC1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				CE30BF2E1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
 				CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
 				CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,

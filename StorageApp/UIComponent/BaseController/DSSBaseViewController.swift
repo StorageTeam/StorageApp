@@ -22,8 +22,7 @@ class DSSBaseViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if !DSSAccount.isLogin() {
-            let controller = DSSLoginController()
-            self.navigationController?.presentViewController(controller, animated: true, completion: {});
+            self.presentLoginController()
         }
     }
 
@@ -36,6 +35,11 @@ class DSSBaseViewController: UIViewController {
     
     func showHUD(text: String?) {
         HUD.flash(.Label(text), delay: 2)
+    }
+    
+    func presentLoginController() -> Void {
+        let controller = DSSLoginController()
+        self.navigationController?.presentViewController(controller, animated: true, completion: {});
     }
 
     /*
