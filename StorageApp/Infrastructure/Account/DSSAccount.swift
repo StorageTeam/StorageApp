@@ -17,8 +17,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     private var mobile      : String!
     private var nickname    : String!
     private var headurl     : String!
-    private var level       : String!
-    private var status      : String!
     
     private override init() { }
     required init?(_ map: Map) { }
@@ -31,8 +29,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         self.mobile   = aDecoder.decodeObjectForKey("mobile") as? String
         self.nickname = aDecoder.decodeObjectForKey("nickname") as? String
         self.headurl  = aDecoder.decodeObjectForKey("headurl") as? String
-        self.level    = aDecoder.decodeObjectForKey("level") as? String
-        self.status   = aDecoder.decodeObjectForKey("status") as? String
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -41,8 +37,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         aCoder.encodeObject(self.mobile, forKey: "mobile")
         aCoder.encodeObject(self.nickname, forKey: "nickname")
         aCoder.encodeObject(self.headurl, forKey: "headurl")
-        aCoder.encodeObject(self.level, forKey: "level")
-        aCoder.encodeObject(self.status, forKey: "status")
     }
     
     private class func loadFromFile() -> DSSAccount {
@@ -66,8 +60,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         DSSAccount.gAccount.mobile   = account?.mobile
         DSSAccount.gAccount.nickname = account?.nickname
         DSSAccount.gAccount.headurl  = account?.headurl
-        DSSAccount.gAccount.level    = account?.level
-        DSSAccount.gAccount.status   = account?.status
     }
     
     // MARK:- Api
@@ -92,8 +84,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         DSSAccount.gAccount.mobile   = nil
         DSSAccount.gAccount.nickname = nil
         DSSAccount.gAccount.headurl  = nil
-        DSSAccount.gAccount.level    = nil
-        DSSAccount.gAccount.status   = nil
         
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(DSSAccount.archivePath()) {
@@ -120,12 +110,10 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     }
     
     func mapping(map: Map) {
-        userid      <- (map["userid"], DSSStringTransform())
+        userid      <- (map["id"], DSSStringTransform())
         token       <- map["token"]
         mobile      <- (map["mobile"], DSSStringTransform())
         nickname    <- map["nickname"]
-        headurl     <- map["headurl"]
-        level       <- (map["level"], DSSStringTransform())
-        status      <- (map["status"], DSSStringTransform())
+        headurl     <- map["head_pic"]
     }
 }
