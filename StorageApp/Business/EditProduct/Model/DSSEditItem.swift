@@ -20,7 +20,10 @@ class DSSEditItem: NSObject {
         var complete = true
         var errorStr: String?
         
-        if self.picItems?.count == 0 {
+        if self.infoItem?.name == nil || self.infoItem?.name?.characters.count == 0{
+            complete = false
+            errorStr = "Enter name"
+        }else if self.picItems?.count == 0 {
             complete = false
             errorStr = "Add at least one photo"
         } else if self.infoItem?.price == nil || self.infoItem?.price == 0 {

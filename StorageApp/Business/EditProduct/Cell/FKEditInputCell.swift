@@ -90,7 +90,7 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
             switch cellType {
             case .kEditCellTypeTitle:
                 self.titleLabel.text = "Product Title"
-                self.textField.placeholder = "optional"
+                self.textField.placeholder = nil
                 self.textField.text = editModel.dataItem?.infoItem?.name
             case .kEditCellTypeName:
                 self.titleLabel.text = "产品名称"

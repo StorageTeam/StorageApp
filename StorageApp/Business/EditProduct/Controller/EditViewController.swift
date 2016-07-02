@@ -110,7 +110,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 
                 self.hidHud(false)
                 self.showText("删除成功")
-                self.popAfterTime(2)
+                self.clickBackAction()
+//                self.popAfterTime(2)
                 
             } else if identify == UPLOAD_IMG_REQ {
                 
@@ -125,14 +126,16 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 
                 self.hidHud(false)
                 self.showText("创建成功")
-                self.popAfterTime(2)
+//                self.popAfterTime(2)
+                self.clickBackAction()
                 self.navigationController?.popViewControllerAnimated(true)
                 
             } else if identify == EDIT_SAVE__REQ {
                 
                 self.hidHud(false)
                 self.showText("修改保存成功")
-                self.popAfterTime(2)
+                self.clickBackAction()
+//                self.popAfterTime(2)
             }
             
         } else {
@@ -146,6 +149,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
     }
     
     private func buildTableView() -> Void{
+        
+        self.view.backgroundColor = UIColor.whiteColor();
         
         self.tableView = UITableView.init(frame: CGRectZero, style: .Grouped)
         self.tableView.backgroundColor = UIColor.init(rgb: 0xf8f8f8)
@@ -161,13 +166,6 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
         self.tableView.registerClass(FKEditUpcCell.self, forCellReuseIdentifier: UPC_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditDeleteCell.self, forCellReuseIdentifier: DELETE_CELL_IDENTIFY)
         self.tableView.registerClass(FKEditHeaderView.self, forHeaderFooterViewReuseIdentifier: EDIT_HEADER_VIEW_IDENTIFY)
-    }
-    
-    func popAfterTime(second: UInt64) {
-        weak var weakSelf = self
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(second * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-            weakSelf!.navigationController?.popViewControllerAnimated(true)
-        })
     }
     
     // MARK:  textFiedl delegate
@@ -201,6 +199,8 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditBa
                 self.viewModel.dataItem?.specItem?.weight = text
             case .kEditCellTypeItemNo:
                 self.viewModel.dataItem?.specItem?.siteSku = text
+            case .kEditCellTypeUPC:
+                self.viewModel.dataItem?.specItem?.upcStr = text
             default:
                 break
             }
@@ -388,6 +388,8 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource, FKEdi
     }
     
     func clickAddImg() {
+        
+        self.view.endEditing(true)
         
         weak var weakSelf = self
         let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .ActionSheet)

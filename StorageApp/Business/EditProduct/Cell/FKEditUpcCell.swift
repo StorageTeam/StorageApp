@@ -84,6 +84,7 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
                 canEdit = false
             }
             self.textField.userInteractionEnabled = canEdit
+            self.addButton.hidden = (canEdit ? false : true)
         }
     }
     

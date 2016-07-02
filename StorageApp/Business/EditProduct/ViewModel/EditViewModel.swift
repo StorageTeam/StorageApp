@@ -230,7 +230,7 @@ class EditViewModel: NSObject {
         }
         
         if self.dataItem?.infoItem?.desc != nil {
-            infoPara["description"] = self.dataItem?.infoItem?.chinaName
+            infoPara["description"] = self.dataItem?.infoItem?.desc
         }
         
         if self.dataItem?.infoItem?.brand != nil {
