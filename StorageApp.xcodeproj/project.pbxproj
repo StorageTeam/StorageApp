@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0435D7EC1D24B03D008BBFEF /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
+		0435D7EC1D24B03D008BBFEF /* FKEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditProtocol.swift */; };
 		0435D7ED1D24B03D008BBFEF /* FKEditDeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditDeleteCell.swift */; };
 		0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
 		0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
@@ -20,7 +20,6 @@
 		04C028111D224EFC0060CD7C /* FKEditInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */; };
 		04C028121D224EFC0060CD7C /* FKEditPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280B1D224EFC0060CD7C /* FKEditPicCell.swift */; };
 		04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */; };
-		04C028141D224EFC0060CD7C /* FKSexChooseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */; };
 		04C028161D224F0A0060CD7C /* FKEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028151D224F0A0060CD7C /* FKEditHeaderView.swift */; };
 		04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028181D224FB50060CD7C /* EditViewModel.swift */; };
 		04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */; };
@@ -67,8 +66,6 @@
 		CE30BF0F1D24B69000A3969D /* FKEditPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280B1D224EFC0060CD7C /* FKEditPicCell.swift */; };
 		CE30BF101D24B69200A3969D /* FKEditUpcCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */; };
 		CE30BF111D24B69200A3969D /* FKEditUpcCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */; };
-		CE30BF121D24B69500A3969D /* FKSexChooseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */; };
-		CE30BF131D24B69500A3969D /* FKSexChooseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */; };
 		CE30BF141D24B69700A3969D /* FKEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028151D224F0A0060CD7C /* FKEditHeaderView.swift */; };
 		CE30BF151D24B69700A3969D /* FKEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028151D224F0A0060CD7C /* FKEditHeaderView.swift */; };
 		CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */; };
@@ -107,8 +104,8 @@
 		CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F11D24B053008BBFEF /* DSSEditItem.swift */; };
 		CE30BF391D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */; };
 		CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */; };
-		CE30BF3B1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
-		CE30BF3C1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */; };
+		CE30BF3B1D24BE7600A3969D /* FKEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditProtocol.swift */; };
+		CE30BF3C1D24BE7600A3969D /* FKEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EA1D24B03D008BBFEF /* FKEditProtocol.swift */; };
 		CE3118CA1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
 		CE3118CB1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
 		CE3118CC1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSSView+Extension.swift */; };
@@ -176,7 +173,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditBaseCell.swift; sourceTree = "<group>"; };
+		0435D7EA1D24B03D008BBFEF /* FKEditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditProtocol.swift; sourceTree = "<group>"; };
 		0435D7EB1D24B03D008BBFEF /* FKEditDeleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditDeleteCell.swift; sourceTree = "<group>"; };
 		0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditImgItem.swift; sourceTree = "<group>"; };
 		0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditInfoItem.swift; sourceTree = "<group>"; };
@@ -189,7 +186,6 @@
 		04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditInputCell.swift; sourceTree = "<group>"; };
 		04C0280B1D224EFC0060CD7C /* FKEditPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditPicCell.swift; sourceTree = "<group>"; };
 		04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditUpcCell.swift; sourceTree = "<group>"; };
-		04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKSexChooseCell.swift; sourceTree = "<group>"; };
 		04C028151D224F0A0060CD7C /* FKEditHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditHeaderView.swift; sourceTree = "<group>"; };
 		04C028181D224FB50060CD7C /* EditViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		04C0281A1D2257220060CD7C /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
@@ -308,13 +304,12 @@
 		04C028021D224EC00060CD7C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				0435D7EA1D24B03D008BBFEF /* FKEditBaseCell.swift */,
+				0435D7EA1D24B03D008BBFEF /* FKEditProtocol.swift */,
 				0435D7EB1D24B03D008BBFEF /* FKEditDeleteCell.swift */,
 				04C028091D224EFC0060CD7C /* FKEditDescCell.swift */,
 				04C0280A1D224EFC0060CD7C /* FKEditInputCell.swift */,
 				04C0280B1D224EFC0060CD7C /* FKEditPicCell.swift */,
 				04C0280C1D224EFC0060CD7C /* FKEditUpcCell.swift */,
-				04C0280D1D224EFC0060CD7C /* FKSexChooseCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -900,7 +895,7 @@
 				0435D7F51D24B053008BBFEF /* DSSEditItem.swift in Sources */,
 				04C028201D2258190060CD7C /* FKScanController.swift in Sources */,
 				CEBBA8051D23AF5F00187B07 /* DSSProductListModel.swift in Sources */,
-				0435D7EC1D24B03D008BBFEF /* FKEditBaseCell.swift in Sources */,
+				0435D7EC1D24B03D008BBFEF /* FKEditProtocol.swift in Sources */,
 				CE13DD721D1BBA040072D045 /* DSSProductListController.swift in Sources */,
 				CE13DD771D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */,
@@ -931,7 +926,6 @@
 				0435D7ED1D24B03D008BBFEF /* FKEditDeleteCell.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
 				CEBBA80F1D23B30400187B07 /* DSSObjectMapperTransform.swift in Sources */,
-				04C028141D224EFC0060CD7C /* FKSexChooseCell.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CEBBA7E31D2277A600187B07 /* DSSColor+Extension.swift in Sources */,
 				0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */,
@@ -952,7 +946,6 @@
 				CE30BF1B1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
 				CEF0CAEC1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				CEF0CAE81D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
-				CE30BF121D24B69500A3969D /* FKSexChooseCell.swift in Sources */,
 				CE13DD781D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF021D24B67F00A3969D /* FKScanController.swift in Sources */,
@@ -989,7 +982,7 @@
 				CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF081D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
-				CE30BF3B1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */,
+				CE30BF3B1D24BE7600A3969D /* FKEditProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,7 +1000,6 @@
 				CE30BF1C1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
 				CEF0CAED1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				CEF0CAE91D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
-				CE30BF131D24B69500A3969D /* FKSexChooseCell.swift in Sources */,
 				CE13DD791D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
 				CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF031D24B68000A3969D /* FKScanController.swift in Sources */,
@@ -1044,7 +1036,7 @@
 				CE30BF171D24B69E00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF091D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
-				CE30BF3C1D24BE7600A3969D /* FKEditBaseCell.swift in Sources */,
+				CE30BF3C1D24BE7600A3969D /* FKEditProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -61,14 +61,18 @@ class DSSEditService: NSObject {
             let editItem = DSSEditItem()
             
             if let infoDict = data["product_shipoffline"] as? NSDictionary {
-                editItem.infoItem = Mapper<DSSEditInfoItem>().map(infoDict)
+                if let newInfo = Mapper<DSSEditInfoItem>().map(infoDict) {
+                    editItem.infoItem = newInfo
+                }
             }
             
             if let shipDict = data["product_shipoffline_goods"] as? NSDictionary {
                 if let specArrayDict = shipDict["product_shipoffline_goods_list"] as? [NSDictionary] {
                     if let itemDict = specArrayDict.first {
                         if let goodsDict = itemDict["goods_info"] as? NSDictionary {
-                            editItem.specItem = Mapper<DSSEditSpecItem>().map(goodsDict)
+                            if let newSpec = Mapper<DSSEditSpecItem>().map(goodsDict) {
+                                editItem.specItem = newSpec
+                            }
                         }
                     }
                 }

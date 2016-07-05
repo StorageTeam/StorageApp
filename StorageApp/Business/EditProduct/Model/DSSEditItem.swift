@@ -11,49 +11,48 @@ import UIKit
 
 class DSSEditItem: NSObject {
 
-    var infoItem : DSSEditInfoItem?
-    var specItem : DSSEditSpecItem?
-    var picItems : [DSSEditImgItem]?
+//    var infoItem : DSSEditInfoItem?
+//    var picItems : [DSSEditImgItem]?
     
     func isDataComplete() -> (complete: Bool, error: String?) {
         
         var complete = true
         var errorStr: String?
         
-        if self.infoItem?.name == nil || self.infoItem?.name?.characters.count == 0{
+        if self.infoItem.name == nil || self.infoItem.name?.characters.count == 0{
             complete = false
             errorStr = "Enter name"
-        }else if self.picItems?.count == 0 {
+        }else if self.picItems.count == 0 {
             complete = false
             errorStr = "Add at least one photo"
-        } else if self.infoItem?.price == nil || self.infoItem?.price == 0 {
+        } else if self.infoItem.price == nil || self.infoItem.price == 0 {
             complete = false
             errorStr = "Enter Price"
-        } else if self.specItem?.stock == nil || Int((self.specItem?.stock)!) <= 0 {
+        } else if self.specItem.stock == nil || Int((self.specItem.stock)!) <= 0 {
             complete = false
             errorStr = "Enter Inventory"
-        } else if self.specItem?.weight == nil || Int((self.specItem?.weight)!) <= 0 {
+        } else if self.specItem.weight == nil || Int((self.specItem.weight)!) <= 0 {
             complete = false
             errorStr = "Enter Weight"
-        }else if self.specItem?.upcStr == nil || self.specItem?.upcStr?.characters.count == 0 {
+        }else if self.specItem.upcStr == nil || self.specItem.upcStr?.characters.count == 0 {
             complete = false
             errorStr = "Enter UPC"
-        } else if self.specItem?.siteSku == nil || self.specItem?.siteSku?.characters.count == 0 {
+        } else if self.specItem.siteSku == nil || self.specItem.siteSku?.characters.count == 0 {
             complete = false
             errorStr = "Enter Item number"
         }
         
-        if self.infoItem?.name != nil && self.infoItem?.name?.characters.count > 255 {
+        if self.infoItem.name != nil && self.infoItem.name?.characters.count > 255 {
             complete = false
             errorStr = "Product name can not exceed 255 characters"
         }
         
-        if self.infoItem?.chinaName != nil && self.infoItem?.chinaName?.characters.count > 255 {
+        if self.infoItem.chinaName != nil && self.infoItem.chinaName?.characters.count > 255 {
             complete = false
             errorStr = "Product name in Chinese can not exceed 255 characters"
         }
         
-        if self.infoItem?.brand != nil && self.infoItem?.brand?.characters.count > 126 {
+        if self.infoItem.brand != nil && self.infoItem.brand?.characters.count > 126 {
             complete = false
             errorStr = "Brand name can not exceed 126 characters"
         }
@@ -61,4 +60,19 @@ class DSSEditItem: NSObject {
         return (complete, errorStr)
         
     }
+    
+    lazy var infoItem: DSSEditInfoItem = {
+        let infoItem = DSSEditInfoItem.init()
+        return infoItem
+    }()
+    
+    lazy var specItem: DSSEditSpecItem = {
+        let specItem = DSSEditSpecItem.init()
+        return specItem
+    }()
+    
+    lazy var picItems: [DSSEditImgItem] = {
+        let picItems : [DSSEditImgItem] = []
+        return picItems
+    }()
 }

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
+class FKEditDescCell: UITableViewCell , UITextViewDelegate, FKEditCellProtocol{
+    
+    weak var delegate : FKEditInputProtocol?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,7 +43,7 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
     
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
         if let editModel = viewModel as? EditViewModel {
-            self.textView.text = editModel.dataItem?.infoItem?.desc
+            self.textView.text = editModel.dataItem.infoItem.desc
             
             var canEdit = true
             if editModel.editType == kEditType.kEditTypeCheck {
@@ -53,13 +55,13 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
     
     
     func textViewDidEndEditing(textView: UITextView) {
-        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditInputProtocol.finishInput(_:text:))){
             self.delegate?.finishInput(self, text: textView.text)
         }
     }
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditInputProtocol.shouldBeginEditing(_:))){
             self.delegate?.shouldBeginEditing(textView)
         }
         return true

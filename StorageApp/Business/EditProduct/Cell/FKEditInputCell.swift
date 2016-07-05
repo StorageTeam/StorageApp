@@ -8,7 +8,9 @@
 
 import UIKit
 
-class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
+class FKEditInputCell: UITableViewCell, UITextFieldDelegate, FKEditCellProtocol{
+    
+    weak var delegate : FKEditInputProtocol?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,37 +68,37 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
             case .kEditCellTypeTitle:
                 self.titleLabel.text = "Product Title"
                 self.textField.placeholder = nil
-                self.textField.text = editModel.dataItem?.infoItem?.name
+                self.textField.text = editModel.dataItem.infoItem.name
             case .kEditCellTypeName:
                 self.titleLabel.text = "产品名称"
                 self.textField.placeholder = "optional"
-                self.textField.text = editModel.dataItem?.infoItem?.chinaName
+                self.textField.text = editModel.dataItem.infoItem.chinaName
             case .kEditCellTypeBrand:
                 self.titleLabel.text = "Brand"
                 self.textField.placeholder = "optional"
-                self.textField.text = editModel.dataItem?.infoItem?.brand
+                self.textField.text = editModel.dataItem.infoItem.brand
             case .kEditCellTypePrice:
                 self.titleLabel.text = "Price($)"
                 self.textField.placeholder = nil
                 keyboardType = .DecimalPad
-                if (editModel.dataItem?.infoItem?.price != nil) {
-                    self.textField.text = NSString.init(format: "%.2f", (editModel.dataItem?.infoItem?.price)!) as String
+                if (editModel.dataItem.infoItem.price != nil) {
+                    self.textField.text = NSString.init(format: "%.2f", (editModel.dataItem.infoItem.price)!) as String
                 }
 
             case .kEditCellTypeStock:
                 self.titleLabel.text = "Stock"
                 self.textField.placeholder = nil
                 keyboardType = .NumberPad
-                self.textField.text = editModel.dataItem?.specItem?.stock
+                self.textField.text = editModel.dataItem.specItem.stock
             case .kEditCellTypeWeight:
                 self.titleLabel.text = "Weight(g)"
                 self.textField.placeholder = nil
                 keyboardType = .NumberPad
-                self.textField.text = editModel.dataItem?.specItem?.weight
+                self.textField.text = editModel.dataItem.specItem.weight
             case .kEditCellTypeItemNo:
                 self.titleLabel.text = "Item No."
                 self.textField.placeholder = nil
-                self.textField.text = editModel.dataItem?.specItem?.siteSku
+                self.textField.text = editModel.dataItem.specItem.siteSku
             default:
                 self.titleLabel.text = nil
                 self.textField.placeholder = nil
@@ -112,7 +114,7 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.shouldBeginEditing(_:))){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditInputProtocol.shouldBeginEditing(_:))){
             self.delegate?.shouldBeginEditing(textField)
         }
         return true
@@ -120,7 +122,7 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
     
     func textFieldDidEndEditing(textField: UITextField) {
         
-        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditBaseCellDelegate.finishInput(_:text:))){
+        if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditInputProtocol.finishInput(_:text:))){
             self.delegate?.finishInput(self, text: textField.text)
         }
     }

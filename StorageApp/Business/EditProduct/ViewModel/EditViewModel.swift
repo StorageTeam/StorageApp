@@ -30,20 +30,19 @@ enum kEditType: Int{
     case kEditTypeEdit
 }
 
-public let PIC_CELL_IDENTIFY = "PIC_CELL_IDENTIFY"
-public let DESC_CELL_IDENTIFY = "DESC_CELL_IDENTIFY"
-public let UPC_CELL_IDENTIFY = "UPC_CELL_IDENTIFY"
-public let DELETE_CELL_IDENTIFY = "DELETE_CELL_IDENTIFY"
-public let EDIT_COMMON_CELL_IDENTIFY = "EDIT_COMMON_CELL_IDENTIFY"
+let PIC_CELL_IDENTIFY = "PIC_CELL_IDENTIFY"
+let DESC_CELL_IDENTIFY = "DESC_CELL_IDENTIFY"
+let UPC_CELL_IDENTIFY = "UPC_CELL_IDENTIFY"
+let DELETE_CELL_IDENTIFY = "DELETE_CELL_IDENTIFY"
+let EDIT_COMMON_CELL_IDENTIFY = "EDIT_COMMON_CELL_IDENTIFY"
 
 public let EDIT_HEADER_VIEW_IDENTIFY = "EDIT_HEADER_VIEW_IDENTIFY"
 
 class EditViewModel: NSObject {
 
     var productID: String?
-//    var currentUpcStr : String?
     var editType = kEditType.kEditTypeAdd
-    var dataItem: DSSEditItem?
+//    var dataItem: DSSEditItem?
 
     func numberOfSection() -> Int {
         
@@ -155,9 +154,8 @@ class EditViewModel: NSObject {
     func getPicCellCount() -> Int{
         
         var picCellCount = 0
-        if self.dataItem?.picItems != nil {
-            picCellCount = Int(floor(CGFloat((self.dataItem?.picItems?.count)!) / 3.0)) + 1
-        }
+        picCellCount = Int(floor(CGFloat(self.dataItem.picItems.count) / 3.0)) + 1
+        
         
         if picCellCount > 10 {
             picCellCount = 10
@@ -180,12 +178,10 @@ class EditViewModel: NSObject {
         var imageArray: [DSSEditImgItem] = []
         
         for index in 0...2 {
-            if index + startIndex < self.dataItem?.picItems?.count {
-//                let picItem = self.dataItem?.picItems![index + startIndex]
-////                imageArray
-                let imgItem = self.dataItem?.picItems?[index + startIndex]
-                if imgItem != nil {
-                    imageArray.append(imgItem!)
+            if index + startIndex < self.dataItem.picItems.count {
+                let imgItem = self.dataItem.picItems[index + startIndex]
+                if imgItem.isKindOfClass(DSSEditImgItem) {
+                    imageArray.append(imgItem)
                 }
             }
         }
@@ -199,11 +195,11 @@ class EditViewModel: NSObject {
     
     func isAllImgUploaded() -> Bool {
         
-        if (self.dataItem?.picItems == nil) {
+        if self.dataItem.picItems.count == 0 {
             return false
         }
         
-        for imageItem in (self.dataItem?.picItems)! {
+        for imageItem in self.dataItem.picItems {
             if imageItem.image != nil && imageItem.picUrl == nil {
                 return false
             }
@@ -212,8 +208,8 @@ class EditViewModel: NSObject {
     }
     
     func getSavePara() -> [String : AnyObject]? {
-        let res = self.dataItem?.isDataComplete()
-        if res?.complete == false {
+        let res = self.dataItem.isDataComplete()
+        if res.complete == false {
             return nil
         }
         
@@ -221,20 +217,20 @@ class EditViewModel: NSObject {
         
         var infoPara : [String : AnyObject] = [:]
         
-        if self.dataItem?.infoItem?.name != nil {
-            infoPara["name"] = self.dataItem?.infoItem?.name
+        if self.dataItem.infoItem.name != nil {
+            infoPara["name"] = self.dataItem.infoItem.name
         }
         
-        if self.dataItem?.infoItem?.chinaName != nil {
-            infoPara["name_cn"] = self.dataItem?.infoItem?.chinaName
+        if self.dataItem.infoItem.chinaName != nil {
+            infoPara["name_cn"] = self.dataItem.infoItem.chinaName
         }
         
-        if self.dataItem?.infoItem?.desc != nil {
-            infoPara["description"] = self.dataItem?.infoItem?.desc
+        if self.dataItem.infoItem.desc != nil {
+            infoPara["description"] = self.dataItem.infoItem.desc
         }
         
-        if self.dataItem?.infoItem?.brand != nil {
-            infoPara["brand"] = self.dataItem?.infoItem?.brand
+        if self.dataItem.infoItem.brand != nil {
+            infoPara["brand"] = self.dataItem.infoItem.brand
         }
         
         if (self.editType == kEditType.kEditTypeEdit) {
@@ -254,35 +250,33 @@ class EditViewModel: NSObject {
         
         var goodsInfoPara : [String : AnyObject] = [:]
         
-        if self.dataItem?.specItem?.upcStr != nil {
-            goodsInfoPara["upc"] = self.dataItem?.specItem?.upcStr
+        if self.dataItem.specItem.upcStr != nil {
+            goodsInfoPara["upc"] = self.dataItem.specItem.upcStr
         }
         
-        if self.dataItem?.specItem?.siteSku != nil {
-            goodsInfoPara["site_sku"] = self.dataItem?.specItem?.siteSku
+        if self.dataItem.specItem.siteSku != nil {
+            goodsInfoPara["site_sku"] = self.dataItem.specItem.siteSku
          }
         
-        if self.dataItem?.infoItem?.price > 0 {
-            goodsInfoPara["price"] = self.dataItem?.infoItem?.price
+        if self.dataItem.infoItem.price > 0 {
+            goodsInfoPara["price"] = self.dataItem.infoItem.price
         }
         
-        if self.dataItem?.specItem?.stock != nil {
-            goodsInfoPara["stock"] = self.dataItem?.specItem?.stock
+        if self.dataItem.specItem.stock != nil {
+            goodsInfoPara["stock"] = self.dataItem.specItem.stock
         }
         
-        if self.dataItem?.specItem?.weight != nil {
-            goodsInfoPara["weight"] = self.dataItem?.specItem?.weight
+        if self.dataItem.specItem.weight != nil {
+            goodsInfoPara["weight"] = self.dataItem.specItem.weight
         }
         
-        if self.dataItem?.specItem?.weight != nil {
-            goodsInfoPara["weight"] = self.dataItem?.specItem?.weight
+        if self.dataItem.specItem.weight != nil {
+            goodsInfoPara["weight"] = self.dataItem.specItem.weight
         }
         
-        if self.dataItem?.picItems != nil {
-            let imageItem = self.dataItem?.picItems?.first
-            if imageItem != nil && imageItem?.picUrl != nil{
-                goodsInfoPara["image"] = imageItem?.picUrl
-            }
+        let imageItem = self.dataItem.picItems.first
+        if imageItem != nil && imageItem?.picUrl != nil{
+            goodsInfoPara["image"] = imageItem?.picUrl
         }
         
         var specItemPara : [String : AnyObject] = [:]
@@ -294,7 +288,7 @@ class EditViewModel: NSObject {
         specInfoPara["product_shipoffline_goods_list"] = specItemArray
         
         var picDescItemArray : [[String : AnyObject]] = []
-        for imageItem in (self.dataItem?.picItems)! {
+        for imageItem in self.dataItem.picItems {
             if imageItem.picUrl != nil {
                 let picDict = ["pic_url" : imageItem.picUrl!]
                 picDescItemArray.append(picDict)
@@ -314,5 +308,10 @@ class EditViewModel: NSObject {
         
         return para
     }
+    
+    lazy var dataItem: DSSEditItem = {
+        let dataItem = DSSEditItem.init()
+        return dataItem
+    }()
     
 }
