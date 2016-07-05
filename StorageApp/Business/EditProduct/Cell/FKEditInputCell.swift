@@ -9,43 +9,18 @@
 import UIKit
 
 class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
-    var titleLabel: UILabel! = nil
-    var textField : UITextField!
-    let bottomLine = UIView.init()  // 两种实例化方式
-    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .None
         self.contentView.backgroundColor = UIColor.whiteColor()
-
-        self.initializeSub()
         self.addAllSubviews()
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
- 
-    func initializeSub(){
-        
-        titleLabel = UILabel.init()
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
-        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        textField = UITextField.init()
-        textField.textColor = UIColor.init(rgb: 0xcccccc)
-        textField.font = UIFont.systemFontOfSize(14)
-        textField.returnKeyType = .Done
-        textField.delegate = self
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
-        bottomLine.backgroundColor = UIColor.init(rgb: 0xcccccc)
-        bottomLine.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func addAllSubviews() -> Void {
@@ -149,4 +124,30 @@ class FKEditInputCell: FKEditBaseCell, UITextFieldDelegate {
             self.delegate?.finishInput(self, text: textField.text)
         }
     }
+    
+    lazy var titleLabel: UILabel = {
+        var label = UILabel.init()
+        label.font = UIFont.systemFontOfSize(14)
+        label.textColor = UIColor.init(rgb: 0x4a4a4a)
+        label.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var textField: UITextField = {
+        let field = UITextField.init()
+        field.textColor = UIColor.init(rgb: 0xcccccc)
+        field.font = UIFont.systemFontOfSize(14)
+        field.returnKeyType = .Done
+        field.delegate = self
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    
+    lazy var bottomLine: UIView = {
+        let view = UIView.init()
+        view.backgroundColor = UIColor.init(rgb: 0xcccccc)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }

@@ -10,28 +10,19 @@ import UIKit
 
 class FKEditDeleteCell: UITableViewCell {
 
-    var deleteBtn: UIButton = UIButton.init(type: UIButtonType.Custom)
+//    var deleteBtn: UIButton = UIButton.init(type: UIButtonType.Custom)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .None
         self.backgroundColor = UIColor.clearColor()
-        
-        self.initializeSub()
+    
         self.addAllSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initializeSub(){
-        self.deleteBtn.setTitle("Delete", forState: .Normal)
-        self.deleteBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.deleteBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-        self.deleteBtn.backgroundColor = UIColor.init(rgb: 0xfe3b31)
-        self.deleteBtn.layer.cornerRadius = 5.0
     }
     
     func addAllSubviews() -> Void {
@@ -44,5 +35,16 @@ class FKEditDeleteCell: UITableViewCell {
             make.height.equalTo(46.0)
         }
     }
+    
+    //MARK: Property
+    lazy var deleteBtn: UIButton = {
+        let button = UIButton.init(type: UIButtonType.Custom)
+        button.setTitle("Delete", forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.backgroundColor = UIColor.init(rgb: 0xfe3b31)
+        button.layer.cornerRadius = 5.0
+        return button
+    }()
 
 }

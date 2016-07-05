@@ -9,10 +9,6 @@
 import UIKit
 
 class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
-
-    private var titleLabel: UILabel!
-    private var textField: UITextField!
-    var addButton : UIButton!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -108,5 +104,33 @@ class FKEditUpcCell: FKEditBaseCell, UITextFieldDelegate {
         }
     }
 
+    // MARK: property
+    lazy var titleLabel: UILabel = {
+        let label = UILabel.init()
+        label.font = UIFont.systemFontOfSize(14)
+        label.textColor = UIColor.blackColor()
+        label.text = "UPC"
+        label.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var textField: UITextField = {
+        let textField = UITextField.init()
+        textField.textColor = UIColor.init(rgb: 0xcccccc)
+        textField.font = UIFont.systemFontOfSize(14)
+        textField.returnKeyType = .Done
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    lazy var addButton: UIButton = {
+        var button = UIButton.init(type: UIButtonType.Custom)
+        button.titleLabel?.font = UIFont.systemFontOfSize(25)
+        button.setImage(UIImage.init(named: "upc_add"), forState: .Normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
 }

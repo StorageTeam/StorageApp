@@ -9,41 +9,15 @@
 import UIKit
 
 class FKEditImgContainer: UIView {
-    
-    private let targetImgView: UIImageView = UIImageView.init()
-    private let imgBgView: UIImageView = UIImageView.init(image: UIImage.init(named: "line_rect"))
-    let titleLabel: UILabel = UILabel.init()
-    
-    let deleteBtn: UIButton = UIButton.init(type: UIButtonType.Custom)
-    let tapButton: UIButton = UIButton.init(type: UIButtonType.Custom)
 
     override init(frame: CGRect) {
+        
         super.init(frame: frame)
-        self.initializeSub()
         self.addAllSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initializeSub(){
-        
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.init(rgb: 0xcccccc)
-        titleLabel.text = "More"
-        titleLabel.numberOfLines = 2
-        titleLabel.textAlignment = .Center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        targetImgView.contentMode = .ScaleAspectFit
-        targetImgView.translatesAutoresizingMaskIntoConstraints = false
-        
-        deleteBtn.setImage(UIImage.init(named: "Clear"), forState: .Normal)
-        deleteBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        imgBgView.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     func addAllSubviews() -> Void {
@@ -57,7 +31,6 @@ class FKEditImgContainer: UIView {
         self.imgBgView.snp_makeConstraints { (make) in
             make.left.equalTo(self)
             make.centerY.equalTo(self)
-//            make.center.equalTo(self)
             make.size.equalTo(CGSizeMake(FKEditImgContainer.getImgMargin(), FKEditImgContainer.getImgMargin()))
         }
         
@@ -102,4 +75,51 @@ class FKEditImgContainer: UIView {
             }
         }
     }
+    
+    lazy var targetImgView: UIImageView = {
+        
+        let imageView: UIImageView = UIImageView.init()
+        imageView.contentMode = .ScaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+        
+    }()
+    
+    lazy var imgBgView: UIImageView = {
+        
+        let imageView: UIImageView = UIImageView.init(image: UIImage.init(named: "line_rect"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+        
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        
+        let titleLabel = UILabel.init()
+        titleLabel.font = UIFont.systemFontOfSize(14)
+        titleLabel.textColor = UIColor.init(rgb: 0xcccccc)
+        titleLabel.text = "More"
+        titleLabel.numberOfLines = 2
+        titleLabel.textAlignment = .Center
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+        
+    }()
+    
+    lazy var tapButton: UIButton = {
+        
+        let button = UIButton.init(type: UIButtonType.Custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+        
+    }()
+    
+    lazy var deleteBtn: UIButton = {
+        
+        let button = UIButton.init(type: UIButtonType.Custom)
+        button.setImage(UIImage.init(named: "Clear"), forState: .Normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+        
+    }()
 }

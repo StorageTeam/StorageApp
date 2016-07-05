@@ -10,43 +10,19 @@ import UIKit
 
 class FKEditPicCell: UITableViewCell {
     
-    var firstContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
-    var secondContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
-    var thirdContainer : FKEditImgContainer = FKEditImgContainer.init(frame: CGRectZero)
-    
     weak var delegate: FKEditPicCellDelegate?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .None
-        self.initializeSub()
         self.addAllSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func initializeSub(){
-        
-        self.firstContainer.tapButton.tag = 0
-        self.secondContainer.tapButton.tag = 1
-        self.thirdContainer.tapButton.tag = 2
-        
-        self.firstContainer.deleteBtn.tag = 0
-        self.secondContainer.deleteBtn.tag = 1
-        self.thirdContainer.deleteBtn.tag = 2
-        
-        self.firstContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
-        self.secondContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
-        self.thirdContainer.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
-        
-        self.firstContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
-        self.secondContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
-        self.thirdContainer.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
-    }
-    
+  
     func addAllSubviews() -> Void {
         
         let imgMargin = FKEditImgContainer.getImgMargin()
@@ -62,7 +38,6 @@ class FKEditPicCell: UITableViewCell {
             make.centerY.equalTo(self.contentView)
             make.width.equalTo(itemSize)
             make.height.equalTo(self.contentView)
-//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
         }
         
         self.secondContainer.snp_makeConstraints { (make) in
@@ -70,7 +45,6 @@ class FKEditPicCell: UITableViewCell {
             make.centerY.equalTo(self.contentView)
             make.width.equalTo(itemSize)
             make.height.equalTo(self.contentView)
-//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
         }
         
         self.thirdContainer.snp_makeConstraints { (make) in
@@ -78,7 +52,6 @@ class FKEditPicCell: UITableViewCell {
             make.centerY.equalTo(self.contentView)
             make.width.equalTo(itemSize)
             make.height.equalTo(self.contentView)
-//            make.size.equalTo(CGSizeMake(itemSize, itemSize))
         }
 
     }
@@ -114,7 +87,6 @@ class FKEditPicCell: UITableViewCell {
         if imageCount <= 2 && canEdit{
             let emptContainer = containerArray[imageCount]
             emptContainer.hidden = false
-//            emptContainer.titleLabel.text = "More"
             emptContainer.tapButton.userInteractionEnabled = true
         }
         
@@ -164,6 +136,34 @@ class FKEditPicCell: UITableViewCell {
             self.delegate!.clickDeleteImg(self, index: sender.tag)
         }
     }
+    
+    // MARK: property
+    lazy var firstContainer: FKEditImgContainer = {
+        let fist = FKEditImgContainer.init(frame: CGRectZero)
+        fist.tapButton.tag = 0
+        fist.deleteBtn.tag = 0
+        fist.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        fist.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
+        return fist
+    }()
+    
+    lazy var secondContainer: FKEditImgContainer = {
+        let second = FKEditImgContainer.init(frame: CGRectZero)
+        second.tapButton.tag = 1
+        second.deleteBtn.tag = 1
+        second.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        second.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
+        return second
+    }()
+    
+    lazy var thirdContainer: FKEditImgContainer = {
+        let third = FKEditImgContainer.init(frame: CGRectZero)
+        third.tapButton.tag = 2
+        third.deleteBtn.tag = 2
+        third.tapButton.addTarget(self, action: #selector(clickContainer), forControlEvents: .TouchUpInside)
+        third.deleteBtn.addTarget(self, action: #selector(clickDeleteBtn), forControlEvents: .TouchUpInside)
+        return third
+    }()
 }
 
 @objc protocol FKEditPicCellDelegate: NSObjectProtocol {

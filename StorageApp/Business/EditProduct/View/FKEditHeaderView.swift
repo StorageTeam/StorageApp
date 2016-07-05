@@ -10,24 +10,14 @@ import UIKit
 
 class FKEditHeaderView: UITableViewHeaderFooterView {
     
-    var tapButton = UIButton.init(type: UIButtonType.Custom)
-    var titleLabel: UILabel! = UILabel.init()
-    
     override init(reuseIdentifier: String?) {
+        
         super.init(reuseIdentifier: reuseIdentifier)
-        self.initializeSub()
         self.addAllSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initializeSub(){
-        
-        titleLabel.font = UIFont.systemFontOfSize(13)
-        titleLabel.textColor = UIColor.init(rgb: 0x9b9b9b)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func addAllSubviews() -> Void {
@@ -44,5 +34,18 @@ class FKEditHeaderView: UITableViewHeaderFooterView {
             make.edges.equalTo(UIEdgeInsetsZero)
         }
     }
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel.init()
+        label.font = UIFont.systemFontOfSize(13)
+        label.textColor = UIColor.init(rgb: 0x9b9b9b)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var tapButton: UIButton = {
+        let button = UIButton.init(type: UIButtonType.Custom)
+        return button
+    }()
 
 }

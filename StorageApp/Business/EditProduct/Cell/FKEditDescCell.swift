@@ -9,55 +9,16 @@
 import UIKit
 
 class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
-
-    var titleLabel: UILabel!
-//    var textField: UITextField!
-    var textView: UITextView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         self.selectionStyle = .None
-        self.initializeSub()
         self.addAllSubviews()
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func initializeSub(){
-        
-        titleLabel = UILabel.init()
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.init(rgb: 0x4a4a4a)
-        titleLabel.text = "Description\n(optional)"
-        titleLabel.numberOfLines = 2
-        titleLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        textView = UITextView.init()
-        textView.textColor = UIColor.init(rgb: 0xcccccc)
-        textView.returnKeyType = .Done
-        textView.font = UIFont.systemFontOfSize(14)
-        textView.delegate = self
-//        textView.textAlignment = .Center
-        textView.showsVerticalScrollIndicator = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     func addAllSubviews() -> Void {
@@ -66,7 +27,6 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         self.contentView.addSubview(self.textView)
         
         self.titleLabel.snp_makeConstraints { (make) in
-//            make.top.equalTo(self.contentView).offset(20)
             make.left.equalTo(self.contentView).offset(10)
             make.centerY.equalTo(self.contentView)
         }
@@ -112,5 +72,32 @@ class FKEditDescCell: FKEditBaseCell , UITextViewDelegate{
         }
         return true
     }
+    
+    // MARK: property
+    lazy var titleLabel: UILabel = {
+        
+        let label = UILabel.init()
+        label.font = UIFont.systemFontOfSize(14)
+        label.textColor = UIColor.init(rgb: 0x4a4a4a)
+        label.text = "Description\n(optional)"
+        label.numberOfLines = 2
+        label.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+        
+    }()
+    
+    lazy var textView: UITextView = {
+        
+        let textView = UITextView.init()
+        textView.textColor = UIColor.init(rgb: 0xcccccc)
+        textView.returnKeyType = .Done
+        textView.font = UIFont.systemFontOfSize(14)
+        textView.delegate = self
+        textView.showsVerticalScrollIndicator = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+        
+    }()
 
 }
