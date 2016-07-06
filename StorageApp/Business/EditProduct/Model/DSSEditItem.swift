@@ -25,7 +25,7 @@ class DSSEditItem: NSObject {
         }else if self.picItems.count == 0 {
             complete = false
             errorStr = "Add at least one photo"
-        } else if self.infoItem.price == nil || self.infoItem.price == 0 {
+        } else if self.infoItem.price == nil || self.infoItem.price <= 0 {
             complete = false
             errorStr = "Enter Price"
         } else if self.specItem.stock == nil || Int((self.specItem.stock)!) <= 0 {

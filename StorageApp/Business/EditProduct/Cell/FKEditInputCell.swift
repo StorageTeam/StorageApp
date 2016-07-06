@@ -82,7 +82,8 @@ class FKEditInputCell: UITableViewCell, UITextFieldDelegate, FKEditCellProtocol{
                 self.textField.placeholder = nil
                 keyboardType = .DecimalPad
                 if (editModel.dataItem.infoItem.price != nil) {
-                    self.textField.text = NSString.init(format: "%.2f", (editModel.dataItem.infoItem.price)!) as String
+                    let priceFloat = Float(editModel.dataItem.infoItem.price!) / 100.0
+                    self.textField.text = String.init(format: "%.2f", priceFloat)
                 }
 
             case .kEditCellTypeStock:

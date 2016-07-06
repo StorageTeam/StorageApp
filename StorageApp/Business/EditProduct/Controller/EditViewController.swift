@@ -149,9 +149,10 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate, FKEditIn
             case .kEditCellTypeDesc:
                 self.viewModel.dataItem.infoItem.desc = text
             case .kEditCellTypePrice:
-                var priceInt : Float = 0.0
+                var priceInt : Int = 0
                 if (text != nil && text?.characters.count > 0) {
-                    priceInt = Float(text!)!
+                    let priceFloat = Float(text!)!
+                    priceInt = Int(round(priceFloat * 100))
                 }
                 self.viewModel.dataItem.infoItem.price = priceInt
             case .kEditCellTypeStock:

@@ -18,7 +18,7 @@ class DSSEditInfoItem: NSObject, Mappable{
     var desc            : String?
     var brand           : String?
     var currency        : String?
-    var price           : Float?
+    var price           : Int?
     var status          : Int?
     
     override init() {
