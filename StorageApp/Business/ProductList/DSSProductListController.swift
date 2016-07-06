@@ -256,7 +256,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         }
         
         self.view.addSubview(self.tableView)
-        self.tableView.frame = CGRectMake(0, 53, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds)-53)
+        self.tableView.frame = CGRectMake(0, 53, CGRectGetWidth(view.bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64 - 53)
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
         loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in

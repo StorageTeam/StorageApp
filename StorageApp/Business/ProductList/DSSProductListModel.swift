@@ -16,7 +16,7 @@ class DSSProductListModel: NSObject, Mappable {
     var desc            : String!
     var photoURL        : String!
     var brand           : String!
-    var price           : Float64!
+    var price           : Int!
     var stock           : Int!
     var suppID          : Int!
     var status          : Int!

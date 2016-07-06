@@ -59,7 +59,7 @@ class DSSProductListCell: UITableViewCell {
             if let model = viewModel.itemAtIndexPath(indexPath) {
                 self.phototView.dss_setImageFromURLString(model.photoURL, cdnWidth: 60)
                 self.titleLabel.text = model.name
-                self.priceLabel.text = "$" + String(format: "%.2lf", model.price)
+                self.priceLabel.text = "$" + model.price.dss_fen2Yuan()
                 self.stockLabel.text = String.init(format: "stocks: %d", model.stock)
 //                self.saleLabel.text = model.te
             }
