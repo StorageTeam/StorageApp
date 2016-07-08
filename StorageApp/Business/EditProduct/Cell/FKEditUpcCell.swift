@@ -91,9 +91,9 @@ class FKEditUpcCell: UITableViewCell, UITextFieldDelegate, FKEditCellProtocol{
         return true
     }
     
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditInputProtocol.shouldBeginEditing(_:))){
-            self.delegate?.shouldBeginEditing(textView)
+            self.delegate?.shouldBeginEditing(textField)
         }
         return true
     }
