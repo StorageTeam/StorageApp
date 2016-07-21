@@ -409,7 +409,7 @@ extension EditViewController: FKEditPicCellDelegate,  UIImagePickerControllerDel
         })
         
         let action1 = UIAlertAction.init(title: "PhotoLibray", style: .Default, handler: { (action: UIAlertAction) in
-            weakSelf?.prensentImgPickWithType(.PhotoLibrary)
+            weakSelf?.prensentImgPickWithType(.SavedPhotosAlbum) // 手机相册，而不是图库
         })
         
         let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler:nil)
