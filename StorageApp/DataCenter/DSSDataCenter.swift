@@ -15,7 +15,7 @@ enum DSSResponseCode: Int {
     case AccessError        = 46000
 }
 
-@objc protocol DSSDataCenterDelegate {
+@objc protocol DSSDataCenterDelegate : NSObjectProtocol {
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) -> Void
     
     optional func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) -> Void
