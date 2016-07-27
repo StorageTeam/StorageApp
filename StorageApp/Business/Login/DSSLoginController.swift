@@ -24,7 +24,11 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor(white: 0, alpha: 1)
+        
+        #if DEBUG
+            self.mobileInputView.textField.text     = "18956396627"
+            self.passwordInputView.textField.text   = "111111"
+        #endif
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,17 +86,28 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         var offset = (DSSConst.IS_iPhone4() ? 40 : 80)
         let width:CGFloat = (DSSConst.IS_iPhone4() ? CGFloat(260) : CGFloat(276))
         
+        self.view.addSubview(self.bgImgView)
+        self.bgImgView.snp_makeConstraints { (make) in
+            make.edges.equalTo(self.view)
+        }
+        
         self.view.addSubview(self.logoImgView)
         self.logoImgView.snp_makeConstraints { (make) in
             make.top.equalTo(self.view).offset(offset)
             make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(116, 76))
+            make.size.equalTo(CGSizeMake(60, 50))
+        }
+        
+        self.view.addSubview(self.textLogoImgView)
+        self.textLogoImgView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.logoImgView.snp_bottom).offset(10)
+            make.centerX.equalTo(self.view)
         }
         
         offset = (DSSConst.IS_iPhone4() ? 20 : 40)
         self.view.addSubview(self.mobileInputView)
         self.mobileInputView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.logoImgView.snp_bottom).offset(offset)
+            make.top.equalTo(self.textLogoImgView.snp_bottom).offset(offset)
             make.centerX.equalTo(self.view)
             make.size.equalTo(CGSizeMake(width, 42))
         }
@@ -115,15 +130,27 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     }
     
     // MARK: - Property
+    
+    lazy var bgImgView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = DSSImage.dss_bgImage()
+        return imgView
+    }()
+    
     lazy var logoImgView: UIImageView = {
         let logoImgView = UIImageView()
         logoImgView.image = UIImage.init(named: "logo")
         return logoImgView
     }()
     
+    lazy var textLogoImgView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = UIImage.init(named: "textLogo")
+        return imgView
+    }()
+    
     lazy var mobileInputView: DSSLoginTextInput = {
         let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Phone number", secure: false)
-        mobileInputView.backgroundColor = UIColor.init(white: 1, alpha: 1)
         mobileInputView.textField.delegate = self;
         mobileInputView.textField.returnKeyType = .Done
         mobileInputView.textField.keyboardType = .NumbersAndPunctuation
@@ -132,7 +159,6 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     
     lazy var passwordInputView: DSSLoginTextInput = {
         let passwordInputView = DSSLoginTextInput(iconName: "PasswordInputLogo", placeholder: "Password", secure: true)
-        passwordInputView.backgroundColor = UIColor.init(white: 1, alpha: 1)
         passwordInputView.textField.delegate = self;
         passwordInputView.textField.returnKeyType = .Done
         passwordInputView.textField.keyboardType = .NumbersAndPunctuation
@@ -143,8 +169,8 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         let loginBtn = UIButton(type: UIButtonType.Custom)
         loginBtn.layer.cornerRadius = 4
         loginBtn.setTitle("Sign in", forState: UIControlState.Normal)
-        loginBtn.backgroundColor = UIColor(red: 232.0/255.0, green: 97.0/255.0, blue: 31.0/255.0, alpha: 1.0)
-        loginBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
+        loginBtn.backgroundColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 0.9)
+        loginBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
         loginBtn.addTarget(self, action: #selector(self.clickLoginAction), forControlEvents: .TouchUpInside)
         return loginBtn
     }()

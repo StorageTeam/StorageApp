@@ -17,18 +17,18 @@ class DSSAppearance: NSObject {
     }
     
     private class func configStatusBar() {
-        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     private class func configNavigationBar() {
         UINavigationBar.appearance().translucent = false
         
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().barTintColor = UIColor.blackColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName  : UIColor.whiteColor(),
+        UINavigationBar.appearance().tintColor = UIColor.blackColor()
+        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName  : UIColor.blackColor(),
                                                             NSFontAttributeName             : UIFont.systemFontOfSize(18)]
         
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.whiteColor(),
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.blackColor(),
                                                                 NSFontAttributeName         : UIFont.systemFontOfSize(15)]
                                                             , forState: UIControlState.Normal)
     }
