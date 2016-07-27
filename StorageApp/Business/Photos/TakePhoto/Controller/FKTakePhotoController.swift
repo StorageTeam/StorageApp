@@ -14,7 +14,7 @@ enum myerror: ErrorType {
     case JSDeviceInputInitError
 }
 
-class JSTakePhotoController: DSSBaseViewController {
+class FKTakePhotoController: DSSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,8 +198,8 @@ class JSTakePhotoController: DSSBaseViewController {
         return layer
     }()
     
-    lazy var actionView: JSCircleBgView = {
-        let view = JSCircleBgView.init(frame: CGRectZero)
+    lazy var actionView: FKCircleBgView = {
+        let view = FKCircleBgView.init(frame: CGRectZero)
         return view
     }()
 
@@ -207,7 +207,7 @@ class JSTakePhotoController: DSSBaseViewController {
         let button = UIButton.init(type: UIButtonType.Custom)
         button.setTitle("take photo", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(JSTakePhotoController.clickTakePhoto), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(self.clickTakePhoto), forControlEvents: .TouchUpInside)
         return button
     }()
     

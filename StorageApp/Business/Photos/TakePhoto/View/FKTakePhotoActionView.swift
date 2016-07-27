@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JSCircleBgView: UIView {
+class FKCircleBgView: UIView {
     
     private let fixedMargin = CGFloat(68.0)
     
@@ -32,7 +32,7 @@ class JSCircleBgView: UIView {
     }
 }
 
-class JSTakePhotoActionView: UIView {
+class FKTakePhotoActionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,8 +49,8 @@ class JSTakePhotoActionView: UIView {
         }
     }
     
-    lazy var doneBtnBgView: JSCircleBgView = {
-        let view = JSCircleBgView.init()
+    lazy var doneBtnBgView: FKCircleBgView = {
+        let view = FKCircleBgView.init()
         view.backgroundColor = UIColor.redColor()
         return view
     }()
