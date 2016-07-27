@@ -9,22 +9,37 @@
 import UIKit
 import AVFoundation
 
-enum myerror: ErrorType {
-    case JSDeviceLockError
-    case JSDeviceInputInitError
-}
+//typealias takeDonePicture = (images: [UIImage]) -> Void
 
 class FKTakePhotoController: DSSBaseViewController {
-
+    
+    private let topHeight = 44.0
+    private let actionViewH = 97.0
+    private let imgListH = 90.0
+    private let maxImgCount = 9
+    
+    private var imageArray: [UIImage] = []
+    private var finshColsure: ((images: [UIImage]) -> Void)?
+    
+    convenience init(title: String, takeDonePicture: ([UIImage] -> Void)?) {
+        self.init()
+        self.topView.titleLabel.text = title
+        self.finshColsure = takeDonePicture
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.prepare()
         self.addAllSubviews()
+        self.prepare()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
-        // 获取权限
+        super.viewWillAppear(animated)
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
         
         switch status {
@@ -44,27 +59,38 @@ class FKTakePhotoController: DSSBaseViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         self.session.stopRunning()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
     }
 
     private func addAllSubviews() {
         
         self.previewLayer.frame = self.backLayer.bounds;
         self.backLayer.addSublayer(self.previewLayer)
+        
         self.view.layer.addSublayer(self.backLayer)
         
-        self.view.addSubview(self.takePhotoBtn)
+        self.view.addSubview(self.topView)
+        self.view.addSubview(self.photoListView)
         self.view.addSubview(self.actionView)
         
-        self.takePhotoBtn.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.bottom.equalTo(self.view).offset(-35)
-            make.size.equalTo(CGSizeMake(100, 50))
+        self.topView.snp_makeConstraints { (make) in
+            make.top.left.right.equalTo(self.view)
+            make.height.equalTo(topHeight)
+        }
+        
+        self.photoListView.snp_makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.bottom.equalTo(self.actionView.snp_top)
+            make.height.equalTo(90)
         }
         
         self.actionView.snp_makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(100)
+            make.height.equalTo(actionViewH)
         }
     }
     
@@ -77,11 +103,25 @@ class FKTakePhotoController: DSSBaseViewController {
         if self.session.canAddOutput(self.imageOutput) {
             self.session.addOutput(self.imageOutput)
         }
-        
-        
     }
     
     // MARK: - action
+    @objc private func clickCancelBtn() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @objc private func clickFinishBtn() {
+        guard self.imageArray.count > 0 else {
+            self.showText("至少选择一张照片")
+            return
+        }
+        
+        if self.finshColsure != nil {
+            self.finshColsure!(images: self.imageArray)
+        }
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     @objc private func clickTakePhoto() {
         
 //        let curDeviceOrientation = UIDevice.currentDevice().orientation
@@ -108,7 +148,16 @@ class FKTakePhotoController: DSSBaseViewController {
 //            weakself?.clickTakePhoto()
 //        }
 //        
-//        return
+
+        if self.imageArray.count >= self.maxImgCount {
+            let warnStr = String.init(format: "最多添加%d张照片", self.maxImgCount)
+            self.showText(warnStr)
+            return
+        }
+        
+        // 防止重复多次点击
+        self.actionView.takePhotoBtn.userInteractionEnabled = false
+        
         let connection = self.imageOutput.connectionWithMediaType(AVMediaTypeVideo)
         let curDeviceOri = UIDevice.currentDevice().orientation
         let avOrientation = self.avOrientationForDeviceOrientation(curDeviceOri)
@@ -117,18 +166,24 @@ class FKTakePhotoController: DSSBaseViewController {
      
         weak var weakself = self
         self.imageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (sampBuffer: CMSampleBuffer!, error: NSError!) in
-            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampBuffer)
-            let image = UIImage.init(data: imageData)
-            if image != nil {
-                weakself?.pushViewController(image!)
+            
+            if weakself != nil {
+                weakself!.actionView.takePhotoBtn.userInteractionEnabled = true
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampBuffer)
+                let image = UIImage.init(data: imageData)
+                if image != nil {
+                    weakself?.takeOnePicture(image!)
+                }
             }
         }
     }
     
-    private func pushViewController(image: UIImage) {
+    private func takeOnePicture(image: UIImage) {
         
-//        let show = ShowImgController.init(image: image)
-//        self.navigationController?.pushViewController(show, animated: true)
+        let sizeImg = image.cutFromCenterTo(self.backLayer.bounds.size)
+        self.imageArray.append(sizeImg)
+        self.photoListView.reloadData(self.imageArray, scrollToLast: true)
+//        self.photoListView.images = self.imageArray
         
     }
     
@@ -192,25 +247,43 @@ class FKTakePhotoController: DSSBaseViewController {
     
     lazy var backLayer : CALayer = {
         let layer = CALayer.init()
-        layer.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 160)
+        layer.frame = CGRectMake(0, 44, DSSConst.UISCREENWIDTH, DSSConst.UISCREENHEIGHT - CGFloat(self.topHeight) - CGFloat(self.actionViewH) - CGFloat(self.imgListH))
         layer.masksToBounds = true
         
         return layer
     }()
     
-    lazy var actionView: FKCircleBgView = {
-        let view = FKCircleBgView.init(frame: CGRectZero)
+    lazy var actionView: FKTakePhotoActionView = {
+        
+        let view = FKTakePhotoActionView.init()
+        view.takePhotoBtn.addTarget(self, action: #selector(self.clickTakePhoto), forControlEvents: .TouchUpInside)
+        view.cancelBtn.addTarget(self, action: #selector(self.clickCancelBtn), forControlEvents: .TouchUpInside)
+        view.finishBtn.addTarget(self, action: #selector(self.clickFinishBtn), forControlEvents: .TouchUpInside)
+        
         return view
     }()
-
-    lazy var takePhotoBtn: UIButton = {
-        let button = UIButton.init(type: UIButtonType.Custom)
-        button.setTitle("take photo", forState: .Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(self.clickTakePhoto), forControlEvents: .TouchUpInside)
-        return button
+    
+    lazy var topView: FKTakePhotoTopView = {
+       let view = FKTakePhotoTopView.init()
+        view.titleLabel.text = "DSU93U02U3"
+        return view
     }()
     
-
-   
+    lazy var photoListView: FKPhotoListView = {
+       let view = FKPhotoListView.init()
+        view.maxCount = self.maxImgCount
+        
+        weak var weakSelf = self
+        view.removeClosure = {
+            (index: Int) -> () in
+            
+            guard index >= 0 && index < weakSelf!.imageArray.count else {
+                return
+            }
+            weakSelf!.imageArray.removeAtIndex(index)
+            weakSelf!.photoListView.reloadData(weakSelf!.imageArray, scrollToLast: false)
+        }
+        
+        return view
+    }()
 }
