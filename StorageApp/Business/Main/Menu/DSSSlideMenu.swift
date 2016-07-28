@@ -88,7 +88,7 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     // MARK: - Action
     
     func tapBgViewGesture() -> Void {
-        print("123")
+        self.delegate?.slideMenuClick(self, event: SlideMenuEvent.MenuClose, userInfo: nil)
     }
     
     // MARK: - Property

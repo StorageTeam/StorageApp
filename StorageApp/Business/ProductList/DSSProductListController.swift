@@ -17,7 +17,14 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     private static let PRODUCTLIST_DELETE_LIST_REQUEST     : Int   = 4
     
     private static let ALERT_VIEW_DELETE     : String   = "ALERT_VIEW_DELETE"
-    private static let ALERT_VIEW_LOGOUT     : String   = "ALERT_VIEW_LOGOUT"
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         self.tableView.dg_removePullToRefresh()
@@ -28,7 +35,6 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.title = "Item Managerment"
         
-        self.navigationItem.leftBarButtonItem  = UIBarButtonItem.init(image: UIImage.init(named: "LeftBarIcon"), style: .Done, target: self, action: #selector(clickLeftNaviBarButton))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(clickRightNaviBarButton))
     }
     
@@ -134,11 +140,6 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
                                                                     "type"  : self.viewModel.listType.rawValue])
                     }
                 }
-            case DSSProductListController.ALERT_VIEW_LOGOUT:
-                if buttonIndex == 1 {
-                    DSSAccount.logout()
-                    self.presentLoginController()
-                }
             default:
                 break
             }
@@ -198,19 +199,6 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     }
     
     // MARK: - Action
-    func clickLeftNaviBarButton(sender: UIButton) {
-        if DSSAccount.isLogin() {
-            let alert = UIAlertView.init(title: "Confirm",
-                                         message: "Logout?",
-                                         delegate: self,
-                                         cancelButtonTitle: "Cancel",
-                                         otherButtonTitles: "Confirm")
-            alert.describeName = DSSProductListController.ALERT_VIEW_LOGOUT
-            alert.show()
-        } else {
-            self.presentLoginController()
-        }
-    }
     
     func clickRightNaviBarButton(sender: UIButton) {
         let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
