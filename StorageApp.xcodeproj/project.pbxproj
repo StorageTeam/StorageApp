@@ -20,6 +20,9 @@
 		044D65581D4848340061597F /* FKTakePhotoActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D65551D478D8D0061597F /* FKTakePhotoActionView.swift */; };
 		044D65591D4848370061597F /* FKTakePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D65521D478D0C0061597F /* FKTakePhotoController.swift */; };
 		044D655A1D4848380061597F /* FKTakePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D65521D478D0C0061597F /* FKTakePhotoController.swift */; };
+		047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
+		047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
+		047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
 		04805D731D239A6200CA12CE /* DSSUIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04805D721D239A6200CA12CE /* DSSUIImage+Extension.swift */; };
 		04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028051D224EDF0060CD7C /* EditViewController.swift */; };
 		04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028091D224EFC0060CD7C /* FKEditDescCell.swift */; };
@@ -218,6 +221,9 @@
 		0435D7F81D24B067008BBFEF /* DSSEditService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditService.swift; sourceTree = "<group>"; };
 		044D65521D478D0C0061597F /* FKTakePhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTakePhotoController.swift; sourceTree = "<group>"; };
 		044D65551D478D8D0061597F /* FKTakePhotoActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTakePhotoActionView.swift; sourceTree = "<group>"; };
+		047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTakePhotoTopView.swift; sourceTree = "<group>"; };
+		047C23621D48585100D5F4D7 /* FKPhotoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPhotoListView.swift; sourceTree = "<group>"; };
+		047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPerImgCollectionCell.swift; sourceTree = "<group>"; };
 		04805D721D239A6200CA12CE /* DSSUIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DSSUIImage+Extension.swift"; sourceTree = "<group>"; };
 		04C028051D224EDF0060CD7C /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		04C028091D224EFC0060CD7C /* FKEditDescCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditDescCell.swift; sourceTree = "<group>"; };
@@ -373,6 +379,9 @@
 			isa = PBXGroup;
 			children = (
 				044D65551D478D8D0061597F /* FKTakePhotoActionView.swift */,
+				047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */,
+				047C23621D48585100D5F4D7 /* FKPhotoListView.swift */,
+				047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1034,6 +1043,7 @@
 				04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */,
 				CEBBA80C1D23AF6700187B07 /* DSSString+Extension.swift in Sources */,
 				CE13DD7B1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
+				047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */,
 				CEF0CAE71D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CEBBA8061D23AF5F00187B07 /* DSSProductListViewModel.swift in Sources */,
 				CE3DDD6F1D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
@@ -1049,11 +1059,13 @@
 				CE13DD721D1BBA040072D045 /* DSSProductListController.swift in Sources */,
 				CEE033901D49E6B800DD5781 /* DSSSupplierListView.swift in Sources */,
 				CE13DD771D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
+				047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */,
 				04C028131D224EFC0060CD7C /* FKEditUpcCell.swift in Sources */,
 				04C028101D224EFC0060CD7C /* FKEditDescCell.swift in Sources */,
 				04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */,
 				CEE0339A1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
 				04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */,
+				047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */,
 				CEE033651D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEE033841D49B9E000DD5781 /* DSSBuildingImgView.swift in Sources */,
 				CEE033961D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,

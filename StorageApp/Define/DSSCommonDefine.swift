@@ -14,6 +14,8 @@ class DSSConst: NSObject {
     static let PageSize            = "200"
     static let UPLOAD_PHOTO_LENGTH = 320.0
     static let pixelHeight         = 1.0/UIScreen.mainScreen().scale
+    static let UISCREENWIDTH       = UIScreen.mainScreen().bounds.size.width
+    static let UISCREENHEIGHT       = UIScreen.mainScreen().bounds.size.height
     
     class func IS_iPhone4() -> Bool {
         return Double(fabs((UIScreen.mainScreen().bounds.size.height - 480.0))) < DBL_EPSILON
