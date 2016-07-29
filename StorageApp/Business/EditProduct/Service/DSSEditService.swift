@@ -17,7 +17,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/get_product_shipoffline_for_app.json"
+            , path: "/link-site/web/product_shipoffline_json/get_product_shipoffline_to_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -37,7 +37,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/modify_product_shipoffline_for_app.json"
+            , path: "/link-site/web/product_shipoffline_json/modify_product_shipoffline_to_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -46,7 +46,7 @@ class DSSEditService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/create_product_shipoffline_for_app.json"
+            , path: "/link-site/web/product_shipoffline_json/create_product_shipoffline_to_app.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -55,36 +55,27 @@ class DSSEditService: NSObject {
 //        
 //    }
     
-    class func parseEditDetail(json:[String : AnyObject]) -> DSSEditItem? {
+    class func parseEditDetail(json:[String : AnyObject], toModel: EditViewModel) {
+        
         if let data = json["data"] as? [String:AnyObject] {
             
-            let editItem = DSSEditItem()
+            if let sourceItem = Mapper<EditSourceItem>().map(data) {
+                toModel.sourceItem = sourceItem
+            }
             
-            if let infoDict = data["product_shipoffline"] as? NSDictionary {
-                if let newInfo = Mapper<DSSEditInfoItem>().map(infoDict) {
-                    editItem.infoItem = newInfo
+            if let proPicInfoDict = data["product_shipoffline_pic_list"] as? NSDictionary {
+                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(proPicInfoDict) {
+                    toModel.proImgArray = picItemArray
                 }
             }
             
-            if let shipDict = data["product_shipoffline_goods"] as? NSDictionary {
-                if let specArrayDict = shipDict["product_shipoffline_goods_list"] as? [NSDictionary] {
-                    if let itemDict = specArrayDict.first {
-                        if let goodsDict = itemDict["goods_info"] as? NSDictionary {
-                            if let newSpec = Mapper<DSSEditSpecItem>().map(goodsDict) {
-                                editItem.specItem = newSpec
-                            }
-                        }
-                    }
-                }
-                
-                if let imgArrayDict = shipDict["product_shipoffline_pic_list"] as? [NSDictionary] {
-                    editItem.picItems = Mapper<DSSEditImgItem>().mapArray(imgArrayDict)!
+            if let pricePicInfoDict = data["audit_pic_json"] as? NSDictionary {
+                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(pricePicInfoDict) {
+                    toModel.priceImgArray = picItemArray
                 }
             }
-            
-            return editItem
+        
         }
-        return nil
     }
     
     class func parserImgUrl(json: [String : AnyObject]) -> String? {

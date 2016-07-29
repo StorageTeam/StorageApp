@@ -8,8 +8,7 @@
 
 import UIKit
 import AVFoundation
-
-//typealias takeDonePicture = (images: [UIImage]) -> Void
+import Photos
 
 class DSSTakePhotoController: DSSBaseViewController {
     
@@ -119,35 +118,9 @@ class DSSTakePhotoController: DSSBaseViewController {
         if self.finshColsure != nil {
             self.finshColsure!(images: self.imageArray)
         }
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @objc private func clickTakePhoto() {
-        
-//        let curDeviceOrientation = UIDevice.currentDevice().orientation
-//        switch curDeviceOrientation {
-//        case .Portrait:
-//            print("cur device = Portrait")
-//        case .PortraitUpsideDown:
-//            print("cur device = PortraitUpsideDown")
-//        case .LandscapeLeft:
-//            print("cur device = LandscapeLeft")
-//        case .LandscapeRight:
-//            print("cur device = LandscapeRight")
-//        case .FaceDown:
-//            print("cur device = FaceDown")
-//        case .FaceUp:
-//            print("cur device = FaceUp")
-//        default:
-//            print("cur device = unkown")
-//            break
-//        }
-//
-//        weak var weakself = self
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-//            weakself?.clickTakePhoto()
-//        }
-//        
 
         if self.imageArray.count >= self.maxImgCount {
             let warnStr = String.init(format: "最多添加%d张照片", self.maxImgCount)
@@ -180,12 +153,14 @@ class DSSTakePhotoController: DSSBaseViewController {
     
     private func takeOnePicture(image: UIImage) {
         
-//        let sizeImg = image.cutFromCenterTo(self.backLayer.bounds.size)
         let sizeImg = image.dss_thumImageFromCenter(self.backLayer.bounds.size)
         self.imageArray.append(sizeImg)
         self.photoListView.reloadData(self.imageArray, scrollToLast: true)
-//        self.photoListView.images = self.imageArray
         
+        // 保存图片
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ 
+            PHAssetChangeRequest.creationRequestForAssetFromImage(sizeImg)
+            }, completionHandler: nil)
     }
     
     private func avOrientationForDeviceOrientation(deviceOrientation: UIDeviceOrientation) -> AVCaptureVideoOrientation{

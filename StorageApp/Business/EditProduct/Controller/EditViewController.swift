@@ -21,16 +21,13 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     
     private let IMG_UPLOAD_INDEX_KEY = "IMG_UPLOAD_INDEX_KEY"
     private let IMG_UPLOAD_IS_PRODUCT_KEY = "IMG_UPLOAD_IS_PRODUCT_KEY"
-
-//    weak private var firstRespond : UIView?
     
     // MARK: Life sycle
     override func viewDidLoad() {
         
         self.addAllSubviews()
-        self.configNavItem()
-//        self.addKeyboardObser()
-//        self.requestInitalData()
+        self.configNavBar()
+        self.requestInitalData()
         
         self.view.backgroundColor = UIColor.whiteColor()
     }
@@ -39,19 +36,18 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         self.init()
         self.viewModel.editType = editType
         self.viewModel.productID = productID
-        
-//        if editType == kEditType.kEditTypeAdd {
-//            self.viewModel.dataItem = DSSEditItem.init()
-//            self.viewModel.dataItem.picItems = [DSSEditImgItem]()
-//            self.viewModel.dataItem.infoItem = DSSEditInfoItem.init()
-//            self.viewModel.dataItem.specItem = DSSEditSpecItem.init()
-//        }
+    }
+    
+    convenience init(source: EditSourceItem) {
+        self.init(editType: kEditType.kEditTypeAdd, productID: nil)
+        self.viewModel.sourceItem = source
     }
     
     deinit {
         self.cacheManger.stopCachingImagesForAllAssets()
     }
     
+    //MARK: - UI config
     func addAllSubviews() -> Void {
         self.view.addSubview(self.tableView)
         self.tableView.snp_makeConstraints { (make) in
@@ -59,13 +55,45 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         }
     }
     
-//    deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
-//    }
+    func configNavBar() -> Void {
+        self.configNavTitle()
+        self.configNavItems()
+    }
     
-    // MARK: Reuqest
+    func configNavTitle() {
+        
+        var title = ""
+        switch self.viewModel.editType {
+        case kEditType.kEditTypeAdd:
+            title = "添加商品"
+        case .kEditTypeEdit:
+            title = "商品编辑"
+        case .kEditTypeCheck:
+            title = "商品详情"
+        }
+        
+        self.navigationItem.title = title
+    }
+    
+    func configNavItems() {
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "common_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBackAction))
+        
+        guard self.viewModel.editType == kEditType.kEditTypeEdit else {
+            return
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "删除",
+                                                                      style: UIBarButtonItemStyle.Plain,
+                                                                      target: self,
+                                                                      action: #selector(self.clickDeleteAction))
+        
+    }
+
+    
+    // MARK: - Reuqest
     func requestInitalData() {
-        if self.viewModel.productID != nil && self.viewModel.editType != kEditType.kEditTypeAdd{
+        if self.viewModel.productID != nil {
             self.showHUD()
             DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
         }
@@ -77,28 +105,28 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         
         if self.viewModel.editType == kEditType.kEditTypeAdd {
             // 新建
-//            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
             
         }else if self.viewModel.editType == kEditType.kEditTypeEdit {
             // 修改
-//            DSSEditService.requestEdit(EDIT_SAVE__REQ,
-//                                       delegate: self,
-//                                       para: self.viewModel.getSavePara()!)
+            DSSEditService.requestEdit(EDIT_SAVE__REQ,
+                                       delegate: self,
+                                       para: self.viewModel.getSavePara()!)
         }
     }
     
-    // MARK: Response
+    // MARK: - Response
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         
         
         if header.code == DSSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
                 self.hidHud(false)
-//                self.viewModel.dataItem = DSSEditService.parseEditDetail(response)!
+                DSSEditService.parseEditDetail(response, toModel: self.viewModel)
                 self.tableView.reloadData()
                 
             } else if identify == DELETE_PRO_REQ {
-                
+                 //.,mxzsaasd 
                 self.hidHud(false)
                 self.showText("删除成功")
                 self.clickBackAction()
@@ -128,7 +156,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
             }
             
         } else {
-            print("error = \(response)")
+            self.showText(header.msg)
         }
     }
     
@@ -137,64 +165,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         self.showText(header?.msg)
     }
     
-
-    // MARK:  TextFieldCell delegate
-//    func shouldBeginEditing(view: UIView) {
-//        self.firstRespond = view
-//    }
-    
-//    func finishInput(cell: UITableViewCell, text: String?) {
-//        let indexPath = self.tableView.indexPathForCell(cell)
-//        if (indexPath != nil) {
-//            let cellType = self.viewModel.cellTypeForIndexPath(indexPath!)
-//            
-//            switch cellType {
-//            case .kEditCellTypeTitle:
-//                self.viewModel.dataItem.infoItem.name = text
-//            case .kEditCellTypeName:
-//                self.viewModel.dataItem.infoItem.chinaName = text
-//            case .kEditCellTypeBrand:
-//                self.viewModel.dataItem.infoItem.brand = text
-//            case .kEditCellTypeDesc:
-//                self.viewModel.dataItem.infoItem.desc = text
-//            case .kEditCellTypePrice:
-//                var priceInt : Int = 0
-//                if (text != nil && text?.characters.count > 0) {
-//                    let priceFloat = Float(text!)!
-//                    priceInt = Int(round(priceFloat * 100))
-//                }
-//                self.viewModel.dataItem.infoItem.price = priceInt
-//            case .kEditCellTypeStock:
-//                self.viewModel.dataItem.specItem.stock = text
-//            case .kEditCellTypeWeight:
-//                self.viewModel.dataItem.specItem.weight = text
-//            case .kEditCellTypeItemNo:
-//                self.viewModel.dataItem.specItem.siteSku = text
-//            case .kEditCellTypeUPC:
-//                self.viewModel.dataItem.specItem.upcStr = text
-//            default:
-//                break
-//            }
-//        }
-//    }
-    
-    // MARK: Action
-//    func clickScanAction(sender: UIButton){
-//        
-//        if self.viewModel.editType == kEditType.kEditTypeCheck {
-//            return
-//        }
-//        
-//        weak var weakself = self
-//        let scanController = FKScanController.init { (resStr) -> Void in
-//            print("scan res string = \(resStr)")
-//            weakself?.viewModel.dataItem.specItem.upcStr = resStr
-//            weakself?.viewModel.dataItem.specItem.siteSku = resStr
-//            weakself?.tableView.reloadData()
-//        }
-//        self.navigationController?.pushViewController(scanController, animated: true)
-//    }
-    
+    // MARK: - Action
     func clickDeleteAction(){
         if self.viewModel.productID != nil {
             DSSEditService.reqDelete(DELETE_PRO_REQ, delegate: self, productId: self.viewModel.productID!)
@@ -206,14 +177,11 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func clickReleaseBtn() {
-        
-        self.view.endEditing(true)
-    
+    func clickSaveBtn() {
+            
         let res = self.viewModel.isDataComplete()
         if (res.complete == false){
             self.showText(res.error)
-            //            print("not complete error = \(res?.error)")
             return
         }
         
@@ -228,6 +196,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         
     }
     
+     // MARK: - Mehod
     private func uploadImgWith(imageItems: [DSSEditImgItem], isProduct: Bool) {
         
         for imgItem in imageItems {
@@ -256,24 +225,6 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         }
     }
     
-    // MARK: Mehod
-    func configNavItem() -> Void {
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel",
-                                                                     style: UIBarButtonItemStyle.Plain,
-                                                                     target: self,
-                                                                     action: #selector(self.clickBackAction))
-        
-        guard self.viewModel.editType == kEditType.kEditTypeEdit else {
-            return
-        }
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "删除",
-                                                                      style: UIBarButtonItemStyle.Plain,
-                                                                      target: self,
-                                                                      action: #selector(self.clickDeleteAction))
-    }
-    
     func savePicUrl(picUrl: String, index: Int, isProduct: Bool) {
         var picItems = self.viewModel.priceImgArray
         if isProduct {
@@ -293,25 +244,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         }
     }
     
-//    func keyBoardChange(sender: NSNotification) {
-//        
-//        if sender.name == UIKeyboardWillShowNotification {
-//            
-//            let keyboardEndFrame = sender.userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
-//            let firstRespondRect = self.view.window?.convertRect((self.firstRespond?.frame)!, fromView: self.firstRespond?.superview)
-//            let margin = (keyboardEndFrame?.origin.y)! - ((firstRespondRect?.origin.y)! + (firstRespondRect?.size.height)!)
-//            
-//            if margin < 20.0 {
-//                let upMargin = 20 - margin
-//                self.tableView.frame = CGRectOffset(self.tableView.frame, 0, -upMargin)
-//            }
-//        } else if sender.name == UIKeyboardWillHideNotification {
-//            self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)
-//            self.tableView.contentInset = UIEdgeInsetsZero
-//        }
-//    }
-    
-    // MARK: Property
+    // MARK: - Property
     lazy var tableView: UITableView = {
         
         let tableView = UITableView.init(frame: CGRectZero, style: .Grouped)
@@ -366,7 +299,7 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource{
             picCell.delegate = self
             picCell.tag = indexPath.row - 2
         }else if let saveCell = cell as? FKEditSaveCell {
-            saveCell.saveBtn.addTarget(self, action: #selector(self.clickReleaseBtn), forControlEvents: .TouchUpInside)
+            saveCell.saveBtn.addTarget(self, action: #selector(self.clickSaveBtn), forControlEvents: .TouchUpInside)
         }
         
         cell?.fk_configWith(self.viewModel, indexPath: indexPath);
@@ -413,12 +346,6 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource{
         }
         return 35.0
     }
-    
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        self.view.endEditing(true)
-//    }
-    
-    
 }
 
 extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDelegate{
@@ -487,24 +414,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
             })
             self.navigationController?.pushViewController(selectPic, animated: true)
         }
-//        if type == .Camera && !UIImagePickerController.isSourceTypeAvailable(type) {
-//            self.showCameraAuthorityAlert()
-//        } else {
-//            let imgPicker = UIImagePickerController.init()
-//            imgPicker.allowsEditing = true
-//            imgPicker.sourceType = type
-//            imgPicker.delegate = self
-//            imgPicker.modalPresentationStyle = .FullScreen
-//            self.presentViewController(imgPicker, animated: true, completion: nil)
-//        }
     }
-    
-//    private func showCameraAuthorityAlert() {
-//        let alert = UIAlertController.init(title: "dsds", message: "sd", preferredStyle: .Alert)
-//        let action = UIAlertAction.init(title: "无法使用相机，请前往设置打开", style: .Default, handler: nil)
-//        alert.addAction(action)
-//        self.presentViewController(alert, animated: true, completion: nil)
-//    }
     
     private func addImags(images: [UIImage], isProduct: Bool) {
         
@@ -527,9 +437,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
     }
     
     private func addImags(assets: [PHAsset], isProduct: Bool) {
-    
-//        let scale = UIScreen.mainScreen().scale
-//        let size = CGSizeMake(CGFloat(FKEditImgContainer.getImgMargin() * scale), CGFloat(FKEditImgContainer.getImgMargin() * scale))
+
         let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
         let option = PHImageRequestOptions.init()
         option.deliveryMode = .HighQualityFormat
@@ -538,7 +446,6 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         for assetItem in assets {
             self.cacheManger.requestImageForAsset(assetItem, targetSize: size, contentMode: .AspectFit, options: option, resultHandler: { (resImg: UIImage?, info:[NSObject : AnyObject]?) in
                 
-                print("finish load assset = \(assetItem), resimg = \(resImg)")
                 let newImgItem = DSSEditImgItem()
                 newImgItem.image = resImg
                 if isProduct {
@@ -549,41 +456,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
                 weakSelf?.tableView.reloadData()
             })
         }
-        
-//        if isProduct {
-//            self.viewModel.proImgArray.appendContentsOf(targetImageItems)
-//        } else {
-//            self.viewModel.priceImgArray.appendContentsOf(targetImageItems)
-//        }
-//        self.tableView.reloadData()
     }
-    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-//        
-//        let mediaType = info[UIImagePickerControllerMediaType] as! String
-//        
-//        var image : UIImage?
-//        if mediaType == kUTTypeImage as String {
-//            if picker.allowsEditing {
-//                image = info[UIImagePickerControllerEditedImage] as? UIImage
-//            }else{
-//                image = info[UIImagePickerControllerOriginalImage] as? UIImage
-//            }
-//            
-//            if image != nil {
-//                image = UIImage.scaleImage(image!, toSize: CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH)))
-//                
-//                let newImgItem = DSSEditImgItem()
-//                newImgItem.image = image
-//                
-//                self.viewModel.dataItem.picItems.append(newImgItem)
-//                self.tableView.reloadData()
-//            }
-//        }
-//        
-//        picker.dismissViewControllerAnimated(true, completion: nil)
-//    }
-
 }
 
 
