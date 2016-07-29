@@ -29,6 +29,10 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
     }
     
+    override func configDefaultLeftBar() {
+
+    }
+    
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSSResponseCode.Normal {
@@ -206,7 +210,16 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         let scanController = FKScanController.init(supplierID: self.viewModel.getSelSupplierID(), finish: { (resStr) in
             wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
             let takePhotoController = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+                wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
                 
+                let editItem = EditSourceItem.init()
+                editItem.supplierId = wkSelf?.viewModel.getSelSupplierID()
+                editItem.address    = wkSelf?.viewModel.getSelSupplierName()
+                editItem.upc        = resStr
+                
+                let editController = EditViewController.init(source: editItem)
+                editController.hidesBottomBarWhenPushed = true
+                wkSelf?.navigationController?.pushViewController(editController, animated: true)
             })
             takePhotoController.hidesBottomBarWhenPushed = true
             wkSelf?.navigationController?.pushViewController(takePhotoController, animated: true)

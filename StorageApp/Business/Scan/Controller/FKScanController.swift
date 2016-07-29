@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class FKScanController: UIViewController, DSSDataCenterDelegate {
+class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
     private static let UPC_VALID_REQUEST          : Int   = 1
     
     var scanRect    : CGRect!

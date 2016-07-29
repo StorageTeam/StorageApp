@@ -18,6 +18,12 @@ class DSSBaseViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.configDefaultLeftBar()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -35,6 +41,16 @@ class DSSBaseViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Back Bar
+    
+    func configDefaultLeftBar() -> Void {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "common_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickDefaultLeftBar))
+    }
+    
+    func clickDefaultLeftBar() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     // MARK: - HUD
