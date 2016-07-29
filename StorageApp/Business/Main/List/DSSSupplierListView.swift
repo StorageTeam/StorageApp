@@ -75,7 +75,16 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        self.delegate?.slideMenuClick(self, event: SlideMenuEvent.init(rawValue: indexPath.row)!, userInfo: nil)
+        if let dataSource = self.dataSource {
+            for idx in 0 ..< dataSource.count {
+                let model = dataSource[idx]
+                if idx == indexPath.row {
+                    model.isSelected = true
+                } else {
+                    model.isSelected = false
+                }
+            }
+        }
     }
     
     // Mark: - Property
