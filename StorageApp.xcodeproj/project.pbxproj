@@ -31,6 +31,12 @@
 		047754951D4B050E0045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
 		047754961D4B05EF0045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
 		047754971D4B05F00045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
+		047754981D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
+		047754991D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
+		0477549B1D4B37A50045F548 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
+		0477549C1D4B37A60045F548 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
+		0477549D1D4B37B50045F548 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
+		0477549E1D4B37B60045F548 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
 		047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
 		047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
 		047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
@@ -1144,6 +1150,7 @@
 				CEF0CAE41D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF021D24B67F00A3969D /* FKScanController.swift in Sources */,
 				CE30BF001D24B67600A3969D /* DSSProductListModel.swift in Sources */,
+				047754981D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
 				CE30BF371D24BE6C00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1155,9 +1162,11 @@
 				CE30BF0E1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF331D24BE6200A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1D1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
+				0477549C1D4B37A60045F548 /* FKPhotoListView.swift in Sources */,
 				CE3DDD741D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				CE30BF291D24B71500A3969D /* DSSString+Extension.swift in Sources */,
+				0477549D1D4B37B50045F548 /* FKPerImgCollectionCell.swift in Sources */,
 				CE30BEFA1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
 				CEE0339B1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
@@ -1209,6 +1218,7 @@
 				CEF0CAE51D1D0EE0003C5357 /* DSSServer.swift in Sources */,
 				CE30BF031D24B68000A3969D /* FKScanController.swift in Sources */,
 				CE30BF011D24B67600A3969D /* DSSProductListModel.swift in Sources */,
+				047754991D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
 				CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1220,9 +1230,11 @@
 				CE30BF0F1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF341D24BE6300A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1E1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
+				0477549B1D4B37A50045F548 /* FKPhotoListView.swift in Sources */,
 				CE3DDD751D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				CE30BF2A1D24B71500A3969D /* DSSString+Extension.swift in Sources */,
+				0477549E1D4B37B60045F548 /* FKPerImgCollectionCell.swift in Sources */,
 				CE30BEFB1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
 				CEE0339C1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
