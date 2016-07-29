@@ -26,6 +26,8 @@
 		0477548F1D4A05000045F548 /* DSSSelectImgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477548B1D4A05000045F548 /* DSSSelectImgController.swift */; };
 		047754901D4A05000045F548 /* DSSSelectImgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477548B1D4A05000045F548 /* DSSSelectImgController.swift */; };
 		047754911D4A05000045F548 /* DSSSelectImgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477548B1D4A05000045F548 /* DSSSelectImgController.swift */; };
+		047754921D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754821D49F2A70045F548 /* FKEditTitleCell.swift */; };
+		047754931D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754821D49F2A70045F548 /* FKEditTitleCell.swift */; };
 		047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
 		047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
 		047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
@@ -1064,8 +1066,6 @@
 				044D65561D478D8D0061597F /* FKTakePhotoActionView.swift in Sources */,
 				CEE033931D49E6B800DD5781 /* DSSSlideHeaderView.swift in Sources */,
 				CEBBA8051D23AF5F00187B07 /* DSSProductListModel.swift in Sources */,
-				CEE033691D489EA200DD5781 /* DSSSlideMenu.swift in Sources */,
-				0435D7EC1D24B03D008BBFEF /* FKEditProtocol.swift in Sources */,
 				CE13DD721D1BBA040072D045 /* DSSProductListController.swift in Sources */,
 				CEE033901D49E6B800DD5781 /* DSSSupplierListView.swift in Sources */,
 				CE13DD771D1BBAFB0072D045 /* DSSBaseViewController.swift in Sources */,
@@ -1148,7 +1148,6 @@
 				CE30BF291D24B71500A3969D /* DSSString+Extension.swift in Sources */,
 				CE30BEFA1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
-				CE30BF0C1D24B68D00A3969D /* FKEditInputCell.swift in Sources */,
 				CEE0339B1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
 				CEC0AF641D49F0460018D2DD /* DSSSupplierListCell.swift in Sources */,
 				CEC0AF6A1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */,
@@ -1164,9 +1163,9 @@
 				CE3DDD701D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
 				CE30BEFE1D24B67300A3969D /* DSSProductListCell.swift in Sources */,
 				CE13DD381D1AA65C0072D045 /* StorageAppTests.swift in Sources */,
-				CEE0336E1D48AA0100DD5781 /* DSSSlideHeaderView.swift in Sources */,
 				0477548D1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
 				CE30BEF81D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
+				047754931D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */,
 				CE30BF141D24B69700A3969D /* FKEditHeaderView.swift in Sources */,
 				CE30BF2F1D24BE4900A3969D /* FKEditSaveCell.swift in Sources */,
 				CE30BF1F1D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
@@ -1176,7 +1175,6 @@
 				CEE033661D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEE033971D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
-				CE30BF3B1D24BE7600A3969D /* FKEditProtocol.swift in Sources */,
 				044D65571D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1215,7 +1213,6 @@
 				CE30BF2A1D24B71500A3969D /* DSSString+Extension.swift in Sources */,
 				CE30BEFB1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
-				CE30BF0D1D24B68E00A3969D /* FKEditInputCell.swift in Sources */,
 				CEE0339C1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
 				CEC0AF651D49F0460018D2DD /* DSSSupplierListCell.swift in Sources */,
 				CEC0AF6B1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */,
@@ -1231,9 +1228,9 @@
 				CE3DDD711D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
 				CE30BEFF1D24B67300A3969D /* DSSProductListCell.swift in Sources */,
 				CE13DD431D1AA65C0072D045 /* StorageAppUITests.swift in Sources */,
-				CEE0336F1D48AA0100DD5781 /* DSSSlideHeaderView.swift in Sources */,
 				0477548E1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
 				CE30BEF91D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
+				047754921D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */,
 				CE30BF151D24B69700A3969D /* FKEditHeaderView.swift in Sources */,
 				CE30BF301D24BE4A00A3969D /* FKEditSaveCell.swift in Sources */,
 				CE30BF201D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
@@ -1243,7 +1240,6 @@
 				CEE033671D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEE033981D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
-				CE30BF3C1D24BE7600A3969D /* FKEditProtocol.swift in Sources */,
 				044D65581D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
