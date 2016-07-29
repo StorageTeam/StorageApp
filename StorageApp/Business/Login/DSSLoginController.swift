@@ -133,7 +133,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     
     lazy var bgImgView: UIImageView = {
         let imgView = UIImageView()
-        imgView.image = DSSImage.dss_bgImage()
+        imgView.image = DSSImage.dss_bgImage(UIScreen.mainScreen().bounds.size)
         return imgView
     }()
     

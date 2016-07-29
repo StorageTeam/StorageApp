@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class DSSImage: NSObject {
-    class func dss_bgImage() -> UIImage {
-        let size = UIScreen.mainScreen().bounds.size
+    class func dss_bgImage(size: CGSize) -> UIImage {
         return UIImage.init(named: "dssBgIcon")!.dss_thumImageFromCenter(size)
     }
 }
