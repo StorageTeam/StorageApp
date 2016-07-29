@@ -81,7 +81,6 @@ class DSSSelectImgController: DSSBaseViewController {
         if self.selectDone != nil {
             self.selectDone!(fetchArray)
         }
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @objc private func clickBackBtn() {
@@ -170,8 +169,6 @@ class DSSSelectImgController: DSSBaseViewController {
         return button
         
     }()
-
-
 }
 
 extension DSSSelectImgController: UICollectionViewDataSource, UICollectionViewDelegate {

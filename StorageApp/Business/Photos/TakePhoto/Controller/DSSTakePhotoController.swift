@@ -8,8 +8,7 @@
 
 import UIKit
 import AVFoundation
-
-//typealias takeDonePicture = (images: [UIImage]) -> Void
+import Photos
 
 class DSSTakePhotoController: DSSBaseViewController {
     
@@ -154,12 +153,14 @@ class DSSTakePhotoController: DSSBaseViewController {
     
     private func takeOnePicture(image: UIImage) {
         
-//        let sizeImg = image.cutFromCenterTo(self.backLayer.bounds.size)
         let sizeImg = image.dss_thumImageFromCenter(self.backLayer.bounds.size)
         self.imageArray.append(sizeImg)
         self.photoListView.reloadData(self.imageArray, scrollToLast: true)
-//        self.photoListView.images = self.imageArray
         
+        // 保存图片
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ 
+            PHAssetChangeRequest.creationRequestForAssetFromImage(sizeImg)
+            }, completionHandler: nil)
     }
     
     private func avOrientationForDeviceOrientation(deviceOrientation: UIDeviceOrientation) -> AVCaptureVideoOrientation{
