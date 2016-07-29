@@ -44,7 +44,10 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     }
     
     deinit {
-        self.cacheManger.stopCachingImagesForAllAssets()
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        if status == .Authorized {
+            self.cacheManger.stopCachingImagesForAllAssets()
+        }
     }
     
     //MARK: - UI config
@@ -406,11 +409,13 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         if type == .Camera {
             let takePhoto = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
                 weakSelf?.addImags(images, isProduct: isProduct)
+                weakSelf?.navigationController?.popViewControllerAnimated(true)
             })
             self.navigationController?.pushViewController(takePhoto, animated: true)
         } else {
             let selectPic = DSSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
                 weakSelf?.addImags(assets, isProduct: isProduct)
+                weakSelf?.navigationController?.popViewControllerAnimated(true)
             })
             self.navigationController?.pushViewController(selectPic, animated: true)
         }

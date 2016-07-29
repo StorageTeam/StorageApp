@@ -40,8 +40,16 @@ class DSSSelectImgController: DSSBaseViewController {
         self.fetchAllPhoto()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.checkAuthority()
+    }
+    
     deinit {
-        self.cacheManger.stopCachingImagesForAllAssets()
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .Authorized {
+            self.cacheManger.stopCachingImagesForAllAssets()
+        }
     }
 
     private func addAllSubviews() {
@@ -49,6 +57,25 @@ class DSSSelectImgController: DSSBaseViewController {
         self.view.addSubview(self.collectionView)
         self.collectionView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsZero)
+        }
+    }
+    
+    private func checkAuthority() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .NotDetermined:
+            
+            weak var weakSelf = self
+            PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) in
+                if status == .Authorized {
+                    weakSelf?.fetchAllPhoto()
+                }
+            })
+        case .Denied, .Restricted:
+            let alert = UIAlertView.init(title: nil, message: "无法使用相机胶卷，请前往设置打开", delegate: nil, cancelButtonTitle: "确认")
+            alert.show()
+        default:
+            break
         }
     }
     

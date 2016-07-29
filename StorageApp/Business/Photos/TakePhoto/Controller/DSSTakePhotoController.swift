@@ -38,23 +38,7 @@ class DSSTakePhotoController: DSSBaseViewController {
         
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
-        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-        
-        switch status {
-        case .Authorized:
-            self.session.startRunning()
-        case .NotDetermined:
-            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (res: Bool) in
-                if res {
-                    self.session.startRunning()
-                }
-            })
-        case .Restricted:
-            print("使用相机受限")
-        default:
-            print("用户未授权使用相机")
-        }
+        self.checkAuthority()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -102,6 +86,33 @@ class DSSTakePhotoController: DSSBaseViewController {
         if self.session.canAddOutput(self.imageOutput) {
             self.session.addOutput(self.imageOutput)
         }
+    }
+    
+    private func checkAuthority() {
+    
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        
+        switch status {
+            case .Authorized:
+                self.actionView.takePhotoBtn.userInteractionEnabled = true
+                self.session.startRunning()
+            case .NotDetermined:
+                weak var weakSelf = self
+                AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (res: Bool) in
+                    if res {
+                        weakSelf!.session.startRunning()
+                        weakSelf!.actionView.takePhotoBtn.userInteractionEnabled = true
+                    } else {
+                        weakSelf!.actionView.takePhotoBtn.userInteractionEnabled = false
+                    }
+    
+                })
+            case .Restricted, .Denied:
+                let alert = UIAlertView.init(title: nil, message: "无法使用相机，请前往设置打开", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
+                self.actionView.takePhotoBtn.userInteractionEnabled = false
+        }
+
     }
     
     // MARK: - action

@@ -21,10 +21,6 @@ class FKEditSaveCell: UITableViewCell {
         self.addAllSubviews()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func addAllSubviews() -> Void {
         
         self.contentView.addSubview(self.saveBtn)
@@ -33,6 +29,27 @@ class FKEditSaveCell: UITableViewCell {
             make.right.equalTo(self.contentView).offset(-15)
             make.center.equalTo(self.contentView)
             make.height.equalTo(46.0)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let editViewModel = viewModel as? EditViewModel {
+            let res = editViewModel.isDataComplete();
+            self.refreshState(res.complete)
+        }
+    }
+    
+    private func refreshState(enable: Bool) {
+        if enable {
+            self.saveBtn.userInteractionEnabled = true
+            self.saveBtn.backgroundColor = UIColor.init(rgb: 0x1fbad6)
+        } else {
+            self.saveBtn.userInteractionEnabled = false
+            self.saveBtn.backgroundColor = UIColor.init(rgb: 0xcccccc)
         }
     }
     
