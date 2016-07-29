@@ -63,14 +63,14 @@ class DSSEditService: NSObject {
                 toModel.sourceItem = sourceItem
             }
             
-            if let proPicInfoDict = data["product_shipoffline_pic_list"] as? NSDictionary {
-                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(proPicInfoDict) {
+            if let proPicInfoArray = data["product_shipoffline_pic_list"] as? NSArray {
+                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(proPicInfoArray) {
                     toModel.proImgArray = picItemArray
                 }
             }
             
-            if let pricePicInfoDict = data["audit_pic_json"] as? NSDictionary {
-                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(pricePicInfoDict) {
+            if let pricePicInfoArray = data["audit_pic_json"] as? NSArray {
+                if let picItemArray = Mapper<DSSEditImgItem>().mapArray(pricePicInfoArray) {
                     toModel.priceImgArray = picItemArray
                 }
             }
