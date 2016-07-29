@@ -106,15 +106,18 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         
         self.showHUD()
         
-        if self.viewModel.editType == kEditType.kEditTypeAdd {
-            // 新建
-            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+        if let para = self.viewModel.getSavePara() {
             
-        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
-            // 修改
-            DSSEditService.requestEdit(EDIT_SAVE__REQ,
-                                       delegate: self,
-                                       para: self.viewModel.getSavePara()!)
+            if self.viewModel.editType == kEditType.kEditTypeAdd {
+                // 新建
+                DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: para)
+            }else if self.viewModel.editType == kEditType.kEditTypeEdit {
+                // 修改
+                DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: para)
+            }
+
+        } else {
+            self.hidHud(false)
         }
     }
     
