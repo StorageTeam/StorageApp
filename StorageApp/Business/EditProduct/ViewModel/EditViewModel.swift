@@ -24,26 +24,19 @@ enum kEditType: Int{
     case kEditTypeEdit
 }
 
-//let PIC_CELL_IDENTIFY = "PIC_CELL_IDENTIFY"
-//let DESC_CELL_IDENTIFY = "DESC_CELL_IDENTIFY"
-//let UPC_CELL_IDENTIFY = "UPC_CELL_IDENTIFY"
-//let DELETE_CELL_IDENTIFY = "DELETE_CELL_IDENTIFY"
-//let EDIT_COMMON_CELL_IDENTIFY = "EDIT_COMMON_CELL_IDENTIFY"
-
-//public let EDIT_HEADER_VIEW_IDENTIFY = "EDIT_HEADER_VIEW_IDENTIFY"
-
 class EditViewModel: NSObject {
 
     var editType = kEditType.kEditTypeAdd
     var productID: String?
-    var address: String = ""
-    var upc: String = ""
+    
+    var sourceItem = EditSourceItem.init()
     var proImgArray : [DSSEditImgItem] = []
     var priceImgArray : [DSSEditImgItem] = []
     
-//    var dataItem: DSSEditItem?
-
     func numberOfSection() -> Int {
+        if self.editType == kEditType.kEditTypeCheck {
+            return 4
+        }
         return 5
 //        if self.editType == kEditType.kEditTypeEdit {
 //            return 4
@@ -195,111 +188,59 @@ class EditViewModel: NSObject {
         }
         return (complete, errorStr)
     }
-//    func getSavePara() -> [String : AnyObject]? {
-//        let res = self.dataItem.isDataComplete()
-//        if res.complete == false {
-//            return nil
-//        }
-//        
-//        var para : [String : AnyObject] = [:]
-//        
-//        var infoPara : [String : AnyObject] = [:]
-//        
-//        if self.dataItem.infoItem.name != nil {
-//            infoPara["name"] = self.dataItem.infoItem.name
-//        }
-//        
-//        if self.dataItem.infoItem.chinaName != nil {
-//            infoPara["name_cn"] = self.dataItem.infoItem.chinaName
-//        }
-//        
-//        if self.dataItem.infoItem.desc != nil {
-//            infoPara["description"] = self.dataItem.infoItem.desc
-//        }
-//        
-//        if self.dataItem.infoItem.brand != nil {
-//            infoPara["brand"] = self.dataItem.infoItem.brand
-//        }
-//        
-//        if (self.editType == kEditType.kEditTypeEdit) {
-//            para["operation"] = "save"
-//            
-//            if self.productID != nil {
-//                infoPara["id"] = self.productID
-//            }
-//        }
-//        
-//        infoPara["currency"] = "USD"
-//        para["product_shipoffline"] = infoPara
-//        
-//        
-//        var latitudePara : [String : AnyObject] = [:]
-//        latitudePara["规格"] = "标配"
-//        
-//        var goodsInfoPara : [String : AnyObject] = [:]
-//        
-//        if self.dataItem.specItem.upcStr != nil {
-//            goodsInfoPara["upc"] = self.dataItem.specItem.upcStr
-//        }
-//        
-//        if self.dataItem.specItem.siteSku != nil {
-//            goodsInfoPara["site_sku"] = self.dataItem.specItem.siteSku
-//         }
-//        
-//        if self.dataItem.infoItem.price > 0 {
-//            goodsInfoPara["price"] = self.dataItem.infoItem.price
-//        }
-//        
-//        if self.dataItem.specItem.stock != nil {
-//            goodsInfoPara["stock"] = self.dataItem.specItem.stock
-//        }
-//        
-//        if self.dataItem.specItem.weight != nil {
-//            goodsInfoPara["weight"] = self.dataItem.specItem.weight
-//        }
-//        
-//        if self.dataItem.specItem.weight != nil {
-//            goodsInfoPara["weight"] = self.dataItem.specItem.weight
-//        }
-//        
-//        let imageItem = self.dataItem.picItems.first
-//        if imageItem != nil && imageItem?.picUrl != nil{
-//            goodsInfoPara["image"] = imageItem?.picUrl
-//        }
-//        
-//        var specItemPara : [String : AnyObject] = [:]
-//        specItemPara["goods_latitude"] = latitudePara
-//        specItemPara["goods_info"] = goodsInfoPara
-//        let specItemArray = [specItemPara]
-//        
-//        var specInfoPara : [String : AnyObject] = [:]
-//        specInfoPara["product_shipoffline_goods_list"] = specItemArray
-//        
-//        var picDescItemArray : [[String : AnyObject]] = []
-//        for imageItem in self.dataItem.picItems {
-//            if imageItem.picUrl != nil {
-//                let picDict = ["pic_url" : imageItem.picUrl!]
-//                picDescItemArray.append(picDict)
-//            }
-//        }
-//        specInfoPara["product_shipoffline_pic_list"] = picDescItemArray
-//        
-//        let valArray = ["标配"]
-//        var valDict : [String : AnyObject] = [:]
-//        valDict["product_spec_val_list"] = valArray
-//        valDict["product_spec_def"] = "规格"
-//        let specListArray = [valDict]
-//        
-//        specInfoPara["product_spec_list"] = specListArray
-//        
-//        para["product_shipoffline_goods"] = specInfoPara
-//        
-//        return para
-//    }
     
-//    lazy var dataItem: DSSEditItem = {
-//        let dataItem = DSSEditItem.init()
-//        return dataItem
-//    }()
-    
+    func getSavePara() -> [String : AnyObject]? {
+
+        if self.editType == kEditType.kEditTypeCheck {
+            return nil
+        }
+        
+        var para: [String : AnyObject] = [:]
+        
+        if self.editType == kEditType.kEditTypeEdit{
+            if self.productID != nil {
+                para["id"] = self.productID
+            }
+        } else if self.editType == kEditType.kEditTypeAdd {
+            
+            if self.sourceItem.supplierId != nil {
+                para["supplier_id"] = self.sourceItem.supplierId
+            }
+            
+            if self.sourceItem.upc != nil {
+                para["upc"] = self.sourceItem.upc
+            }
+            
+        }
+        
+        var proImgDictArray: [[String : AnyObject]] = []
+        for picItem in self.proImgArray {
+            guard picItem.picUrl != nil else {
+                continue
+            }
+            var dict : [String : AnyObject] = [:]
+            dict["pic_url"] = picItem.picUrl
+            proImgDictArray.append(dict)
+        }
+        
+        if proImgDictArray.count > 0 {
+            para["product_shipoffline_pic_list"] = proImgDictArray
+        }
+        
+        var priceImgDictArray: [[String : AnyObject]] = []
+        for picItem in self.proImgArray {
+            guard picItem.picUrl != nil else {
+                continue
+            }
+            var dict : [String : AnyObject] = [:]
+            dict["pic_url"] = picItem.picUrl
+            priceImgDictArray.append(dict)
+        }
+        
+        if priceImgDictArray.count > 0 {
+            para["audit_pic_json"] = priceImgDictArray
+        }
+        
+        return para
+    }
 }

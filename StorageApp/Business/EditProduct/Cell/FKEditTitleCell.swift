@@ -40,5 +40,16 @@ class FKEditTitleCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let editModel = viewModel as? EditViewModel {
+            let cellType = editModel.cellTypeForIndexPath(indexPath)
+            if cellType == kEditCellType.kEditCellTypeAddress {
+                self.titleLabel.text = editModel.sourceItem.address
+            } else if cellType == kEditCellType.kEditCellTypeUPC {
+                self.titleLabel.text = editModel.sourceItem.upc
+            }
+        }
+    }
 
 }

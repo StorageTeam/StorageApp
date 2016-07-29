@@ -12,7 +12,6 @@ import ObjectMapper
 class DSSEditImgItem: NSObject, Mappable {
 
     var picUrl          : String?
-    var desc            : String?
     var image           : UIImage?
     
     override init() {
@@ -25,6 +24,5 @@ class DSSEditImgItem: NSObject, Mappable {
     
     func mapping(map: Map) {
         picUrl              <- map["pic_url"]
-        desc                <- map["description"]
     }
 }

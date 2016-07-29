@@ -55,16 +55,17 @@ class DSSSelectImgController: DSSBaseViewController {
     private func configNavItem() {
         
         let countItem = UIBarButtonItem.init(customView: self.countBtn)
-        
-        let finishItem = UIBarButtonItem.init(title: "完成", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickFinishBtn))
-        let att = [NSForegroundColorAttributeName : UIColor.greenColor(),
-                   NSFontAttributeName : UIFont.systemFontOfSize(15)]
-        finishItem.setTitleTextAttributes(att, forState: .Normal)
-        
         let flexItem = UIBarButtonItem.init(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
         flexItem.width = 7
         
+        let finishItem = UIBarButtonItem.init(title: "完成", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickFinishBtn))
+        let att = [NSForegroundColorAttributeName : UIColor.init(rgb: 0x1fbad6),
+                   NSFontAttributeName : UIFont.systemFontOfSize(15)]
+        finishItem.setTitleTextAttributes(att, forState: .Normal)
+        
         self.navigationItem.rightBarButtonItems = [countItem, flexItem, finishItem]
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "common_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBackBtn))
         
     }
     
@@ -73,13 +74,17 @@ class DSSSelectImgController: DSSBaseViewController {
         let fetchArray = self.getSelectedFetchArray()
         
         guard fetchArray.count > 0 else {
-            print("至少选择一张照片")
+            self.showText("至少选择一张照片")
             return
         }
         
         if self.selectDone != nil {
             self.selectDone!(fetchArray)
         }
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @objc private func clickBackBtn() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -157,7 +162,7 @@ class DSSSelectImgController: DSSBaseViewController {
         button.setTitle("0", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.systemFontOfSize(15)
-        button.backgroundColor = UIColor.greenColor()
+        button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
         button.bounds = CGRectMake(0, 0, 20, 20)
@@ -201,7 +206,7 @@ extension DSSSelectImgController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         let selectArray = self.getSelectedFetchArray()
         guard selectArray.count < 9 else {
-            print("最多选择9张照片")
+            self.showText("最多选择9张照片")
             return false
         }
         return true

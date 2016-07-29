@@ -28,6 +28,9 @@
 		047754911D4A05000045F548 /* DSSSelectImgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477548B1D4A05000045F548 /* DSSSelectImgController.swift */; };
 		047754921D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754821D49F2A70045F548 /* FKEditTitleCell.swift */; };
 		047754931D4AEE4E0045F548 /* FKEditTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754821D49F2A70045F548 /* FKEditTitleCell.swift */; };
+		047754951D4B050E0045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
+		047754961D4B05EF0045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
+		047754971D4B05F00045F548 /* EditSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047754941D4B050E0045F548 /* EditSourceItem.swift */; };
 		047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
 		047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
 		047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
@@ -220,6 +223,7 @@
 		047754821D49F2A70045F548 /* FKEditTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditTitleCell.swift; sourceTree = "<group>"; };
 		047754891D4A05000045F548 /* DSSFetchImgCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSFetchImgCell.swift; sourceTree = "<group>"; };
 		0477548B1D4A05000045F548 /* DSSSelectImgController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSelectImgController.swift; sourceTree = "<group>"; };
+		047754941D4B050E0045F548 /* EditSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSourceItem.swift; sourceTree = "<group>"; };
 		047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTakePhotoTopView.swift; sourceTree = "<group>"; };
 		047C23621D48585100D5F4D7 /* FKPhotoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPhotoListView.swift; sourceTree = "<group>"; };
 		047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPerImgCollectionCell.swift; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 				0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */,
 				0435D7F11D24B053008BBFEF /* DSSEditItem.swift */,
 				0435D7F21D24B053008BBFEF /* DSSEditSpecItem.swift */,
+				047754941D4B050E0045F548 /* EditSourceItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1077,6 +1082,7 @@
 				047754831D49F2A70045F548 /* FKEditTitleCell.swift in Sources */,
 				CEE033651D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEE033841D49B9E000DD5781 /* DSSBuildingImgView.swift in Sources */,
+				047754951D4B050E0045F548 /* EditSourceItem.swift in Sources */,
 				CEE033961D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
 				04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */,
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
@@ -1150,6 +1156,7 @@
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
 				CEE0339B1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
 				CEC0AF641D49F0460018D2DD /* DSSSupplierListCell.swift in Sources */,
+				047754961D4B05EF0045F548 /* EditSourceItem.swift in Sources */,
 				CEC0AF6A1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */,
 				CEE033941D49E6B800DD5781 /* DSSSlideHeaderView.swift in Sources */,
 				CE3118CB1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
@@ -1215,6 +1222,7 @@
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
 				CEE0339C1D49E74700DD5781 /* DSSSupplierListHeaderView.swift in Sources */,
 				CEC0AF651D49F0460018D2DD /* DSSSupplierListCell.swift in Sources */,
+				047754971D4B05F00045F548 /* EditSourceItem.swift in Sources */,
 				CEC0AF6B1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */,
 				CEE033951D49E6B800DD5781 /* DSSSlideHeaderView.swift in Sources */,
 				CE3118CC1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,

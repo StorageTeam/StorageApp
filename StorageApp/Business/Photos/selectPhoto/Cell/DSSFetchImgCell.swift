@@ -66,7 +66,7 @@ class DSSFetchImgCell: UICollectionViewCell {
        let view = UIView.init()
         view.userInteractionEnabled = false
         view.layer.cornerRadius = 11.0
-        view.layer.borderColor = UIColor.greenColor().CGColor
+        view.layer.borderColor = UIColor.init(rgb: 0xdddddd).CGColor
         view.layer.borderWidth = 1.0
         return view
     }()
