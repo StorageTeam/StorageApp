@@ -35,7 +35,8 @@ class FKEditImgContainer: UIView {
         }
         
         self.titleLabel.snp_makeConstraints { (make) in
-            make.center.equalTo(self.imgBgView)
+            make.bottom.equalTo(self.imgBgView).offset(-7)
+            make.centerX.equalTo(self.imgBgView)
         }
         
         self.targetImgView.snp_makeConstraints { (make) in
@@ -79,16 +80,16 @@ class FKEditImgContainer: UIView {
     lazy var targetImgView: UIImageView = {
         
         let imageView: UIImageView = UIImageView.init()
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .ScaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         return imageView
         
     }()
     
     lazy var imgBgView: UIImageView = {
         
-        let imageView: UIImageView = UIImageView.init(image: UIImage.init(named: "line_rect"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        let imageView: UIImageView = UIImageView.init(image: UIImage.init(named: "line_rec_camera"))
         return imageView
         
     }()
@@ -96,9 +97,9 @@ class FKEditImgContainer: UIView {
     lazy var titleLabel: UILabel = {
         
         let titleLabel = UILabel.init()
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.textColor = UIColor.init(rgb: 0xcccccc)
-        titleLabel.text = "More"
+        titleLabel.font = UIFont.systemFontOfSize(10)
+        titleLabel.textColor = UIColor.init(rgb: 0x1fbad6)
+        titleLabel.text = "继续添加"
         titleLabel.numberOfLines = 2
         titleLabel.textAlignment = .Center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

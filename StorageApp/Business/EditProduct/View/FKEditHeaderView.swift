@@ -23,29 +23,19 @@ class FKEditHeaderView: UITableViewHeaderFooterView {
     func addAllSubviews() -> Void {
         
         self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.tapButton)
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.centerY.equalTo(self.contentView)
             make.left.equalTo(self.contentView).offset(10)
         }
-        
-        self.tapButton.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsZero)
-        }
     }
     
     lazy var titleLabel: UILabel = {
         let label = UILabel.init()
-        label.font = UIFont.systemFontOfSize(13)
-        label.textColor = UIColor.init(rgb: 0x9b9b9b)
+        label.font = UIFont.systemFontOfSize(12)
+        label.textColor = UIColor.init(rgb: 0x999999)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    lazy var tapButton: UIButton = {
-        let button = UIButton.init(type: UIButtonType.Custom)
-        return button
     }()
 
 }

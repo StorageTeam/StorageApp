@@ -11,7 +11,7 @@ import AVFoundation
 
 //typealias takeDonePicture = (images: [UIImage]) -> Void
 
-class FKTakePhotoController: DSSBaseViewController {
+class DSSTakePhotoController: DSSBaseViewController {
     
     private let topHeight = 44.0
     private let actionViewH = 97.0
@@ -180,7 +180,8 @@ class FKTakePhotoController: DSSBaseViewController {
     
     private func takeOnePicture(image: UIImage) {
         
-        let sizeImg = image.cutFromCenterTo(self.backLayer.bounds.size)
+//        let sizeImg = image.cutFromCenterTo(self.backLayer.bounds.size)
+        let sizeImg = image.dss_thumImageFromCenter(self.backLayer.bounds.size)
         self.imageArray.append(sizeImg)
         self.photoListView.reloadData(self.imageArray, scrollToLast: true)
 //        self.photoListView.images = self.imageArray

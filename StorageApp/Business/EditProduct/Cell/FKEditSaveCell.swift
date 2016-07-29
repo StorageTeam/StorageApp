@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FKEditDeleteCell: UITableViewCell {
+class FKEditSaveCell: UITableViewCell {
 
 //    var deleteBtn: UIButton = UIButton.init(type: UIButtonType.Custom)
     
@@ -27,8 +27,8 @@ class FKEditDeleteCell: UITableViewCell {
     
     func addAllSubviews() -> Void {
         
-        self.contentView.addSubview(self.deleteBtn)
-        self.deleteBtn.snp_makeConstraints { (make) in
+        self.contentView.addSubview(self.saveBtn)
+        self.saveBtn.snp_makeConstraints { (make) in
             make.left.equalTo(self.contentView).offset(15)
             make.right.equalTo(self.contentView).offset(-15)
             make.center.equalTo(self.contentView)
@@ -37,12 +37,12 @@ class FKEditDeleteCell: UITableViewCell {
     }
     
     //MARK: Property
-    lazy var deleteBtn: UIButton = {
+    lazy var saveBtn: UIButton = {
         let button = UIButton.init(type: UIButtonType.Custom)
-        button.setTitle("Delete", forState: .Normal)
+        button.setTitle("确认收集", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.systemFontOfSize(15)
-        button.backgroundColor = UIColor.init(rgb: 0xfe3b31)
+        button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         button.layer.cornerRadius = 5.0
         return button
     }()

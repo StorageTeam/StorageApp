@@ -66,7 +66,7 @@ class FKEditPicCell: UITableViewCell {
                 self.firstContainer.hidden = false
                 self.firstContainer.tapButton.userInteractionEnabled = true
                 if (firstLine) {
-                    self.firstContainer.titleLabel.text = "Main\nPicture"
+                    self.firstContainer.titleLabel.text = "添加主图片"
                 }
             }
             return
@@ -96,7 +96,7 @@ class FKEditPicCell: UITableViewCell {
         if let editModel = viewModel as? EditViewModel {
             
             let imageArray = editModel.getPicImgsAtIndexPath(indexPath)
-            let isFirstLine = (indexPath.row - 2 == 0) ? true : false
+            let isFirstLine = (indexPath.row == 0) ? true : false
             
             var canEdit = true
             if editModel.editType == kEditType.kEditTypeCheck {
@@ -120,14 +120,14 @@ class FKEditPicCell: UITableViewCell {
         self.secondContainer.hidden = true
         self.thirdContainer.hidden = true
         
-        self.firstContainer.titleLabel.text = "More"
-        self.secondContainer.titleLabel.text = "More"
-        self.thirdContainer.titleLabel.text = "More"
+        self.firstContainer.titleLabel.text = "继续添加"
+        self.secondContainer.titleLabel.text = "继续添加"
+        self.thirdContainer.titleLabel.text = "继续添加"
     }
     
     func clickContainer(sender: UIButton){
         if self.delegate != nil && self.delegate!.respondsToSelector(#selector(FKEditPicCellDelegate.clickAddImg)){
-            self.delegate!.clickAddImg!()
+            self.delegate!.clickAddImg!(self)
         }
     }
     
@@ -169,6 +169,6 @@ class FKEditPicCell: UITableViewCell {
 @objc protocol FKEditPicCellDelegate: NSObjectProtocol {
     
     optional
-    func clickAddImg()
+    func clickAddImg(picCell: FKEditPicCell)
     func clickDeleteImg(picCell: FKEditPicCell, index: Int)
 }
