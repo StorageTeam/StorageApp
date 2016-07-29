@@ -47,7 +47,6 @@ class DSSSlideHeaderView: UIView {
         let label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0xffffff)
         label.font = UIFont.systemFontOfSize(16)
-        label.text = "test"
         return label
     }()
 }

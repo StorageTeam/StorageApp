@@ -132,8 +132,9 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     func clickRightNaviBarButton(sender: UIButton) {
-        let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
-        self.navigationController?.pushViewController(editController, animated: true)
+//        let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
+//        self.navigationController?.pushViewController(editController, animated: true)
+        self.pushProductAddController()
     }
     
     func segmentedControlAction(sender: AnyObject) {
@@ -166,6 +167,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     func showSlideMenu() -> Void {
+        self.slideMenu.setAccount(DSSAccount.getHeadURL(), nickname: DSSAccount.getNickname())
         UIView.animateWithDuration(0.5) {
             self.slideMenu.frame = UIScreen.mainScreen().bounds
         }
@@ -200,7 +202,17 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     func pushProductAddController() -> Void {
-        print("pushProductAddController")
+        weak var wkSelf = self
+        let scanController = FKScanController.init(supplierID: self.viewModel.getSelSupplierID(), finish: { (resStr) in
+            wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
+            let takePhotoController = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+                
+            })
+            takePhotoController.hidesBottomBarWhenPushed = true
+            wkSelf?.navigationController?.pushViewController(takePhotoController, animated: true)
+        })
+        scanController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(scanController, animated: true)
     }
     
     func pushProductListController() -> Void {

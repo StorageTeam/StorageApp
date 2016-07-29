@@ -18,4 +18,14 @@ extension UIImageView {
                                  failure: nil,
                                  success: nil)
     }
+    
+    func dss_setImage(urlString: String, placeholder: UIImage?) -> Void {
+        if let url = NSURL.init(string: urlString) {
+            self.hnk_setImageFromURL(url,
+                                     placeholder: placeholder,
+                                     format: Format<UIImage>(name: "original"),
+                                     failure: nil,
+                                     success: nil);
+        }
+    }
 }

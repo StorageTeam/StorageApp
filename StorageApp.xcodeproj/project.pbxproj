@@ -155,6 +155,9 @@
 		CEC0AF691D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0AF681D49F3A70018D2DD /* DSSSupplierModel.swift */; };
 		CEC0AF6A1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0AF681D49F3A70018D2DD /* DSSSupplierModel.swift */; };
 		CEC0AF6B1D49F3A70018D2DD /* DSSSupplierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0AF681D49F3A70018D2DD /* DSSSupplierModel.swift */; };
+		CED7E5541D4B385A0063A423 /* DSSScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7E5531D4B385A0063A423 /* DSSScanService.swift */; };
+		CED7E5551D4B385A0063A423 /* DSSScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7E5531D4B385A0063A423 /* DSSScanService.swift */; };
+		CED7E5561D4B385A0063A423 /* DSSScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7E5531D4B385A0063A423 /* DSSScanService.swift */; };
 		CEE0335D1D48992E00DD5781 /* DSSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EFFD21D4893E7007DB098 /* DSSImage.swift */; };
 		CEE0335E1D48993000DD5781 /* DSSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9EFFD21D4893E7007DB098 /* DSSImage.swift */; };
 		CEE033651D4899E000DD5781 /* DSSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE033641D4899E000DD5781 /* DSSMainViewController.swift */; };
@@ -281,6 +284,7 @@
 		CEBBA80E1D23B30400187B07 /* DSSObjectMapperTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSObjectMapperTransform.swift; sourceTree = "<group>"; };
 		CEC0AF621D49F0460018D2DD /* DSSSupplierListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierListCell.swift; sourceTree = "<group>"; };
 		CEC0AF681D49F3A70018D2DD /* DSSSupplierModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierModel.swift; sourceTree = "<group>"; };
+		CED7E5531D4B385A0063A423 /* DSSScanService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSScanService.swift; sourceTree = "<group>"; };
 		CEE033641D4899E000DD5781 /* DSSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMainViewController.swift; sourceTree = "<group>"; };
 		CEE033831D49B9E000DD5781 /* DSSBuildingImgView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuildingImgView.swift; sourceTree = "<group>"; };
 		CEE0338C1D49E6B800DD5781 /* DSSSupplierListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierListView.swift; sourceTree = "<group>"; };
@@ -454,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				04C0281D1D2257E90060CD7C /* Controller */,
+				CED7E5521D4B38430063A423 /* Service */,
 				04C0281E1D2257E90060CD7C /* View */,
 			);
 			path = Scan;
@@ -744,6 +749,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		CED7E5521D4B38430063A423 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CED7E5531D4B385A0063A423 /* DSSScanService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		CEE0335F1D48998200DD5781 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,8 +775,8 @@
 		CEE0338B1D49E6B800DD5781 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				CEE0338C1D49E6B800DD5781 /* DSSSupplierListView.swift */,
 				CEE033991D49E74700DD5781 /* DSSSupplierListHeaderView.swift */,
+				CEE0338C1D49E6B800DD5781 /* DSSSupplierListView.swift */,
 				CEC0AF621D49F0460018D2DD /* DSSSupplierListCell.swift */,
 			);
 			path = List;
@@ -772,8 +785,8 @@
 		CEE0338D1D49E6B800DD5781 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				CEE0338E1D49E6B800DD5781 /* DSSSlideHeaderView.swift */,
 				CEE0338F1D49E6B800DD5781 /* DSSSlideMenu.swift */,
+				CEE0338E1D49E6B800DD5781 /* DSSSlideHeaderView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1112,6 +1125,7 @@
 				CE86393D1D4B288A009237CE /* DSSCurrentSupplierView.swift in Sources */,
 				04805D731D239A6200CA12CE /* DSSUIImage+Extension.swift in Sources */,
 				0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */,
+				CED7E5541D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
 				CEBBA80F1D23B30400187B07 /* DSSObjectMapperTransform.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
@@ -1175,6 +1189,7 @@
 				CE30BF2F1D24BE4900A3969D /* FKEditSaveCell.swift in Sources */,
 				CE30BF1F1D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
 				CE30BEFC1D24B67000A3969D /* DSSProductListService.swift in Sources */,
+				CED7E5551D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF081D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEE033661D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
@@ -1239,6 +1254,7 @@
 				CE30BF301D24BE4A00A3969D /* FKEditSaveCell.swift in Sources */,
 				CE30BF201D24B6FF00A3969D /* UITableViewCell+Extension.swift in Sources */,
 				CE30BEFD1D24B67100A3969D /* DSSProductListService.swift in Sources */,
+				CED7E5561D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF171D24B69E00A3969D /* FKEditImgContainer.swift in Sources */,
 				CE30BF091D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEE033671D4899E000DD5781 /* DSSMainViewController.swift in Sources */,

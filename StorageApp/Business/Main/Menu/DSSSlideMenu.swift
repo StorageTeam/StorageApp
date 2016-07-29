@@ -46,6 +46,15 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setAccount(headURL: String?, nickname: String?) -> Void {
+        if let url = headURL {
+            self.slideHeaderView.headerView.dss_setImage(url, placeholder: UIImage.init(named: "login_placeholder"))
+        }
+        if let nick = nickname {
+            self.slideHeaderView.nicknameLabel.text = nick
+        }
+    }
+    
     // MARK: - UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return min(self.titleArray.count, self.iconArray.count)

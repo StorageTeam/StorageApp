@@ -109,6 +109,20 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         return ""
     }
     
+    class func getHeadURL() -> String? {
+        if let headurl = DSSAccount.gAccount.headurl {
+            return headurl
+        }
+        return nil
+    }
+    
+    class func getNickname() -> String? {
+        if let nick = DSSAccount.gAccount.nickname {
+            return nick
+        }
+        return nil
+    }
+    
     func mapping(map: Map) {
         userid      <- (map["id"], DSSStringTransform())
         token       <- map["token"]
