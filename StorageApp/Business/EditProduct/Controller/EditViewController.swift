@@ -121,7 +121,6 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     // MARK: - Response
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         
-        
         if header.code == DSSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
                 self.hidHud(false)
@@ -192,7 +191,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         if self.viewModel.isAllImgUploaded() {
             self.requestSaveData()
         } else {
-            
+            self.showHUD()
             self.uploadImgWith(self.viewModel.proImgArray, isProduct: true)
             self.uploadImgWith(self.viewModel.priceImgArray, isProduct: false)
         }
