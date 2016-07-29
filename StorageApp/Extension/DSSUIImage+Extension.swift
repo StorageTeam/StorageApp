@@ -18,27 +18,26 @@ extension UIImage{
         return scaleImg
     }
     
-    func cutFromCenterTo(targetSize: CGSize) -> UIImage {
-        
-        let realHeight = self.size.width * targetSize.height / targetSize.width
-        let cutMargin = self.size.height - realHeight
-        print("self.size = \(self.size), realH = \(realHeight), targetSize = \(targetSize)")
-        guard cutMargin > 0 else {
-            print("can not cut")
-            return self
-        }
-        
-        let targetRect = CGRectMake(cutMargin / 2.0, 0, self.size.width, realHeight)
-        let imageRef = self.CGImage
-        let partRef = CGImageCreateWithImageInRect(imageRef, targetRect)
-        
-        guard partRef != nil else {
-            return self
-        }
-        
-        let resImg = UIImage.init(CGImage: partRef!, scale: self.scale, orientation: self.imageOrientation)
-        return resImg
-    }
+//    func cutFromCenterTo(targetSize: CGSize) -> UIImage {
+//        
+//        let realHeight = self.size.width * targetSize.height / targetSize.width
+//        let cutMargin = self.size.height - realHeight
+//        
+//        guard cutMargin > 0 else {
+//            return self
+//        }
+//        
+//        let targetRect = CGRectMake(cutMargin / 2.0, 0, self.size.width, realHeight)
+//        let imageRef = self.CGImage
+//        let partRef = CGImageCreateWithImageInRect(imageRef, targetRect)
+//        
+//        guard partRef != nil else {
+//            return self
+//        }
+//        
+//        let resImg = UIImage.init(CGImage: partRef!, scale: self.scale, orientation: self.imageOrientation)
+//        return resImg
+//    }
     
     func dss_thumImageFromCenter(dstSize: CGSize) -> UIImage {
         let scale  = max(dstSize.width/self.size.width, dstSize.height/self.size.height)
