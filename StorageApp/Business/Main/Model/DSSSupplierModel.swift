@@ -27,8 +27,8 @@ class DSSSupplierModel: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        itemID          <- map["id"]
-        name            <- map["name"]
-        isSelected      <- map["description"]
+        itemID          <- map["supplier_id"]
+        name            <- map["supplier_name"]
+        isSelected      <- map["current"]
     }
 }

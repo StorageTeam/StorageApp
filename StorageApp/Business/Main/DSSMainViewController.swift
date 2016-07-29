@@ -8,8 +8,10 @@
 
 import UIKit
 
-class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMenuDelegate, CurrentLocationDelegate {
-    private static let ALERT_VIEW_SHOW_SLIDE_MENU     : String   = "ALERT_VIEW_SHOW_SLIDE_MENU"
+class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMenuDelegate, CurrentSupplierDelegate, DSSDataCenterDelegate {
+    private static let SUPPLIERLIST_REQUEST : Int          = 0
+
+    private static let ALERT_VIEW_SHOW_SLIDE_MENU : String = "ALERT_VIEW_SHOW_SLIDE_MENU"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,34 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if DSSAccount.isLogin() && self.viewModel.isEmpty() {
+            DSSMainViewService.requestList(DSSMainViewController.SUPPLIERLIST_REQUEST, delegate: self)
+        }
+    }
+    
+    // MARK: - DSSDataCenterDelegate
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSSResponseCode.Normal {
+            let items = DSSMainViewService.parseList(response)
+            
+            switch identify {
+            case DSSMainViewController.SUPPLIERLIST_REQUEST:
+                self.viewModel.supplierArray = items
+                self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
+                break
+            default:
+                break
+            }
+        } else {
+            
+        }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        if let errorString = error {
+            self.showText(errorString)
+        }
     }
     
     // MARK: - SlideMenuDelegate
@@ -49,28 +79,31 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
     }
     
-    // MARK: - CurrentLocationDelegate
+    // MARK: - CurrentSupplierDelegate
     
-    func didClickChangeLocation(curLocation: String?) {
-        if let text = curLocation {
-            var dataSource = [DSSSupplierModel]()
-            var model: DSSSupplierModel! = nil
-            for idx in 0...10 {
-                model = DSSSupplierModel.init()
-                model.itemID = Int64.init(idx)
-                model.name = "美国Wal-Mart Wakmart大厦" + String.init(idx)
-                model.isSelected = false
-                
-                if idx == 4 {
-                    model.isSelected = true
+    func didClickChangeSupplier(curSupplier: String?) {
+//        if let text = curSupplier {
+            #if DEBUG
+                var dataSource = [DSSSupplierModel]()
+                var model: DSSSupplierModel! = nil
+                for idx in 0 ..< 10 {
+                    model            = DSSSupplierModel.init()
+                    model.itemID     = Int64.init(idx)
+                    model.name       = "美国Wal-Mart Wakmart大厦" + String.init(idx)
+                    model.isSelected = false
+                    
+                    if idx == 4 {
+                        model.isSelected = true
+                    }
+                    
+                    dataSource.append(model)
                 }
-                
-                dataSource.append(model)
-            }
+                self.viewModel.supplierArray = dataSource
+            #endif
             
-            self.locationListView.setDataSource(dataSource)
-            self.showLocationListView()
-        }
+            self.supplierListView.setDataSource(self.viewModel.supplierArray)
+            self.showSupplierListView()
+//        }
     }
     
     // MARK: - UIAlertViewDelegate
@@ -106,14 +139,23 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     func segmentedControlAction(sender: AnyObject) {
         // switch view show
         if(self.segmentControl.selectedSegmentIndex == 0) {
-            self.curLocationView.hidden   = false
+            self.curSupplierView.hidden   = false
             self.scanCollectButton.hidden = false
             self.buildingView.hidden      = true
         } else if(self.segmentControl.selectedSegmentIndex == 1) {
-            self.curLocationView.hidden   = true
+            self.curSupplierView.hidden   = true
             self.scanCollectButton.hidden = true
             self.buildingView.hidden      = false
         }
+    }
+    
+    func clickHideSupplierListButton(sender: UIButton) -> Void {
+        if let itemID = self.viewModel.getSelSupplierID() {
+            DSSMainViewService.modifyDefaultSupplier(-1, supplierID: itemID, delegate: self)
+        }
+        self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
+        
+        self.hideSupplierListView(nil)
     }
     
     // MARK: - Method
@@ -140,18 +182,18 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
     }
     
-    func showLocationListView() -> Void {
+    func showSupplierListView() -> Void {
         UIView.animateWithDuration(0.5) {
-            self.locationListView.frame = self.view.bounds
+            self.supplierListView.frame = self.view.bounds
         }
     }
     
-    func hideLocationListView(completion: ((Bool) -> Void)?) -> Void {
+    func hideSupplierListView(completion: ((Bool) -> Void)?) -> Void {
         let bounds = self.view.bounds
         let frame = CGRectMake(0, CGRectGetHeight(bounds), CGRectGetWidth(bounds), CGRectGetHeight(bounds))
         UIView.animateWithDuration(0.5,
                                    animations: {
-                                    self.slideMenu.frame = frame
+                                    self.supplierListView.frame = frame
         }) { (isFinish) in
             completion?(isFinish)
         }
@@ -198,24 +240,24 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
         
         let borderWidth : CGFloat = 286
-        self.bgImgView.addSubview(self.locationViewBgView)
-        self.locationViewBgView.snp_makeConstraints { (make) in
+        self.bgImgView.addSubview(self.supplierViewBgView)
+        self.supplierViewBgView.snp_makeConstraints { (make) in
             make.top.equalTo(self.segmentControl.snp_bottom).offset(55)
             make.size.equalTo(CGSizeMake(borderWidth, borderWidth))
             make.centerX.equalTo(self.bgImgView)
         }
-        self.locationViewBgView.layer.cornerRadius = borderWidth/2
+        self.supplierViewBgView.layer.cornerRadius = borderWidth/2
         
-        self.locationViewBgView.addSubview(self.curLocationView)
-        self.curLocationView.snp_makeConstraints { (make) in
-            make.center.equalTo(self.locationViewBgView)
+        self.supplierViewBgView.addSubview(self.curSupplierView)
+        self.curSupplierView.snp_makeConstraints { (make) in
+            make.center.equalTo(self.supplierViewBgView)
             make.size.equalTo(CGSizeMake(borderWidth - 20, borderWidth - 20))
         }
-        self.curLocationView.layer.cornerRadius = (borderWidth - 20)/2
+        self.curSupplierView.layer.cornerRadius = (borderWidth - 20)/2
         
         self.bgImgView.addSubview(self.scanCollectButton)
         self.scanCollectButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.curLocationView.snp_bottom).offset(45)
+            make.top.equalTo(self.curSupplierView.snp_bottom).offset(45)
             make.size.equalTo(CGSizeMake(300, 45))
             make.centerX.equalTo(self.bgImgView)
         }
@@ -227,8 +269,8 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
             make.centerX.equalTo(self.bgImgView)
         }
         
-        self.view.addSubview(self.locationListView)
-        self.locationListView.snp_makeConstraints { (make) in
+        self.view.addSubview(self.supplierListView)
+        self.supplierListView.snp_makeConstraints { (make) in
             make.top.equalTo(self.view.snp_bottom)
             make.size.equalTo(CGSizeMake(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64))
         }
@@ -272,7 +314,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         return control
     }()
     
-    lazy var locationViewBgView: UIView = {
+    lazy var supplierViewBgView: UIView = {
         let view = UIView.init()
         view.backgroundColor = UIColor.clearColor()
         view.layer.borderWidth = 10
@@ -280,8 +322,8 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         return view
     }()
     
-    lazy var curLocationView: DSSCurrentLocationView = {
-        let view = DSSCurrentLocationView.init(frame: CGRectZero)
+    lazy var curSupplierView: DSSCurrentSupplierView = {
+        let view = DSSCurrentSupplierView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.whiteColor()
         view.delegate = self
         return view
@@ -306,10 +348,16 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         return view
     }()
     
-    lazy var locationListView: DSSSupplierListView = {
+    lazy var supplierListView: DSSSupplierListView = {
         let view = DSSSupplierListView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.init(white: 0, alpha: 0.2)
+        view.listHeaderView.actionButton.addTarget(self, action: #selector(clickHideSupplierListButton), forControlEvents: .TouchUpInside)
         return view
+    }()
+    
+    lazy var viewModel: DSSMainViewModel = {
+        let viewModel = DSSMainViewModel.init()
+        return viewModel
     }()
 }
 

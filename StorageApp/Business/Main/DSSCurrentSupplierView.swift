@@ -1,5 +1,5 @@
 //
-//  DSSCurrentLocationView.swift
+//  DSSCurrentSupplierView.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/27.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol CurrentLocationDelegate : NSObjectProtocol {
-    func didClickChangeLocation(curLocation: String?) -> Void
+protocol CurrentSupplierDelegate : NSObjectProtocol {
+    func didClickChangeSupplier(curSupplier: String?) -> Void
 }
 
-class DSSCurrentLocationView: UIView {
-    weak internal var delegate: CurrentLocationDelegate?
+class DSSCurrentSupplierView: UIView {
+    weak internal var delegate: CurrentSupplierDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,11 +25,19 @@ class DSSCurrentLocationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setSupplierName(name: String?) -> Void {
+        if let supplierName = name {
+            self.supplierLabel.text = supplierName
+        } else {
+            self.supplierLabel.text = "点击更改商品手机地点"
+        }
+    }
+    
     // MARK: - Layout
     
     func addAllSubviews() -> Void {
-        self.addSubview(self.locationBgView)
-        self.locationBgView.snp_makeConstraints { (make) in
+        self.addSubview(self.supplierBgView)
+        self.supplierBgView.snp_makeConstraints { (make) in
             make.top.equalTo(self).offset(0)
             make.right.equalTo(self).offset(-4)
         }
@@ -42,23 +50,23 @@ class DSSCurrentLocationView: UIView {
             make.center.equalTo(self)
         }
         
-        self.addSubview(self.locationLabel)
-        self.locationLabel.snp_makeConstraints { (make) in
+        self.addSubview(self.supplierLabel)
+        self.supplierLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(30)
             make.right.equalTo(self).offset(-30)
             make.bottom.equalTo(self.greenLine.snp_top).offset(-5)
         }
         
-        self.addSubview(self.changeLocationLabel)
-        self.changeLocationLabel.snp_makeConstraints { (make) in
+        self.addSubview(self.changeSupplierLabel)
+        self.changeSupplierLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(self).offset(-10)
             make.top.equalTo(self.greenLine.snp_bottom).offset(5)
         }
         
         self.addSubview(self.downArrowView)
         self.downArrowView.snp_makeConstraints { (make) in
-            make.centerY.equalTo(self.changeLocationLabel)
-            make.left.equalTo(self.changeLocationLabel.snp_right).offset(5)
+            make.centerY.equalTo(self.changeSupplierLabel)
+            make.left.equalTo(self.changeSupplierLabel.snp_right).offset(5)
         }
         
         self.addSubview(self.actionButton)
@@ -71,12 +79,12 @@ class DSSCurrentLocationView: UIView {
     // MARK: - Action
     
     func clickButtonAction(sender: UIButton) -> Void {
-        self.delegate?.didClickChangeLocation(self.locationLabel.text)
+        self.delegate?.didClickChangeSupplier(self.supplierLabel.text)
     }
     
     // MARK: - Property
     
-    lazy var locationBgView: UIImageView = {
+    lazy var supplierBgView: UIImageView = {
         var view = UIImageView.init()
         view.image = UIImage.init(named: "locationBgView")
         return view
@@ -88,17 +96,16 @@ class DSSCurrentLocationView: UIView {
         return view
     }()
     
-    lazy var locationLabel: UILabel = {
+    lazy var supplierLabel: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 1)
         label.font = UIFont.systemFontOfSize(15)
         label.numberOfLines = 0
-        label.text = "点击更改商品手机地点"
         label.textAlignment = NSTextAlignment.Center
         return label
     }()
     
-    lazy var changeLocationLabel: UILabel = {
+    lazy var changeSupplierLabel: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0x333333)
         label.font = UIFont.systemFontOfSize(15)
