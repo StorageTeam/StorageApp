@@ -35,13 +35,12 @@ class EditViewModel: NSObject {
     
     func numberOfSection() -> Int {
         if self.editType == kEditType.kEditTypeCheck {
+            if self.priceImgArray.count <= 0 {
+                return 3
+            }
             return 4
         }
         return 5
-//        if self.editType == kEditType.kEditTypeEdit {
-//            return 4
-//        }
-//        return 3
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
