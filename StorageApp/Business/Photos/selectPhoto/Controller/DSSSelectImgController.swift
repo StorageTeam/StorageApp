@@ -216,6 +216,7 @@ extension DSSSelectImgController: UICollectionViewDataSource, UICollectionViewDe
             fetchImgCell.didSelected = selected
             
             if let assetItem = self.getFetchItemAtIndexpath(indexPath) {
+                
                 fetchImgCell.assetIdentify = assetItem.localIdentifier
                 self.cacheManger.requestImageForAsset(assetItem, targetSize: self.imageSize, contentMode: .AspectFit, options: nil, resultHandler: { (resImg: UIImage?, info:[NSObject : AnyObject]?) in
                     if fetchImgCell.assetIdentify == assetItem.localIdentifier {

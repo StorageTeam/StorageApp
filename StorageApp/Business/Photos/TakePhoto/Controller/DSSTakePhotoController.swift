@@ -19,11 +19,15 @@ class DSSTakePhotoController: DSSBaseViewController {
     
     private var imageArray: [UIImage] = []
     private var finshColsure: ((images: [UIImage]) -> Void)?
+    private var cancelColsure: (() -> Void)?
     
-    convenience init(title: String, takeDonePicture: ([UIImage] -> Void)?) {
+    convenience init(title: String,
+                     takeDonePicture: ([UIImage] -> Void)?,
+                     cancel:( ()->Void )?) {
         self.init()
         self.topView.titleLabel.text = title
         self.finshColsure = takeDonePicture
+        self.cancelColsure = cancel
     }
     
     override func viewDidLoad() {
@@ -117,7 +121,11 @@ class DSSTakePhotoController: DSSBaseViewController {
     
     // MARK: - action
     @objc private func clickCancelBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
+        if self.cancelColsure != nil {
+            self.cancelColsure!()
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     @objc private func clickFinishBtn() {
@@ -128,6 +136,8 @@ class DSSTakePhotoController: DSSBaseViewController {
         
         if self.finshColsure != nil {
             self.finshColsure!(images: self.imageArray)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

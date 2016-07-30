@@ -42,15 +42,6 @@ class FKPhotoListView: UIView {
         }
     }
     
-//    private func reloadData(scroll: Bool) {
-//        self.collectionView.reloadData()
-//        self.refreshIndexLabel()
-//        
-//        let lastIndex = NSIndexPath.init(forRow: self.images!.count - 1, inSection: 0)
-//        
-//        self.collectionView.scrollToItemAtIndexPath(lastIndex, atScrollPosition: .None, animated: true)
-//    }
-    
     private func refreshIndexLabel() {
         var imageCount = 0
         if self.images != nil {
