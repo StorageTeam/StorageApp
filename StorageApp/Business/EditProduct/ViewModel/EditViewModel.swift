@@ -227,7 +227,7 @@ class EditViewModel: NSObject {
         }
         
         var priceImgDictArray: [[String : AnyObject]] = []
-        for picItem in self.proImgArray {
+        for picItem in self.priceImgArray {
             guard picItem.picUrl != nil else {
                 continue
             }
