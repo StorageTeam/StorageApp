@@ -79,11 +79,17 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
             if let exist = response["data"]?["result"] as? Int {
                 if exist == 1 {
                     self.messageLabel.hidden = false
+                    weak var wkSelf = self
+                    UIView.animateWithDuration(3,
+                                               animations: {
+                                                wkSelf?.messageLabel.hidden = true
+                    })
                 } else {
                     self.messageLabel.hidden = true
                     if let upc = (userInfo?["upc"] as? String) {
                         if self.finishBlock != nil {
                             self.finishBlock!(resStr: upc)
+                            self.session.stopRunning()
                         }
                     }
                 }
@@ -215,8 +221,6 @@ extension FKScanController : AVCaptureMetadataOutputObjectsDelegate{
         let metadataObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject
         
         if metadataObj != nil{
-            self.session.stopRunning()
-            
             if let supplierID = self.supplierID {
                 DSSScanService.requestUPCExist(FKScanController.UPC_VALID_REQUEST
                     , delegate: self
