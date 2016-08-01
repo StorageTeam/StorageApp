@@ -29,7 +29,7 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         self.addSubview(self.tableView)
         self.tableView.snp_makeConstraints { (make) in
             make.left.top.bottom.equalTo(self)
-            make.right.equalTo(self).offset(-115)
+            make.right.equalTo(self).offset(-100)
         }
         
         self.addSubview(self.rightView)

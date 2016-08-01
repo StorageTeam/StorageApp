@@ -12,8 +12,10 @@ import DGElasticPullToRefresh
 class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate, DSSDataCenterDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     private static let PRODUCTLIST_ONSALE_REQUEST          : Int   = 0
     private static let PRODUCTLIST_ONSALE_NEXT_REQUEST     : Int   = 1
+    
     private static let PRODUCTLIST_WAITSALE_REQUEST        : Int   = 2
     private static let PRODUCTLIST_WAITSALE_NEXT_REQUEST   : Int   = 3
+    
     private static let PRODUCTLIST_DELETE_LIST_REQUEST     : Int   = 4
     
     private static let ALERT_VIEW_DELETE     : String   = "ALERT_VIEW_DELETE"
@@ -33,19 +35,15 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.title = "Item Managerment"
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(self.clickRightNaviBarButton))
+        self.navigationItem.title = "商品列表"
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if DSSAccount.isLogin() {
-            if self.viewModel.isEmpty() {
-                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST, delegate: self, status: "2", startRow: "0")
-                DSSProductListService.requestList(DSSProductListController.PRODUCTLIST_ONSALE_REQUEST, delegate: self, status: "1", startRow: "0")
-            }
+        if DSSAccount.isLogin() && self.viewModel.isEmpty() {
+            self.requestWaitSale()
+            self.requestOnsale()
         }
     }
 
@@ -56,20 +54,23 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - Request
     func pullRequestCurrentPage(isPullDown: Bool) -> Void {
-        var status   = ""
-        var identify = 0
         if self.viewModel.listType == DSSProductListType.OnSale {
-            status      = "1"
-            identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_ONSALE_REQUEST : DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST)
+            self.requestOnsale()
         } else {
-            status      = "2"
-            identify    = (isPullDown ? DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST : DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST)
+            self.requestWaitSale()
         }
-        
-        DSSProductListService.requestList(identify,
-                                          delegate: self,
-                                          status: status,
-                                          startRow: (isPullDown ? "0" : String(self.viewModel.numberOfRowsInSection)))
+    }
+    
+    func requestWaitSale() -> Void {
+        DSSProductListService.requestWaitsaleList(DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST,
+                                                  delegate: self,
+                                                  startRow: "0")
+    }
+    
+    func requestOnsale() -> Void {
+        DSSProductListService.requestOnsaleList(DSSProductListController.PRODUCTLIST_ONSALE_REQUEST,
+                                                delegate: self,
+                                                startRow: "0")
     }
     
     // MARK: - DSSDataCenterDelegate
@@ -77,19 +78,22 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         self.tableView.dg_stopLoading()
         
         if header.code == DSSResponseCode.Normal {
-            let (total, items) = DSSProductListService.parseList(response)
+            let (_, waitSaleItems) = DSSProductListService.parseWaitsaleList(response)
+            let (_, onSaleItems)   = DSSProductListService.parseOnsaleList(response)
             
             switch identify {
-            case DSSProductListController.PRODUCTLIST_ONSALE_REQUEST:
-                self.viewModel.removeAll(DSSProductListType.OnSale)
-                self.viewModel.append(items, type: DSSProductListType.OnSale)
-            case DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST:
-                self.viewModel.append(items, type: DSSProductListType.OnSale)
             case DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST:
                 self.viewModel.removeAll(DSSProductListType.WaitSale)
-                self.viewModel.append(items, type: DSSProductListType.WaitSale)
+                self.viewModel.append(waitSaleItems, type: DSSProductListType.WaitSale)
             case DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST:
-                self.viewModel.append(items, type: DSSProductListType.WaitSale)
+                self.viewModel.append(waitSaleItems, type: DSSProductListType.WaitSale)
+                
+            case DSSProductListController.PRODUCTLIST_ONSALE_REQUEST:
+                self.viewModel.removeAll(DSSProductListType.OnSale)
+                self.viewModel.append(onSaleItems, type: DSSProductListType.OnSale)
+            case DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST:
+                self.viewModel.append(onSaleItems, type: DSSProductListType.OnSale)
+                
             case DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST:
                 if let dictType = userInfo?["type"] {
                     if let intType = dictType as? Int {
@@ -101,8 +105,8 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
                         }
                     }
                 }
-            default:
-                print(total)
+            default: break
+//                print(total)
             }
             self.reloadData()
         } else {
@@ -132,7 +136,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             switch name {
             case DSSProductListController.ALERT_VIEW_DELETE:
                 if buttonIndex == 1 {
-                    if let model = self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) {
+                    if let model = (self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) as? DSSProductOnsaleModel) {
                         DSSProductListService.deleteList(DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST,
                                                          delegate: self,
                                                          ids: [model.itemID],
@@ -147,16 +151,33 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     }
     
     // MARK: - UITableViewDataSource, UITableViewDelegate
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.viewModel.numberOfSection()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.numberOfRowsInSection(section)
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.min
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return DSSProductListCell.height()
+        return 154//DSSProductOnsaleCell.height()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSProductListCell)) {
+        var cellName = String(DSSProductWaitsaleCell)
+        if self.viewModel.listType == DSSProductListType.OnSale {
+            cellName = String(DSSProductOnsaleCell)
+        }
+        
+        if let cell = tableView.dequeueReusableCellWithIdentifier(cellName) {
             cell.fk_configWith(self.viewModel, indexPath: indexPath)
             cell.selectionStyle = .None
             return cell
@@ -165,7 +186,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let model = viewModel.itemAtIndexPath(indexPath) {
+        if let model = (viewModel.itemAtIndexPath(indexPath) as? DSSProductOnsaleModel) {
             var editType = kEditType.kEditTypeCheck
             if self.viewModel.listType == DSSProductListType.WaitSale {
                 editType = kEditType.kEditTypeEdit
@@ -200,17 +221,13 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - Action
     
-    func clickRightNaviBarButton(sender: UIButton) {
-        let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
-        self.navigationController?.pushViewController(editController, animated: true)
-    }
     
     // MARK: - Method
     
     func reloadData() {
         self.tableView.reloadData()
         
-        let count = self.viewModel.numberOfRowsInSection(0)
+        let count = self.viewModel.numberOfSection()
         if count == 0 {
             self.tableView.addSubview(self.emptyTipLabel)
             self.emptyTipLabel.hidden = false
@@ -234,17 +251,8 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             make.height.equalTo(52)
         }
         
-        let line = UIView.init()
-        line.backgroundColor = UIColor.init(rgb: 0xf5f5f5)
-        self.view.addSubview(line)
-        line.snp_makeConstraints { (make) in
-            make.left.right.equalTo(self.view)
-            make.top.equalTo(self.segmentControl.snp_bottom)
-            make.height.equalTo(0.5)
-        }
-        
         self.view.addSubview(self.tableView)
-        self.tableView.frame = CGRectMake(0, 53, CGRectGetWidth(view.bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64 - 53)
+        self.tableView.frame = CGRectMake(0, 52, CGRectGetWidth(view.bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64 - 52)
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
         loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
@@ -256,20 +264,22 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     // MARK: - Property
     lazy var segmentControl: DSSSegmentControl = {
-        let control = DSSSegmentControl.init(imageNames: ["SegmentReserveNormal", "SegmentOnsaleNormal"], selectedImageNames: ["SegmentReserveSelected", "SegmentOnsaleSelected"], titles: ["Reserve", "On Sale"])
-        control.backgroundColor = UIColor(white: 0.5, alpha: 1)
+        let control = DSSSegmentControl.init(imageNames: ["SegmentReserveNormal", "SegmentOnsaleNormal"],
+                                             selectedImageNames: ["SegmentReserveSelected", "SegmentOnsaleSelected"],
+                                             titles: [" 待上架", " 已上架"])
         control.delegate = self
         return control
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView.init(frame: CGRectZero, style: UITableViewStyle.Plain)
+        let tableView = UITableView.init(frame: CGRectZero, style: UITableViewStyle.Grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.allowsMultipleSelection = false
-        tableView.backgroundColor = UIColor.init(rgb: 0xffffff)
-        tableView.registerClass(DSSProductListCell.self, forCellReuseIdentifier: String(DSSProductListCell))
+        tableView.backgroundColor = UIColor.init(rgb: 0xf4f4f4)
+        tableView.registerClass(DSSProductOnsaleCell.self, forCellReuseIdentifier: String(DSSProductOnsaleCell))
+        tableView.registerClass(DSSProductWaitsaleCell.self, forCellReuseIdentifier: String(DSSProductWaitsaleCell))
         return tableView
     }()
     

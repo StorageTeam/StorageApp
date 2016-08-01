@@ -28,7 +28,7 @@ class DSSProductListViewModel: NSObject {
         return (self.waitSaleProds.count == 0 && self.onSaleProds.count == 0)
     }
     
-    func append(objs: [DSSProductListModel], type:DSSProductListType) {
+    func append(objs: [AnyObject], type:DSSProductListType) {
         if objs.count == 0 {
             return
         }
@@ -51,7 +51,7 @@ class DSSProductListViewModel: NSObject {
     func removeModel(indexPath: NSIndexPath, type:DSSProductListType) -> Void {
         let array = self.arrayWithType(type)
         if indexPath.row < array.count {
-            array.removeObjectAtIndex(indexPath.row)
+            array.removeObjectAtIndex(indexPath.section)
         }
     }
     
@@ -62,14 +62,14 @@ class DSSProductListViewModel: NSObject {
         return self.onSaleProds
     }
     
-    func numberOfRowsInSection(section: Int) -> Int {
+    func numberOfSection() -> Int {
         return self.arrayWithType(self.listType).count
     }
     
-    func itemAtIndexPath(indexPath: NSIndexPath) -> DSSProductListModel? {
+    func itemAtIndexPath(indexPath: NSIndexPath) -> AnyObject? {
         let array = self.arrayWithType(self.listType)
         if indexPath.row < array.count {
-            return array.objectAtIndex(indexPath.row) as? DSSProductListModel
+            return array.objectAtIndex(indexPath.section)
         }
         
         return nil

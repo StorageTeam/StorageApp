@@ -32,9 +32,9 @@ class DSSSegmentControl: UIView {
         , selectedImageNames: Array<String>
         , titles: Array<String>
         , titleColor: UIColor         = UIColor.init(rgb: 0x9b9b9b)
-        , selectedTitleColor: UIColor = UIColor.init(rgb: 0xe8611f)
+        , selectedTitleColor: UIColor = UIColor.init(rgb: 0x1fbad6)
         , bgColor: UIColor            = UIColor.init(rgb: 0xffffff)
-        , selectedBgColor: UIColor    = UIColor.init(rgb: 0xf8f8f8)) {
+        , selectedBgColor: UIColor    = UIColor.init(rgb: 0xffffff)) {
         
         self.imageNames         = imageNames
         self.selectedImageNames = selectedImageNames
@@ -54,6 +54,11 @@ class DSSSegmentControl: UIView {
                 if idx == tarIdx {
                     btn.selected = true
                     btn.backgroundColor = self.selectedBgColor
+                    
+                    self.bottomIndicatorView.frame = CGRectMake(CGFloat.init(idx)*CGRectGetWidth(button.frame),
+                                                                CGRectGetHeight(self.frame) - 2.0,
+                                                                CGRectGetWidth(button.frame),
+                                                                2.0)
                 } else {
                     btn.selected = false
                     btn.backgroundColor = self.bgColor
@@ -92,12 +97,23 @@ class DSSSegmentControl: UIView {
             self.addSubview(button)
             
             // set title under image
-            let spacing: CGFloat = CGFloat(3)
-            let imageSize = button.imageView!.frame.size
-            button.titleEdgeInsets = UIEdgeInsetsMake(0.0, -imageSize.width, -(imageSize.height + spacing), 0.0);
+//            let spacing: CGFloat = CGFloat(3)
+//            let imageSize = button.imageView!.frame.size
+//            button.titleEdgeInsets = UIEdgeInsetsMake(0.0, -imageSize.width, -(imageSize.height + spacing), 0.0);
             
-            let titleSize = button.titleLabel!.frame.size
-            button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width);
+//            let titleSize = button.titleLabel!.frame.size
+//            button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width);
+            
+            if idx != (count - 1) {
+                let line = UIView.init()
+                line.backgroundColor = UIColor.init(rgb: 0xe5e5e5)
+                
+                button.addSubview(line)
+                line.frame = CGRectMake(width - 1,
+                                        (CGRectGetHeight(self.frame) - 30.0)/2.0,
+                                        DSSConst.pixelHeight,
+                                        30.0);
+            }
             
             if idx == 0 {
                 button.selected = true
@@ -110,11 +126,22 @@ class DSSSegmentControl: UIView {
             buttons.append(button)
         }
         
+        self.addSubview(self.bottomIndicatorView)
+        self.bottomIndicatorView.frame = CGRectMake(0,
+                                                    CGRectGetHeight(self.frame) - 2.0,
+                                                    width,
+                                                    2.0)
         self.buttons = buttons
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    lazy var bottomIndicatorView: UIView = {
+        let view = UIView.init()
+        view.backgroundColor = UIColor.init(rgb: 0x1fbad6)
+        return view;
+    }()
 
 }

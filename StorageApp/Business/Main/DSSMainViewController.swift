@@ -128,13 +128,15 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     func segmentedControlAction(sender: AnyObject) {
         // switch view show
         if(self.segmentControl.selectedSegmentIndex == 0) {
-            self.curSupplierView.hidden   = false
-            self.scanCollectButton.hidden = false
-            self.buildingView.hidden      = true
+            self.curSupplierView.hidden    = false
+            self.supplierViewBgView.hidden = false
+            self.scanCollectButton.hidden  = false
+            self.buildingView.hidden       = true
         } else if(self.segmentControl.selectedSegmentIndex == 1) {
-            self.curSupplierView.hidden   = true
-            self.scanCollectButton.hidden = true
-            self.buildingView.hidden      = false
+            self.curSupplierView.hidden    = true
+            self.supplierViewBgView.hidden = true
+            self.scanCollectButton.hidden  = true
+            self.buildingView.hidden       = false
         }
     }
     
@@ -252,10 +254,11 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
             make.centerX.equalTo(self.bgImgView)
         }
         
-        let borderWidth : CGFloat = 286
+        let borderWidth : CGFloat = (DSSConst.IS_iPhone4() ? 240 : 286)
+        var offset = (DSSConst.IS_iPhone4() ? 30 : 50)
         self.bgImgView.addSubview(self.supplierViewBgView)
         self.supplierViewBgView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.segmentControl.snp_bottom).offset(55)
+            make.top.equalTo(self.segmentControl.snp_bottom).offset(offset)
             make.size.equalTo(CGSizeMake(borderWidth, borderWidth))
             make.centerX.equalTo(self.bgImgView)
         }
@@ -268,17 +271,20 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
         self.curSupplierView.layer.cornerRadius = (borderWidth - 20)/2
         
+        offset = (DSSConst.IS_iPhone4() ? 40 : 55)
         self.bgImgView.addSubview(self.scanCollectButton)
         self.scanCollectButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.curSupplierView.snp_bottom).offset(45)
-            make.size.equalTo(CGSizeMake(300, 45))
+            make.top.equalTo(self.curSupplierView.snp_bottom).offset(offset)
+            make.size.equalTo(CGSizeMake(280, 45))
             make.centerX.equalTo(self.bgImgView)
         }
         
+        offset = (DSSConst.IS_iPhone4() ? 35 : 50)
+        let size = (DSSConst.IS_iPhone4() ? CGSizeMake(260, 320) : CGSizeMake(260, 340))
         self.bgImgView.addSubview(self.buildingView)
         self.buildingView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.segmentControl.snp_bottom).offset(54)
-            make.size.equalTo(CGSizeMake(285, 380))
+            make.top.equalTo(self.segmentControl.snp_bottom).offset(offset)
+            make.size.equalTo(size)
             make.centerX.equalTo(self.bgImgView)
         }
         
