@@ -31,7 +31,7 @@ class FKPerImgCollectionCell: UICollectionViewCell {
         }
         
         self.targetImgView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(1, 1, 1, -1))
+            make.edges.equalTo(UIEdgeInsetsMake(1, 1, -1, -1))
         }
         
         self.deleteBtn.snp_makeConstraints { (make) in
@@ -62,7 +62,8 @@ class FKPerImgCollectionCell: UICollectionViewCell {
     lazy var targetImgView: UIImageView = {
         
         let imageView: UIImageView = UIImageView.init()
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
         

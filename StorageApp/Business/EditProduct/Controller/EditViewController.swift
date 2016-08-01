@@ -38,9 +38,13 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         self.viewModel.productID = productID
     }
     
-    convenience init(source: EditSourceItem) {
+    convenience init(source: EditSourceItem, images: [UIImage]?) {
         self.init(editType: kEditType.kEditTypeAdd, productID: nil)
         self.viewModel.sourceItem = source
+        if images != nil {
+            self.addImags(images!, isProduct: true)
+        }
+        
     }
     
     deinit {
@@ -106,15 +110,18 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         
         self.showHUD()
         
-        if self.viewModel.editType == kEditType.kEditTypeAdd {
-            // 新建
-            DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: self.viewModel.getSavePara()!)
+        if let para = self.viewModel.getSavePara() {
             
-        }else if self.viewModel.editType == kEditType.kEditTypeEdit {
-            // 修改
-            DSSEditService.requestEdit(EDIT_SAVE__REQ,
-                                       delegate: self,
-                                       para: self.viewModel.getSavePara()!)
+            if self.viewModel.editType == kEditType.kEditTypeAdd {
+                // 新建
+                DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: para)
+            }else if self.viewModel.editType == kEditType.kEditTypeEdit {
+                // 修改
+                DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: para)
+            }
+
+        } else {
+            self.hidHud(false)
         }
     }
     
@@ -406,14 +413,18 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         weak var weakSelf = self
         
         if type == .Camera {
+            
             let takePhoto = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+                
                 weakSelf?.addImags(images, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
-            })
+                
+                }, cancel: nil)
+            
             self.navigationController?.pushViewController(takePhoto, animated: true)
         } else {
             let selectPic = DSSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
-                weakSelf?.addImags(assets, isProduct: isProduct)
+                weakSelf?.addImagAsset(assets, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
             })
             self.navigationController?.pushViewController(selectPic, animated: true)
@@ -440,7 +451,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         self.tableView.reloadData()
     }
     
-    private func addImags(assets: [PHAsset], isProduct: Bool) {
+    private func addImagAsset(assets: [PHAsset], isProduct: Bool) {
 
         let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
         let option = PHImageRequestOptions.init()

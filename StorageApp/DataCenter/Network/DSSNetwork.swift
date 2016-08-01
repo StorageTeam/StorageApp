@@ -85,14 +85,14 @@ class DSSNetwork: NSObject {
                                     }
                                 }
                             } catch {
-                                delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: nil)
+                                delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: userInfo)
                             }
                         }
-                        delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: nil)
+                        delegate.networkDidResponseError?(identify, header: header, error: DSSNetwork.errorMSG, userInfo: userInfo)
                     }
                 case .Failure(let encodingError):
                     print(encodingError)
-                    delegate.networkDidResponseError?(identify, header: nil, error: nil, userInfo: nil)
+                    delegate.networkDidResponseError?(identify, header: nil, error: nil, userInfo: userInfo)
                 }
             }
         )

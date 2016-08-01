@@ -194,6 +194,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         let scanController = FKScanController.init(supplierID: self.viewModel.getSelSupplierID(), finish: { (resStr) in
             wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
             let takePhotoController = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+                
                 wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
                 
                 let editItem = EditSourceItem.init()
@@ -201,9 +202,12 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
                 editItem.address    = wkSelf?.viewModel.getSelSupplierName()
                 editItem.upc        = resStr
                 
-                let editController = EditViewController.init(source: editItem)
+                let editController = EditViewController.init(source: editItem, images: images)
                 editController.hidesBottomBarWhenPushed = true
                 wkSelf?.navigationController?.pushViewController(editController, animated: true)
+                
+                }, cancel: { 
+                    
             })
             takePhotoController.hidesBottomBarWhenPushed = true
             wkSelf?.navigationController?.pushViewController(takePhotoController, animated: true)
