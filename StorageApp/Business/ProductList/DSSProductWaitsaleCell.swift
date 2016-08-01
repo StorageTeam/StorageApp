@@ -70,7 +70,7 @@ class DSSProductWaitsaleCell: UITableViewCell {
                 self.phototView.image = nil
                 self.titleLabel.text  = nil
                 self.upcLabel.text    = nil
-
+                self.button.tag = indexPath.section
                 
                 if let time = model.createTime?.stringByReplacingOccurrencesOfString("T", withString: " ") {
                     self.timeLabel.text = "创建时间：" + time

@@ -32,6 +32,11 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         self.view.backgroundColor = UIColor.whiteColor()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     convenience init(editType: kEditType, productID: String?) {
         self.init()
         self.viewModel.editType = editType
@@ -225,7 +230,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
                 
                 DSSDataCenter.Request(UPLOAD_IMG_REQ,
                                       delegate: self,
-                                      path:  "/link-site/web/product_shipoffline_json/uploadFile.json",
+                                      path:  "/link-site/web/product_shipoffline_json/upload_file.json",
                                       para: nil,
                                       userInfo: info,
                                       fileData: imgData)

@@ -180,6 +180,12 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellName) {
             cell.fk_configWith(self.viewModel, indexPath: indexPath)
             cell.selectionStyle = .None
+            
+            if let waitSaleCell = cell as? DSSProductWaitsaleCell {
+                waitSaleCell.button.addTarget(self,
+                                              action: #selector(self.clickEditBtn(_:)),
+                                              forControlEvents: .TouchUpInside)
+            }
             return cell
         }
         return UITableViewCell.init()
@@ -187,14 +193,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let model = (viewModel.itemAtIndexPath(indexPath) as? DSSProductOnsaleModel) {
-            var editType = kEditType.kEditTypeCheck
-            if self.viewModel.listType == DSSProductListType.WaitSale {
-                editType = kEditType.kEditTypeEdit
-            }
-            
-            let controller = EditViewController.init(editType: editType, productID: String(model.itemID))
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
+            self.pushEditController(kEditType.kEditTypeCheck, productId: String(model.itemID))
         }
     }
     
@@ -220,9 +219,22 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     }
     
     // MARK: - Action
-    
+    @objc private func clickEditBtn(sender: UIButton) {
+        
+        let indexpath = NSIndexPath.init(forRow: 0, inSection: sender.tag)
+        if let model = (viewModel.itemAtIndexPath(indexpath) as? DSSProductWaitsaleModel) {
+            self.pushEditController(kEditType.kEditTypeEdit, productId: String(model.itemID))
+        }
+    }
     
     // MARK: - Method
+    func pushEditController(editType: kEditType, productId: String) {
+        
+        let editType = editType
+        let controller = EditViewController.init(editType: editType, productID: productId)
+        controller.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     
     func reloadData() {
         self.tableView.reloadData()

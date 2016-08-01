@@ -70,6 +70,7 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
         self.setup()
+        self.navigationItem.title = "扫码"
     }
     
     // MARK: - DSSDataCenterDelegate
@@ -227,8 +228,7 @@ extension FKScanController : AVCaptureMetadataOutputObjectsDelegate{
                     self.finishBlock!(resStr: (metadataObj?.stringValue)!)
                 }
             }
-            
-            self.navigationController?.popViewControllerAnimated(true)
+//            self.navigationController?.popViewControllerAnimated(true)
         }
     }
 }

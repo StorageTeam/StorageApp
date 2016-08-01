@@ -120,8 +120,6 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     func clickRightNaviBarButton(sender: UIButton) {
-//        let editController = EditViewController.init(editType: kEditType.kEditTypeAdd, productID: nil)
-//        self.navigationController?.pushViewController(editController, animated: true)
         self.pushProductAddController()
     }
     
@@ -194,28 +192,41 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     func pushProductAddController() -> Void {
         weak var wkSelf = self
         let scanController = FKScanController.init(supplierID: self.viewModel.getSelSupplierID(), finish: { (resStr) in
-            wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
             let takePhotoController = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
                 
-                wkSelf?.navigationController?.popToRootViewControllerAnimated(false)
-                
-                let editItem = EditSourceItem.init()
-                editItem.supplierId = wkSelf?.viewModel.getSelSupplierID()
-                editItem.address    = wkSelf?.viewModel.getSelSupplierName()
-                editItem.upc        = resStr
-                
-                let editController = EditViewController.init(source: editItem, images: images)
-                editController.hidesBottomBarWhenPushed = true
-                wkSelf?.navigationController?.pushViewController(editController, animated: true)
-                
-                }, cancel: { 
+                    self.photoDoneToPushEdit(resStr, images: images)
+                }, cancel: {
                     
+                self.photoDoneToPushEdit(resStr, images: nil)
             })
             takePhotoController.hidesBottomBarWhenPushed = true
-            wkSelf?.navigationController?.pushViewController(takePhotoController, animated: true)
+            wkSelf?.removeLastPushNew(takePhotoController)
         })
         scanController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(scanController, animated: true)
+    }
+    
+    func photoDoneToPushEdit(scanStr: String, images: [UIImage]?) {
+        
+        let editItem = EditSourceItem.init()
+        editItem.supplierId = self.viewModel.getSelSupplierID()
+        editItem.address    = self.viewModel.getSelSupplierName()
+        editItem.upc        = scanStr
+        
+        let editController = EditViewController.init(source: editItem, images: images)
+        editController.hidesBottomBarWhenPushed = true
+        
+       self.removeLastPushNew(editController)
+    }
+    
+    func removeLastPushNew(pushController: UIViewController) {
+        var controllers = self.navigationController?.viewControllers
+        guard controllers?.count >= 2 else {
+            return
+        }
+        controllers?.removeLast()
+        controllers?.append(pushController)
+        self.navigationController?.setViewControllers(controllers!, animated: true)
     }
     
     func pushProductListController() -> Void {
