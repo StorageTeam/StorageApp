@@ -356,6 +356,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         button.layer.cornerRadius = 6
         button.backgroundColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 0.9)
         button.setImage(UIImage.init(named: "product_collect_icon"), forState: .Normal)
+        button.addTarget(self, action: #selector(self.clickRightNaviBarButton), forControlEvents: .TouchUpInside)
         return button
     }()
     
