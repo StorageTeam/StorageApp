@@ -36,15 +36,17 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSSResponseCode.Normal {
-            let items = DSSMainViewService.parseList(response)
-            
-            switch identify {
-            case DSSMainViewController.SUPPLIERLIST_REQUEST:
-                self.viewModel.supplierArray = items
-                self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
-                break
-            default:
-                break
+            if identify == DSSMainViewController.SUPPLIERLIST_REQUEST {
+                let items = DSSMainViewService.parseList(response)
+                
+                switch identify {
+                case DSSMainViewController.SUPPLIERLIST_REQUEST:
+                    self.viewModel.supplierArray = items
+                    self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
+                    break
+                default:
+                    break
+                }
             }
         } else {
             
@@ -87,24 +89,6 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     
     func didClickChangeSupplier(curSupplier: String?) {
 //        if let text = curSupplier {
-            #if DEBUG
-                var dataSource = [DSSSupplierModel]()
-                var model: DSSSupplierModel! = nil
-                for idx in 0 ..< 10 {
-                    model            = DSSSupplierModel.init()
-                    model.itemID     = Int64.init(idx)
-                    model.name       = "美国Wal-Mart Wakmart大厦" + String.init(idx)
-                    model.isSelected = false
-                    
-                    if idx == 4 {
-                        model.isSelected = true
-                    }
-                    
-                    dataSource.append(model)
-                }
-                self.viewModel.supplierArray = dataSource
-            #endif
-            
             self.supplierListView.setDataSource(self.viewModel.supplierArray)
             self.showSupplierListView()
 //        }

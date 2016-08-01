@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class DSSSupplierModel: NSObject, Mappable {
-    var itemID          : Int64!
+    var itemID          : Int!
     var name            : String!
     var isSelected      : Bool!
     

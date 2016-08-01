@@ -35,7 +35,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.title = "Item Managerment"
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(clickRightNaviBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(self.clickRightNaviBarButton))
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -18,7 +18,7 @@ class DSSProductListService: NSObject {
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/find_product_shipoffline_for_app.json"
+            , path: "/link-site/web/product_shipoffline_json/find_product_shipoffline_stay_submit.json"
             , para: ["product_shipoffline_json" : para]
             , userInfo: nil)
     }

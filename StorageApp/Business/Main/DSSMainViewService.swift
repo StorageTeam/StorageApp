@@ -14,7 +14,7 @@ class DSSMainViewService: NSObject {
     class func requestList(identify: Int, delegate: DSSDataCenterDelegate) -> Void {
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/product_shipoffline_json/find_shipoffline_user_privilege.json"
+            , path: "/link-site/web/shipoffline_user_privilege_json/find_shipoffline_user_privilege.json"
             , para: nil
             , userInfo: nil)
     }
@@ -23,6 +23,16 @@ class DSSMainViewService: NSObject {
         if let data = json["data"] as? [String:AnyObject] {
             if let itemJSON = data["list"] {
                 if let items = Mapper<DSSSupplierModel>().mapArray(itemJSON) {
+                    
+                    // if no selected model, set first model as selected
+                    for model in items {
+                        if model.isSelected == true {
+                            return items
+                        }
+                    }
+                    if let item = items.first {
+                        item.isSelected = true
+                    }
                     return items
                 }
             }
