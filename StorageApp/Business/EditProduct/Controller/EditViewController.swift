@@ -374,15 +374,15 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
             weak var weakSelf = self
             let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .ActionSheet)
             
-            let action0 = UIAlertAction.init(title: "Camera", style: .Default, handler: { (action: UIAlertAction) in
+            let action0 = UIAlertAction.init(title: "照相机", style: .Default, handler: { (action: UIAlertAction) in
                 weakSelf?.prensentImgPickWithType(.Camera, isProduct: isProduct)
             })
             
-            let action1 = UIAlertAction.init(title: "PhotoLibray", style: .Default, handler: { (action: UIAlertAction) in
+            let action1 = UIAlertAction.init(title: "相册", style: .Default, handler: { (action: UIAlertAction) in
                 weakSelf?.prensentImgPickWithType(.SavedPhotosAlbum, isProduct: isProduct) // 手机相册，而不是图库
             })
             
-            let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler:nil)
+            let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler:nil)
             
             sheet.addAction(action0)
             sheet.addAction(action1)
