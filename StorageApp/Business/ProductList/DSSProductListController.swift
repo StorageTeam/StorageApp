@@ -207,11 +207,11 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             // handle delete (by removing the data from your array and updating the tableview)
-            let alert = UIAlertView.init(title: "Confirm",
-                                         message: "Delete?",
+            let alert = UIAlertView.init(title: "",
+                                         message: "是否确定删除该商品?",
                                          delegate: self,
-                                         cancelButtonTitle: "Cancel",
-                                         otherButtonTitles: "Confirm")
+                                         cancelButtonTitle: "取消",
+                                         otherButtonTitles: "确定")
             alert.describeName = DSSProductListController.ALERT_VIEW_DELETE
             alert.tag = indexPath.row
             alert.show()

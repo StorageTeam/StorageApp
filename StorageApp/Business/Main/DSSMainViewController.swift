@@ -237,11 +237,11 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     func showLogoutAlert() -> Void {
-        let alert = UIAlertView.init(title: "Confirm",
-                                     message: "Logout?",
+        let alert = UIAlertView.init(title: "",
+                                     message: "是否确定退出登录?",
                                      delegate: self,
-                                     cancelButtonTitle: "Cancel",
-                                     otherButtonTitles: "Confirm")
+                                     cancelButtonTitle: "取消",
+                                     otherButtonTitles: "确定")
         alert.describeName = DSSMainViewController.ALERT_VIEW_SHOW_SLIDE_MENU
         alert.show()
 
