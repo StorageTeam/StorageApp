@@ -15,7 +15,7 @@ class DSSTakePhotoController: DSSBaseViewController {
     private let topHeight = 44.0
     private let actionViewH = 97.0
     private let imgListH = 90.0
-    private let maxImgCount = 9
+    var maxImgCount = 30
     
     private var imageArray: [UIImage] = []
     private var finshColsure: ((images: [UIImage]) -> Void)?
@@ -144,8 +144,8 @@ class DSSTakePhotoController: DSSBaseViewController {
     @objc private func clickTakePhoto() {
 
         if self.imageArray.count >= self.maxImgCount {
-            let warnStr = String.init(format: "最多添加%d张照片", self.maxImgCount)
-            self.showText(warnStr)
+//            let warnStr = String.init(format: "最多添加%d张照片", self.maxImgCount)
+            self.showText("最多添加30张照片")
             return
         }
         

@@ -11,6 +11,8 @@ import Photos
 
 class DSSSelectImgController: DSSBaseViewController {
 
+    var maxImgCount: Int = 30
+    
     var fetchRes : PHFetchResult?
     var itemSize : CGSize {
         get {
@@ -230,8 +232,8 @@ extension DSSSelectImgController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         let selectArray = self.getSelectedFetchArray()
-        guard selectArray.count < 9 else {
-            self.showText("最多选择9张照片")
+        guard selectArray.count < self.maxImgCount else {
+            self.showText("最多选择30张照片")
             return false
         }
         return true
