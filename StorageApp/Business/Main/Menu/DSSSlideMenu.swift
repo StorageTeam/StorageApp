@@ -48,7 +48,9 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func setAccount(headURL: String?, nickname: String?) -> Void {
         if let url = headURL {
-            self.slideHeaderView.headerView.dss_setImage(url, placeholder: UIImage.init(named: "login_placeholder"))
+            self.slideHeaderView.headerView.dss_setImage(url, placeholder: nil)
+        } else {
+            self.slideHeaderView.headerView.image = UIImage.init(named: "login_placeholder")
         }
         if let nick = nickname {
             self.slideHeaderView.nicknameLabel.text = nick
@@ -77,7 +79,7 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.image = UIImage.init(named: self.iconArray[indexPath.row])
             cell.textLabel?.text = self.titleArray[indexPath.row]
             cell.textLabel?.textColor = UIColor.whiteColor()
-            cell.textLabel?.font = UIFont.boldSystemFontOfSize(15)
+            cell.textLabel?.font = UIFont.boldSystemFontOfSize(13)
             cell.backgroundColor = UIColor.init(rgb: 0x141324)
             
             cell.selectedBackgroundView = {
@@ -121,16 +123,16 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     lazy var slideHeaderView: DSSSlideHeaderView = {
         let menu = DSSSlideHeaderView.init(frame: CGRectZero)
-        menu.backgroundColor = UIColor.blackColor()
+        menu.backgroundColor = UIColor.init(rgb: 0x232236)
         return menu
     }()
     
     lazy var titleArray: Array = {
-        return ["商品收集", "商品列表", "退出登录"]
+        return ["商品搜集", "商品列表", "退出登录"]
     }()
     
     lazy var iconArray: Array = {
-        return ["product_collect_icon", "product_collect_icon", "product_collect_icon"]
+        return ["product_collect_icon", "product_list_icon", "logout_icon"]
     }()
 }
 

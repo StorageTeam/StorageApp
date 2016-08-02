@@ -79,17 +79,16 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
             if let exist = response["data"]?["result"] as? Int {
                 if exist == 1 {
                     self.messageLabel.hidden = false
-                    weak var wkSelf = self
-                    UIView.animateWithDuration(3,
-                                               animations: {
-                                                wkSelf?.messageLabel.hidden = true
-                    })
+                    NSTimer.scheduledTimerWithTimeInterval(3,
+                                                           target: self,
+                                                           selector: #selector(self.hideMessageLabel),
+                                                           userInfo: nil,
+                                                           repeats: false)
                 } else {
                     self.messageLabel.hidden = true
                     if let upc = (userInfo?["upc"] as? String) {
                         if self.finishBlock != nil {
                             self.finishBlock!(resStr: upc)
-                            self.session.stopRunning()
                         }
                     }
                 }
@@ -98,9 +97,18 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
     }
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
-//        if let errorString = error {
-//            self.showText(errorString)
-//        }
+        if let errorString = error {
+            self.showText(errorString)
+        }
+        self.session.startRunning()
+    }
+    
+
+    // MARK: - Action
+    
+    func hideMessageLabel() -> Void {
+        self.messageLabel.hidden = true
+        self.session.startRunning()
     }
     
     func setup() {
@@ -222,6 +230,7 @@ extension FKScanController : AVCaptureMetadataOutputObjectsDelegate{
         
         if metadataObj != nil{
             if let supplierID = self.supplierID {
+                self.session.stopRunning()
                 DSSScanService.requestUPCExist(FKScanController.UPC_VALID_REQUEST
                     , delegate: self
                     , upc: (metadataObj?.stringValue)!

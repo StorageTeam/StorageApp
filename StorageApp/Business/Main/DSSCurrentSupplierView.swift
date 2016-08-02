@@ -38,8 +38,7 @@ class DSSCurrentSupplierView: UIView {
     func addAllSubviews() -> Void {
         self.addSubview(self.supplierBgView)
         self.supplierBgView.snp_makeConstraints { (make) in
-            make.top.equalTo(self).offset(0)
-            make.right.equalTo(self).offset(-4)
+            make.edges.equalTo(self)
         }
         
         self.addSubview(self.greenLine)

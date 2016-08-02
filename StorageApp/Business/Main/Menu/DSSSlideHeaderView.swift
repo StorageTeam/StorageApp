@@ -38,7 +38,7 @@ class DSSSlideHeaderView: UIView {
     lazy var headerView: UIImageView = {
         var view = UIImageView.init()
         view.layer.cornerRadius = DSSSlideHeaderView.HEADER_LENGTH/2.0
-        view.backgroundColor = UIColor.grayColor()
+        view.backgroundColor = UIColor.init(rgb: 0x232236)
         view.clipsToBounds = true
         return view
     }()
@@ -46,7 +46,7 @@ class DSSSlideHeaderView: UIView {
     lazy var nicknameLabel: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0xffffff)
-        label.font = UIFont.systemFontOfSize(16)
+        label.font = UIFont.systemFontOfSize(12)
         return label
     }()
 }
