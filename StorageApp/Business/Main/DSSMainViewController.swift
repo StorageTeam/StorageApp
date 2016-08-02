@@ -101,6 +101,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
             case DSSMainViewController.ALERT_VIEW_SHOW_SLIDE_MENU:
                 if buttonIndex == 1 {
                     DSSAccount.logout()
+                    self.viewModel.clearData()
                     self.presentLoginController()
                 }
             default:

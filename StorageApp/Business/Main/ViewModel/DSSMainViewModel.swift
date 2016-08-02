@@ -40,5 +40,8 @@ class DSSMainViewModel: NSObject {
         }
         return false
     }
-
+    
+    func clearData() -> Void {
+        self.supplierArray = [DSSSupplierModel]()
+    }
 }
