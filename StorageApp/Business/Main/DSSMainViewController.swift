@@ -48,8 +48,8 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
                     break
                 }
             }
-        } else {
-            
+        } else if header.code == DSSResponseCode.AccessError {
+            self.presentLoginController()
         }
     }
     

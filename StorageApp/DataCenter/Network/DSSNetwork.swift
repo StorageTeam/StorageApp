@@ -73,15 +73,16 @@ class DSSNetwork: NSObject {
                                         let responseCode = DSSResponseCode(rawValue: Int(code)!)
                                         header.code = responseCode
                                         
-                                        if responseCode == DSSResponseCode.Normal || responseCode == DSSResponseCode.BusinessError {
+                                        if responseCode == DSSResponseCode.Normal || responseCode == DSSResponseCode.BusinessError || responseCode == DSSResponseCode.AccessError {
                                             if let msg = json["message"] as? String {
                                                 header.msg = msg
                                             }
                                             delegate.networkDidResponseSuccess(identify, header: header, response: json, userInfo: userInfo)
                                             return
-                                        } else if responseCode == DSSResponseCode.AccessError {
-                                            // show login page
                                         }
+//                                        else if responseCode == DSSResponseCode.AccessError {
+//                                            // show login page
+//                                        }
                                     }
                                 }
                             } catch {
