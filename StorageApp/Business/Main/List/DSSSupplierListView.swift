@@ -85,6 +85,7 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+        self.listHeaderView.actionButton.sendActionsForControlEvents(.TouchUpInside)
     }
     
     // Mark: - Property
