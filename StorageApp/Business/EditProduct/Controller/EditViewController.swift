@@ -415,7 +415,13 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
     }
     
     func prensentImgPickWithType(type: UIImagePickerControllerSourceType, isProduct: Bool) {
+        
         weak var weakSelf = self
+        
+        var remainCount = 30 - self.viewModel.priceImgArray.count
+        if isProduct {
+            remainCount = 30 - self.viewModel.proImgArray.count
+        }
         
         if type == .Camera {
             
@@ -426,12 +432,16 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
                 
                 }, cancel: nil)
             
+            takePhoto.maxImgCount = remainCount
             self.navigationController?.pushViewController(takePhoto, animated: true)
+            
         } else {
+            
             let selectPic = DSSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
                 weakSelf?.addImagAsset(assets, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
             })
+            selectPic.maxImgCount = remainCount
             self.navigationController?.pushViewController(selectPic, animated: true)
         }
     }
