@@ -75,7 +75,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
                                          mobile: mobile!,
                                          password: password!)
         } else {
-            self.showText("please enter phone number and password")
+            self.showText("账号或密码错误")
         }
     }
     
@@ -150,7 +150,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     }()
     
     lazy var mobileInputView: DSSLoginTextInput = {
-        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "Phone number", secure: false)
+        let mobileInputView = DSSLoginTextInput(iconName: "MobileInputLogo", placeholder: "请输入账号", secure: false)
         mobileInputView.textField.delegate = self;
         mobileInputView.textField.returnKeyType = .Done
         mobileInputView.textField.keyboardType = .NumbersAndPunctuation
@@ -158,7 +158,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     }()
     
     lazy var passwordInputView: DSSLoginTextInput = {
-        let passwordInputView = DSSLoginTextInput(iconName: "PasswordInputLogo", placeholder: "Password", secure: true)
+        let passwordInputView = DSSLoginTextInput(iconName: "PasswordInputLogo", placeholder: "请输入密码", secure: true)
         passwordInputView.textField.delegate = self;
         passwordInputView.textField.returnKeyType = .Done
         passwordInputView.textField.keyboardType = .NumbersAndPunctuation
@@ -168,7 +168,7 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
     lazy var loginBtn: UIButton = {
         let loginBtn = UIButton(type: UIButtonType.Custom)
         loginBtn.layer.cornerRadius = 4
-        loginBtn.setTitle("Sign in", forState: UIControlState.Normal)
+        loginBtn.setTitle("登录", forState: UIControlState.Normal)
         loginBtn.backgroundColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 0.9)
         loginBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
         loginBtn.addTarget(self, action: #selector(self.clickLoginAction), forControlEvents: .TouchUpInside)
