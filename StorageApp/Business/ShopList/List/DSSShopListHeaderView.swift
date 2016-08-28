@@ -1,5 +1,5 @@
 //
-//  DSSLocationListHeaderView.swift
+//  DSSShopListHeaderView.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/28.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DSSSupplierListHeaderView: UIView {
+class DSSShopListHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -1,5 +1,5 @@
 //
-//  DSSMainViewModel.swift
+//  DSSShopViewModel.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/28.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-class DSSMainViewModel: NSObject {
-    var supplierArray: [DSSSupplierModel]!
+class DSSShopViewModel: NSObject {
+    var shopArray: [DSSShopModel]!
     
     override init() {
         super.init()
-        self.supplierArray = [DSSSupplierModel]()
+        self.shopArray = [DSSShopModel]()
     }
     
-    func getSelSupplierName() -> String? {
-        for model in self.supplierArray {
+    func getSelShopName() -> String? {
+        for model in self.shopArray {
             if model.isSelected == true {
                 return model.name
             }
@@ -25,8 +25,8 @@ class DSSMainViewModel: NSObject {
         return nil
     }
     
-    func getSelSupplierID() -> String? {
-        for model in self.supplierArray {
+    func getSelShopID() -> String? {
+        for model in self.shopArray {
             if model.isSelected == true {
                 return String.init(model.itemID)
             }
@@ -35,13 +35,13 @@ class DSSMainViewModel: NSObject {
     }
     
     func isEmpty() -> Bool {
-        if self.supplierArray.count == 0 {
+        if self.shopArray.count == 0 {
             return true
         }
         return false
     }
     
     func clearData() -> Void {
-        self.supplierArray = [DSSSupplierModel]()
+        self.shopArray = [DSSShopModel]()
     }
 }

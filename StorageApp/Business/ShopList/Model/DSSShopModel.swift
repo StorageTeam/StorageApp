@@ -1,5 +1,5 @@
 //
-//  DSSSupplierModel.swift
+//  DSSShopModel.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/28.
@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class DSSSupplierModel: NSObject, Mappable {
+class DSSShopModel: NSObject, Mappable {
     var itemID          : Int!
     var name            : String!
     var isSelected      : Bool!
@@ -27,8 +27,8 @@ class DSSSupplierModel: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        itemID          <- map["supplier_id"]
-        name            <- map["supplier_name"]
+        itemID          <- map["shop_id"]
+        name            <- map["shop_name"]
         isSelected      <- map["current"]
     }
 }

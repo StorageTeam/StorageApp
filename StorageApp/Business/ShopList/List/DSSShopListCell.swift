@@ -1,5 +1,5 @@
 //
-//  DSSLocationListCell.swift
+//  DSSShopListCell.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/28.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DSSSupplierListCell: UITableViewCell {
+class DSSShopListCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

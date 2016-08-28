@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSSDataCenterDelegate {
-    private static let SUPPLIERLIST_REQUEST : Int          = 0
+class DSSShopViewController: DSSBaseViewController, CurrentShopDelegate, DSSDataCenterDelegate {
+    private static let SHOPLIST_REQUEST : Int          = 0
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -30,20 +30,20 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         super.viewWillAppear(animated)
         
         if DSSAccount.isLogin() && self.viewModel.isEmpty() {
-            DSSShopService.requestList(DSSShopViewController.SUPPLIERLIST_REQUEST, delegate: self)
+            DSSShopService.requestList(DSSShopViewController.SHOPLIST_REQUEST, delegate: self)
         }
     }
     
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSSResponseCode.Normal {
-            if identify == DSSShopViewController.SUPPLIERLIST_REQUEST {
+            if identify == DSSShopViewController.SHOPLIST_REQUEST {
                 let items = DSSShopService.parseList(response)
                 
                 switch identify {
-                case DSSShopViewController.SUPPLIERLIST_REQUEST:
-                    self.viewModel.supplierArray = items
-                    self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
+                case DSSShopViewController.SHOPLIST_REQUEST:
+                    self.viewModel.shopArray = items
+                    self.curShopView.setShopName(self.viewModel.getSelShopName())
                     break
                 default:
                     break
@@ -60,13 +60,11 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         }
     }
     
-    // MARK: - CurrentSupplierDelegate
+    // MARK: - CurrentShopDelegate
     
-    func didClickChangeSupplier(curSupplier: String?) {
-//        if let text = curSupplier {
-            self.supplierListView.setDataSource(self.viewModel.supplierArray)
-            self.showSupplierListView()
-//        }
+    func didClickChangeShop(curShop: String?) {
+        self.shopListView.setDataSource(self.viewModel.shopArray)
+        self.showshopListView()
     }
     
     // MARK: - Action
@@ -78,25 +76,25 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
     func segmentedControlAction(sender: AnyObject) {
         // switch view show
         if(self.segmentControl.selectedSegmentIndex == 0) {
-            self.curSupplierView.hidden    = false
-            self.supplierViewBgView.hidden = false
+            self.curShopView.hidden    = false
+            self.shopViewBgView.hidden = false
             self.scanCollectButton.hidden  = false
             self.buildingView.hidden       = true
         } else if(self.segmentControl.selectedSegmentIndex == 1) {
-            self.curSupplierView.hidden    = true
-            self.supplierViewBgView.hidden = true
+            self.curShopView.hidden    = true
+            self.shopViewBgView.hidden = true
             self.scanCollectButton.hidden  = true
             self.buildingView.hidden       = false
         }
     }
     
-    func clickHideSupplierListButton(sender: UIButton) -> Void {
-        if let itemID = self.viewModel.getSelSupplierID() {
-            DSSShopService.modifyDefaultSupplier(-1, supplierID: itemID, delegate: self)
+    func clickHideShopListButton(sender: UIButton) -> Void {
+        if let itemID = self.viewModel.getSelShopID() {
+            DSSShopService.modifyDefaultShop(-1, shopID: itemID, delegate: self)
         }
-        self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
+        self.curShopView.setShopName(self.viewModel.getSelShopName())
         
-        self.hideSupplierListView(nil)
+        self.hideshopListView(nil)
     }
     
     // MARK: - Method
@@ -105,18 +103,18 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(clickRightNaviBarButton))
     }
     
-    func showSupplierListView() -> Void {
+    func showshopListView() -> Void {
         UIView.animateWithDuration(0.5) {
-            self.supplierListView.frame = self.view.bounds
+            self.shopListView.frame = self.view.bounds
         }
     }
     
-    func hideSupplierListView(completion: ((Bool) -> Void)?) -> Void {
+    func hideshopListView(completion: ((Bool) -> Void)?) -> Void {
         let bounds = self.view.bounds
         let frame = CGRectMake(0, CGRectGetHeight(bounds), CGRectGetWidth(bounds), CGRectGetHeight(bounds))
         UIView.animateWithDuration(0.5,
                                    animations: {
-                                    self.supplierListView.frame = frame
+                                    self.shopListView.frame = frame
         }) { (isFinish) in
             completion?(isFinish)
         }
@@ -124,7 +122,7 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
     
     func pushProductAddController() -> Void {
         weak var wkSelf = self
-        let scanController = FKScanController.init(supplierID: self.viewModel.getSelSupplierID(), finish: { (resStr) in
+        let scanController = FKScanController.init(supplierID: self.viewModel.getSelShopID(), finish: { (resStr) in
             let takePhotoController = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
                 
                     self.photoDoneToPushEdit(resStr, images: images)
@@ -142,8 +140,8 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
     func photoDoneToPushEdit(scanStr: String, images: [UIImage]?) {
         
         let editItem = EditSourceItem.init()
-        editItem.supplierId = self.viewModel.getSelSupplierID()
-        editItem.address    = self.viewModel.getSelSupplierName()
+        editItem.supplierId = self.viewModel.getSelShopID()
+        editItem.address    = self.viewModel.getSelShopName()
         editItem.upc        = scanStr
         
         let editController = EditViewController.init(source: editItem, images: images)
@@ -188,25 +186,25 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         
         let borderWidth : CGFloat = (DSSConst.IS_iPhone4() ? 240 : 286)
         var offset = (DSSConst.IS_iPhone4() ? 30 : 50)
-        self.bgImgView.addSubview(self.supplierViewBgView)
-        self.supplierViewBgView.snp_makeConstraints { (make) in
+        self.bgImgView.addSubview(self.shopViewBgView)
+        self.shopViewBgView.snp_makeConstraints { (make) in
             make.top.equalTo(self.segmentControl.snp_bottom).offset(offset)
             make.size.equalTo(CGSizeMake(borderWidth, borderWidth))
             make.centerX.equalTo(self.bgImgView)
         }
-        self.supplierViewBgView.layer.cornerRadius = borderWidth/2
+        self.shopViewBgView.layer.cornerRadius = borderWidth/2
         
-        self.supplierViewBgView.addSubview(self.curSupplierView)
-        self.curSupplierView.snp_makeConstraints { (make) in
-            make.center.equalTo(self.supplierViewBgView)
+        self.shopViewBgView.addSubview(self.curShopView)
+        self.curShopView.snp_makeConstraints { (make) in
+            make.center.equalTo(self.shopViewBgView)
             make.size.equalTo(CGSizeMake(borderWidth - 20, borderWidth - 20))
         }
-        self.curSupplierView.layer.cornerRadius = (borderWidth - 20)/2
+        self.curShopView.layer.cornerRadius = (borderWidth - 20)/2
         
         offset = (DSSConst.IS_iPhone4() ? 40 : 55)
         self.bgImgView.addSubview(self.scanCollectButton)
         self.scanCollectButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.curSupplierView.snp_bottom).offset(offset)
+            make.top.equalTo(self.curShopView.snp_bottom).offset(offset)
             make.size.equalTo(CGSizeMake(280, 45))
             make.centerX.equalTo(self.bgImgView)
         }
@@ -220,8 +218,8 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
             make.centerX.equalTo(self.bgImgView)
         }
         
-        self.view.addSubview(self.supplierListView)
-        self.supplierListView.snp_makeConstraints { (make) in
+        self.view.addSubview(self.shopListView)
+        self.shopListView.snp_makeConstraints { (make) in
             make.top.equalTo(self.view.snp_bottom)
             make.size.equalTo(CGSizeMake(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64))
         }
@@ -257,7 +255,7 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         return control
     }()
     
-    lazy var supplierViewBgView: UIView = {
+    lazy var shopViewBgView: UIView = {
         let view = UIView.init()
         view.backgroundColor = UIColor.clearColor()
         view.layer.borderWidth = 10
@@ -265,8 +263,8 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         return view
     }()
     
-    lazy var curSupplierView: DSSCurrentSupplierView = {
-        let view = DSSCurrentSupplierView.init(frame: CGRectZero)
+    lazy var curShopView: DSSCurrentShopView = {
+        let view = DSSCurrentShopView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.whiteColor()
         view.delegate = self
         return view
@@ -292,15 +290,15 @@ class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         return view
     }()
     
-    lazy var supplierListView: DSSSupplierListView = {
-        let view = DSSSupplierListView.init(frame: CGRectZero)
+    lazy var shopListView: DSSShopListView = {
+        let view = DSSShopListView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.init(white: 0, alpha: 0.2)
-        view.listHeaderView.actionButton.addTarget(self, action: #selector(clickHideSupplierListButton), forControlEvents: .TouchUpInside)
+        view.listHeaderView.actionButton.addTarget(self, action: #selector(clickHideShopListButton), forControlEvents: .TouchUpInside)
         return view
     }()
     
-    lazy var viewModel: DSSMainViewModel = {
-        let viewModel = DSSMainViewModel.init()
+    lazy var viewModel: DSSShopViewModel = {
+        let viewModel = DSSShopViewModel.init()
         return viewModel
     }()
 }
