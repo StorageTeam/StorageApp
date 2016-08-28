@@ -188,7 +188,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     }
     
     class func getRoleType() -> RoleType {
-        return .RoleTypeDeliver
+        return .RoleTypeAdmin
     }
     
     func mapping(map: Map) {

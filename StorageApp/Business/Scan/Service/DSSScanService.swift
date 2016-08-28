@@ -11,8 +11,8 @@ import UIKit
 class DSSScanService: NSObject {
     class func requestUPCExist(identify: Int, delegate: DSSDataCenterDelegate, upc: String, supplierID: String, userInfo: [String : AnyObject]?) -> Void {
         var para        = [String : String]()
-        para["upc"]         = upc
-        para["supplier_id"] = supplierID
+        para["upc"]     = upc
+        para["shop_id"] = supplierID
         
         DSSDataCenter.Request(identify
             , delegate: delegate
