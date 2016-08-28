@@ -8,16 +8,21 @@
 
 import UIKit
 
-class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMenuDelegate, CurrentSupplierDelegate, DSSDataCenterDelegate {
+class DSSMainViewController: DSSBaseViewController, CurrentSupplierDelegate, DSSDataCenterDelegate {
     private static let SUPPLIERLIST_REQUEST : Int          = 0
-
-    private static let ALERT_VIEW_SHOW_SLIDE_MENU : String = "ALERT_VIEW_SHOW_SLIDE_MENU"
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configNaviBarItem()
         
-        self.slideMenu.delegate   = self
         self.navigationItem.title = "FIRST LINK"
     }
     
@@ -27,10 +32,6 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         if DSSAccount.isLogin() && self.viewModel.isEmpty() {
             DSSMainViewService.requestList(DSSMainViewController.SUPPLIERLIST_REQUEST, delegate: self)
         }
-    }
-    
-    override func configDefaultLeftBar() {
-
     }
     
     // MARK: - DSSDataCenterDelegate
@@ -59,32 +60,6 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         }
     }
     
-    // MARK: - SlideMenuDelegate
-    
-    func slideMenuClick(obj: DSSSlideMenu, event: SlideMenuEvent, userInfo: [String : AnyObject]?) {
-        weak var wkSelf = self
-        switch event {
-        case .MenuAdd:
-            self.hideSlideMenu({ (done) in
-                wkSelf?.pushProductAddController()
-            })
-            break
-        case .MenuList:
-            self.hideSlideMenu({ (done) in
-                wkSelf?.pushProductListController()
-            })
-            break
-        case .MenuLogout:
-            self.hideSlideMenu({ (done) in
-                wkSelf?.showLogoutAlert()
-            })
-            break
-        case .MenuClose:
-            self.hideSlideMenu(nil)
-            break
-        }
-    }
-    
     // MARK: - CurrentSupplierDelegate
     
     func didClickChangeSupplier(curSupplier: String?) {
@@ -94,31 +69,7 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
 //        }
     }
     
-    // MARK: - UIAlertViewDelegate
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if let name = alertView.describeName {
-            switch name {
-            case DSSMainViewController.ALERT_VIEW_SHOW_SLIDE_MENU:
-                if buttonIndex == 1 {
-                    DSSAccount.logout()
-                    self.viewModel.clearData()
-                    self.presentLoginController()
-                }
-            default:
-                break
-            }
-        }
-    }
-    
     // MARK: - Action
-    
-    func clickLeftNaviBarButton(sender: UIButton) {
-        if DSSAccount.isLogin() {
-            self.showSlideMenu()
-        } else {
-            self.presentLoginController()
-        }
-    }
     
     func clickRightNaviBarButton(sender: UIButton) {
         self.pushProductAddController()
@@ -150,27 +101,8 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     
     // MARK: - Method
     
-    func configNaviBarItem() -> Void{
-        self.navigationItem.leftBarButtonItem  = UIBarButtonItem.init(image: UIImage.init(named: "LeftBarIcon"), style: .Done, target: self, action: #selector(clickLeftNaviBarButton))
+    func configNaviBarItem() -> Void {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "RightBarIcon"), style: .Done, target: self, action: #selector(clickRightNaviBarButton))
-    }
-    
-    func showSlideMenu() -> Void {
-        self.slideMenu.setAccount(DSSAccount.getHeadURL(), nickname: DSSAccount.getNickname())
-        UIView.animateWithDuration(0.5) {
-            self.slideMenu.frame = UIScreen.mainScreen().bounds
-        }
-    }
-    
-    func hideSlideMenu(completion: ((Bool) -> Void)?) -> Void {
-        let bounds = self.slideMenu.bounds
-        let frame = CGRectMake(-CGRectGetWidth(bounds), 0, CGRectGetWidth(bounds), CGRectGetHeight(bounds))
-        UIView.animateWithDuration(0.5,
-                                   animations: {
-                                    self.slideMenu.frame = frame
-        }) { (isFinish) in
-            completion?(isFinish)
-        }
     }
     
     func showSupplierListView() -> Void {
@@ -236,23 +168,11 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func showLogoutAlert() -> Void {
-        let alert = UIAlertView.init(title: "",
-                                     message: "是否确定退出登录?",
-                                     delegate: self,
-                                     cancelButtonTitle: "取消",
-                                     otherButtonTitles: "确定")
-        alert.describeName = DSSMainViewController.ALERT_VIEW_SHOW_SLIDE_MENU
-        alert.show()
-
-    }
     
     // MARK: - loadView
     
     override func loadView() {
         super.loadView()
-        
-        UIApplication.sharedApplication().keyWindow!.addSubview(self.slideMenu)
         
         self.view.addSubview(self.bgImgView)
         self.bgImgView.snp_makeConstraints { (make) in
@@ -308,14 +228,6 @@ class DSSMainViewController: DSSBaseViewController, UIAlertViewDelegate, SlideMe
     }
     
     // MARK: - Property
-    
-    lazy var slideMenu: DSSSlideMenu = {
-        let bounds = UIScreen.mainScreen().bounds
-        let frame = CGRectMake(-CGRectGetWidth(bounds), 0, CGRectGetWidth(bounds), CGRectGetHeight(bounds))
-        let menu = DSSSlideMenu.init(frame: frame)
-        menu.backgroundColor = UIColor.clearColor()
-        return menu
-    }()
     
     lazy var bgImgView: UIImageView = {
         let imgView = UIImageView()

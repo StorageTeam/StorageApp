@@ -20,13 +20,12 @@ class DSSBaseViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.configDefaultLeftBar()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.configDefaultLeftBar()
         if !DSSAccount.isLogin() {
             self.presentLoginController()
         }
@@ -46,7 +45,21 @@ class DSSBaseViewController: UIViewController {
     // MARK: - Back Bar
     
     func configDefaultLeftBar() -> Void {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "common_back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickDefaultLeftBar))
+        if let viewControllers = self.navigationController?.viewControllers {
+            if viewControllers.count <= 1 {
+                if let naviController = self.navigationController as? DSSNavigationController {
+                    self.navigationItem.leftBarButtonItem  = UIBarButtonItem.init(image: UIImage.init(named: "LeftBarIcon"),
+                                                                                  style: .Done,
+                                                                                  target: naviController,
+                                                                                  action: #selector(naviController.clickLeftNaviBarButton))
+                }
+            } else {
+                self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "common_back"),
+                                                                             style: UIBarButtonItemStyle.Plain,
+                                                                             target: self,
+                                                                             action: #selector(self.clickDefaultLeftBar))
+            }
+        }
     }
     
     func clickDefaultLeftBar() {
