@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSSDataCenterDelegate {
 
-    var shopId: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,28 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
             make.left.right.bottom.equalTo(self.view)
         }
     }
+    
+    //MARK: - Request
+    func reqDataList() {
+        DSSMissionServe.reqMissionList(2000, delegate: self, shopId: nil)
+    }
+    
+    //MARK: - Response
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSSResponseCode.Normal {
+            if identify == 2000 {
+                self.dataArray = DSSMissionServe.parserMissionList(response)
+
+            }
+        }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        if let errorString = error {
+            self.showText(errorString)
+        }
+    }
+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 10

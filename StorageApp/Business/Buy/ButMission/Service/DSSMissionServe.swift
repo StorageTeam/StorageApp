@@ -11,7 +11,10 @@ import UIKit
 class DSSMissionServe: NSObject {
     class func reqMissionList(identify: Int, delegate: DSSDataCenterDelegate, shopId: String) -> Void {
         var para          = [String : String]()
-        para["shop_id"]   = shopId
+        
+        if shopId != nil {
+            para["shop_id"]   = shopId
+        }
         
         DSSDataCenter.Request(identify
             , delegate: delegate
@@ -20,13 +23,39 @@ class DSSMissionServe: NSObject {
             , userInfo: nil)
     }
 
-    class func parserImgUrl(json: [String : AnyObject]) -> [DSSMissionItem]? {
+    class func parserMissionList(json: [String : AnyObject]) -> [DSSMissionItem]? {
         if let dataArray = json["data"]!["list"] as? [[String:AnyObject]] {
-            for dataItem in dataArray {
-                
+            
+            if let items = Mapper<DSSMissionItem>().mapArray(dataArray) {
+                return items
             }
+            
         }
         return nil
+    }
+    
+    class func filterShopListWith(missionList: [DSSMissionItem]) -> [DSSShopItem] {
+        
+        var dataArray : [DSSShopItem] = []
+        for let missionItem in missionList {
+            
+            let shopId = missionItem.shopID
+            let res = dataArray.contains({ (shopItem) -> Bool in
+                if shopItem.shopID == shopId {
+                    return true
+                } else {
+                    return false
+                }
+            })
+            if (!res) {
+                let newShopItem = DSSShopItem()
+                newShopItem.shopID = missionItem.shopID
+                newShopItem.shopName = missionItem.shopName
+                dataArray.append(newShopItem)
+            }
+        }
+        
+        return dataArray
     }
 
 }

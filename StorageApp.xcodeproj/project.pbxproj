@@ -49,6 +49,15 @@
 		041976961D728EA8001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419766A1D728EA8001CCBB8 /* DSSBuyRecordController.swift */; };
 		041976971D728EA8001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419766A1D728EA8001CCBB8 /* DSSBuyRecordController.swift */; };
 		041976981D728EA8001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419766A1D728EA8001CCBB8 /* DSSBuyRecordController.swift */; };
+		0419769A1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976991D7292D0001CCBB8 /* DSSShopItem.swift */; };
+		0419769B1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976991D7292D0001CCBB8 /* DSSShopItem.swift */; };
+		0419769C1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976991D7292D0001CCBB8 /* DSSShopItem.swift */; };
+		0419769E1D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419769D1D72BDD3001CCBB8 /* DSSMissionViewModel.swift */; };
+		0419769F1D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419769D1D72BDD3001CCBB8 /* DSSMissionViewModel.swift */; };
+		041976A01D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419769D1D72BDD3001CCBB8 /* DSSMissionViewModel.swift */; };
+		041976A21D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976A11D72BE41001CCBB8 /* DSSShopGroupItem.swift */; };
+		041976A31D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976A11D72BE41001CCBB8 /* DSSShopGroupItem.swift */; };
+		041976A41D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976A11D72BE41001CCBB8 /* DSSShopGroupItem.swift */; };
 		0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */; };
 		0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
 		0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
@@ -271,6 +280,9 @@
 		041976671D728EA8001CCBB8 /* DSSRecordListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRecordListCell.swift; sourceTree = "<group>"; };
 		041976681D728EA8001CCBB8 /* DSSRecordTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRecordTimeCell.swift; sourceTree = "<group>"; };
 		0419766A1D728EA8001CCBB8 /* DSSBuyRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyRecordController.swift; sourceTree = "<group>"; };
+		041976991D7292D0001CCBB8 /* DSSShopItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopItem.swift; sourceTree = "<group>"; };
+		0419769D1D72BDD3001CCBB8 /* DSSMissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMissionViewModel.swift; sourceTree = "<group>"; };
+		041976A11D72BE41001CCBB8 /* DSSShopGroupItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopGroupItem.swift; sourceTree = "<group>"; };
 		0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditSaveCell.swift; sourceTree = "<group>"; };
 		0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditImgItem.swift; sourceTree = "<group>"; };
 		0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditInfoItem.swift; sourceTree = "<group>"; };
@@ -433,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				041976531D728EA8001CCBB8 /* DSSMissionItem.swift */,
+				041976A11D72BE41001CCBB8 /* DSSShopGroupItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -441,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				041976551D728EA8001CCBB8 /* DSSMissionServe.swift */,
+				041976991D7292D0001CCBB8 /* DSSShopItem.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -456,6 +470,7 @@
 		041976581D728EA8001CCBB8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0419769D1D72BDD3001CCBB8 /* DSSMissionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1383,6 +1398,7 @@
 				04C028061D224EDF0060CD7C /* EditViewController.swift in Sources */,
 				CE07E67B1D6EE31100287546 /* DSSCurrentSupplierView.swift in Sources */,
 				CE07E6831D6EE31100287546 /* DSSSupplierModel.swift in Sources */,
+				041976A21D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */,
 				041976811D728EA8001CCBB8 /* DSSBuyingBtnCell.swift in Sources */,
 				047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */,
 				047754831D49F2A70045F548 /* FKEditTitleCell.swift in Sources */,
@@ -1395,6 +1411,7 @@
 				04C028121D224EFC0060CD7C /* FKEditPicCell.swift in Sources */,
 				0419768D1D728EA8001CCBB8 /* DSSBuyingHeaderView.swift in Sources */,
 				CEBBA7E11D22778500187B07 /* DSSCommonDefine.swift in Sources */,
+				0419769A1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */,
 				0435D7F91D24B067008BBFEF /* DSSEditService.swift in Sources */,
 				CE954FA21D728B010085FFCC /* DSSMenuMdoel.swift in Sources */,
 				0419766F1D728EA8001CCBB8 /* DSSBuyLocationCell.swift in Sources */,
@@ -1418,6 +1435,7 @@
 				CE3DDD771D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				04C028161D224F0A0060CD7C /* FKEditHeaderView.swift in Sources */,
 				0477548F1D4A05000045F548 /* DSSSelectImgController.swift in Sources */,
+				0419769E1D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */,
 				CEF0CAF51D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEBBA7DB1D22774D00187B07 /* DSSSegmentControl.swift in Sources */,
 				CE954FA31D728B010085FFCC /* DSSSlideHeaderView.swift in Sources */,
@@ -1440,6 +1458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041976A31D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */,
 				CE30BF211D24B70200A3969D /* DSSUIImage+Extension.swift in Sources */,
 				CE30BF061D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE07E68A1D6EE3B900287546 /* DSSNavigationController.swift in Sources */,
@@ -1485,8 +1504,10 @@
 				047754961D4B05EF0045F548 /* EditSourceItem.swift in Sources */,
 				CE3118CB1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				0419767C1D728EA8001CCBB8 /* DSSMissionServe.swift in Sources */,
+				0419769F1D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */,
 				CE30BF2D1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
 				CE30BF391D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
+				0419769B1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */,
 				CE3DDD5E1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				0419768B1D728EA8001CCBB8 /* DSSBuyingController.swift in Sources */,
 				044D65591D4848370061597F /* DSSTakePhotoController.swift in Sources */,
@@ -1518,6 +1539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041976A41D72BE41001CCBB8 /* DSSShopGroupItem.swift in Sources */,
 				CE30BF221D24B70200A3969D /* DSSUIImage+Extension.swift in Sources */,
 				CE30BF071D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE07E68B1D6EE3B900287546 /* DSSNavigationController.swift in Sources */,
@@ -1563,8 +1585,10 @@
 				047754971D4B05F00045F548 /* EditSourceItem.swift in Sources */,
 				CE3118CC1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				0419767D1D728EA8001CCBB8 /* DSSMissionServe.swift in Sources */,
+				041976A01D72BDD3001CCBB8 /* DSSMissionViewModel.swift in Sources */,
 				CE30BF2E1D24B72300A3969D /* DSSObjectMapperTransform.swift in Sources */,
 				CE30BF3A1D24BE6F00A3969D /* DSSEditSpecItem.swift in Sources */,
+				0419769C1D7292D0001CCBB8 /* DSSShopItem.swift in Sources */,
 				CE3DDD5F1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				0419768C1D728EA8001CCBB8 /* DSSBuyingController.swift in Sources */,
 				044D655A1D4848380061597F /* DSSTakePhotoController.swift in Sources */,
