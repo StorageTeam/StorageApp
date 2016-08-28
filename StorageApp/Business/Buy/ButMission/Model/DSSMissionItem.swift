@@ -9,10 +9,10 @@
 import UIKit
 import ObjectMapper
 
-class DSSMissionItem: NSObject {
+class DSSMissionItem: NSObject, Mappable{
 
     var goodsID         : String?
-    var shopID          : String?
+    var shopID          : Int?
     var shopName        : String?
     var title           : String?
     var firstPic        : String?
@@ -30,7 +30,7 @@ class DSSMissionItem: NSObject {
     
     func mapping(map: Map) {
         goodsID             <- (map["goods_id"], DSSStringTransform())
-        shopID              <- (map["shop_id"], DSSStringTransform())
+        shopID              <- map["shop_id"]
         shopName            <- map["shop_name"]
         title               <- map["title"]
         firstPic            <- map["first_pic"]

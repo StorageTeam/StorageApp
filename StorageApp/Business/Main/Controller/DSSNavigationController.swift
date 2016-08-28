@@ -57,6 +57,9 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
 //                wkSelf?.pushProductListController()
             })
             break
+        case .MenuBuyTask:
+            let controller = DSSBuyMissionController.init()
+            self.viewControllers = [controller]
         case .MenuLogout:
             self.hideSlideMenu({ (done) in
                 wkSelf?.showLogoutAlert()
