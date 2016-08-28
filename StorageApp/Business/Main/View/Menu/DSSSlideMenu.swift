@@ -9,9 +9,25 @@
 import UIKit
 import SnapKit
 
+/**
+ 菜单功能列表
+ 
+ - MenuProductAdd:    商品搜集
+ - MenuProductList:   商品列表
+ - MenuBuyTask:       采购任务
+ - MenuBuyRecord:     采购清单
+ - MenuDeliverTask:   发货任务
+ - MenuDeliverRecord: 发货记录
+ - MenuLogout:        退出登录
+ - MenuClose:         关闭菜单
+ */
 enum SlideMenuEvent: Int {
-    case MenuAdd        = 0
-    case MenuList
+    case MenuProductAdd        = 0
+    case MenuProductList
+    case MenuBuyTask
+    case MenuBuyRecord
+    case MenuDeliverTask
+    case MenuDeliverRecord
     case MenuLogout
     case MenuClose
 }
@@ -22,8 +38,11 @@ protocol SlideMenuDelegate : NSObjectProtocol {
 
 class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     weak internal var delegate: SlideMenuDelegate?
+    private var menus: [DSSMenuMdoel]
     
     override init(frame: CGRect) {
+        self.menus    = [DSSMenuMdoel]()
+        
         super.init(frame: frame)
         
         self.addSubview(self.tableView)
@@ -46,7 +65,7 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setAccount(headURL: String?, nickname: String?) -> Void {
+    func setAccount(headURL: String?, nickname: String?, roleType: RoleType) -> Void {
         if let url = headURL {
             self.slideHeaderView.headerView.dss_setImage(url, placeholder: nil)
         } else {
@@ -55,11 +74,14 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         if let nick = nickname {
             self.slideHeaderView.nicknameLabel.text = nick
         }
+        
+        self.menus = self.makeMenuDataWithRole(roleType)
+        self.tableView.reloadData()
     }
     
     // MARK: - UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.titleArray.count, self.iconArray.count)
+        return self.menus.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -76,8 +98,10 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(String(UITableViewCell)) {
-            cell.imageView?.image = UIImage.init(named: self.iconArray[indexPath.row])
-            cell.textLabel?.text = self.titleArray[indexPath.row]
+            let menuModel = self.menus[indexPath.row]
+            
+            cell.imageView?.image = menuModel.image
+            cell.textLabel?.text = menuModel.title
             cell.textLabel?.textColor = UIColor.whiteColor()
             cell.textLabel?.font = UIFont.boldSystemFontOfSize(13)
             cell.backgroundColor = UIColor.init(rgb: 0x141324)
@@ -93,13 +117,68 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.delegate?.slideMenuClick(self, event: SlideMenuEvent.init(rawValue: indexPath.row)!, userInfo: nil)
+        let menuModel = self.menus[indexPath.row]
+        self.delegate?.slideMenuClick(self, event: menuModel.event!, userInfo: nil)
     }
     
     // MARK: - Action
     
     func tapBgViewGesture() -> Void {
         self.delegate?.slideMenuClick(self, event: SlideMenuEvent.MenuClose, userInfo: nil)
+    }
+    
+    // MARK: - Method
+    
+    func makeMenuDataWithRole(roleType: RoleType) -> [DSSMenuMdoel] {
+        var menus = [DSSMenuMdoel]()
+        
+        var imageNames  = [NSString]()
+        var titles      = [NSString]()
+        var events      = [SlideMenuEvent]()
+        if roleType.isBuyerAble() {
+            titles.append("商品搜集")
+            events.append(SlideMenuEvent.MenuProductAdd)
+            imageNames.append("product_collect_icon")
+            
+            titles.append("商品列表")
+            events.append(SlideMenuEvent.MenuProductList)
+            imageNames.append("product_list_icon")
+        }
+        
+        if roleType.isDeliverAble() {
+            titles.append("采购任务")
+            events.append(SlideMenuEvent.MenuBuyTask)
+            imageNames.append("product_collect_icon")
+            
+            titles.append("采购记录")
+            events.append(SlideMenuEvent.MenuBuyRecord)
+            imageNames.append("product_list_icon")
+            
+            titles.append("发货任务")
+            events.append(SlideMenuEvent.MenuDeliverTask)
+            imageNames.append("product_collect_icon")
+            
+            titles.append("发货记录")
+            events.append(SlideMenuEvent.MenuDeliverRecord)
+            imageNames.append("product_list_icon")
+        }
+        
+        titles.append("退出登录")
+        events.append(SlideMenuEvent.MenuLogout)
+        imageNames.append("logout_icon")
+        
+        for idx in 0 ..< min(min(imageNames.count, titles.count), events.count) {
+            if let img = UIImage.init(named: imageNames[idx] as String) {
+                let model = DSSMenuMdoel.init()
+                model.image = img
+                model.title = titles[idx] as String
+                model.event = events[idx] as SlideMenuEvent
+                
+                menus.append(model)
+            }
+        }
+        
+        return menus
     }
     
     // MARK: - Property
@@ -125,14 +204,6 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         let menu = DSSSlideHeaderView.init(frame: CGRectZero)
         menu.backgroundColor = UIColor.init(rgb: 0x232236)
         return menu
-    }()
-    
-    lazy var titleArray: Array = {
-        return ["商品搜集", "商品列表", "退出登录"]
-    }()
-    
-    lazy var iconArray: Array = {
-        return ["product_collect_icon", "product_list_icon", "logout_icon"]
     }()
 }
 

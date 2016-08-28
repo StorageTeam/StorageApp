@@ -27,8 +27,13 @@ class DSSLoginController: DSSBaseViewController, UITextFieldDelegate, DSSDataCen
         
         #if DEBUG
             self.mobileInputView.textField.text     = "18956396627"
-            self.passwordInputView.textField.text   = "111111"
+            self.passwordInputView.textField.text   = "duoshoubang2016"
         #endif
+
+//        #if DEBUG
+//            self.mobileInputView.textField.text     = "18956396627"
+//            self.passwordInputView.textField.text   = "111111"
+//        #endif
     }
 
     override func didReceiveMemoryWarning() {
