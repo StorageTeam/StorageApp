@@ -7,6 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041976121D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976111D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift */; };
+		0419761C1D70712A001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976171D70712A001CCBB8 /* DSSBuyRecordController.swift */; };
+		0419761E1D707149001CCBB8 /* DSSRecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419761D1D707149001CCBB8 /* DSSRecordListCell.swift */; };
+		041976201D7073C9001CCBB8 /* DSSRecordTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419761F1D7073C9001CCBB8 /* DSSRecordTimeCell.swift */; };
+		041976291D707634001CCBB8 /* DSSBuyingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976281D707634001CCBB8 /* DSSBuyingController.swift */; };
+		0419762B1D7077AF001CCBB8 /* DSSBuyingProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762A1D7077AF001CCBB8 /* DSSBuyingProCell.swift */; };
+		0419762D1D707848001CCBB8 /* DSSBuyingCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762C1D707848001CCBB8 /* DSSBuyingCountCell.swift */; };
+		0419762F1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762E1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift */; };
+		041976311D707A9E001CCBB8 /* DSSBuyingBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976301D707A9E001CCBB8 /* DSSBuyingBtnCell.swift */; };
+		041976321D7283AA001CCBB8 /* DSSBuyMissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D361D6D78640074AD38 /* DSSBuyMissionController.swift */; };
+		041976331D7283AA001CCBB8 /* DSSBuyMissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D361D6D78640074AD38 /* DSSBuyMissionController.swift */; };
+		041976341D7283AF001CCBB8 /* DSSBuyingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976281D707634001CCBB8 /* DSSBuyingController.swift */; };
+		041976351D7283AF001CCBB8 /* DSSBuyingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976281D707634001CCBB8 /* DSSBuyingController.swift */; };
+		041976361D7283B3001CCBB8 /* DSSBuySelectShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A75B11D6F100D00758EF3 /* DSSBuySelectShopView.swift */; };
+		041976371D7283B4001CCBB8 /* DSSBuySelectShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A75B11D6F100D00758EF3 /* DSSBuySelectShopView.swift */; };
+		041976381D7283B6001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976171D70712A001CCBB8 /* DSSBuyRecordController.swift */; };
+		041976391D7283B7001CCBB8 /* DSSBuyRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976171D70712A001CCBB8 /* DSSBuyRecordController.swift */; };
+		0419763A1D72841C001CCBB8 /* DSSBuyingCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762C1D707848001CCBB8 /* DSSBuyingCountCell.swift */; };
+		0419763B1D72841D001CCBB8 /* DSSBuyingCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762C1D707848001CCBB8 /* DSSBuyingCountCell.swift */; };
+		0419763D1D728422001CCBB8 /* DSSBuyingProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762A1D7077AF001CCBB8 /* DSSBuyingProCell.swift */; };
+		0419763E1D728423001CCBB8 /* DSSBuyingProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762A1D7077AF001CCBB8 /* DSSBuyingProCell.swift */; };
+		0419763F1D728432001CCBB8 /* DSSBuyingBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976301D707A9E001CCBB8 /* DSSBuyingBtnCell.swift */; };
+		041976401D728433001CCBB8 /* DSSBuyingBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976301D707A9E001CCBB8 /* DSSBuyingBtnCell.swift */; };
+		041976411D728439001CCBB8 /* DSSBuyingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762E1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift */; };
+		041976421D728439001CCBB8 /* DSSBuyingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419762E1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift */; };
+		041976431D7288CF001CCBB8 /* DSSBuyMissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D381D6D78DA0074AD38 /* DSSBuyMissionCell.swift */; };
+		041976441D7288CF001CCBB8 /* DSSBuyMissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D381D6D78DA0074AD38 /* DSSBuyMissionCell.swift */; };
+		041976451D7288D3001CCBB8 /* DSSBuyLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976111D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift */; };
+		041976461D7288D3001CCBB8 /* DSSBuyLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976111D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift */; };
+		041976481D72894A001CCBB8 /* DSSMissionServe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976471D72894A001CCBB8 /* DSSMissionServe.swift */; };
+		0419764A1D728A6C001CCBB8 /* DSSMissionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976491D728A6C001CCBB8 /* DSSMissionItem.swift */; };
 		0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */; };
 		0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
 		0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
@@ -37,6 +68,7 @@
 		0477549C1D4B37A60045F548 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
 		0477549D1D4B37B50045F548 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
 		0477549E1D4B37B60045F548 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
+		047A75B21D6F100D00758EF3 /* DSSBuySelectShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A75B11D6F100D00758EF3 /* DSSBuySelectShopView.swift */; };
 		047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */; };
 		047C23631D48585100D5F4D7 /* FKPhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23621D48585100D5F4D7 /* FKPhotoListView.swift */; };
 		047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */; };
@@ -55,6 +87,8 @@
 		04C028201D2258190060CD7C /* FKScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0281F1D2258190060CD7C /* FKScanController.swift */; };
 		04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028211D2258270060CD7C /* FKScanCoverView.swift */; };
 		04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */; };
+		04DD5D371D6D78640074AD38 /* DSSBuyMissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D361D6D78640074AD38 /* DSSBuyMissionController.swift */; };
+		04DD5D391D6D78DA0074AD38 /* DSSBuyMissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD5D381D6D78DA0074AD38 /* DSSBuyMissionCell.swift */; };
 		B2E38D1E4BF0E3D09266E721 /* Pods_StorageApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C31FD8A599DE8BA2F67955A /* Pods_StorageApp.framework */; };
 		CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13DD221D1AA65C0072D045 /* AppDelegate.swift */; };
 		CE13DD281D1AA65C0072D045 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE13DD261D1AA65C0072D045 /* Main.storyboard */; };
@@ -233,6 +267,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041976111D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyLocationCell.swift; sourceTree = "<group>"; };
+		041976171D70712A001CCBB8 /* DSSBuyRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyRecordController.swift; sourceTree = "<group>"; };
+		0419761D1D707149001CCBB8 /* DSSRecordListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRecordListCell.swift; sourceTree = "<group>"; };
+		0419761F1D7073C9001CCBB8 /* DSSRecordTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSRecordTimeCell.swift; sourceTree = "<group>"; };
+		041976281D707634001CCBB8 /* DSSBuyingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingController.swift; sourceTree = "<group>"; };
+		0419762A1D7077AF001CCBB8 /* DSSBuyingProCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingProCell.swift; sourceTree = "<group>"; };
+		0419762C1D707848001CCBB8 /* DSSBuyingCountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingCountCell.swift; sourceTree = "<group>"; };
+		0419762E1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingHeaderView.swift; sourceTree = "<group>"; };
+		041976301D707A9E001CCBB8 /* DSSBuyingBtnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingBtnCell.swift; sourceTree = "<group>"; };
+		041976471D72894A001CCBB8 /* DSSMissionServe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMissionServe.swift; sourceTree = "<group>"; };
+		041976491D728A6C001CCBB8 /* DSSMissionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMissionItem.swift; sourceTree = "<group>"; };
 		0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditSaveCell.swift; sourceTree = "<group>"; };
 		0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditImgItem.swift; sourceTree = "<group>"; };
 		0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditInfoItem.swift; sourceTree = "<group>"; };
@@ -245,6 +290,7 @@
 		047754891D4A05000045F548 /* DSSFetchImgCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSFetchImgCell.swift; sourceTree = "<group>"; };
 		0477548B1D4A05000045F548 /* DSSSelectImgController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSelectImgController.swift; sourceTree = "<group>"; };
 		047754941D4B050E0045F548 /* EditSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSourceItem.swift; sourceTree = "<group>"; };
+		047A75B11D6F100D00758EF3 /* DSSBuySelectShopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuySelectShopView.swift; sourceTree = "<group>"; };
 		047C23601D4853D500D5F4D7 /* FKTakePhotoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTakePhotoTopView.swift; sourceTree = "<group>"; };
 		047C23621D48585100D5F4D7 /* FKPhotoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPhotoListView.swift; sourceTree = "<group>"; };
 		047C23641D485C4400D5F4D7 /* FKPerImgCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKPerImgCollectionCell.swift; sourceTree = "<group>"; };
@@ -257,6 +303,8 @@
 		04C0281F1D2258190060CD7C /* FKScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanController.swift; sourceTree = "<group>"; };
 		04C028211D2258270060CD7C /* FKScanCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanCoverView.swift; sourceTree = "<group>"; };
 		04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditImgContainer.swift; sourceTree = "<group>"; };
+		04DD5D361D6D78640074AD38 /* DSSBuyMissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyMissionController.swift; sourceTree = "<group>"; };
+		04DD5D381D6D78DA0074AD38 /* DSSBuyMissionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyMissionCell.swift; sourceTree = "<group>"; };
 		06E61592EBE20614F3E03F57 /* Pods-StorageApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F57C8D15AF55EF3A4B57067 /* Pods-StorageAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageAppUITests/Pods-StorageAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		287305FD4034B5187F9F7754 /* Pods-StorageApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -349,6 +397,111 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041976151D70712A001CCBB8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0419761D1D707149001CCBB8 /* DSSRecordListCell.swift */,
+				0419761F1D7073C9001CCBB8 /* DSSRecordTimeCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		041976161D70712A001CCBB8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				041976171D70712A001CCBB8 /* DSSBuyRecordController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		041976181D70712A001CCBB8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		041976191D70712A001CCBB8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		0419761A1D70712A001CCBB8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0419761B1D70712A001CCBB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		041976211D70761C001CCBB8 /* Buying */ = {
+			isa = PBXGroup;
+			children = (
+				041976231D70761C001CCBB8 /* Controller */,
+				041976221D70761C001CCBB8 /* Cell */,
+				041976241D70761C001CCBB8 /* Model */,
+				041976251D70761C001CCBB8 /* Service */,
+				041976261D70761C001CCBB8 /* View */,
+				041976271D70761C001CCBB8 /* ViewModel */,
+			);
+			path = Buying;
+			sourceTree = "<group>";
+		};
+		041976221D70761C001CCBB8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0419762A1D7077AF001CCBB8 /* DSSBuyingProCell.swift */,
+				0419762C1D707848001CCBB8 /* DSSBuyingCountCell.swift */,
+				041976301D707A9E001CCBB8 /* DSSBuyingBtnCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		041976231D70761C001CCBB8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				041976281D707634001CCBB8 /* DSSBuyingController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		041976241D70761C001CCBB8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		041976251D70761C001CCBB8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		041976261D70761C001CCBB8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0419762E1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		041976271D70761C001CCBB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0435D7EE1D24B053008BBFEF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +658,91 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		04DD5D2D1D6D78410074AD38 /* Buy */ = {
+			isa = PBXGroup;
+			children = (
+				041976211D70761C001CCBB8 /* Buying */,
+				04DD5D2E1D6D78410074AD38 /* BuyMission */,
+				04DD5D351D6D78410074AD38 /* BuyRecord */,
+			);
+			path = Buy;
+			sourceTree = "<group>";
+		};
+		04DD5D2E1D6D78410074AD38 /* BuyMission */ = {
+			isa = PBXGroup;
+			children = (
+				04DD5D301D6D78410074AD38 /* Controller */,
+				04DD5D2F1D6D78410074AD38 /* Cell */,
+				04DD5D311D6D78410074AD38 /* Model */,
+				04DD5D321D6D78410074AD38 /* Service */,
+				04DD5D331D6D78410074AD38 /* View */,
+				04DD5D341D6D78410074AD38 /* ViewModel */,
+			);
+			name = BuyMission;
+			path = ButMission;
+			sourceTree = "<group>";
+		};
+		04DD5D2F1D6D78410074AD38 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04DD5D381D6D78DA0074AD38 /* DSSBuyMissionCell.swift */,
+				041976111D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		04DD5D301D6D78410074AD38 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04DD5D361D6D78640074AD38 /* DSSBuyMissionController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04DD5D311D6D78410074AD38 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				041976491D728A6C001CCBB8 /* DSSMissionItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04DD5D321D6D78410074AD38 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				041976471D72894A001CCBB8 /* DSSMissionServe.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		04DD5D331D6D78410074AD38 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				047A75B11D6F100D00758EF3 /* DSSBuySelectShopView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04DD5D341D6D78410074AD38 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		04DD5D351D6D78410074AD38 /* BuyRecord */ = {
+			isa = PBXGroup;
+			children = (
+				041976161D70712A001CCBB8 /* Controller */,
+				041976151D70712A001CCBB8 /* Cell */,
+				041976181D70712A001CCBB8 /* Model */,
+				041976191D70712A001CCBB8 /* Service */,
+				0419761A1D70712A001CCBB8 /* View */,
+				0419761B1D70712A001CCBB8 /* ViewModel */,
+			);
+			path = BuyRecord;
+			sourceTree = "<group>";
+		};
 		5DD4ED11130CB453C75C1CE7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +828,7 @@
 		CE13DD581D1B87CA0072D045 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				04DD5D2D1D6D78410074AD38 /* Buy */,
 				CEE0335F1D48998200DD5781 /* Main */,
 				044D654E1D478D0C0061597F /* Photos */,
 				04C0281C1D2257E90060CD7C /* Scan */,
@@ -909,6 +1148,7 @@
 				TargetAttributes = {
 					CE13DD1E1D1AA65B0072D045 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = F9WPJWEEF6;
 					};
 					CE13DD321D1AA65C0072D045 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1095,17 +1335,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0419762B1D7077AF001CCBB8 /* DSSBuyingProCell.swift in Sources */,
 				04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */,
 				CEBBA80C1D23AF6700187B07 /* DSSString+Extension.swift in Sources */,
 				CE13DD7B1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
 				047C23651D485C4400D5F4D7 /* FKPerImgCollectionCell.swift in Sources */,
+				041976291D707634001CCBB8 /* DSSBuyingController.swift in Sources */,
+				047A75B21D6F100D00758EF3 /* DSSBuySelectShopView.swift in Sources */,
 				CEF0CAE71D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
 				CEBBA8061D23AF5F00187B07 /* DSSProductListViewModel.swift in Sources */,
+				041976201D7073C9001CCBB8 /* DSSRecordTimeCell.swift in Sources */,
 				CE3DDD6F1D1C290A005459B6 /* DSSResponseHeader.swift in Sources */,
 				CE3118CA1D25F77F00D078A0 /* DSSView+Extension.swift in Sources */,
 				CE86393A1D4B287D009237CE /* DSSMainViewModel.swift in Sources */,
 				0435D7F61D24B053008BBFEF /* DSSEditSpecItem.swift in Sources */,
 				CEBBA7DD1D22776100187B07 /* DSSAppearance.swift in Sources */,
+				041976481D72894A001CCBB8 /* DSSMissionServe.swift in Sources */,
+				041976121D6FE9EE001CCBB8 /* DSSBuyLocationCell.swift in Sources */,
 				0435D7F51D24B053008BBFEF /* DSSEditItem.swift in Sources */,
 				04C028201D2258190060CD7C /* FKScanController.swift in Sources */,
 				044D65561D478D8D0061597F /* FKTakePhotoActionView.swift in Sources */,
@@ -1122,16 +1368,19 @@
 				047C23611D4853D500D5F4D7 /* FKTakePhotoTopView.swift in Sources */,
 				047754831D49F2A70045F548 /* FKEditTitleCell.swift in Sources */,
 				CEE033651D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
+				0419762F1D7079A5001CCBB8 /* DSSBuyingHeaderView.swift in Sources */,
 				CEE033841D49B9E000DD5781 /* DSSBuildingImgView.swift in Sources */,
 				047754951D4B050E0045F548 /* EditSourceItem.swift in Sources */,
 				CEE033961D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
 				04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */,
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
 				CE3DDD6B1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
+				041976311D707A9E001CCBB8 /* DSSBuyingBtnCell.swift in Sources */,
 				04C028121D224EFC0060CD7C /* FKEditPicCell.swift in Sources */,
 				CEBBA7E11D22778500187B07 /* DSSCommonDefine.swift in Sources */,
 				0435D7F91D24B067008BBFEF /* DSSEditService.swift in Sources */,
 				CE9EFFD31D4893E7007DB098 /* DSSImage.swift in Sources */,
+				0419762D1D707848001CCBB8 /* DSSBuyingCountCell.swift in Sources */,
 				CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				044D65531D478D0C0061597F /* DSSTakePhotoController.swift in Sources */,
 				CE3DDD7B1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
@@ -1144,8 +1393,11 @@
 				CEF0CAEB1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				0477548C1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
 				CEC0AF631D49F0460018D2DD /* DSSSupplierListCell.swift in Sources */,
+				0419761C1D70712A001CCBB8 /* DSSBuyRecordController.swift in Sources */,
 				0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */,
+				04DD5D391D6D78DA0074AD38 /* DSSBuyMissionCell.swift in Sources */,
 				CEBBA80B1D23AF6700187B07 /* DSSInt+Extension.swift in Sources */,
+				0419761E1D707149001CCBB8 /* DSSRecordListCell.swift in Sources */,
 				CE3DDD771D1C2A8F005459B6 /* DSSStorage.swift in Sources */,
 				04C028161D224F0A0060CD7C /* FKEditHeaderView.swift in Sources */,
 				0477548F1D4A05000045F548 /* DSSSelectImgController.swift in Sources */,
@@ -1157,8 +1409,10 @@
 				0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */,
 				CED7E5541D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
+				0419764A1D728A6C001CCBB8 /* DSSMissionItem.swift in Sources */,
 				CEBBA80F1D23B30400187B07 /* DSSObjectMapperTransform.swift in Sources */,
 				CE3DDD731D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
+				04DD5D371D6D78640074AD38 /* DSSBuyMissionController.swift in Sources */,
 				CEBBA7E31D2277A600187B07 /* DSSColor+Extension.swift in Sources */,
 				0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */,
 			);
@@ -1172,10 +1426,13 @@
 				CE30BF211D24B70200A3969D /* DSSUIImage+Extension.swift in Sources */,
 				CE30BF061D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE30BF271D24B71200A3969D /* DSSInt+Extension.swift in Sources */,
+				041976361D7283B3001CCBB8 /* DSSBuySelectShopView.swift in Sources */,
 				CE30BF311D24BE5F00A3969D /* DSSEditService.swift in Sources */,
 				CE30BF041D24B68200A3969D /* FKScanCoverView.swift in Sources */,
 				CE30BF231D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1B1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
+				041976451D7288D3001CCBB8 /* DSSBuyLocationCell.swift in Sources */,
+				041976411D728439001CCBB8 /* DSSBuyingHeaderView.swift in Sources */,
 				CEF0CAEC1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				0480959D1D4F534D00128E4D /* DSSMainViewModel.swift in Sources */,
 				CEF0CAE81D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
@@ -1184,6 +1441,8 @@
 				CE30BF021D24B67F00A3969D /* FKScanController.swift in Sources */,
 				CE30BF001D24B67600A3969D /* DSSProductOnsaleModel.swift in Sources */,
 				047754981D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
+				041976431D7288CF001CCBB8 /* DSSBuyMissionCell.swift in Sources */,
+				041976381D7283B6001CCBB8 /* DSSBuyRecordController.swift in Sources */,
 				CE30BF371D24BE6C00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1195,7 +1454,9 @@
 				CE30BF0E1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF331D24BE6200A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1D1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
+				0419763F1D728432001CCBB8 /* DSSBuyingBtnCell.swift in Sources */,
 				0477549C1D4B37A60045F548 /* FKPhotoListView.swift in Sources */,
+				041976341D7283AF001CCBB8 /* DSSBuyingController.swift in Sources */,
 				CE3DDD741D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				CE30BF291D24B71500A3969D /* DSSString+Extension.swift in Sources */,
@@ -1228,10 +1489,13 @@
 				CE30BEFC1D24B67000A3969D /* DSSProductListService.swift in Sources */,
 				CED7E5551D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */,
+				041976321D7283AA001CCBB8 /* DSSBuyMissionController.swift in Sources */,
 				CE30BF081D24B68800A3969D /* EditViewController.swift in Sources */,
 				0480959B1D4F526300128E4D /* DSSMainViewService.swift in Sources */,
 				CEE033661D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEB082851D4EECB6007F17F9 /* DSSProductWaitsaleCell.swift in Sources */,
+				0419763D1D728422001CCBB8 /* DSSBuyingProCell.swift in Sources */,
+				0419763A1D72841C001CCBB8 /* DSSBuyingCountCell.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEE033971D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
 				044D65571D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
@@ -1246,10 +1510,13 @@
 				CE30BF221D24B70200A3969D /* DSSUIImage+Extension.swift in Sources */,
 				CE30BF071D24B68500A3969D /* EditViewModel.swift in Sources */,
 				CE30BF281D24B71200A3969D /* DSSInt+Extension.swift in Sources */,
+				041976371D7283B4001CCBB8 /* DSSBuySelectShopView.swift in Sources */,
 				CE30BF321D24BE6000A3969D /* DSSEditService.swift in Sources */,
 				CE30BF051D24B68200A3969D /* FKScanCoverView.swift in Sources */,
 				CE30BF241D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1C1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
+				041976461D7288D3001CCBB8 /* DSSBuyLocationCell.swift in Sources */,
+				041976421D728439001CCBB8 /* DSSBuyingHeaderView.swift in Sources */,
 				CEF0CAED1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				0480959E1D4F534D00128E4D /* DSSMainViewModel.swift in Sources */,
 				CEF0CAE91D1D12DE003C5357 /* DSSRequestHeader.swift in Sources */,
@@ -1258,6 +1525,8 @@
 				CE30BF031D24B68000A3969D /* FKScanController.swift in Sources */,
 				CE30BF011D24B67600A3969D /* DSSProductOnsaleModel.swift in Sources */,
 				047754991D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
+				041976441D7288CF001CCBB8 /* DSSBuyMissionCell.swift in Sources */,
+				041976391D7283B7001CCBB8 /* DSSBuyRecordController.swift in Sources */,
 				CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1269,7 +1538,9 @@
 				CE30BF0F1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE30BF341D24BE6300A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1E1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
+				041976401D728433001CCBB8 /* DSSBuyingBtnCell.swift in Sources */,
 				0477549B1D4B37A50045F548 /* FKPhotoListView.swift in Sources */,
+				041976351D7283AF001CCBB8 /* DSSBuyingController.swift in Sources */,
 				CE3DDD751D1C2A7F005459B6 /* DSSNetwork.swift in Sources */,
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				CE30BF2A1D24B71500A3969D /* DSSString+Extension.swift in Sources */,
@@ -1302,10 +1573,13 @@
 				CE30BEFD1D24B67100A3969D /* DSSProductListService.swift in Sources */,
 				CED7E5561D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF171D24B69E00A3969D /* FKEditImgContainer.swift in Sources */,
+				041976331D7283AA001CCBB8 /* DSSBuyMissionController.swift in Sources */,
 				CE30BF091D24B68800A3969D /* EditViewController.swift in Sources */,
 				0480959C1D4F526400128E4D /* DSSMainViewService.swift in Sources */,
 				CEE033671D4899E000DD5781 /* DSSMainViewController.swift in Sources */,
 				CEB082861D4EECB6007F17F9 /* DSSProductWaitsaleCell.swift in Sources */,
+				0419763E1D728423001CCBB8 /* DSSBuyingProCell.swift in Sources */,
+				0419763B1D72841D001CCBB8 /* DSSBuyingCountCell.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
 				CEE033981D49E6B800DD5781 /* DSSSlideMenu.swift in Sources */,
 				044D65581D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
@@ -1437,12 +1711,15 @@
 			baseConfigurationReference = 287305FD4034B5187F9F7754 /* Pods-StorageApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StorageApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.firstlink.enterprise.iphone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1451,13 +1728,14 @@
 			baseConfigurationReference = 06E61592EBE20614F3E03F57 /* Pods-StorageApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Shou Lin Technology Co. Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StorageApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.firstlink.enterprise.iphone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457c05d7-6b3a-4a3e-93e7-ded3dbbf6e95";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
