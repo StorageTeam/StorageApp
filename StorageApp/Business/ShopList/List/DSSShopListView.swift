@@ -1,5 +1,5 @@
 //
-//  DSSLocationListView.swift
+//  DSSShopListView.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/28.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
-    private var dataSource: [DSSSupplierModel]? = nil
+class DSSShopListView: UIView, UITableViewDelegate, UITableViewDataSource {
+    private var dataSource: [DSSShopModel]? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,7 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(dataSource: [DSSSupplierModel]) -> Void {
+    func setDataSource(dataSource: [DSSShopModel]) -> Void {
         self.dataSource = dataSource
         self.tableView.reloadData()
     }
@@ -58,7 +58,7 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSSupplierListCell)) {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSShopListCell)) {
             cell.imageView?.image = UIImage.init(named: "left_location_icon")
             cell.textLabel?.text = self.dataSource?[indexPath.row].name
             cell.textLabel?.font = UIFont.systemFontOfSize(14)
@@ -90,8 +90,8 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     // Mark: - Property
     
-    lazy var listHeaderView: DSSSupplierListHeaderView = {
-        var view = DSSSupplierListHeaderView.init(frame: CGRectZero)
+    lazy var listHeaderView: DSSShopListHeaderView = {
+        var view = DSSShopListHeaderView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         return view
     }()
@@ -103,7 +103,7 @@ class DSSSupplierListView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.allowsMultipleSelection = false
         tableView.backgroundColor = UIColor.init(rgb: 0xffffff)
-        tableView.registerClass(DSSSupplierListCell.self, forCellReuseIdentifier: String(DSSSupplierListCell))
+        tableView.registerClass(DSSShopListCell.self, forCellReuseIdentifier: String(DSSShopListCell))
         return tableView
     }()
 }

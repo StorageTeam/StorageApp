@@ -1,19 +1,20 @@
 //
-//  DSSCurrentSupplierView.swift
+//  DSSCurrentShopView.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/27.
 //  Copyright © 2016年 DSB. All rights reserved.
 //
 
+
 import UIKit
 
-protocol CurrentSupplierDelegate : NSObjectProtocol {
-    func didClickChangeSupplier(curSupplier: String?) -> Void
+protocol CurrentShopDelegate : NSObjectProtocol {
+    func didClickChangeShop(curShop: String?) -> Void
 }
 
-class DSSCurrentSupplierView: UIView {
-    weak internal var delegate: CurrentSupplierDelegate?
+class DSSCurrentShopView: UIView {
+    weak internal var delegate: CurrentShopDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,19 +26,19 @@ class DSSCurrentSupplierView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setSupplierName(name: String?) -> Void {
-        if let supplierName = name {
-            self.supplierLabel.text = supplierName
+    func setShopName(name: String?) -> Void {
+        if let shopName = name {
+            self.shopLabel.text = shopName
         } else {
-            self.supplierLabel.text = "点击更改商品手机地点"
+            self.shopLabel.text = "未查询到店铺"
         }
     }
     
     // MARK: - Layout
     
     func addAllSubviews() -> Void {
-        self.addSubview(self.supplierBgView)
-        self.supplierBgView.snp_makeConstraints { (make) in
+        self.addSubview(self.shopBgView)
+        self.shopBgView.snp_makeConstraints { (make) in
             make.edges.equalTo(self)
         }
         
@@ -49,23 +50,23 @@ class DSSCurrentSupplierView: UIView {
             make.center.equalTo(self)
         }
         
-        self.addSubview(self.supplierLabel)
-        self.supplierLabel.snp_makeConstraints { (make) in
+        self.addSubview(self.shopLabel)
+        self.shopLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(30)
             make.right.equalTo(self).offset(-30)
             make.bottom.equalTo(self.greenLine.snp_top).offset(-5)
         }
         
-        self.addSubview(self.changeSupplierLabel)
-        self.changeSupplierLabel.snp_makeConstraints { (make) in
+        self.addSubview(self.changeShopLabel)
+        self.changeShopLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(self).offset(-10)
             make.top.equalTo(self.greenLine.snp_bottom).offset(5)
         }
         
         self.addSubview(self.downArrowView)
         self.downArrowView.snp_makeConstraints { (make) in
-            make.centerY.equalTo(self.changeSupplierLabel)
-            make.left.equalTo(self.changeSupplierLabel.snp_right).offset(5)
+            make.centerY.equalTo(self.changeShopLabel)
+            make.left.equalTo(self.changeShopLabel.snp_right).offset(5)
         }
         
         self.addSubview(self.actionButton)
@@ -78,12 +79,12 @@ class DSSCurrentSupplierView: UIView {
     // MARK: - Action
     
     func clickButtonAction(sender: UIButton) -> Void {
-        self.delegate?.didClickChangeSupplier(self.supplierLabel.text)
+        self.delegate?.didClickChangeShop(self.shopLabel.text)
     }
     
     // MARK: - Property
     
-    lazy var supplierBgView: UIImageView = {
+    lazy var shopBgView: UIImageView = {
         var view = UIImageView.init()
         view.image = UIImage.init(named: "locationBgView")
         return view
@@ -95,7 +96,7 @@ class DSSCurrentSupplierView: UIView {
         return view
     }()
     
-    lazy var supplierLabel: UILabel = {
+    lazy var shopLabel: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 1)
         label.font = UIFont.systemFontOfSize(15)
@@ -104,11 +105,11 @@ class DSSCurrentSupplierView: UIView {
         return label
     }()
     
-    lazy var changeSupplierLabel: UILabel = {
+    lazy var changeShopLabel: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0x333333)
         label.font = UIFont.systemFontOfSize(15)
-        label.text = "点击更改商品手机地点"
+        label.text = "选择商品采购店铺"
         label.textAlignment = NSTextAlignment.Center
         return label
     }()

@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class DSSMainViewService: NSObject {
+class DSSShopService: NSObject {
     // MARK: - Request List
     class func requestList(identify: Int, delegate: DSSDataCenterDelegate) -> Void {
         DSSDataCenter.Request(identify
@@ -19,10 +19,10 @@ class DSSMainViewService: NSObject {
             , userInfo: nil)
     }
     
-    class func parseList(json:[String : AnyObject]) -> [DSSSupplierModel] {
+    class func parseList(json:[String : AnyObject]) -> [DSSShopModel] {
         if let data = json["data"] as? [String:AnyObject] {
             if let itemJSON = data["list"] {
-                if let items = Mapper<DSSSupplierModel>().mapArray(itemJSON) {
+                if let items = Mapper<DSSShopModel>().mapArray(itemJSON) {
                     
                     // if no selected model, set first model as selected
                     for model in items {
@@ -37,15 +37,15 @@ class DSSMainViewService: NSObject {
                 }
             }
         }
-        return [DSSSupplierModel]()
+        return [DSSShopModel]()
     }
     
-    // MARK: - Set Default Supplier
-    class func modifyDefaultSupplier(identify: Int, supplierID: String, delegate: DSSDataCenterDelegate) -> Void {
+    // MARK: - Set Default Shop
+    class func modifyDefaultShop(identify: Int, shopID: String, delegate: DSSDataCenterDelegate) -> Void {
         DSSDataCenter.Request(identify
             , delegate: delegate
             , path: "/link-site/web/shipoffline_user_privilege_json/modify_shipoffline_user_privilege_current.json"
-            , para: ["supplier_id" : supplierID]
+            , para: ["shop_id" : shopID]
             , userInfo: nil)
     }
     
