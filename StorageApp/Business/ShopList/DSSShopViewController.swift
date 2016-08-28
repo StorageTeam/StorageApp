@@ -1,5 +1,5 @@
 //
-//  DSSMainViewController.swift
+//  DSSShopViewController.swift
 //  StorageApp
 //
 //  Created by ascii on 16/7/27.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DSSMainViewController: DSSBaseViewController, CurrentSupplierDelegate, DSSDataCenterDelegate {
+class DSSShopViewController: DSSBaseViewController, CurrentSupplierDelegate, DSSDataCenterDelegate {
     private static let SUPPLIERLIST_REQUEST : Int          = 0
     
     init() {
@@ -30,18 +30,18 @@ class DSSMainViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
         super.viewWillAppear(animated)
         
         if DSSAccount.isLogin() && self.viewModel.isEmpty() {
-            DSSMainViewService.requestList(DSSMainViewController.SUPPLIERLIST_REQUEST, delegate: self)
+            DSSShopService.requestList(DSSShopViewController.SUPPLIERLIST_REQUEST, delegate: self)
         }
     }
     
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSSResponseCode.Normal {
-            if identify == DSSMainViewController.SUPPLIERLIST_REQUEST {
-                let items = DSSMainViewService.parseList(response)
+            if identify == DSSShopViewController.SUPPLIERLIST_REQUEST {
+                let items = DSSShopService.parseList(response)
                 
                 switch identify {
-                case DSSMainViewController.SUPPLIERLIST_REQUEST:
+                case DSSShopViewController.SUPPLIERLIST_REQUEST:
                     self.viewModel.supplierArray = items
                     self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
                     break
@@ -92,7 +92,7 @@ class DSSMainViewController: DSSBaseViewController, CurrentSupplierDelegate, DSS
     
     func clickHideSupplierListButton(sender: UIButton) -> Void {
         if let itemID = self.viewModel.getSelSupplierID() {
-            DSSMainViewService.modifyDefaultSupplier(-1, supplierID: itemID, delegate: self)
+            DSSShopService.modifyDefaultSupplier(-1, supplierID: itemID, delegate: self)
         }
         self.curSupplierView.setSupplierName(self.viewModel.getSelSupplierName())
         

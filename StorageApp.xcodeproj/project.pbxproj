@@ -52,8 +52,8 @@
 		B2E38D1E4BF0E3D09266E721 /* Pods_StorageApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C31FD8A599DE8BA2F67955A /* Pods_StorageApp.framework */; };
 		CE07E67A1D6EE31100287546 /* DSSBuildingImgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */; };
 		CE07E67B1D6EE31100287546 /* DSSCurrentSupplierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66C1D6EE31100287546 /* DSSCurrentSupplierView.swift */; };
-		CE07E67C1D6EE31100287546 /* DSSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66D1D6EE31100287546 /* DSSMainViewController.swift */; };
-		CE07E67D1D6EE31100287546 /* DSSMainViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66E1D6EE31100287546 /* DSSMainViewService.swift */; };
+		CE07E67C1D6EE31100287546 /* DSSShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66D1D6EE31100287546 /* DSSShopViewController.swift */; };
+		CE07E67D1D6EE31100287546 /* DSSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66E1D6EE31100287546 /* DSSShopService.swift */; };
 		CE07E67E1D6EE31100287546 /* DSSSupplierListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E6701D6EE31100287546 /* DSSSupplierListCell.swift */; };
 		CE07E67F1D6EE31100287546 /* DSSSupplierListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E6711D6EE31100287546 /* DSSSupplierListHeaderView.swift */; };
 		CE07E6801D6EE31100287546 /* DSSSupplierListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E6721D6EE31100287546 /* DSSSupplierListView.swift */; };
@@ -250,8 +250,8 @@
 		96993B5F759772FC99315CD3 /* Pods-StorageAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StorageAppTests/Pods-StorageAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuildingImgView.swift; sourceTree = "<group>"; };
 		CE07E66C1D6EE31100287546 /* DSSCurrentSupplierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSCurrentSupplierView.swift; sourceTree = "<group>"; };
-		CE07E66D1D6EE31100287546 /* DSSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMainViewController.swift; sourceTree = "<group>"; };
-		CE07E66E1D6EE31100287546 /* DSSMainViewService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSMainViewService.swift; sourceTree = "<group>"; };
+		CE07E66D1D6EE31100287546 /* DSSShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopViewController.swift; sourceTree = "<group>"; };
+		CE07E66E1D6EE31100287546 /* DSSShopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopService.swift; sourceTree = "<group>"; };
 		CE07E6701D6EE31100287546 /* DSSSupplierListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierListCell.swift; sourceTree = "<group>"; };
 		CE07E6711D6EE31100287546 /* DSSSupplierListHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierListHeaderView.swift; sourceTree = "<group>"; };
 		CE07E6721D6EE31100287546 /* DSSSupplierListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSSupplierListView.swift; sourceTree = "<group>"; };
@@ -515,10 +515,10 @@
 		CE07E66A1D6EE31100287546 /* ShopList */ = {
 			isa = PBXGroup;
 			children = (
-				CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */,
+				CE07E66D1D6EE31100287546 /* DSSShopViewController.swift */,
+				CE07E66E1D6EE31100287546 /* DSSShopService.swift */,
 				CE07E66C1D6EE31100287546 /* DSSCurrentSupplierView.swift */,
-				CE07E66D1D6EE31100287546 /* DSSMainViewController.swift */,
-				CE07E66E1D6EE31100287546 /* DSSMainViewService.swift */,
+				CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */,
 				CE07E66F1D6EE31100287546 /* List */,
 				CE07E6761D6EE31100287546 /* Model */,
 				CE07E6781D6EE31100287546 /* ViewModel */,
@@ -1118,7 +1118,7 @@
 				CE07E67E1D6EE31100287546 /* DSSSupplierListCell.swift in Sources */,
 				0435D7F51D24B053008BBFEF /* DSSEditItem.swift in Sources */,
 				04C028201D2258190060CD7C /* FKScanController.swift in Sources */,
-				CE07E67D1D6EE31100287546 /* DSSMainViewService.swift in Sources */,
+				CE07E67D1D6EE31100287546 /* DSSShopService.swift in Sources */,
 				044D65561D478D8D0061597F /* FKTakePhotoActionView.swift in Sources */,
 				CEB082841D4EECB6007F17F9 /* DSSProductWaitsaleCell.swift in Sources */,
 				CEBBA8051D23AF5F00187B07 /* DSSProductOnsaleModel.swift in Sources */,
@@ -1154,7 +1154,7 @@
 				CEBBA8041D23AF5F00187B07 /* DSSProductOnsaleCell.swift in Sources */,
 				CEF0CAEB1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
 				0477548C1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
-				CE07E67C1D6EE31100287546 /* DSSMainViewController.swift in Sources */,
+				CE07E67C1D6EE31100287546 /* DSSShopViewController.swift in Sources */,
 				0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */,
 				CEBBA80B1D23AF6700187B07 /* DSSInt+Extension.swift in Sources */,
 				CE3DDD771D1C2A8F005459B6 /* DSSStorage.swift in Sources */,

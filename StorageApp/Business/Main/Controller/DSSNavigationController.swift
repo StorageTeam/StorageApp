@@ -16,7 +16,7 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
 
         // Do any additional setup after loading the view.
         
-        let controller = DSSMainViewController.init()
+        let controller = DSSShopViewController.init()
         self.viewControllers = [controller]
         
         self.slideMenu.delegate   = self

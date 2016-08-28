@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class DSSMainViewService: NSObject {
+class DSSShopService: NSObject {
     // MARK: - Request List
     class func requestList(identify: Int, delegate: DSSDataCenterDelegate) -> Void {
         DSSDataCenter.Request(identify
