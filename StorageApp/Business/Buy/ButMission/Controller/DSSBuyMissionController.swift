@@ -8,9 +8,7 @@
 
 import UIKit
 
-class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource {
-
-    var shopId: String?
+class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSSDataCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +31,34 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         }
     }
     
+    //MARK: - Request
+    func reqDataList() {
+        DSSMissionServe.reqMissionList(2000, delegate: self)
+    }
+    
+    //MARK: - Response
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSSResponseCode.Normal {
+            if identify == 2000 {
+                self.viewModel.orginDataArray = DSSMissionServe.parserMissionList(response)
+                self.viewModel.shopArray = DSSMissionServe.filterShopListWith(self.viewModel.orginDataArray!)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        if let errorString = error {
+            self.showText(errorString)
+        }
+    }
+
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 10
+        if (self.viewModel.dataArray != nil) {
+            return (self.viewModel.dataArray?.count)!
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,21 +66,22 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let missionItem = self.viewModel.missionItemAtIndex(indexPath.row)
+        
         if (indexPath.row == 1) {
+            
             let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSBuyMissionCell)) as? DSSBuyMissionCell
+            
             if (cell != nil) {
-                cell?.proImgView.image = UIImage.init(named: "LeftBarIcon")
-                cell?.titleLabel.text = "hsdhfhsdhfa水电费火花塞地方速度发货水电费是东方红水电费"
-                cell?.priceLabel.text = "$100"
-                cell?.specLabel.text = "specs sddsfsfsdfhhgfudfhgdfgdfgdfg"
-                cell?.numberLabel.text = "20000"
+                cell?.fk_configWith(missionItem!, indexPath: indexPath)
                 cell?.buyButton.addTarget(self, action: #selector(self.clickBuy(_:)), forControlEvents: .TouchUpInside)
             }
             return cell!
         } else if (indexPath.row == 0){
             let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSBuyLocationCell)) as? DSSBuyLocationCell
             if (cell != nil) {
-                cell?.titleLabel.text = "美国四点后覅是旗舰店"
+                cell?.titleLabel.text = missionItem?.shopName
             }
             return cell!
         }
@@ -101,8 +126,38 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
     
     func clickSelectShop() {
         
+        if (self.viewModel.shopArray != nil) {
+            self.shopListView.setDataSource(self.viewModel.shopArray!)
+            self.showshopListView()
+        }
     }
     
+    func clickHideShopListButton(sender: UIButton) -> Void {
+        let shopName = self.viewModel.checkSelectedShop()
+        
+        self.tableView.reloadData()
+        
+        self.choseShopView.titleLabel.text = shopName
+        self.hideshopListView(nil)
+    }
+    
+    //MARK: - method
+    func hideshopListView(completion: ((Bool) -> Void)?) -> Void {
+        let bounds = self.view.bounds
+        let frame = CGRectMake(0, CGRectGetHeight(bounds), CGRectGetWidth(bounds), CGRectGetHeight(bounds))
+        UIView.animateWithDuration(0.5,
+                                   animations: {
+                                    self.shopListView.frame = frame
+        }) { (isFinish) in
+            completion?(isFinish)
+        }
+    }
+    
+    func showshopListView() -> Void {
+        UIView.animateWithDuration(0.5) {
+            self.shopListView.frame = self.view.bounds
+        }
+    }
     //MARK: - property
     
     lazy var tableView: UITableView = {
@@ -114,11 +169,23 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         return table
     }()
     
-    lazy var shopListView: DSSBuySelectShopView = {
+    lazy var choseShopView: DSSBuySelectShopView = {
         let view = DSSBuySelectShopView()
         view.actionBtn.addTarget(self,
                                  action: #selector(self.clickSelectShop),
                                  forControlEvents: .TouchUpInside)
         return view
+    }()
+    
+    lazy var shopListView: DSSShopListView = {
+        let view = DSSShopListView.init(frame: CGRectZero)
+        view.backgroundColor = UIColor.init(white: 0, alpha: 0.2)
+        view.listHeaderView.actionButton.addTarget(self, action: #selector(clickHideShopListButton), forControlEvents: .TouchUpInside)
+        return view
+    }()
+    
+    lazy var viewModel: DSSMissionViewModel = {
+        let viewModel = DSSMissionViewModel()
+        return viewModel
     }()
 }

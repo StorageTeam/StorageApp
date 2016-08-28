@@ -13,6 +13,8 @@ class DSSScanService: NSObject {
         var para        = [String : String]()
         para["upc"]     = upc
         para["shop_id"] = supplierID
+        para["upc"]         = upc
+        para["shop_id"] = supplierID
         
         DSSDataCenter.Request(identify
             , delegate: delegate

@@ -140,7 +140,7 @@ class DSSShopViewController: DSSBaseViewController, CurrentShopDelegate, DSSData
     func photoDoneToPushEdit(scanStr: String, images: [UIImage]?) {
         
         let editItem = EditSourceItem.init()
-        editItem.supplierId = self.viewModel.getSelShopID()
+        editItem.shopId     = self.viewModel.getSelShopID()
         editItem.address    = self.viewModel.getSelShopName()
         editItem.upc        = scanStr
         

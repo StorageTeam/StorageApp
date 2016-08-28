@@ -11,7 +11,7 @@ import ObjectMapper
 
 class EditSourceItem: NSObject, Mappable {
     
-    var supplierId          : String?
+    var shopId              : String?
     var address             : String?
     var upc                 : String?
     
@@ -24,7 +24,7 @@ class EditSourceItem: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        supplierId              <- map["supplier_id"]
+        shopId                  <- map["shop_id"]
         address                 <- map["shop_name"]
         upc                     <- map["upc"]
     }

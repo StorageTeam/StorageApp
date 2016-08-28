@@ -202,8 +202,8 @@ class EditViewModel: NSObject {
             }
         } else if self.editType == kEditType.kEditTypeAdd {
             
-            if self.sourceItem.supplierId != nil {
-                para["supplier_id"] = self.sourceItem.supplierId
+            if self.sourceItem.shopId != nil {
+                para["shop_id"] = self.sourceItem.shopId
             }
             
             if self.sourceItem.upc != nil {

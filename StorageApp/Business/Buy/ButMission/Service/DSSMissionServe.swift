@@ -7,24 +7,57 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class DSSMissionServe: NSObject {
-    class func reqMissionList(identify: Int, delegate: DSSDataCenterDelegate, shopId: String) -> Void {
-        var para          = [String : String]()
-        para["shop_id"]   = shopId
+    class func reqMissionList(identify: Int, delegate: DSSDataCenterDelegate) -> Void {
+//        var para          = [String : String]()
+//        
+//        if shopId != nil {
+//            para["shop_id"]   = shopId
+//        }
         
         DSSDataCenter.Request(identify
             , delegate: delegate
             , path: "/link-site/web/shipoffline_purchase_json/find_shipoffline_purchase_goods.json"
-            , para: ["shipoffline_json" : para]
+            , para: nil
             , userInfo: nil)
     }
 
-    class func parserImgUrl(json: [String : AnyObject]) -> [DSSMissionItem]? {
+    class func parserMissionList(json: [String : AnyObject]) -> [DSSMissionItem]? {
         if let dataArray = json["data"]!["list"] as? [[String:AnyObject]] {
-            for dataItem in dataArray {
-                
+            
+            if let items = Mapper<DSSMissionItem>().mapArray(dataArray) {
+                return items
             }
+            
+        }
+        return nil
+    }
+    
+    class func filterShopListWith(missionList: [DSSMissionItem]?) -> [DSSShopModel]? {
+        
+        if (missionList != nil) {
+            
+            var dataArray : [DSSShopModel] = [
+            ]
+            for missionItem in missionList! {
+                let shopId = missionItem.shopID
+                let res = dataArray.contains({ (shopItem) -> Bool in
+                    if shopItem.itemID == shopId {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+                if (!res) {
+                    let newShopItem = DSSShopModel()
+                    newShopItem.itemID = missionItem.shopID
+                    newShopItem.name = missionItem.shopName
+                    dataArray.append(newShopItem)
+                }
+            }
+            return dataArray
         }
         return nil
     }
