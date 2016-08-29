@@ -64,6 +64,9 @@
 		041976B61D72C74E001CCBB8 /* DSSShopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976AB1D72C60B001CCBB8 /* DSSShopModel.swift */; };
 		041976B71D72C98C001CCBB8 /* DSSShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976A71D72C602001CCBB8 /* DSSShopListView.swift */; };
 		041976B81D72C98D001CCBB8 /* DSSShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976A71D72C602001CCBB8 /* DSSShopListView.swift */; };
+		041976BA1D7337C5001CCBB8 /* DSSBuyRecordServe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B91D7337C5001CCBB8 /* DSSBuyRecordServe.swift */; };
+		041976BB1D7339FD001CCBB8 /* DSSBuyRecordServe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B91D7337C5001CCBB8 /* DSSBuyRecordServe.swift */; };
+		041976BC1D7339FD001CCBB8 /* DSSBuyRecordServe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B91D7337C5001CCBB8 /* DSSBuyRecordServe.swift */; };
 		0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */; };
 		0435D7F31D24B053008BBFEF /* DSSEditImgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */; };
 		0435D7F41D24B053008BBFEF /* DSSEditInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */; };
@@ -106,6 +109,7 @@
 		04C028201D2258190060CD7C /* FKScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0281F1D2258190060CD7C /* FKScanController.swift */; };
 		04C028221D2258270060CD7C /* FKScanCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C028211D2258270060CD7C /* FKScanCoverView.swift */; };
 		04C0282C1D227D530060CD7C /* FKEditImgContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */; };
+		04CC45341D73CB32002C2421 /* DSSBuyingServe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC45331D73CB32002C2421 /* DSSBuyingServe.swift */; };
 		B2E38D1E4BF0E3D09266E721 /* Pods_StorageApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C31FD8A599DE8BA2F67955A /* Pods_StorageApp.framework */; };
 		CE07E67A1D6EE31100287546 /* DSSBuildingImgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */; };
 		CE07E6891D6EE3B900287546 /* DSSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E6881D6EE3B900287546 /* DSSNavigationController.swift */; };
@@ -314,6 +318,7 @@
 		041976AF1D72C61C001CCBB8 /* DSSCurrentShopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSCurrentShopView.swift; sourceTree = "<group>"; };
 		041976B01D72C61C001CCBB8 /* DSSShopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopService.swift; sourceTree = "<group>"; };
 		041976B11D72C61C001CCBB8 /* DSSShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSShopViewController.swift; sourceTree = "<group>"; };
+		041976B91D7337C5001CCBB8 /* DSSBuyRecordServe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyRecordServe.swift; sourceTree = "<group>"; };
 		0435D7EB1D24B03D008BBFEF /* FKEditSaveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditSaveCell.swift; sourceTree = "<group>"; };
 		0435D7EF1D24B053008BBFEF /* DSSEditImgItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditImgItem.swift; sourceTree = "<group>"; };
 		0435D7F01D24B053008BBFEF /* DSSEditInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSEditInfoItem.swift; sourceTree = "<group>"; };
@@ -338,6 +343,7 @@
 		04C0281F1D2258190060CD7C /* FKScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanController.swift; sourceTree = "<group>"; };
 		04C028211D2258270060CD7C /* FKScanCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKScanCoverView.swift; sourceTree = "<group>"; };
 		04C0282B1D227D530060CD7C /* FKEditImgContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKEditImgContainer.swift; sourceTree = "<group>"; };
+		04CC45331D73CB32002C2421 /* DSSBuyingServe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSBuyingServe.swift; sourceTree = "<group>"; };
 		06E61592EBE20614F3E03F57 /* Pods-StorageApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.release.xcconfig"; sourceTree = "<group>"; };
 		0F57C8D15AF55EF3A4B57067 /* Pods-StorageAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageAppUITests/Pods-StorageAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		287305FD4034B5187F9F7754 /* Pods-StorageApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StorageApp/Pods-StorageApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -546,6 +552,7 @@
 		041976611D728EA8001CCBB8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				04CC45331D73CB32002C2421 /* DSSBuyingServe.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -605,6 +612,7 @@
 		0419766C1D728EA8001CCBB8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				041976B91D7337C5001CCBB8 /* DSSBuyRecordServe.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1471,6 +1479,7 @@
 				CEBBA7DD1D22776100187B07 /* DSSAppearance.swift in Sources */,
 				0435D7F51D24B053008BBFEF /* DSSEditItem.swift in Sources */,
 				04C028201D2258190060CD7C /* FKScanController.swift in Sources */,
+				041976BA1D7337C5001CCBB8 /* DSSBuyRecordServe.swift in Sources */,
 				041976871D728EA8001CCBB8 /* DSSBuyingProCell.swift in Sources */,
 				041976931D728EA8001CCBB8 /* DSSRecordTimeCell.swift in Sources */,
 				044D65561D478D8D0061597F /* FKTakePhotoActionView.swift in Sources */,
@@ -1502,6 +1511,7 @@
 				CE9550171D72E1CA0085FFCC /* DSSDeliverMissionController.swift in Sources */,
 				0419766F1D728EA8001CCBB8 /* DSSBuyLocationCell.swift in Sources */,
 				CE9EFFD31D4893E7007DB098 /* DSSImage.swift in Sources */,
+				04CC45341D73CB32002C2421 /* DSSBuyingServe.swift in Sources */,
 				CE3DDD5D1D1BD8A1005459B6 /* DSSLoginTextInput.swift in Sources */,
 				044D65531D478D0C0061597F /* DSSTakePhotoController.swift in Sources */,
 				041976B31D72C61C001CCBB8 /* DSSShopService.swift in Sources */,
@@ -1631,6 +1641,7 @@
 				CE30BEFC1D24B67000A3969D /* DSSProductListService.swift in Sources */,
 				CED7E5551D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF161D24B69D00A3969D /* FKEditImgContainer.swift in Sources */,
+				041976BC1D7339FD001CCBB8 /* DSSBuyRecordServe.swift in Sources */,
 				CE30BF081D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEB082851D4EECB6007F17F9 /* DSSProductWaitsaleCell.swift in Sources */,
 				CEF0CAF61D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,
@@ -1721,6 +1732,7 @@
 				CE30BEFD1D24B67100A3969D /* DSSProductListService.swift in Sources */,
 				CED7E5561D4B385A0063A423 /* DSSScanService.swift in Sources */,
 				CE30BF171D24B69E00A3969D /* FKEditImgContainer.swift in Sources */,
+				041976BB1D7339FD001CCBB8 /* DSSBuyRecordServe.swift in Sources */,
 				CE30BF091D24B68800A3969D /* EditViewController.swift in Sources */,
 				CEB082861D4EECB6007F17F9 /* DSSProductWaitsaleCell.swift in Sources */,
 				CEF0CAF71D1D31CA003C5357 /* DSSDictionary+Extension.swift in Sources */,

@@ -27,12 +27,12 @@ class DSSBuySelectShopView: UIView {
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.centerY.equalTo(self)
-            make.right.equalTo(self.snp_centerX)
+            make.centerX.equalTo(self).offset(-5)
         }
         
         self.arrowImgView.snp_makeConstraints { (make) in
             make.centerY.equalTo(self)
-            make.left.equalTo(self.snp_centerX).offset(5)
+            make.left.equalTo(self.titleLabel.snp_right).offset(5)
         }
         
         self.actionBtn.snp_makeConstraints { (make) in

@@ -24,10 +24,10 @@ class DSSBuyingBtnCell: UITableViewCell {
     func addAllSubviews() {
         
         self.contentView.addSubview(self.buyButton)
-        self.contentView.addSubview(self.cancelBtn)
+        self.contentView.addSubview(self.failBtn)
         
         let btnW = (DSSConst.UISCREENWIDTH - 20 * 3) / 2.0
-        self.cancelBtn.snp_makeConstraints { (make) in
+        self.failBtn.snp_makeConstraints { (make) in
             make.left.equalTo(self.contentView).offset(20)
             make.centerY.equalTo(self.contentView)
             make.size.equalTo(CGSizeMake(btnW, 44))
@@ -51,7 +51,7 @@ class DSSBuyingBtnCell: UITableViewCell {
         return button
     }()
     
-    lazy var cancelBtn: UIButton = {
+    lazy var failBtn: UIButton = {
         let button = UIButton.init(type: UIButtonType.Custom)
         button.setTitle("采购失败", forState: .Normal)
         button.setTitleColor(UIColor.init(rgb: 0x1fbad6), forState: .Normal)

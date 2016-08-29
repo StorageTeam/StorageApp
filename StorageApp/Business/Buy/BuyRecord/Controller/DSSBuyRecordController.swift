@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
-class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSSDataCenterDelegate {
 
+    var dataArray: [DSSMissionItem]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAllSubviews()
         self.configNavItem()
+        self.addRefresh()
+        
+        self.showHUD()
+        self.reqDataList()
     }
     
     func addAllSubviews() {
@@ -24,8 +31,60 @@ class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func addRefresh() {
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
+        tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            self?.pullRequestDataList(true)
+            }, loadingView: loadingView)
+        self.tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
+        self.tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
+        
+    }
+    
+    deinit {
+        self.tableView.dg_removePullToRefresh()
+    }
+    
+    //MARK: - Request
+    func pullRequestDataList(up: Bool) {
+        self.reqDataList()
+    }
+    
+    func reqDataList() {
+        DSSBuyRecordServe.reqRecordList(1500, delegate: self)
+    }
+    
+    //MARK: - Response
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        
+        self.hidHud(true)
+        self.tableView.dg_stopLoading()
+        
+        if header.code == DSSResponseCode.Normal {
+            if identify == 1500 {
+                self.dataArray = DSSBuyRecordServe.parserRecordList(response)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        
+        self.hidHud(true)
+        self.tableView.dg_stopLoading()
+        
+        if let errorString = error {
+            self.showText(errorString)
+        }
+    }
+
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 10
+        if self.dataArray != nil {
+            return (self.dataArray?.count)!
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,22 +92,19 @@ class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let missionItem = self.missionItemAtIndex(indexPath.section)
+        
         if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSRecordListCell)) as? DSSRecordListCell
-            if (cell != nil) {
-                cell?.proImgView.image = UIImage.init(named: "LeftBarIcon")
-                cell?.titleLabel.text = "hsdhfhsdhfa水电费火花塞地方速度发货水电费是东方红水电费"
-                cell?.priceLabel.text = "$100"
-                cell?.specLabel.text = "specs sddsfsfsdfhhgfudfhgdfgdfgdfg"
-                cell?.numberLabel.text = "20000"
-                cell?.locationLabel.text = "会死恢复到收到货粉红色的f"
+            if (cell != nil && missionItem != nil) {
+                cell?.fk_configWith(missionItem!, indexPath: indexPath)
             }
             return cell!
         } else if (indexPath.row == 0){
             let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSRecordTimeCell)) as? DSSRecordTimeCell
-            if (cell != nil) {
-                cell?.timeLabel.text = "2016-83-22 14:00:99"
-                cell?.typeLabel.text = "采购成功"
+            if (cell != nil && missionItem != nil) {
+                cell?.fk_configWith(missionItem!, indexPath: indexPath)
             }
             return cell!
         }
@@ -72,14 +128,21 @@ class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITabl
         return CGFloat.min
     }
     
+    //MARK: - method
     func configNavItem() {
         
         self.navigationItem.title = "采购记录"
-        
-        let leftItem = UIBarButtonItem.init(image: UIImage.init(named: ""), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBack))
-        self.navigationItem.leftBarButtonItem = leftItem
+//        
+//        let leftItem = UIBarButtonItem.init(image: UIImage.init(named: ""), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBack))
+//        self.navigationItem.leftBarButtonItem = leftItem
     }
     
+    func missionItemAtIndex(index: Int) -> DSSMissionItem? {
+        if index >= 0 && index < self.dataArray?.count {
+            return self.dataArray![index]
+        }
+        return nil
+    }
     //MARK: action
     
     func clickBack() {

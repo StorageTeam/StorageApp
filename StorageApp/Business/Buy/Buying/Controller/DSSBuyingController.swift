@@ -8,8 +8,19 @@
 
 import UIKit
 
-class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DSSDataCenterDelegate{
 
+    var missionItem: DSSMissionItem?
+    var finishBlock: (Bool -> Void)?
+    
+    let reqSuccessIdentify = 2001
+    let reqFailIdentify = 2002
+    
+    convenience init(missionItem: DSSMissionItem, finish: (Bool -> Void)?) {
+        self.init()
+        self.missionItem = missionItem
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAllSubviews()
@@ -24,6 +35,32 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    //MARK: - Response
+    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        
+        self.hidHud(true)
+        if header.code == DSSResponseCode.Normal {
+            if identify == reqSuccessIdentify {
+                if self.finishBlock != nil {
+                    self.finishBlock!(true)
+                }
+            } else if identify == reqFailIdentify {
+                if self.finishBlock != nil {
+                    self.finishBlock!(false)
+                }
+            }
+         }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        
+        self.hidHud(true)
+        if let errorString = error {
+            self.showText(errorString)
+        }
+    }
+
+    //MARK: tableView datasource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
@@ -36,15 +73,16 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         
         if (indexPath.section == 0) {
             if let proCell = tableView.dequeueReusableCellWithIdentifier(String(DSSBuyingProCell)) as? DSSBuyingProCell {
-                proCell.proImgView.image = UIImage.init(named: "product_list_icon")
-                proCell.titleLabel.text = "啥地方和斯蒂芬和水电费四点后覅和史蒂夫水电费好说的分"
+                proCell.proImgView.dss_setImageFromURLString((missionItem?.firstPic)!, cdnWidth: DSSBuyingProCell.imgCdnWidth())
+                proCell.titleLabel.text = missionItem?.title
                 return proCell
             }
             
         } else if (indexPath.section == 1){
             if let countCell = tableView.dequeueReusableCellWithIdentifier(String(DSSBuyingCountCell)) as? DSSBuyingCountCell {
-                countCell.buyCountField.text = "20"
-                countCell.waitCountLabel.text = "待采购数20"
+                countCell.buyCountField.text = String.init(format: "%ld", (missionItem?.quantity)!)
+                countCell.buyCountField.delegate = self
+                countCell.waitCountLabel.text = String.init(format: "待采购数%ld", (missionItem?.quantity)!)
                 return countCell
             }
   
@@ -54,9 +92,9 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
                                                 action: #selector(self.clickConfirmBtn),
                                                 forControlEvents: .TouchUpInside)
                 
-                confirmCell.cancelBtn.addTarget(self,
-                                                action: #selector(self.clickCancelBtn),
-                                                forControlEvents: .TouchUpInside)
+                confirmCell.failBtn.addTarget(self,
+                                              action: #selector(self.clickFailBtn),
+                                              forControlEvents: .TouchUpInside)
                 return confirmCell
             }
         }
@@ -78,7 +116,7 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         
         if (section == 0) {
             if let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(String(DSSBuyingHeaderView)) as? DSSBuyingHeaderView{
-                header.titleLabel.text = "UPC"
+                header.titleLabel.text = "商品信息"
                 return header
             }
         } else if (section == 1) {
@@ -98,15 +136,100 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         return CGFloat.min
     }
     
+    //MARK: Request
+    
+    func reqMissionSuccess() {
+        if self.missionItem?.goodsID != nil {
+            self.showHUD()
+            DSSBuyingServe.reqMissionSuccess(reqSuccessIdentify,
+                                             goodsID: (self.missionItem?.goodsID)!,
+                                             quality: self.getInputNum(),
+                                             delegate: self)
+        }
+    }
+    
+    func reqMissionFail() {
+        if self.missionItem?.goodsID != nil {
+            self.showHUD()
+            DSSBuyingServe.reqMissionFail(reqFailIdentify,
+                                          goodsID: (self.missionItem?.goodsID)!,
+                                          delegate: self)
+        }
+    }
+    
+    
     //MARK: action
     func clickConfirmBtn() {
         
+        self.view.endEditing(true)
+        
+        let inputNum = self.getInputNum()
+        if inputNum <= 0 {
+            self.showText("采购数量必须大于0")
+            return
+        }
+        
+        if inputNum > self.missionItem?.quantity {
+            self.showText("采购数量不能大于待采购数")
+            return
+        }
+        
+        self.showAlertWith(String.init(format: "本次采购数量%ld", inputNum), tag: 0)
     }
     
-    func clickCancelBtn() {
+    func clickFailBtn() {
         
+        self.view.endEditing(true)
+        self.showAlertWith("确认采购失败", tag: 1)
     }
 
+    //MARK: - textField delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if (textField.text != nil) {
+            let inputNum = Int(textField.text!)
+            if inputNum  <= 1 {
+                textField.text = "1"
+            }
+        } else {
+            textField.text = "1"
+        }
+    }
+    
+    //MARK: - method
+    func getInputNum() -> Int {
+        var num = 0
+        for cell in self.tableView.visibleCells {
+            if let countCell = cell as? DSSBuyingCountCell {
+                num = Int(countCell.buyCountField.text!)!
+                break
+            }
+        }
+        return num
+    }
+    
+    func showAlertWith(title: String?, tag: Int) {
+        let alertController = UIAlertController.init(title: nil, message: title, preferredStyle: .Alert)
+//        alertController.view.tag = tag
+        let action0 = UIAlertAction.init(title: "确认", style: UIAlertActionStyle.Default) { (action) in
+            if tag == 0 {
+                self.reqMissionSuccess()
+            } else if tag == 1 {
+                self.reqMissionFail()
+            }
+         }
+        
+        let action1 = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.Cancel) { (action) in
+            
+        }
+        alertController.addAction(action0)
+        alertController.addAction(action1)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
     
     //MARK: - property
     
@@ -115,6 +238,7 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = UITableViewCellSeparatorStyle.None
+        table.scrollEnabled = false
         
         table.registerClass(DSSBuyingProCell.self, forCellReuseIdentifier: String(DSSBuyingProCell))
         table.registerClass(DSSBuyingCountCell.self, forCellReuseIdentifier: String(DSSBuyingCountCell))
