@@ -138,34 +138,34 @@ class DSSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         if roleType.isBuyerAble() {
             titles.append("商品搜集")
             events.append(SlideMenuEvent.MenuProductAdd)
-            imageNames.append("product_collect_icon")
+            imageNames.append("menu_collect_icon")
             
             titles.append("商品列表")
             events.append(SlideMenuEvent.MenuProductList)
-            imageNames.append("product_list_icon")
+            imageNames.append("menu_product_list_icon")
         }
         
         if roleType.isDeliverAble() {
             titles.append("采购任务")
             events.append(SlideMenuEvent.MenuBuyTask)
-            imageNames.append("product_collect_icon")
+            imageNames.append("menu_buy_icon")
             
             titles.append("采购记录")
             events.append(SlideMenuEvent.MenuBuyRecord)
-            imageNames.append("product_list_icon")
+            imageNames.append("menu_buy_record")
             
             titles.append("发货任务")
             events.append(SlideMenuEvent.MenuDeliverTask)
-            imageNames.append("product_collect_icon")
+            imageNames.append("menu_deliver_icon")
             
             titles.append("发货记录")
             events.append(SlideMenuEvent.MenuDeliverRecord)
-            imageNames.append("product_list_icon")
+            imageNames.append("menu_deliver_record")
         }
         
         titles.append("退出登录")
         events.append(SlideMenuEvent.MenuLogout)
-        imageNames.append("logout_icon")
+        imageNames.append("menu_logout_icon")
         
         for idx in 0 ..< min(min(imageNames.count, titles.count), events.count) {
             if let img = UIImage.init(named: imageNames[idx] as String) {

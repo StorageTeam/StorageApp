@@ -47,32 +47,32 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
     func slideMenuClick(obj: DSSSlideMenu, event: SlideMenuEvent, userInfo: [String : AnyObject]?) {
         weak var wkSelf = self
         switch event {
+        case .MenuClose:
+            self.hideSlideMenu(nil)
+            break
         case .MenuProductAdd:
             self.hideSlideMenu({ (done) in
-//                wkSelf?.pushProductAddController()
+                let controller = DSSShopViewController.init()
+                wkSelf!.viewControllers = [controller]
             })
             break
         case .MenuProductList:
             self.hideSlideMenu({ (done) in
-//                wkSelf?.pushProductListController()
+                let controller = DSSProductListController.init()
+                wkSelf!.viewControllers = [controller]
             })
             break
         case .MenuBuyTask:
             self.hideSlideMenu({ (done) in
                 let controller = DSSBuyMissionController.init()
-                self.viewControllers = [controller]
+                wkSelf!.viewControllers = [controller]
             })
             break
         case .MenuBuyRecord:
             self.hideSlideMenu({ (done) in
                 let controller = DSSBuyRecordController.init()
-                self.viewControllers = [controller]
+                wkSelf!.viewControllers = [controller]
             })
-        case .MenuLogout:
-            self.hideSlideMenu({ (done) in
-                wkSelf?.showLogoutAlert()
-            })
-            break
         case .MenuDeliverTask:
             self.hideSlideMenu({ (done) in
                 let controller = DSSDeliverMissionController.init()
@@ -85,10 +85,10 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
                 wkSelf!.viewControllers = [controller]
             })
             break;
-        case .MenuClose:
-            self.hideSlideMenu(nil)
-            break
-        default:
+        case .MenuLogout:
+            self.hideSlideMenu({ (done) in
+                wkSelf?.showLogoutAlert()
+            })
             break
         }
     }
@@ -151,7 +151,7 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
     
     func presentLoginController() -> Void {
         let controller = DSSLoginController()
-        self.navigationController?.presentViewController(controller, animated: true, completion: {});
+        self.presentViewController(controller, animated: true, completion: {});
         
     }
     

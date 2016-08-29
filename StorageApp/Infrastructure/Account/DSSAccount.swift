@@ -76,7 +76,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     private var mobile      : String?
     private var nickname    : String?
     private var headurl     : String?
-//    private var roles       : [DSSAccountRole]?
+    private var role        : String?
     
     private override init() { }
     required init?(_ map: Map) { }
@@ -89,6 +89,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         self.mobile   = aDecoder.decodeObjectForKey("mobile") as? String
         self.nickname = aDecoder.decodeObjectForKey("nickname") as? String
         self.headurl  = aDecoder.decodeObjectForKey("headurl") as? String
+        self.role     = aDecoder.decodeObjectForKey("role") as? String
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -97,6 +98,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         aCoder.encodeObject(self.mobile,    forKey: "mobile")
         aCoder.encodeObject(self.nickname,  forKey: "nickname")
         aCoder.encodeObject(self.headurl,   forKey: "headurl")
+        aCoder.encodeObject(self.role,      forKey: "role")
     }
     
     private class func loadFromFile() -> DSSAccount {
@@ -120,6 +122,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         DSSAccount.gAccount.mobile   = account?.mobile
         DSSAccount.gAccount.nickname = account?.nickname
         DSSAccount.gAccount.headurl  = account?.headurl
+        DSSAccount.gAccount.role     = account?.role
     }
     
     // MARK:- Api
@@ -148,6 +151,7 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         DSSAccount.gAccount.mobile   = nil
         DSSAccount.gAccount.nickname = nil
         DSSAccount.gAccount.headurl  = nil
+        DSSAccount.gAccount.role     = nil
         
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(DSSAccount.archivePath()) {
@@ -188,7 +192,19 @@ class DSSAccount: NSObject, Mappable, NSCoding {
     }
     
     class func getRoleType() -> RoleType {
-        return .RoleTypeAdmin
+        if let role = DSSAccount.gAccount.role {
+            switch role {
+            case "1":
+                return .RoleTypeBuyer
+            case "2":
+                return .RoleTypeDeliver
+            case "3":
+                return .RoleTypeAdmin
+            default:
+                break
+            }
+        }
+        return .RoleTypeBuyer
     }
     
     func mapping(map: Map) {
@@ -197,6 +213,6 @@ class DSSAccount: NSObject, Mappable, NSCoding {
         mobile      <- (map["mobile"], DSSStringTransform())
         nickname    <- map["nickname"]
         headurl     <- map["head_pic"]
-//        roles       <- map["roles"]
+        role        <- (map["privilege"], DSSStringTransform())
     }
 }
