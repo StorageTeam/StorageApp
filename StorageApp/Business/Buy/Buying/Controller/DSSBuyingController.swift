@@ -25,7 +25,14 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAllSubviews()
+        self.addTapGesture()
         self.navigationItem.title = "采购任务"
+    }
+    
+    func addTapGesture() {
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.tapGestureClick(_:)))
+        //        tap.delegate = self
+        self.view.addGestureRecognizer(tap)
     }
     
     func addAllSubviews() {
@@ -160,6 +167,11 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
     
     
     //MARK: action
+    
+    func tapGestureClick(sender: UIGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
     func clickConfirmBtn() {
         
         self.view.endEditing(true)

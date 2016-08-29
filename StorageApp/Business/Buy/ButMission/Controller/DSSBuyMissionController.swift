@@ -9,7 +9,7 @@
 import UIKit
 import DGElasticPullToRefresh
 
-class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSSDataCenterDelegate {
+class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSSDataCenterDelegate, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,9 +142,12 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         return 10.0
     }
     
-    func tableView(tableView
-        : UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.min
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
     }
     
     func configNavItem() {
@@ -184,7 +187,15 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         self.choseShopView.titleLabel.text = shopName
         self.hideshopListView(nil)
     }
-    
+    //MARK: gesture delegate
+//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        let location = gestureRecognizer.locationInView(self.tableView)
+//        let indexpath = self.tableView.indexPathForRowAtPoint(location)
+//        if indexpath != nil {
+//            return false
+//        }
+//        
+//    }
     //MARK: - method
     
     func pushBuyingController(missionItem: DSSMissionItem) {
