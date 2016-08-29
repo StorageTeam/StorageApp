@@ -38,7 +38,7 @@ class DSSRecordTimeCell: UITableViewCell {
     
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
         if let model = viewModel as? DSSMissionItem {
-            self.timeLabel.text = "2016-83-22 14:00:99"
+            self.timeLabel.text = model.getRealCreateTime()
             self.typeLabel.text = model.statusString()
             
             if (model.missionStatus() == MissionStatus.MissionStatusSuccess) {

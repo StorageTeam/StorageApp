@@ -84,7 +84,7 @@ class DSSBuyMissionCell: UITableViewCell {
             self.titleLabel.text = model.title
             self.priceLabel.text = String.init(format: "$%@", (model.price?.dss_fen2Yuan())!)
             self.specLabel.text = model.specNam
-            self.numberLabel.text = String.init(format: "%ld", model.quantity!)
+            self.numberLabel.text = String.init(format: "%@", model.quantity!)
         }
     }
     

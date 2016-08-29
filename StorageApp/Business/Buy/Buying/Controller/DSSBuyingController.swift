@@ -19,6 +19,7 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
     convenience init(missionItem: DSSMissionItem, finish: (Bool -> Void)?) {
         self.init()
         self.missionItem = missionItem
+        self.finishBlock = finish
     }
     
     override func viewDidLoad() {
@@ -80,9 +81,9 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
             
         } else if (indexPath.section == 1){
             if let countCell = tableView.dequeueReusableCellWithIdentifier(String(DSSBuyingCountCell)) as? DSSBuyingCountCell {
-                countCell.buyCountField.text = String.init(format: "%ld", (missionItem?.quantity)!)
+                countCell.buyCountField.text = String.init(format: "%@", (missionItem?.quantity)!)
                 countCell.buyCountField.delegate = self
-                countCell.waitCountLabel.text = String.init(format: "待采购数%ld", (missionItem?.quantity)!)
+                countCell.waitCountLabel.text = String.init(format: "待采购数%@", (missionItem?.quantity)!)
                 return countCell
             }
   
@@ -169,7 +170,7 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
             return
         }
         
-        if inputNum > self.missionItem?.quantity {
+        if inputNum > Int((self.missionItem?.quantity)!)! {
             self.showText("采购数量不能大于待采购数")
             return
         }

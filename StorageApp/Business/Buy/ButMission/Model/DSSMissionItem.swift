@@ -25,8 +25,9 @@ class DSSMissionItem: NSObject, Mappable{
     var firstPic        : String?
     var specNam         : String?
     var price           : Int?
-    var quantity        : Int?
+    var quantity        : String?
     var status          : Int?
+    var createTime      : String?
 
     override init() {
         super.init()
@@ -44,8 +45,9 @@ class DSSMissionItem: NSObject, Mappable{
         firstPic            <- map["first_pic"]
         specNam             <- map["spec_name"]
         price               <- map["purchase_price"]
-        quantity            <- map["quantity"]
+        quantity            <- (map["quantity"], DSSStringTransform())
         status              <- map["status"]
+        createTime          <- map["create_time"]
     }
     
     func statusString() -> String? {
@@ -71,6 +73,14 @@ class DSSMissionItem: NSObject, Mappable{
         }
         
         return MissionStatus.MissionStatusUnkown
+    }
+    
+    func getRealCreateTime() -> String {
+        if self.createTime != nil {
+            let newStr = self.createTime?.stringByReplacingOccurrencesOfString("T", withString: " ")
+            return newStr!
+        }
+        return " "
     }
 
 }
