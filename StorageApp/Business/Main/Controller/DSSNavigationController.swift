@@ -73,6 +73,10 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
                 wkSelf?.showLogoutAlert()
             })
             break
+        case .MenuDeliverTask:
+            let controller = DSSDeliverMissionController.init()
+            self.viewControllers = [controller]
+            break;
         case .MenuClose:
             self.hideSlideMenu(nil)
             break
