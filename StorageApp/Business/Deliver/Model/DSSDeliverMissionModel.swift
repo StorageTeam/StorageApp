@@ -26,4 +26,11 @@ class DSSDeliverMissionModel: NSObject, Mappable {
         createTime          <- map["create_time"]
         products            <- map["goods_list"]
     }
+    
+    func productItemAtIndex(idx : Int) -> DSSDeliverProductModel? {
+        if idx >= 0 && idx < self.products?.count {
+            return self.products?[idx]
+        }
+        return nil
+    }
 }

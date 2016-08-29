@@ -1,5 +1,5 @@
 //
-//  FKBuyMissionController.swift
+//  DSSDeliverRecordController.swift
 //  StorageApp
 //
 //  Created by jack on 16/8/24.
@@ -8,15 +8,14 @@
 
 import UIKit
 
-class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate, UITableViewDelegate, UITableViewDataSource {
-    private static let DELIVER_MISSION_LIST_REQUEST         : Int   = 0
-    private static let DELIVER_MISSION_REQUEST              : Int   = 1
+class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, UITableViewDelegate, UITableViewDataSource {
+    private static let DELIVER_RECORD_LIST_REQUEST  : Int   = 0
     
     var shopId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "发货任务"
+        self.navigationItem.title = "发货记录"
         
         self.requestList()
     }
@@ -24,13 +23,9 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
     // MARK: - Request
     
     func requestList() -> Void {
-        DSSDeliverService.requestMissionList(DSSDeliverMissionController.DELIVER_MISSION_LIST_REQUEST,
-                                             delegate: self,
-                                             startRow: "0")
-    }
-    
-    func deliverWithID(itemID: String?) -> Void {
-        DSSDeliverService.deliverWithID(DSSDeliverMissionController.DELIVER_MISSION_REQUEST, itemID: itemID, delegate: self)
+        DSSDeliverService.requestRecordList(DSSDeliverRecordController.DELIVER_RECORD_LIST_REQUEST,
+                                            delegate: self,
+                                            startRow: "0")
     }
     
     // MARK: - DSSDataCenterDelegate
@@ -41,13 +36,10 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
             let items = DSSDeliverService.parseList(response)
             
             switch identify {
-            case DSSDeliverMissionController.DELIVER_MISSION_LIST_REQUEST:
+            case DSSDeliverRecordController.DELIVER_RECORD_LIST_REQUEST:
                 self.viewModel.dataSource.removeAllObjects()
                 self.viewModel.dataSource.addObjectsFromArray(items)
                 break
-            case DSSDeliverMissionController.DELIVER_MISSION_REQUEST:
-                self.requestList()
-                break;
             default: break
             }
             self.tableView.reloadData()
@@ -103,34 +95,20 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(identify) {
             cell.fk_configWith(self.viewModel, indexPath: indexPath)
-            
+            if let statusCell = (cell as? DSSDeliverStatusCell) {
+                statusCell.statusLabel.hidden = false
+            }
+            if let prodCell = (cell as? DSSDeliverProdCell) {
+                prodCell.statusLabel.hidden = true
+            }
             if let actionCell = (cell as? DSSDeliverActionCell) {
-                actionCell.deliverButton.tag = indexPath.section
-                actionCell.deliverButton.addTarget(self, action: #selector(self.clickDeliverButton(_:)), forControlEvents: .TouchUpInside)
+                actionCell.deliverButton.hidden = true
+                actionCell.alignStatusCellRight()
             }
             
             return cell
         }
         return UITableViewCell.init(style: .Default, reuseIdentifier: nil)
-    }
-    
-    //MARK: action
-    
-    func clickDeliverButton(sender: UIButton) -> Void {
-        let alertController = UIAlertController(title: "发货确认", message: "是否确认发货", preferredStyle: .Alert)
-        
-        alertController.addAction(UIAlertAction(title: "取消", style: .Cancel) { (action) in
-        })
-        
-        weak var wkSelf = self
-        alertController.addAction(UIAlertAction(title: "确定", style: .Default) { (action) in
-            if let missionModel = wkSelf!.viewModel.missionModelAtIndexPath(NSIndexPath.init(forRow: 0, inSection: sender.tag)) {
-                wkSelf!.deliverWithID(missionModel.itemID)
-            }
-        })
-        
-        self.presentViewController(alertController, animated: true) {
-        }
     }
     
     // MARK: - Layout

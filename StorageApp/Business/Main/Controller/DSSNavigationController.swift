@@ -66,8 +66,16 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
             })
             break
         case .MenuDeliverTask:
-            let controller = DSSDeliverMissionController.init()
-            self.viewControllers = [controller]
+            self.hideSlideMenu({ (done) in
+                let controller = DSSDeliverMissionController.init()
+                wkSelf!.viewControllers = [controller]
+            })
+            break;
+        case .MenuDeliverRecord:
+            self.hideSlideMenu({ (done) in
+                let controller = DSSDeliverRecordController.init()
+                wkSelf!.viewControllers = [controller]
+            })
             break;
         case .MenuClose:
             self.hideSlideMenu(nil)

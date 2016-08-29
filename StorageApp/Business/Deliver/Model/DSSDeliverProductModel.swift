@@ -17,7 +17,7 @@ class DSSDeliverProductModel: NSObject, Mappable {
     var firstPic        : String?
     var specName        : String?
     var price           : Int?
-    var quantity        : Int?
+    var quantity        : String?
     var status          : Int?
     
     override init() {
@@ -34,8 +34,23 @@ class DSSDeliverProductModel: NSObject, Mappable {
         firstPic            <- map["first_pic"]
         specName            <- map["spec_name"]
         price               <- map["purchase_price"]
-        quantity            <- map["quantity"]
-        quantity            <- map["quantity_ratio"]
+        quantity            <- (map["quantity"], DSSStringTransform())
         status              <- map["status"]
+    }
+    
+    func statusDesc() -> String? {
+        if let st = self.status {
+            switch st {
+            case 1:
+                return "待采购"
+            case 2:
+                return "待发货"
+            case 3:
+                return "已发货"
+            default:
+                break
+            }
+        }
+        return nil
     }
 }

@@ -22,13 +22,27 @@ class DSSDeliverService: NSObject {
             , userInfo: nil)
     }
     
-    class func requestRecordList(identify: Int, delegate: DSSDataCenterDelegate, shopId: String) -> Void {
+    class func deliverWithID(identify: Int, itemID: String?, delegate: DSSDataCenterDelegate) -> Void {
+        if let missionID = itemID {
+            var para   = [String : String]()
+            para["id"] = missionID
+            
+            DSSDataCenter.Request(identify
+                , delegate: delegate
+                , path: "/link-site/web/shipoffline_purchase_json/confirm_shipment.json"
+                , para: ["shipoffline_json" : para]
+                , userInfo: nil)
+        }
+    }
+    
+    class func requestRecordList(identify: Int, delegate: DSSDataCenterDelegate, startRow: String, pageSize: String = DSSConst.PageSize) -> Void {
         var para          = [String : String]()
-        para["shop_id"]   = shopId
+        para["start_row"] = startRow
+        para["page_size"] = pageSize
         
         DSSDataCenter.Request(identify
             , delegate: delegate
-            , path: "/link-site/web/shipoffline_purchase_json/find_shipoffline_purchase_goods.json"
+            , path: "/link-site/web/shipoffline_purchase_json/find_shipoffline_ship_record.json"
             , para: ["shipoffline_json" : para]
             , userInfo: nil)
     }
@@ -40,15 +54,6 @@ class DSSDeliverService: NSObject {
             }
         }
         return []
-    }
-
-    class func parserImgUrl(json: [String : AnyObject]) -> [DSSMissionItem]? {
-        if let dataArray = json["data"]!["list"] as? [[String:AnyObject]] {
-            for dataItem in dataArray {
-                
-            }
-        }
-        return nil
     }
 
 }
