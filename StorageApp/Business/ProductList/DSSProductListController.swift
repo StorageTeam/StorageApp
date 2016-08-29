@@ -110,7 +110,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             }
             self.reloadData()
         } else {
-            
+            self.showText(header.msg)
         }
     }
     

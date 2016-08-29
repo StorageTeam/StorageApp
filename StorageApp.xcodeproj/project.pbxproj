@@ -207,6 +207,20 @@
 		CE3DDD7B1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
 		CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
 		CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD7A1D1CCCEE005459B6 /* DSSDataCenter.swift */; };
+		CE9058421D73F545006430F8 /* DSSSlideHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA01D728B010085FFCC /* DSSSlideHeaderView.swift */; };
+		CE9058431D73F545006430F8 /* DSSSlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA11D728B010085FFCC /* DSSSlideMenu.swift */; };
+		CE9058441D73F545006430F8 /* DSSMenuMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954F9F1D728B010085FFCC /* DSSMenuMdoel.swift */; };
+		CE9058451D73F546006430F8 /* DSSSlideHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA01D728B010085FFCC /* DSSSlideHeaderView.swift */; };
+		CE9058461D73F546006430F8 /* DSSSlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA11D728B010085FFCC /* DSSSlideMenu.swift */; };
+		CE9058471D73F546006430F8 /* DSSMenuMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954F9F1D728B010085FFCC /* DSSMenuMdoel.swift */; };
+		CE9058481D73F555006430F8 /* DSSBuildingImgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */; };
+		CE9058491D73F555006430F8 /* DSSCurrentShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976AF1D72C61C001CCBB8 /* DSSCurrentShopView.swift */; };
+		CE90584A1D73F555006430F8 /* DSSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B01D72C61C001CCBB8 /* DSSShopService.swift */; };
+		CE90584B1D73F555006430F8 /* DSSShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B11D72C61C001CCBB8 /* DSSShopViewController.swift */; };
+		CE90584C1D73F555006430F8 /* DSSBuildingImgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */; };
+		CE90584D1D73F555006430F8 /* DSSCurrentShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976AF1D72C61C001CCBB8 /* DSSCurrentShopView.swift */; };
+		CE90584E1D73F555006430F8 /* DSSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B01D72C61C001CCBB8 /* DSSShopService.swift */; };
+		CE90584F1D73F555006430F8 /* DSSShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041976B11D72C61C001CCBB8 /* DSSShopViewController.swift */; };
 		CE954FA21D728B010085FFCC /* DSSMenuMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954F9F1D728B010085FFCC /* DSSMenuMdoel.swift */; };
 		CE954FA31D728B010085FFCC /* DSSSlideHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA01D728B010085FFCC /* DSSSlideHeaderView.swift */; };
 		CE954FA41D728B010085FFCC /* DSSSlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA11D728B010085FFCC /* DSSSlideMenu.swift */; };
@@ -1573,6 +1587,7 @@
 				041976851D728EA8001CCBB8 /* DSSBuyingCountCell.swift in Sources */,
 				CE9550271D72E2100085FFCC /* DSSDeliverService.swift in Sources */,
 				CE30BF041D24B68200A3969D /* FKScanCoverView.swift in Sources */,
+				CE9058481D73F555006430F8 /* DSSBuildingImgView.swift in Sources */,
 				CE30BF231D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1B1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
 				CEF0CAEC1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
@@ -1584,6 +1599,7 @@
 				CE30BF001D24B67600A3969D /* DSSProductOnsaleModel.swift in Sources */,
 				047754981D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
 				041976971D728EA8001CCBB8 /* DSSBuyRecordController.swift in Sources */,
+				CE9058421D73F545006430F8 /* DSSSlideHeaderView.swift in Sources */,
 				CE30BF371D24BE6C00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7C1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7C1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1592,9 +1608,11 @@
 				CEE0335D1D48992E00DD5781 /* DSSImage.swift in Sources */,
 				CE30BF351D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */,
 				047754901D4A05000045F548 /* DSSSelectImgController.swift in Sources */,
+				CE9058491D73F555006430F8 /* DSSCurrentShopView.swift in Sources */,
 				041976B51D72C74D001CCBB8 /* DSSShopModel.swift in Sources */,
 				CE30BF0E1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE9550251D72E2070085FFCC /* DSSDeliverViewModel.swift in Sources */,
+				CE9058441D73F545006430F8 /* DSSMenuMdoel.swift in Sources */,
 				CE95502F1D73CF710085FFCC /* DSSDeliverRecordController.swift in Sources */,
 				CE30BF331D24BE6200A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1D1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
@@ -1604,12 +1622,14 @@
 				CE3DDD6C1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				041976791D728EA8001CCBB8 /* DSSMissionItem.swift in Sources */,
 				0419767F1D728EA8001CCBB8 /* DSSBuySelectShopView.swift in Sources */,
+				CE9058431D73F545006430F8 /* DSSSlideMenu.swift in Sources */,
 				CE30BF291D24B71500A3969D /* DSSString+Extension.swift in Sources */,
 				CE9550231D72E2040085FFCC /* DSSDeliverStatusCell.swift in Sources */,
 				0477549D1D4B37B50045F548 /* FKPerImgCollectionCell.swift in Sources */,
 				CE30BEFA1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				041976911D728EA8001CCBB8 /* DSSRecordListCell.swift in Sources */,
 				CE30BF191D24B6DF00A3969D /* AppDelegate.swift in Sources */,
+				CE90584B1D73F555006430F8 /* DSSShopViewController.swift in Sources */,
 				041976881D728EA8001CCBB8 /* DSSBuyingProCell.swift in Sources */,
 				CEB082811D4EE14C007F17F9 /* DSSProductWaitsaleModel.swift in Sources */,
 				047754961D4B05EF0045F548 /* EditSourceItem.swift in Sources */,
@@ -1629,6 +1649,7 @@
 				CE30BEFE1D24B67300A3969D /* DSSProductOnsaleCell.swift in Sources */,
 				CE13DD381D1AA65C0072D045 /* StorageAppTests.swift in Sources */,
 				0477548D1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
+				CE90584A1D73F555006430F8 /* DSSShopService.swift in Sources */,
 				CE30BEF81D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
 				CE95502C1D72E58A0085FFCC /* DSSDeliverActionCell.swift in Sources */,
 				041976761D728EA8001CCBB8 /* DSSBuyMissionController.swift in Sources */,
@@ -1664,6 +1685,7 @@
 				041976861D728EA8001CCBB8 /* DSSBuyingCountCell.swift in Sources */,
 				CE9550281D72E2110085FFCC /* DSSDeliverService.swift in Sources */,
 				CE30BF051D24B68200A3969D /* FKScanCoverView.swift in Sources */,
+				CE90584C1D73F555006430F8 /* DSSBuildingImgView.swift in Sources */,
 				CE30BF241D24B70900A3969D /* DSSColor+Extension.swift in Sources */,
 				CE30BF1C1D24B6F200A3969D /* DSSProductListViewModel.swift in Sources */,
 				CEF0CAED1D1D1CB8003C5357 /* DSSLoginService.swift in Sources */,
@@ -1675,6 +1697,7 @@
 				CE30BF011D24B67600A3969D /* DSSProductOnsaleModel.swift in Sources */,
 				047754991D4B379A0045F548 /* FKTakePhotoTopView.swift in Sources */,
 				041976981D728EA8001CCBB8 /* DSSBuyRecordController.swift in Sources */,
+				CE9058451D73F546006430F8 /* DSSSlideHeaderView.swift in Sources */,
 				CE30BF381D24BE6D00A3969D /* DSSEditItem.swift in Sources */,
 				CE3DDD7D1D1CCCEE005459B6 /* DSSDataCenter.swift in Sources */,
 				CE13DD7D1D1BBBE90072D045 /* DSSLoginController.swift in Sources */,
@@ -1683,9 +1706,11 @@
 				CEE0335E1D48993000DD5781 /* DSSImage.swift in Sources */,
 				CE30BF361D24BE6A00A3969D /* DSSEditInfoItem.swift in Sources */,
 				047754911D4A05000045F548 /* DSSSelectImgController.swift in Sources */,
+				CE90584D1D73F555006430F8 /* DSSCurrentShopView.swift in Sources */,
 				041976B61D72C74E001CCBB8 /* DSSShopModel.swift in Sources */,
 				CE30BF0F1D24B69000A3969D /* FKEditPicCell.swift in Sources */,
 				CE9550261D72E2090085FFCC /* DSSDeliverViewModel.swift in Sources */,
+				CE9058471D73F546006430F8 /* DSSMenuMdoel.swift in Sources */,
 				CE9550301D73CF720085FFCC /* DSSDeliverRecordController.swift in Sources */,
 				CE30BF341D24BE6300A3969D /* DSSEditImgItem.swift in Sources */,
 				CE30BF1E1D24B6F700A3969D /* DSSSegmentControl.swift in Sources */,
@@ -1695,12 +1720,14 @@
 				CE3DDD6D1D1BF4A3005459B6 /* DSSAccount.swift in Sources */,
 				0419767A1D728EA8001CCBB8 /* DSSMissionItem.swift in Sources */,
 				041976801D728EA8001CCBB8 /* DSSBuySelectShopView.swift in Sources */,
+				CE9058461D73F546006430F8 /* DSSSlideMenu.swift in Sources */,
 				CE30BF2A1D24B71500A3969D /* DSSString+Extension.swift in Sources */,
 				CE9550241D72E2040085FFCC /* DSSDeliverStatusCell.swift in Sources */,
 				0477549E1D4B37B60045F548 /* FKPerImgCollectionCell.swift in Sources */,
 				CE30BEFB1D24B66E00A3969D /* DSSProductListController.swift in Sources */,
 				041976921D728EA8001CCBB8 /* DSSRecordListCell.swift in Sources */,
 				CE30BF1A1D24B6E000A3969D /* AppDelegate.swift in Sources */,
+				CE90584F1D73F555006430F8 /* DSSShopViewController.swift in Sources */,
 				041976891D728EA8001CCBB8 /* DSSBuyingProCell.swift in Sources */,
 				CEB082821D4EE14C007F17F9 /* DSSProductWaitsaleModel.swift in Sources */,
 				047754971D4B05F00045F548 /* EditSourceItem.swift in Sources */,
@@ -1720,6 +1747,7 @@
 				CE30BEFF1D24B67300A3969D /* DSSProductOnsaleCell.swift in Sources */,
 				CE13DD431D1AA65C0072D045 /* StorageAppUITests.swift in Sources */,
 				0477548E1D4A05000045F548 /* DSSFetchImgCell.swift in Sources */,
+				CE90584E1D73F555006430F8 /* DSSShopService.swift in Sources */,
 				CE30BEF91D24B65C00A3969D /* DSSCommonDefine.swift in Sources */,
 				CE95502D1D72E58A0085FFCC /* DSSDeliverActionCell.swift in Sources */,
 				041976771D728EA8001CCBB8 /* DSSBuyMissionController.swift in Sources */,

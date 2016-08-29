@@ -52,7 +52,7 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
             }
             self.tableView.reloadData()
         } else {
-            
+            self.showText(header.msg)
         }
     }
     
