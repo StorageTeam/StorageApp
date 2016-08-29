@@ -47,6 +47,11 @@ class DSSBuyingProCell: UITableViewCell {
         }
     }
     
+    class func imgCdnWidth() -> Int {
+        return 160
+    }
+    
+    //MARK: property
     lazy var proImgView: UIImageView = {
         var imageView = UIImageView.init()
         imageView.contentMode = UIViewContentMode.ScaleAspectFit

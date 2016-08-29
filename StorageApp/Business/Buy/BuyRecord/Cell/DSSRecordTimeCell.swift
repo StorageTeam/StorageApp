@@ -36,6 +36,20 @@ class DSSRecordTimeCell: UITableViewCell {
         }
     }
     
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let model = viewModel as? DSSMissionItem {
+            self.timeLabel.text = "2016-83-22 14:00:99"
+            self.typeLabel.text = model.statusString()
+            
+            if (model.missionStatus() == MissionStatus.MissionStatusSuccess) {
+                self.typeLabel.textColor = UIColor.init(rgb: 0x1fbad6)
+            } else if model.missionStatus() == MissionStatus.MissionStatusFail {
+                self.typeLabel.textColor = UIColor.init(rgb: 0xff6362)
+            }
+        }
+    }
+
+    
     lazy var timeLabel: UILabel = {
         let label = UILabel.init()
         label.font = UIFont.systemFontOfSize(13)

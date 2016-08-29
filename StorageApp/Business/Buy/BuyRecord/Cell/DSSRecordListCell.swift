@@ -84,6 +84,17 @@ class DSSRecordListCell: UITableViewCell {
         }
 
     }
+    
+    override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
+        if let model = viewModel as? DSSMissionItem {
+            self.proImgView.dss_setImageFromURLString(model.firstPic!, cdnWidth: 160)
+            self.titleLabel.text = model.title
+            self.priceLabel.text = String.init(format: "$%@", (model.price?.dss_fen2Yuan())!)
+            self.specLabel.text = model.specNam
+            self.numberLabel.text = String.init(format: "%ld", model.quantity!)
+            self.locationLabel.text = model.shopName
+        }
+    }
 
     // MARK: - PROPERTY
     
