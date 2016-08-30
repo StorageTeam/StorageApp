@@ -85,26 +85,30 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             case DSSProductListController.PRODUCTLIST_WAITSALE_REQUEST:
                 self.viewModel.removeAll(DSSProductListType.WaitSale)
                 self.viewModel.append(waitSaleItems, type: DSSProductListType.WaitSale)
+                break
             case DSSProductListController.PRODUCTLIST_WAITSALE_NEXT_REQUEST:
                 self.viewModel.append(waitSaleItems, type: DSSProductListType.WaitSale)
-                
+                break
             case DSSProductListController.PRODUCTLIST_ONSALE_REQUEST:
                 self.viewModel.removeAll(DSSProductListType.OnSale)
                 self.viewModel.append(onSaleItems, type: DSSProductListType.OnSale)
+                break
             case DSSProductListController.PRODUCTLIST_ONSALE_NEXT_REQUEST:
                 self.viewModel.append(onSaleItems, type: DSSProductListType.OnSale)
-                
+                break
             case DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST:
-                if let dictType = userInfo?["type"] {
-                    if let intType = dictType as? Int {
-                        let type = DSSProductListType(rawValue: intType)
-                        if let row = userInfo?["row"] as? Int {
-                            let indexPath = NSIndexPath.init(forRow: row, inSection: 0)
-                            self.viewModel.removeModel(indexPath, type: type!)
-                            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                        }
-                    }
-                }
+                self.requestWaitSale()
+                break
+//                if let dictType = userInfo?["type"] {
+//                    if let intType = dictType as? Int {
+//                        let type = DSSProductListType(rawValue: intType)
+//                        if let row = userInfo?["row"] as? Int {
+//                            let indexPath = NSIndexPath.init(forRow: row, inSection: 0)
+//                            self.viewModel.removeModel(indexPath, type: type!)
+//                            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//                        }
+//                    }
+//                }
             default: break
 //                print(total)
             }
@@ -136,7 +140,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
             switch name {
             case DSSProductListController.ALERT_VIEW_DELETE:
                 if buttonIndex == 1 {
-                    if let model = (self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) as? DSSProductOnsaleModel) {
+                    if let model = (self.viewModel.itemAtIndexPath(NSIndexPath.init(forRow: alertView.tag, inSection: 0)) as? DSSProductWaitsaleModel) {
                         DSSProductListService.deleteList(DSSProductListController.PRODUCTLIST_DELETE_LIST_REQUEST,
                                                          delegate: self,
                                                          ids: [model.itemID],
