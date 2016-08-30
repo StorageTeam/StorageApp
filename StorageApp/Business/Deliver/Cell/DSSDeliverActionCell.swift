@@ -26,7 +26,7 @@ class DSSDeliverActionCell: UITableViewCell {
         if let dViewModel = viewModel as? DSSDeliverViewModel {
             if let missionModel = dViewModel.missionModelAtIndexPath(indexPath) {
                 if let itemID = missionModel.itemID {
-                    self.titleLabel.text = "运单号：" + itemID
+                    self.titleLabel.text = itemID
                 } else {
                     self.titleLabel.text = nil
                 }
