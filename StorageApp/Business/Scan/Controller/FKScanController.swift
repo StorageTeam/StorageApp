@@ -181,11 +181,11 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
             make.edges.equalTo(UIEdgeInsetsZero)
         }
         
-        self.view.addSubview(self.duoshoubangLabel)
-        self.duoshoubangLabel.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.view).offset(-20)
-            make.centerX.equalTo(self.view)
-        }
+//        self.view.addSubview(self.duoshoubangLabel)
+//        self.duoshoubangLabel.snp_makeConstraints { (make) in
+//            make.bottom.equalTo(self.view).offset(-20)
+//            make.centerX.equalTo(self.view)
+//        }
         
         self.view.addSubview(self.downTipLabel)
         self.downTipLabel.snp_makeConstraints { (make) in

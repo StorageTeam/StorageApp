@@ -7,18 +7,30 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
 class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate, UITableViewDelegate, UITableViewDataSource {
     private static let DELIVER_MISSION_LIST_REQUEST         : Int   = 0
     private static let DELIVER_MISSION_REQUEST              : Int   = 1
-    
-    var shopId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "发货任务"
         
         self.requestList()
+        
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
+        weak var wkSelf = self;
+        tableView.dg_addPullToRefreshWithActionHandler({ () -> Void in
+            wkSelf!.requestList()
+            }, loadingView: loadingView)
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
+    }
+    
+    deinit {
+        self.tableView.dg_removePullToRefresh()
     }
     
     // MARK: - Request
@@ -47,10 +59,25 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
                 break
             case DSSDeliverMissionController.DELIVER_MISSION_REQUEST:
                 self.requestList()
+                self.showText("发货成功")
                 break;
             default: break
             }
+            
             self.tableView.reloadData()
+            
+            let count = self.viewModel.dataSource.count
+            if count == 0 {
+                self.tableView.addSubview(self.emptyTipLabel)
+                self.emptyTipLabel.hidden = false
+                self.emptyTipLabel.snp_makeConstraints { (make) in
+                    make.left.right.equalTo(self.tableView)
+                    make.top.equalTo(self.tableView).offset(12)
+                    make.centerX.equalTo(self.tableView)
+                }
+            } else {
+                self.emptyTipLabel.removeFromSuperview()
+            }
         } else {
             self.showText(header.msg)
         }
@@ -160,5 +187,15 @@ class DSSDeliverMissionController: DSSBaseViewController, DSSDataCenterDelegate,
     lazy var viewModel: DSSDeliverViewModel = {
         let viewModel = DSSDeliverViewModel.init()
         return viewModel
+    }()
+    
+    lazy var emptyTipLabel: UILabel = {
+        let label = UILabel.init()
+        label.textColor = UIColor.init(rgb: 0x999999)
+        label.font = UIFont.systemFontOfSize(16)
+        label.textAlignment = .Center
+        label.text = "暂未查询到数据"
+        label.hidden = true
+        return label
     }()
 }

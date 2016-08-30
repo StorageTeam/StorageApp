@@ -48,6 +48,7 @@ class DSSDeliverActionCell: UITableViewCell {
                 make.right.equalTo(self.contentView).offset(-16)
                 make.centerY.equalTo(self.contentView)
                 make.width.equalTo((size.width + 14))
+                make.height.equalTo(22)
             }
         } else {
             self.titleLabel.hidden = true
@@ -85,7 +86,7 @@ class DSSDeliverActionCell: UITableViewCell {
         let button = UIButton.init(type: UIButtonType.Custom)
         button.setTitle("确认发货", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.titleLabel?.font = UIFont.systemFontOfSize(13)
         button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         button.layer.cornerRadius = 3.0
         return button
