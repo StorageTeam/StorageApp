@@ -828,10 +828,10 @@
 		CE07E66A1D6EE31100287546 /* ShopList */ = {
 			isa = PBXGroup;
 			children = (
-				CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */,
+				041976B11D72C61C001CCBB8 /* DSSShopViewController.swift */,
 				041976AF1D72C61C001CCBB8 /* DSSCurrentShopView.swift */,
 				041976B01D72C61C001CCBB8 /* DSSShopService.swift */,
-				041976B11D72C61C001CCBB8 /* DSSShopViewController.swift */,
+				CE07E66B1D6EE31100287546 /* DSSBuildingImgView.swift */,
 				CE07E66F1D6EE31100287546 /* List */,
 				CE07E6761D6EE31100287546 /* Model */,
 				CE07E6781D6EE31100287546 /* ViewModel */,
@@ -842,9 +842,9 @@
 		CE07E66F1D6EE31100287546 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				041976A51D72C602001CCBB8 /* DSSShopListCell.swift */,
-				041976A61D72C602001CCBB8 /* DSSShopListHeaderView.swift */,
 				041976A71D72C602001CCBB8 /* DSSShopListView.swift */,
+				041976A61D72C602001CCBB8 /* DSSShopListHeaderView.swift */,
+				041976A51D72C602001CCBB8 /* DSSShopListCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1883,7 +1883,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "457c05d7-6b3a-4a3e-93e7-ded3dbbf6e95";
+				PROVISIONING_PROFILE = "ff32740e-9342-4cf5-8e09-79ea3be5151e";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1914,7 +1914,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.firstlink.enterprise.iphone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457c05d7-6b3a-4a3e-93e7-ded3dbbf6e95";
+				PROVISIONING_PROFILE = "ff32740e-9342-4cf5-8e09-79ea3be5151e";
 			};
 			name = Release;
 		};

@@ -24,6 +24,7 @@ class DSSShopViewController: DSSBaseViewController, CurrentShopDelegate, DSSData
         self.configNaviBarItem()
         
         self.navigationItem.title = "FIRST LINK"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18)]
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -285,7 +286,7 @@ class DSSShopViewController: DSSBaseViewController, CurrentShopDelegate, DSSData
     lazy var buildingView: DSSBuildingImgView = {
         let view = DSSBuildingImgView.init(frame: CGRectZero)
         view.backgroundColor = UIColor.whiteColor()
-        view.layer.cornerRadius = 14
+        view.layer.cornerRadius = 10
         view.hidden = true
         return view
     }()

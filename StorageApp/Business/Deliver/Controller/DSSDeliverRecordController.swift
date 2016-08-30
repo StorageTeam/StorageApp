@@ -7,17 +7,24 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
 class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, UITableViewDelegate, UITableViewDataSource {
     private static let DELIVER_RECORD_LIST_REQUEST  : Int   = 0
-    
-    var shopId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "发货记录"
         
         self.requestList()
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 78/255.0, green: 221/255.0, blue: 200/255.0, alpha: 1.0)
+        weak var wkSelf = self;
+        tableView.dg_addPullToRefreshWithActionHandler({ () -> Void in
+            wkSelf!.requestList()
+            }, loadingView: loadingView)
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
     
     // MARK: - Request
@@ -42,7 +49,21 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
                 break
             default: break
             }
+            
             self.tableView.reloadData()
+            
+            let count = self.viewModel.dataSource.count
+            if count == 0 {
+                self.tableView.addSubview(self.emptyTipLabel)
+                self.emptyTipLabel.hidden = false
+                self.emptyTipLabel.snp_makeConstraints { (make) in
+                    make.left.right.equalTo(self.tableView)
+                    make.top.equalTo(self.tableView).offset(12)
+                    make.centerX.equalTo(self.tableView)
+                }
+            } else {
+                self.emptyTipLabel.removeFromSuperview()
+            }
         } else {
             
         }
@@ -138,5 +159,15 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
     lazy var viewModel: DSSDeliverViewModel = {
         let viewModel = DSSDeliverViewModel.init()
         return viewModel
+    }()
+    
+    lazy var emptyTipLabel: UILabel = {
+        let label = UILabel.init()
+        label.textColor = UIColor.init(rgb: 0x999999)
+        label.font = UIFont.systemFontOfSize(16)
+        label.textAlignment = .Center
+        label.text = "暂未查询到数据"
+        label.hidden = true
+        return label
     }()
 }

@@ -300,7 +300,7 @@ class DSSProductListController: DSSBaseViewController, DSSSegmentControlDelegate
         label.textColor = UIColor.init(rgb: 0x999999)
         label.font = UIFont.systemFontOfSize(16)
         label.textAlignment = .Center
-        label.text = "No Data"
+        label.text = "暂未查询到数据"
         label.hidden = true
         return label
     }()

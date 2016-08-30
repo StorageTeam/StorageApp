@@ -27,7 +27,7 @@ class DSSShopListHeaderView: UIView {
         self.addSubview(self.actionButton)
         self.actionButton.snp_makeConstraints { (make) in
             make.top.right.bottom.equalTo(self)
-            make.width.equalTo(50)
+            make.width.equalTo(40)
         }
     }
     

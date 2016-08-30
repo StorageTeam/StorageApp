@@ -58,10 +58,8 @@ class DSSShopListView: UIView, UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(String(DSSShopListCell)) {
-            cell.imageView?.image = UIImage.init(named: "left_location_icon")
-            cell.textLabel?.text = self.dataSource?[indexPath.row].name
-            cell.textLabel?.font = UIFont.systemFontOfSize(14)
+        if let cell = (tableView.dequeueReusableCellWithIdentifier(String(DSSShopListCell)) as? DSSShopListCell) {
+            cell.titleLabel.text = self.dataSource?[indexPath.row].name
             cell.selectionStyle = .None
             
             if let selected = self.dataSource?[indexPath.row].isSelected {

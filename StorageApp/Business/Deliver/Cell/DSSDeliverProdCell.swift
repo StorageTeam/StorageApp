@@ -60,7 +60,7 @@ class DSSDeliverProdCell: UITableViewCell {
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.prodImgView)
-            make.left.equalTo(self.prodImgView.snp_right).offset(6)
+            make.left.equalTo(self.prodImgView.snp_right).offset(10)
             make.right.equalTo(self.contentView).offset(-16)
         }
         
@@ -127,7 +127,7 @@ class DSSDeliverProdCell: UITableViewCell {
     lazy var statusLabel: UILabel = {
         var label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0x1fbad6)
-        label.font = UIFont.systemFontOfSize(14)
+        label.font = UIFont.systemFontOfSize(12)
         return label
     }()
 

@@ -14,9 +14,21 @@ class DSSShopListCell: UITableViewCell {
         
         self.contentView.backgroundColor = UIColor.init(rgb: 0xffffff)
         
+        self.contentView.addSubview(self.listImgIcon)
+        self.listImgIcon.snp_makeConstraints { (make) in
+            make.left.equalTo(self.contentView).offset(15)
+            make.centerY.equalTo(self.contentView)
+        }
+        
+        self.contentView.addSubview(self.titleLabel)
+        self.titleLabel.snp_makeConstraints { (make) in
+            make.left.equalTo(self.listImgIcon.snp_right).offset(6)
+            make.centerY.equalTo(self.contentView)
+        }
+        
         self.contentView.addSubview(self.statusImgIcon)
         self.statusImgIcon.snp_makeConstraints { (make) in
-            make.right.equalTo(self.contentView).offset(-10)
+            make.right.equalTo(self.contentView).offset(-13)
             make.centerY.equalTo(self.contentView)
         }
         
@@ -46,6 +58,19 @@ class DSSShopListCell: UITableViewCell {
     }
     
     // MARK: - Property
+    
+    lazy var listImgIcon: UIImageView = {
+        var view = UIImageView.init()
+        view.image = UIImage.init(named: "left_location_icon")
+        return view
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel.init()
+        label.textColor = UIColor.blackColor()
+        label.font = UIFont.systemFontOfSize(14)
+        return label
+    }()
     
     lazy var statusImgIcon: UIImageView = {
         var view = UIImageView.init()
