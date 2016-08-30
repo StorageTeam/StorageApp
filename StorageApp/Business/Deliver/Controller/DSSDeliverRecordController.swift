@@ -27,6 +27,10 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
     
+    deinit {
+        self.tableView.dg_removePullToRefresh()
+    }
+    
     // MARK: - Request
     
     func requestList() -> Void {
