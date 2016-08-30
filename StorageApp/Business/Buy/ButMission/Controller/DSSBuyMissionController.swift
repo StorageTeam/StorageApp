@@ -204,6 +204,9 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         let controller = DSSBuyingController.init(missionItem: missionItem) { (finish) in
             weakSelf?.navigationController?.popViewControllerAnimated(true)
             
+            if finish == true {
+                weakSelf?.showText("采购成功")
+            }
             weakSelf?.showHUD()
             weakSelf?.reqDataList()
         }
@@ -233,6 +236,7 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         let table = UITableView.init(frame: CGRectZero, style: UITableViewStyle.Grouped)
         table.delegate = self
         table.dataSource = self
+        table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.registerClass(DSSBuyMissionCell.self, forCellReuseIdentifier: String(DSSBuyMissionCell))
         table.registerClass(DSSBuyLocationCell.self, forCellReuseIdentifier: String(DSSBuyLocationCell))
         return table

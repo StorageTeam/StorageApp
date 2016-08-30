@@ -26,6 +26,10 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         self.addAllSubviews()
         self.addTapGesture()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationItem.title = "采购任务"
     }
     
@@ -250,8 +254,8 @@ class DSSBuyingController: DSSBaseViewController, UITableViewDelegate, UITableVi
         let table = UITableView.init(frame: CGRectZero, style: UITableViewStyle.Grouped)
         table.delegate = self
         table.dataSource = self
-        table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.scrollEnabled = false
+        table.separatorStyle = UITableViewCellSeparatorStyle.None
         
         table.registerClass(DSSBuyingProCell.self, forCellReuseIdentifier: String(DSSBuyingProCell))
         table.registerClass(DSSBuyingCountCell.self, forCellReuseIdentifier: String(DSSBuyingCountCell))

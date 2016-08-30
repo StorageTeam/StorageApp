@@ -155,6 +155,7 @@ class DSSBuyRecordController: DSSBaseViewController, UITableViewDelegate, UITabl
         let table = UITableView.init(frame: CGRectZero, style: UITableViewStyle.Grouped)
         table.delegate = self
         table.dataSource = self
+        table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.registerClass(DSSRecordListCell.self, forCellReuseIdentifier: String(DSSRecordListCell))
         table.registerClass(DSSRecordTimeCell.self, forCellReuseIdentifier: String(DSSRecordTimeCell))
         return table

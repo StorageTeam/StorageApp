@@ -52,7 +52,7 @@ class DSSRecordListCell: UITableViewCell {
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.proImgView)
-            make.left.equalTo(self.proImgView.snp_right).offset(15)
+            make.left.equalTo(self.proImgView.snp_right).offset(10)
             make.right.equalTo(self.contentView).offset(-15)
         }
         

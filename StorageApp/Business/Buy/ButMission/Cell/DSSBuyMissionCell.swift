@@ -40,7 +40,7 @@ class DSSBuyMissionCell: UITableViewCell {
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.proImgView)
-            make.left.equalTo(self.proImgView.snp_right).offset(15)
+            make.left.equalTo(self.proImgView.snp_right).offset(10)
             make.right.equalTo(self.priceLabel.snp_left).offset(-10)
         }
         
@@ -141,7 +141,7 @@ class DSSBuyMissionCell: UITableViewCell {
         let button = UIButton.init(type: UIButtonType.Custom)
         button.setTitle("采购", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.systemFontOfSize(14)
+        button.titleLabel?.font = UIFont.systemFontOfSize(13)
         button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         button.layer.cornerRadius = 3.0
         button.layer.masksToBounds = true

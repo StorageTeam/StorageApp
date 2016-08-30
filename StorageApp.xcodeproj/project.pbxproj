@@ -456,14 +456,14 @@
 		0419764B1D728EA8001CCBB8 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				0419764C1D728EA8001CCBB8 /* ButMission */,
+				0419764C1D728EA8001CCBB8 /* BuyMission */,
 				041976591D728EA8001CCBB8 /* Buying */,
 				041976651D728EA8001CCBB8 /* BuyRecord */,
 			);
 			path = Buy;
 			sourceTree = "<group>";
 		};
-		0419764C1D728EA8001CCBB8 /* ButMission */ = {
+		0419764C1D728EA8001CCBB8 /* BuyMission */ = {
 			isa = PBXGroup;
 			children = (
 				0419764D1D728EA8001CCBB8 /* Cell */,
@@ -473,6 +473,7 @@
 				041976561D728EA8001CCBB8 /* View */,
 				041976581D728EA8001CCBB8 /* ViewModel */,
 			);
+			name = BuyMission;
 			path = ButMission;
 			sourceTree = "<group>";
 		};
