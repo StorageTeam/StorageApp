@@ -203,10 +203,6 @@ class DSSBuyMissionController: DSSBaseViewController, UITableViewDelegate, UITab
         weak var weakSelf = self
         let controller = DSSBuyingController.init(missionItem: missionItem) { (finish) in
             weakSelf?.navigationController?.popViewControllerAnimated(true)
-            
-            if finish == true {
-                weakSelf?.showText("采购成功")
-            }
             weakSelf?.showHUD()
             weakSelf?.reqDataList()
         }
