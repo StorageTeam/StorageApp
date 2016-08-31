@@ -34,6 +34,7 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
     // MARK: - Request
     
     func requestList() -> Void {
+        self.showHUD()
         DSSDeliverService.requestRecordList(DSSDeliverRecordController.DELIVER_RECORD_LIST_REQUEST,
                                             delegate: self,
                                             startRow: "0")
@@ -42,6 +43,7 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
     // MARK: - DSSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         self.tableView.dg_stopLoading()
+        self.hidHud(true)
         
         if header.code == DSSResponseCode.Normal {
             let items = DSSDeliverService.parseList(response)
@@ -75,6 +77,7 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
     
     func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
         self.tableView.dg_stopLoading()
+        self.hidHud(true)
         
         if let errorString = error {
             self.showText(errorString)
