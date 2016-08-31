@@ -25,33 +25,23 @@ class DSSDeliverActionCell: UITableViewCell {
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
         if let dViewModel = viewModel as? DSSDeliverViewModel {
             if let missionModel = dViewModel.missionModelAtIndexPath(indexPath) {
-                if let itemID = missionModel.itemID {
-                    self.titleLabel.text = itemID
+                if let expressNO = missionModel.expressNO {
+                    self.titleLabel.text = "运单号：" + expressNO
+                    self.titleLabel.hidden = false
+                    
+                    let attr = [NSFontAttributeName: self.titleLabel.font]
+                    let size = (self.titleLabel.text! as NSString).sizeWithAttributes(attr)
+                    
+                    self.titleLabel.snp_remakeConstraints{ (make) in
+                        make.right.equalTo(self.contentView).offset(-16)
+                        make.centerY.equalTo(self.contentView)
+                        make.width.equalTo((size.width + 14))
+                        make.height.equalTo(22)
+                    }
                 } else {
-                    self.titleLabel.text = nil
+                    self.titleLabel.hidden = true
                 }
             }
-        }
-    }
-
-    func alignStatusCellRight() -> Void {
-        if let text = self.titleLabel.text {
-            let attr = [NSFontAttributeName: self.titleLabel.font]
-            let size = (text as NSString).sizeWithAttributes(attr)
-            self.titleLabel.textAlignment = .Center
-            self.titleLabel.backgroundColor = UIColor.init(rgb: 0xf4f4f4)
-            self.titleLabel.textColor = UIColor.init(rgb: 0x999999)
-            self.titleLabel.layer.cornerRadius = 2
-            self.titleLabel.clipsToBounds = true
-            
-            self.titleLabel.snp_remakeConstraints{ (make) in
-                make.right.equalTo(self.contentView).offset(-16)
-                make.centerY.equalTo(self.contentView)
-                make.width.equalTo((size.width + 14))
-                make.height.equalTo(22)
-            }
-        } else {
-            self.titleLabel.hidden = true
         }
     }
     
@@ -79,6 +69,12 @@ class DSSDeliverActionCell: UITableViewCell {
         label.textColor = UIColor.init(rgb: 0x666666)
         label.font = UIFont.systemFontOfSize(13)
         label.numberOfLines = 2
+        label.textAlignment = .Center
+        label.backgroundColor = UIColor.init(rgb: 0xf4f4f4)
+        label.textColor = UIColor.init(rgb: 0x999999)
+        label.layer.cornerRadius = 2
+        label.clipsToBounds = true
+        label.hidden = true
         return label
     }()
 

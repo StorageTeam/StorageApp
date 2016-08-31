@@ -100,6 +100,8 @@ class DSSNavigationController: UINavigationController, SlideMenuDelegate, UIAler
             case DSSNavigationController.ALERT_VIEW_SHOW_SLIDE_MENU:
                 if buttonIndex == 1 {
                     DSSAccount.logout()
+                    let controller = DSSShopViewController.init()
+                    self.viewControllers = [controller]
                     self.presentLoginController()
                 }
             default:

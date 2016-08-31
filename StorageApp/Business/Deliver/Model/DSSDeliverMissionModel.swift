@@ -11,6 +11,7 @@ import ObjectMapper
 
 class DSSDeliverMissionModel: NSObject, Mappable {
     var itemID          : String?
+    var expressNO       : String?
     var createTime      : String?
     var products        : [DSSDeliverProductModel]?
     
@@ -23,6 +24,7 @@ class DSSDeliverMissionModel: NSObject, Mappable {
     
     func mapping(map: Map) {
         itemID              <- (map["id"], DSSStringTransform())
+        expressNO           <- (map["express_no"], DSSStringTransform())
         createTime          <- map["create_time"]
         products            <- map["goods_list"]
     }

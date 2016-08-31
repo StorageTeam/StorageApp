@@ -128,7 +128,6 @@ class DSSDeliverRecordController: DSSBaseViewController, DSSDataCenterDelegate, 
             }
             if let actionCell = (cell as? DSSDeliverActionCell) {
                 actionCell.deliverButton.hidden = true
-                actionCell.alignStatusCellRight()
             }
             
             return cell
