@@ -451,10 +451,10 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         var targetImageItems: [DSSEditImgItem] = []
         for singleImg in images {
             
-            let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
-            let sizedImg = UIImage.scaleImage(singleImg, toSize: size)
+//            let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
+//            let sizedImg = UIImage.scaleImage(singleImg, toSize: size)
             let newImgItem = DSSEditImgItem()
-            newImgItem.image = sizedImg
+            newImgItem.image = singleImg
             targetImageItems.append(newImgItem)
         }
 
