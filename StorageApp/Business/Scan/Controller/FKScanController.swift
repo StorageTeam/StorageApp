@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
+class FKScanController: DSBaseViewController, DSDataCenterDelegate {
     private static let UPC_VALID_REQUEST          : Int   = 1
     
     var scanRect    : CGRect!
@@ -73,9 +73,9 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
         self.navigationItem.title = "扫码"
     }
     
-    // MARK: - DSSDataCenterDelegate
-    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
-        if header.code == DSSResponseCode.Normal {
+    // MARK: - DSDataCenterDelegate
+    func networkDidResponseSuccess(identify: Int, header: DSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSResponseCode.Normal {
             if let exist = response["data"]?["result"] as? Int {
                 if exist == 1 {
                     self.messageLabel.hidden = false
@@ -96,7 +96,7 @@ class FKScanController: DSSBaseViewController, DSSDataCenterDelegate {
         }
     }
     
-    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+    func networkDidResponseError(identify: Int, header: DSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
         if let errorString = error {
             self.showText(errorString)
         }
@@ -231,7 +231,7 @@ extension FKScanController : AVCaptureMetadataOutputObjectsDelegate{
         if metadataObj != nil{
             if let supplierID = self.supplierID {
                 self.session.stopRunning()
-                DSSScanService.requestUPCExist(FKScanController.UPC_VALID_REQUEST
+                DSScanService.requestUPCExist(FKScanController.UPC_VALID_REQUEST
                     , delegate: self
                     , upc: (metadataObj?.stringValue)!
                     , supplierID: supplierID

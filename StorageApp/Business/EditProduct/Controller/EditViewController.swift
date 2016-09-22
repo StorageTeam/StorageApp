@@ -11,7 +11,7 @@ import MobileCoreServices
 import Photos
 
 
-class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
+class EditViewController: DSBaseViewController, DSDataCenterDelegate{
 
     private let DETAIL_DATA_REQ = 1000
     private let DELETE_PRO_REQ = 1001
@@ -107,7 +107,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     func requestInitalData() {
         if self.viewModel.productID != nil {
             self.showHUD()
-            DSSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
+            DSEditService.requestEditDetail(DETAIL_DATA_REQ, delegate: self, productId: self.viewModel.productID!)
         }
     }
     
@@ -119,10 +119,10 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
             
             if self.viewModel.editType == kEditType.kEditTypeAdd {
                 // 新建
-                DSSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: para)
+                DSEditService.requestCreate(CREATE_PRO_REQ, delegate: self, para: para)
             }else if self.viewModel.editType == kEditType.kEditTypeEdit {
                 // 修改
-                DSSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: para)
+                DSEditService.requestEdit(EDIT_SAVE__REQ, delegate: self, para: para)
             }
 
         } else {
@@ -131,12 +131,12 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     }
     
     // MARK: - Response
-    func networkDidResponseSuccess(identify: Int, header: DSSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+    func networkDidResponseSuccess(identify: Int, header: DSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         
-        if header.code == DSSResponseCode.Normal {
+        if header.code == DSResponseCode.Normal {
             if identify == DETAIL_DATA_REQ {
                 self.hidHud(false)
-                DSSEditService.parseEditDetail(response, toModel: self.viewModel)
+                DSEditService.parseEditDetail(response, toModel: self.viewModel)
                 self.tableView.reloadData()
                 
             } else if identify == DELETE_PRO_REQ {
@@ -147,7 +147,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
                 
             } else if identify == UPLOAD_IMG_REQ {
                 
-                let imgUrl = DSSEditService.parserImgUrl(response)
+                let imgUrl = DSEditService.parserImgUrl(response)
                 let imgIndex : Int = (userInfo![IMG_UPLOAD_INDEX_KEY]?.integerValue)!
                 let isProduct: Bool = userInfo![IMG_UPLOAD_IS_PRODUCT_KEY]!.boolValue
                 if (imgUrl != nil) {
@@ -174,7 +174,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
         }
     }
     
-    func networkDidResponseError(identify: Int, header: DSSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+    func networkDidResponseError(identify: Int, header: DSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
         self.hidHud(false)
         self.showText(header?.msg)
     }
@@ -182,7 +182,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     // MARK: - Action
     func clickDeleteAction(){
         if self.viewModel.productID != nil {
-            DSSEditService.reqDelete(DELETE_PRO_REQ, delegate: self, productId: self.viewModel.productID!)
+            DSEditService.reqDelete(DELETE_PRO_REQ, delegate: self, productId: self.viewModel.productID!)
         }
     
     }
@@ -211,7 +211,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
     }
     
      // MARK: - Mehod
-    private func uploadImgWith(imageItems: [DSSEditImgItem], isProduct: Bool) {
+    private func uploadImgWith(imageItems: [DSEditImgItem], isProduct: Bool) {
         
         for imgItem in imageItems {
             if imgItem.image != nil && imgItem.picUrl == nil {
@@ -228,7 +228,7 @@ class EditViewController: DSSBaseViewController, DSSDataCenterDelegate{
                 let info : [String : AnyObject] = [IMG_UPLOAD_INDEX_KEY : index!,
                                                    IMG_UPLOAD_IS_PRODUCT_KEY : isProduct]
                 
-                DSSDataCenter.Request(UPLOAD_IMG_REQ,
+                DSDataCenter.Request(UPLOAD_IMG_REQ,
                                       delegate: self,
                                       path:  "/link-site/web/product_shipoffline_json/upload_file.json",
                                       para: nil,
@@ -425,7 +425,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         
         if type == .Camera {
             
-            let takePhoto = DSSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+            let takePhoto = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
                 
                 weakSelf?.addImags(images, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
@@ -437,7 +437,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
             
         } else {
             
-            let selectPic = DSSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
+            let selectPic = DSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
                 weakSelf?.addImagAsset(assets, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
             })
@@ -448,12 +448,12 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
     
     private func addImags(images: [UIImage], isProduct: Bool) {
         
-        var targetImageItems: [DSSEditImgItem] = []
+        var targetImageItems: [DSEditImgItem] = []
         for singleImg in images {
             
-//            let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
+//            let size = CGSizeMake(CGFloat(DSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSConst.UPLOAD_PHOTO_LENGTH))
 //            let sizedImg = UIImage.scaleImage(singleImg, toSize: size)
-            let newImgItem = DSSEditImgItem()
+            let newImgItem = DSEditImgItem()
             newImgItem.image = singleImg
             targetImageItems.append(newImgItem)
         }
@@ -468,7 +468,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
     
     private func addImagAsset(assets: [PHAsset], isProduct: Bool) {
 
-        let size = CGSizeMake(CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSSConst.UPLOAD_PHOTO_LENGTH))
+        let size = CGSizeMake(CGFloat(DSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSConst.UPLOAD_PHOTO_LENGTH))
         let option = PHImageRequestOptions.init()
         option.deliveryMode = .HighQualityFormat
         
@@ -476,7 +476,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         for assetItem in assets {
             self.cacheManger.requestImageForAsset(assetItem, targetSize: size, contentMode: .AspectFit, options: option, resultHandler: { (resImg: UIImage?, info:[NSObject : AnyObject]?) in
                 
-                let newImgItem = DSSEditImgItem()
+                let newImgItem = DSEditImgItem()
                 newImgItem.image = resImg
                 if isProduct {
                     weakSelf?.viewModel.proImgArray.append(newImgItem)

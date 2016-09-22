@@ -58,7 +58,7 @@ class FKEditImgContainer: UIView {
         return CGFloat(90.0)
     }
     
-    func setProductImg(picItem: DSSEditImgItem?, canEdit: Bool){
+    func setProductImg(picItem: DSEditImgItem?, canEdit: Bool){
      
         if picItem == nil {
             self.targetImgView.image = nil

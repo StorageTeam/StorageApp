@@ -56,7 +56,7 @@ class FKEditPicCell: UITableViewCell {
 
     }
     
-    func setContentImgs(imgs: [DSSEditImgItem]?, canEdit: Bool, firstLine: Bool){
+    func setContentImgs(imgs: [DSEditImgItem]?, canEdit: Bool, firstLine: Bool){
         
         self.clearContent()
         

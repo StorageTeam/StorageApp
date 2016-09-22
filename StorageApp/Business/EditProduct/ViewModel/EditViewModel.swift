@@ -30,8 +30,8 @@ class EditViewModel: NSObject {
     var productID: String?
     
     var sourceItem = EditSourceItem.init()
-    var proImgArray : [DSSEditImgItem] = []
-    var priceImgArray : [DSSEditImgItem] = []
+    var proImgArray : [DSEditImgItem] = []
+    var priceImgArray : [DSEditImgItem] = []
     
     func numberOfSection() -> Int {
         if self.editType == kEditType.kEditTypeCheck {
@@ -108,7 +108,7 @@ class EditViewModel: NSObject {
     
 
     // 获取图片cell的数量
-    func getPicCellCount(imgArray: [DSSEditImgItem]) -> Int{
+    func getPicCellCount(imgArray: [DSEditImgItem]) -> Int{
         
         var picCellCount = 0
         picCellCount = Int(floor(CGFloat(imgArray.count) / 3.0)) + 1
@@ -125,7 +125,7 @@ class EditViewModel: NSObject {
         return picCellCount
     }
     
-    func getPicImgsAtIndexPath(indexPath: NSIndexPath) -> [DSSEditImgItem]? {
+    func getPicImgsAtIndexPath(indexPath: NSIndexPath) -> [DSEditImgItem]? {
         
         let cellType = self.cellTypeForIndexPath(indexPath)
         guard cellType == kEditCellType.kEditCellTypePricePic || cellType == kEditCellType.kEditCellTypeProductPic else {
@@ -133,7 +133,7 @@ class EditViewModel: NSObject {
         }
         
         let startIndex = indexPath.row * 3
-        var imageArray: [DSSEditImgItem] = []
+        var imageArray: [DSEditImgItem] = []
         
         var targetImgArray = self.proImgArray
         if cellType == kEditCellType.kEditCellTypePricePic {
@@ -143,7 +143,7 @@ class EditViewModel: NSObject {
         for index in 0...2 {
             if index + startIndex < targetImgArray.count {
                 let imgItem = targetImgArray[index + startIndex]
-                if imgItem.isKindOfClass(DSSEditImgItem) {
+                if imgItem.isKindOfClass(DSEditImgItem) {
                     imageArray.append(imgItem)
                 }
             }
