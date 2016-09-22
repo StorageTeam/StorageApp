@@ -15,7 +15,7 @@ extension UIImage{
         image.drawInRect(CGRectMake(0, 0, toSize.width, toSize.height))
         let scaleImg = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return scaleImg
+        return scaleImg!
     }
     
 //    func cutFromCenterTo(targetSize: CGSize) -> UIImage {
@@ -53,6 +53,6 @@ extension UIImage{
         let newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        return newImage
+        return newImage!
     }
 }

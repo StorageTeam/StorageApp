@@ -25,16 +25,16 @@ class FKCircleBgView: UIView {
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        CGContextAddEllipseInRect(context, rect)
+        CGContextAddEllipseInRect(context!, rect)
         
         UIColor.whiteColor().setFill()
-        CGContextFillPath(context)
+        CGContextFillPath(context!)
         
         let r = CGFloat(6.0)
         let smallRect = CGRectMake(rect.origin.x + r, rect.origin.y + r, rect.size.width - 2 * r, rect.size.height - 2 * r)
         UIColor.blackColor().setStroke()
-        CGContextSetLineWidth(context, 2)
-        CGContextStrokeEllipseInRect(context, smallRect)
+        CGContextSetLineWidth(context!, 2)
+        CGContextStrokeEllipseInRect(context!, smallRect)
     }
 }
 

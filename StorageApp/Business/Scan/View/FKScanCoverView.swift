@@ -42,8 +42,8 @@ class FKScanCoverView: UIView {
         CGPathAddPath(path, nil, screenPath)
         CGPathAddPath(path, nil, scanPath)
         
-        CGContextAddPath(ctx, path)
-        CGContextDrawPath(ctx, .EOFill)
+        CGContextAddPath(ctx!, path)
+        CGContextDrawPath(ctx!, .EOFill)
         
     }
 
