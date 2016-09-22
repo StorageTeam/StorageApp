@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenterDelegate {
-    static let DSS_LOGIN_REQUEST_IDENTIFY: Int = 0
+    static let DS_LOGIN_REQUEST_IDENTIFY: Int = 0
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -66,7 +66,7 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     
     // MARK: - Actions
     @objc private func clickLoginAction() {
-//        DSSLoginService.requestLogin(DSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
+//        DSSLoginService.requestLogin(DSLoginController.DS_LOGIN_REQUEST_IDENTIFY,
 //                                     delegate: self,
 //                                     mobile: "18656396627",
 //                                     password: "111111")
@@ -75,7 +75,7 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
         let password    = self.passwordInputView.textField.text
         
         if mobile?.characters.count > 0 && password?.characters.count > 0 {
-            DSUserService.requestLogin(DSLoginController.DSS_LOGIN_REQUEST_IDENTIFY,
+            DSUserService.requestLogin(DSLoginController.DS_LOGIN_REQUEST_IDENTIFY,
                                          delegate: self,
                                          mobile: mobile!,
                                          password: password!)

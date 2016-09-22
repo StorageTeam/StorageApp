@@ -28,14 +28,17 @@ class DSBaseViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !DSAccount.isLogin() {
+        let naviController = self.presentingViewController as? UINavigationController
+        if !DSAccount.isLogin() && naviController == nil {
             self.presentStartController()
         }
     }
     
     func presentStartController() -> Void {
         let controller = DSStartController()
-        self.navigationController?.presentViewController(controller, animated: true, completion: {});
+        let naviController = UINavigationController.init(rootViewController: controller)
+        
+        self.navigationController?.presentViewController(naviController, animated: true, completion: {});
 
     }
 
