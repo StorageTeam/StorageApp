@@ -33,11 +33,20 @@ class DSStartController: DSBaseViewController {
     
     // MARK: - Actions
     @objc private func clickLoginAction() {
-        
+        self.pushViewController(DSLoginController.init())
     }
     
     @objc private func clickRegisterAction() {
-        
+        self.pushViewController(DSRegisterController.init())
+    }
+    
+    // MARK: - Method
+    
+    private func pushViewController(controller : UIViewController?) {
+        if let con = controller {
+            con.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(con, animated: true)
+        }
     }
     
     // MARK: - loadView

@@ -186,9 +186,6 @@
 		CE3118CA1D25F77F00D078A0 /* DSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSView+Extension.swift */; };
 		CE3118CB1D25F77F00D078A0 /* DSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSView+Extension.swift */; };
 		CE3118CC1D25F77F00D078A0 /* DSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3118C91D25F77F00D078A0 /* DSView+Extension.swift */; };
-		CE3DDD5D1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSLoginTextInput.swift */; };
-		CE3DDD5E1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSLoginTextInput.swift */; };
-		CE3DDD5F1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD5C1D1BD8A1005459B6 /* DSLoginTextInput.swift */; };
 		CE3DDD6B1D1BF4A3005459B6 /* DSAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD6A1D1BF4A3005459B6 /* DSAccount.swift */; };
 		CE3DDD6C1D1BF4A3005459B6 /* DSAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD6A1D1BF4A3005459B6 /* DSAccount.swift */; };
 		CE3DDD6D1D1BF4A3005459B6 /* DSAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3DDD6A1D1BF4A3005459B6 /* DSAccount.swift */; };
@@ -211,6 +208,15 @@
 		CE4B2DA11D9387C30070C8AA /* DSLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2D9A1D9383230070C8AA /* DSLoginController.swift */; };
 		CE4B2DA21D9387C70070C8AA /* DSStartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2D9E1D9384B40070C8AA /* DSStartController.swift */; };
 		CE4B2DA31D9387C70070C8AA /* DSStartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2D9E1D9384B40070C8AA /* DSStartController.swift */; };
+		CE4B2DA51D93C3780070C8AA /* DSRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DA41D93C3780070C8AA /* DSRegisterController.swift */; };
+		CE4B2DA61D93C3780070C8AA /* DSRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DA41D93C3780070C8AA /* DSRegisterController.swift */; };
+		CE4B2DA71D93C3780070C8AA /* DSRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DA41D93C3780070C8AA /* DSRegisterController.swift */; };
+		CE4B2DAF1D93C75E0070C8AA /* DSUserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DAE1D93C75E0070C8AA /* DSUserTextField.swift */; };
+		CE4B2DB01D93C75E0070C8AA /* DSUserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DAE1D93C75E0070C8AA /* DSUserTextField.swift */; };
+		CE4B2DB11D93C75E0070C8AA /* DSUserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DAE1D93C75E0070C8AA /* DSUserTextField.swift */; };
+		CE4B2DB31D93D2E90070C8AA /* DSFindPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DB21D93D2E90070C8AA /* DSFindPwdController.swift */; };
+		CE4B2DB41D93D2E90070C8AA /* DSFindPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DB21D93D2E90070C8AA /* DSFindPwdController.swift */; };
+		CE4B2DB51D93D2E90070C8AA /* DSFindPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DB21D93D2E90070C8AA /* DSFindPwdController.swift */; };
 		CE9058421D73F545006430F8 /* DSSlideHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA01D728B010085FFCC /* DSSlideHeaderView.swift */; };
 		CE9058431D73F545006430F8 /* DSSlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954FA11D728B010085FFCC /* DSSlideMenu.swift */; };
 		CE9058441D73F545006430F8 /* DSMenuMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE954F9F1D728B010085FFCC /* DSMenuMdoel.swift */; };
@@ -385,7 +391,6 @@
 		CE13DD711D1BBA040072D045 /* DSProductListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSProductListController.swift; sourceTree = "<group>"; };
 		CE13DD761D1BBAFB0072D045 /* DSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSBaseViewController.swift; sourceTree = "<group>"; };
 		CE3118C91D25F77F00D078A0 /* DSView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DSView+Extension.swift"; sourceTree = "<group>"; };
-		CE3DDD5C1D1BD8A1005459B6 /* DSLoginTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSLoginTextInput.swift; sourceTree = "<group>"; };
 		CE3DDD6A1D1BF4A3005459B6 /* DSAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSAccount.swift; sourceTree = "<group>"; };
 		CE3DDD6E1D1C290A005459B6 /* DSResponseHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSResponseHeader.swift; sourceTree = "<group>"; };
 		CE3DDD721D1C2A7F005459B6 /* DSNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSNetwork.swift; sourceTree = "<group>"; };
@@ -394,6 +399,9 @@
 		CE4B2D9A1D9383230070C8AA /* DSLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSLoginController.swift; sourceTree = "<group>"; };
 		CE4B2D9B1D9383230070C8AA /* DSUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSUserService.swift; sourceTree = "<group>"; };
 		CE4B2D9E1D9384B40070C8AA /* DSStartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSStartController.swift; sourceTree = "<group>"; };
+		CE4B2DA41D93C3780070C8AA /* DSRegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSRegisterController.swift; sourceTree = "<group>"; };
+		CE4B2DAE1D93C75E0070C8AA /* DSUserTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSUserTextField.swift; sourceTree = "<group>"; };
+		CE4B2DB21D93D2E90070C8AA /* DSFindPwdController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFindPwdController.swift; sourceTree = "<group>"; };
 		CE954F9F1D728B010085FFCC /* DSMenuMdoel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSMenuMdoel.swift; sourceTree = "<group>"; };
 		CE954FA01D728B010085FFCC /* DSSlideHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSlideHeaderView.swift; sourceTree = "<group>"; };
 		CE954FA11D728B010085FFCC /* DSSlideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSlideMenu.swift; sourceTree = "<group>"; };
@@ -997,7 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				CE13DD751D1BBA840072D045 /* BaseController */,
-				CE3DDD5B1D1BD8A1005459B6 /* LoginInput */,
+				CE4B2DAD1D93C75E0070C8AA /* UserInput */,
 				CEBBA7D91D22774D00187B07 /* SegmentControl */,
 			);
 			path = UIComponent;
@@ -1039,14 +1047,6 @@
 				CEBBA7E01D22778500187B07 /* DSCommonDefine.swift */,
 			);
 			path = Define;
-			sourceTree = "<group>";
-		};
-		CE3DDD5B1D1BD8A1005459B6 /* LoginInput */ = {
-			isa = PBXGroup;
-			children = (
-				CE3DDD5C1D1BD8A1005459B6 /* DSLoginTextInput.swift */,
-			);
-			path = LoginInput;
 			sourceTree = "<group>";
 		};
 		CE3DDD651D1BF299005459B6 /* Infrastructure */ = {
@@ -1099,9 +1099,19 @@
 			children = (
 				CE4B2D9E1D9384B40070C8AA /* DSStartController.swift */,
 				CE4B2D9A1D9383230070C8AA /* DSLoginController.swift */,
+				CE4B2DA41D93C3780070C8AA /* DSRegisterController.swift */,
+				CE4B2DB21D93D2E90070C8AA /* DSFindPwdController.swift */,
 				CE4B2D9B1D9383230070C8AA /* DSUserService.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		CE4B2DAD1D93C75E0070C8AA /* UserInput */ = {
+			isa = PBXGroup;
+			children = (
+				CE4B2DAE1D93C75E0070C8AA /* DSUserTextField.swift */,
+			);
+			path = UserInput;
 			sourceTree = "<group>";
 		};
 		CE954F9E1D728B010085FFCC /* Menu */ = {
@@ -1503,6 +1513,7 @@
 				041976BA1D7337C5001CCBB8 /* DSBuyRecordServe.swift in Sources */,
 				041976871D728EA8001CCBB8 /* DSBuyingProCell.swift in Sources */,
 				041976931D728EA8001CCBB8 /* DSRecordTimeCell.swift in Sources */,
+				CE4B2DA51D93C3780070C8AA /* DSRegisterController.swift in Sources */,
 				044D65561D478D8D0061597F /* FKTakePhotoActionView.swift in Sources */,
 				CEB082841D4EECB6007F17F9 /* DSProductWaitsaleCell.swift in Sources */,
 				CEBBA8051D23AF5F00187B07 /* DSProductOnsaleModel.swift in Sources */,
@@ -1522,6 +1533,7 @@
 				04C028191D224FB50060CD7C /* EditViewModel.swift in Sources */,
 				CE13DD231D1AA65C0072D045 /* AppDelegate.swift in Sources */,
 				CE3DDD6B1D1BF4A3005459B6 /* DSAccount.swift in Sources */,
+				CE4B2DB31D93D2E90070C8AA /* DSFindPwdController.swift in Sources */,
 				04C028121D224EFC0060CD7C /* FKEditPicCell.swift in Sources */,
 				0419768D1D728EA8001CCBB8 /* DSBuyingHeaderView.swift in Sources */,
 				CE4B2D9C1D9383230070C8AA /* DSLoginController.swift in Sources */,
@@ -1535,7 +1547,6 @@
 				0419766F1D728EA8001CCBB8 /* DSBuyLocationCell.swift in Sources */,
 				CE9EFFD31D4893E7007DB098 /* DSImage.swift in Sources */,
 				04CC45341D73CB32002C2421 /* DSBuyingServe.swift in Sources */,
-				CE3DDD5D1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */,
 				044D65531D478D0C0061597F /* DSTakePhotoController.swift in Sources */,
 				041976B31D72C61C001CCBB8 /* DSShopService.swift in Sources */,
 				0419768A1D728EA8001CCBB8 /* DSBuyingController.swift in Sources */,
@@ -1568,6 +1579,7 @@
 				041976721D728EA8001CCBB8 /* DSBuyMissionCell.swift in Sources */,
 				CE95501C1D72E1CA0085FFCC /* DSDeliverViewModel.swift in Sources */,
 				CED7E5541D4B385A0063A423 /* DSScanService.swift in Sources */,
+				CE4B2DAF1D93C75E0070C8AA /* DSUserTextField.swift in Sources */,
 				04C0281B1D2257220060CD7C /* UITableViewCell+Extension.swift in Sources */,
 				CEBBA80F1D23B30400187B07 /* DSObjectMapperTransform.swift in Sources */,
 				CE9550181D72E1CA0085FFCC /* DSDeliverMissionModel.swift in Sources */,
@@ -1589,6 +1601,8 @@
 				CE07E68A1D6EE3B900287546 /* DSNavigationController.swift in Sources */,
 				041976B71D72C98C001CCBB8 /* DSShopListView.swift in Sources */,
 				CE95501D1D72E1F70085FFCC /* DSDeliverMissionModel.swift in Sources */,
+				CE4B2DA61D93C3780070C8AA /* DSRegisterController.swift in Sources */,
+				CE4B2DB01D93C75E0070C8AA /* DSUserTextField.swift in Sources */,
 				CE30BF271D24B71200A3969D /* DSInt+Extension.swift in Sources */,
 				CE30BF311D24BE5F00A3969D /* DSEditService.swift in Sources */,
 				CE9550291D72E2150085FFCC /* DSDeliverProductModel.swift in Sources */,
@@ -1629,6 +1643,7 @@
 				041976791D728EA8001CCBB8 /* DSMissionItem.swift in Sources */,
 				0419767F1D728EA8001CCBB8 /* DSBuySelectShopView.swift in Sources */,
 				CE9058431D73F545006430F8 /* DSSlideMenu.swift in Sources */,
+				CE4B2DB41D93D2E90070C8AA /* DSFindPwdController.swift in Sources */,
 				CE30BF291D24B71500A3969D /* DSString+Extension.swift in Sources */,
 				CE9550231D72E2040085FFCC /* DSDeliverStatusCell.swift in Sources */,
 				0477549D1D4B37B50045F548 /* FKPerImgCollectionCell.swift in Sources */,
@@ -1645,7 +1660,6 @@
 				0419769F1D72BDD3001CCBB8 /* DSMissionViewModel.swift in Sources */,
 				CE30BF2D1D24B72300A3969D /* DSObjectMapperTransform.swift in Sources */,
 				CE30BF391D24BE6F00A3969D /* DSEditSpecItem.swift in Sources */,
-				CE3DDD5E1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */,
 				0419768B1D728EA8001CCBB8 /* DSBuyingController.swift in Sources */,
 				044D65591D4848370061597F /* DSTakePhotoController.swift in Sources */,
 				041976821D728EA8001CCBB8 /* DSBuyingBtnCell.swift in Sources */,
@@ -1687,6 +1701,8 @@
 				CE07E68B1D6EE3B900287546 /* DSNavigationController.swift in Sources */,
 				041976B81D72C98D001CCBB8 /* DSShopListView.swift in Sources */,
 				CE95501E1D72E1F70085FFCC /* DSDeliverMissionModel.swift in Sources */,
+				CE4B2DA71D93C3780070C8AA /* DSRegisterController.swift in Sources */,
+				CE4B2DB11D93C75E0070C8AA /* DSUserTextField.swift in Sources */,
 				CE30BF281D24B71200A3969D /* DSInt+Extension.swift in Sources */,
 				CE30BF321D24BE6000A3969D /* DSEditService.swift in Sources */,
 				CE95502A1D72E2160085FFCC /* DSDeliverProductModel.swift in Sources */,
@@ -1727,6 +1743,7 @@
 				0419767A1D728EA8001CCBB8 /* DSMissionItem.swift in Sources */,
 				041976801D728EA8001CCBB8 /* DSBuySelectShopView.swift in Sources */,
 				CE9058461D73F546006430F8 /* DSSlideMenu.swift in Sources */,
+				CE4B2DB51D93D2E90070C8AA /* DSFindPwdController.swift in Sources */,
 				CE30BF2A1D24B71500A3969D /* DSString+Extension.swift in Sources */,
 				CE9550241D72E2040085FFCC /* DSDeliverStatusCell.swift in Sources */,
 				0477549E1D4B37B60045F548 /* FKPerImgCollectionCell.swift in Sources */,
@@ -1743,7 +1760,6 @@
 				041976A01D72BDD3001CCBB8 /* DSMissionViewModel.swift in Sources */,
 				CE30BF2E1D24B72300A3969D /* DSObjectMapperTransform.swift in Sources */,
 				CE30BF3A1D24BE6F00A3969D /* DSEditSpecItem.swift in Sources */,
-				CE3DDD5F1D1BD8A1005459B6 /* DSLoginTextInput.swift in Sources */,
 				0419768C1D728EA8001CCBB8 /* DSBuyingController.swift in Sources */,
 				044D655A1D4848380061597F /* DSTakePhotoController.swift in Sources */,
 				041976831D728EA8001CCBB8 /* DSBuyingBtnCell.swift in Sources */,

@@ -22,18 +22,20 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = UIColor.whiteColor()
         #if DEBUG
-            self.mobileInputView.textField.text     = "18956396627"
-            self.passwordInputView.textField.text   = "duoshoubang2016"
+            self.emailTextField.textField.text     = "18956396627"
+            self.passwordTextField.textField.text   = "duoshoubang2016"
         #endif
-
-//        #if DEBUG
-//            self.mobileInputView.textField.text     = "18956396627"
-//            self.passwordInputView.textField.text   = "111111"
-//        #endif
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,118 +67,126 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     }
     
     // MARK: - Actions
-    @objc private func clickLoginAction() {
-//        DSSLoginService.requestLogin(DSLoginController.DS_LOGIN_REQUEST_IDENTIFY,
-//                                     delegate: self,
-//                                     mobile: "18656396627",
-//                                     password: "111111")
+    @objc func clickLoginAction() {
+        let email      = self.emailTextField.textField.text
+        let password    = self.passwordTextField.textField.text
         
-        let mobile      = self.mobileInputView.textField.text
-        let password    = self.passwordInputView.textField.text
-        
-        if mobile?.characters.count > 0 && password?.characters.count > 0 {
+        if email?.characters.count > 0 && password?.characters.count > 0 {
             DSUserService.requestLogin(DSLoginController.DS_LOGIN_REQUEST_IDENTIFY,
                                          delegate: self,
-                                         mobile: mobile!,
+                                         mobile: email!,
                                          password: password!)
         } else {
-            self.showText("账号或密码错误")
+            self.showText("邮箱或密码错误")
         }
+    }
+    
+    @objc private func clickFindPwdAction() {
+        let controller = DSFindPwdController.init()
+        controller.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: - loadView
     override func loadView() {
         super.loadView()
         
-        var offset = (DSConst.IS_iPhone4() ? 40 : 80)
-        let width:CGFloat = (DSConst.IS_iPhone4() ? CGFloat(260) : CGFloat(276))
-        
-        self.view.addSubview(self.bgImgView)
-        self.bgImgView.snp_makeConstraints { (make) in
-            make.edges.equalTo(self.view)
+        self.view.addSubview(self.popBackBtn)
+        self.popBackBtn.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view).offset(20)
+            make.left.equalTo(self.view).offset(12)
+            make.size.equalTo(CGSizeMake(44, 44))
         }
         
-        self.view.addSubview(self.logoImgView)
-        self.logoImgView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view).offset(offset)
-            make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(60, 50))
-        }
-        
-        self.view.addSubview(self.textLogoImgView)
-        self.textLogoImgView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.logoImgView.snp_bottom).offset(10)
+        self.view.addSubview(self.titleLabel)
+        self.titleLabel.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view).offset(100)
             make.centerX.equalTo(self.view)
         }
         
-        offset = (DSConst.IS_iPhone4() ? 20 : 40)
-        self.view.addSubview(self.mobileInputView)
-        self.mobileInputView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.textLogoImgView.snp_bottom).offset(offset)
-            make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(width, 42))
+        self.view.addSubview(self.emailTextField)
+        self.emailTextField.snp_makeConstraints { (make) in
+            make.top.equalTo(self.titleLabel.snp_bottom).offset(72)
+            make.left.equalTo(self.view).offset(28)
+            make.right.equalTo(self.view).offset(-28)
+            make.height.equalTo(32)
         }
         
-        offset = (DSConst.IS_iPhone4() ? 8 : 16)
-        self.view.addSubview(self.passwordInputView)
-        self.passwordInputView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.mobileInputView.snp_bottom).offset(offset)
-            make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(width, 42))
+        self.view.addSubview(self.passwordTextField)
+        self.passwordTextField.snp_makeConstraints { (make) in
+            make.top.equalTo(self.emailTextField.snp_bottom).offset(16)
+            make.left.equalTo(self.view).offset(28)
+            make.right.equalTo(self.view).offset(-28)
+            make.height.equalTo(32)
         }
         
-        offset = (DSConst.IS_iPhone4() ? 20 : 40)
         self.view.addSubview(self.loginBtn)
         self.loginBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self.passwordInputView.snp_bottom).offset(offset)
+            make.top.equalTo(self.passwordTextField.snp_bottom).offset(40)
+            make.left.right.equalTo(self.passwordTextField)
+            make.height.equalTo(45)
+        }
+        
+        self.view.addSubview(self.findPwdBtn)
+        self.findPwdBtn.snp_makeConstraints { (make) in
+            make.top.equalTo(self.loginBtn.snp_bottom)
             make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSizeMake(width, 44))
+            make.size.equalTo(CGSizeMake(80, 44))
         }
     }
     
     // MARK: - Property
     
-    lazy var bgImgView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = DSImage.dss_bgImage(UIScreen.mainScreen().bounds.size)
-        return imgView
+    lazy var popBackBtn: UIButton = {
+        let button = UIButton(type: UIButtonType.Custom)
+        button.setTitle("取消", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.init(rgb: 0x1fbad6), forState: .Normal)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.addTarget(self, action: #selector(self.clickDefaultLeftBar), forControlEvents: .TouchUpInside)
+        return button
     }()
     
-    lazy var logoImgView: UIImageView = {
-        let logoImgView = UIImageView()
-        logoImgView.image = UIImage.init(named: "logo")
-        return logoImgView
+    lazy var titleLabel: UILabel = {
+        let label = UILabel.init()
+        label.text = "请输入登录邮箱地址"
+        label.textColor = UIColor.init(rgb: 0x333333)
+        label.font = UIFont.systemFontOfSize(28)
+        label.textAlignment = .Center
+        return label
     }()
     
-    lazy var textLogoImgView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage.init(named: "textLogo")
-        return imgView
+    lazy var emailTextField: DSUserTextField = {
+        let emailTextField = DSUserTextField(title: "邮箱", placeholder: "请输入邮箱地址", secure: false)
+        emailTextField.textField.delegate = self;
+        emailTextField.textField.returnKeyType = .Done
+        emailTextField.textField.keyboardType = .NumbersAndPunctuation
+        return emailTextField
     }()
     
-    lazy var mobileInputView: DSLoginTextInput = {
-        let mobileInputView = DSLoginTextInput(iconName: "MobileInputLogo", placeholder: "请输入账号", secure: false)
-        mobileInputView.textField.delegate = self;
-        mobileInputView.textField.returnKeyType = .Done
-        mobileInputView.textField.keyboardType = .NumbersAndPunctuation
-        return mobileInputView
-    }()
-    
-    lazy var passwordInputView: DSLoginTextInput = {
-        let passwordInputView = DSLoginTextInput(iconName: "PasswordInputLogo", placeholder: "请输入密码", secure: true)
-        passwordInputView.textField.delegate = self;
-        passwordInputView.textField.returnKeyType = .Done
-        passwordInputView.textField.keyboardType = .NumbersAndPunctuation
-        return passwordInputView
+    lazy var passwordTextField: DSUserTextField = {
+        let passwordTextField = DSUserTextField(title: "密码", placeholder: "密码为6-16位字母或数字", secure: true)
+        passwordTextField.textField.delegate = self;
+        passwordTextField.textField.returnKeyType = .Done
+        passwordTextField.textField.keyboardType = .NumbersAndPunctuation
+        return passwordTextField
     }()
 
     lazy var loginBtn: UIButton = {
-        let loginBtn = UIButton(type: UIButtonType.Custom)
-        loginBtn.layer.cornerRadius = 4
-        loginBtn.setTitle("登录", forState: UIControlState.Normal)
-        loginBtn.backgroundColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 0.9)
-        loginBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-        loginBtn.addTarget(self, action: #selector(self.clickLoginAction), forControlEvents: .TouchUpInside)
-        return loginBtn
+        let button = UIButton(type: UIButtonType.Custom)
+        button.layer.cornerRadius = 4
+        button.setTitle("登录", forState: UIControlState.Normal)
+        button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.addTarget(self, action: #selector(self.clickLoginAction), forControlEvents: .TouchUpInside)
+        return button
+    }()
+    
+    lazy var findPwdBtn: UIButton = {
+        let button = UIButton(type: UIButtonType.Custom)
+        button.setTitle("找回密码?", forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont.systemFontOfSize(14)
+        button.setTitleColor(UIColor.init(rgb: 0x666666), forState: .Normal)
+        button.addTarget(self, action: #selector(self.clickFindPwdAction), forControlEvents: .TouchUpInside)
+        return button
     }()
 }
