@@ -74,34 +74,43 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     
     func clickScanCollectButton(sender: UIButton) {
         weak var wkSelf = self
-        let scanController = FKScanController.init(supplierID: self.viewModel.getSelShopID(), finish: { (resStr) in
-            let takePhotoController = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
+        let scanController = FKScanController.init(supplierID: self.viewModel.getSelShopID(), finish: { (qrCode) in
+            let takeProductPhotoController = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (productImages:[UIImage]) in
+                let takePricePhotoController = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (priceImages:[UIImage]) in
+                    self.pushProductEditController(qrCode, productImages: productImages, priceImages: priceImages)
+                    }, cancel: {
+                        self.pushProductEditController(qrCode, productImages: productImages, priceImages: nil)
+                })
+                takePricePhotoController.stepTipLabel.text = "    第2步：请拍摄价签照片"
+                takePricePhotoController.actionView.finishBtn.setTitle("完成", forState: .Normal)
+                takePricePhotoController.hidesBottomBarWhenPushed = true
+                wkSelf?.replaceLastController(takePricePhotoController)
                 
-                self.photoDoneToPushEdit(resStr, images: images)
                 }, cancel: {
-                    
-                    self.photoDoneToPushEdit(resStr, images: nil)
+                    self.pushProductEditController(qrCode, productImages: nil, priceImages: nil)
             })
-            takePhotoController.hidesBottomBarWhenPushed = true
-            wkSelf?.removeLastPushNew(takePhotoController)
+            takeProductPhotoController.stepTipLabel.text = "    第1步：请拍摄商品照片"
+            takeProductPhotoController.actionView.finishBtn.setTitle("下一步", forState: .Normal)
+            takeProductPhotoController.hidesBottomBarWhenPushed = true
+            wkSelf?.replaceLastController(takeProductPhotoController)
         })
         scanController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(scanController, animated: true)
     }
     
-    func photoDoneToPushEdit(scanStr: String, images: [UIImage]?) {
-        let editItem = EditSourceItem.init()
-        editItem.shopId     = self.viewModel.getSelShopID()
-        editItem.address    = self.viewModel.getSelShopName()
-        editItem.upc        = scanStr
+    func pushProductEditController(qrCode: String, productImages: [UIImage]?, priceImages: [UIImage]?) {
+        let item = EditSourceItem.init()
+        item.shopId     = self.viewModel.getSelShopID()
+        item.address    = self.viewModel.getSelShopName()
+        item.upc        = qrCode
         
-        let editController = EditViewController.init(source: editItem, images: images)
+        let editController = EditViewController.init(source: item, productImages: productImages, priceImages: priceImages)
         editController.hidesBottomBarWhenPushed = true
         
-        self.removeLastPushNew(editController)
+        self.replaceLastController(editController)
     }
     
-    func removeLastPushNew(pushController: UIViewController) {
+    func replaceLastController(pushController: UIViewController) {
         var controllers = self.navigationController?.viewControllers
         guard controllers?.count >= 2 else {
             return
@@ -129,10 +138,38 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         self.hideshopListView(nil)
     }
     
+    func clickSwitchAction(sender: AnyObject) {
+        // switch view show
+        if(self.segmentControl.selectedSegmentIndex == 0) {
+            self.buyMissionController.view.hidden       = true
+        } else if(self.segmentControl.selectedSegmentIndex == 1) {
+            self.buyMissionController.view.hidden       = false
+        }
+    }
+    
     // MARK: - Method
     
     private func configRightNaviBarItem() -> Void {
+        let leftLabel = UILabel.init()
+        leftLabel.text = "不接单"
+        leftLabel.frame = CGRectMake(0, 0, 46, CGRectGetHeight((self.navigationController?.navigationBar.frame)!))
+        leftLabel.textAlignment = .Right
+        leftLabel.font = UIFont.systemFontOfSize(14)
+        leftLabel.textColor = UIColor.init(rgb: 0x1fbad6)
+        let rightBarItem = UIBarButtonItem.init(customView: leftLabel)
         
+        let switchContainer = UIView.init(frame: CGRectMake(0, 0, 44, CGRectGetHeight((self.navigationController?.navigationBar.frame)!)))
+        let switchBtn = UISwitch.init()
+        switchBtn.transform = CGAffineTransformMakeScale(0.75, 0.75)
+        switchBtn.center = CGPointMake(switchContainer.bounds.size.width/2, switchContainer.bounds.size.height/2)
+        switchBtn.addTarget(self, action: #selector(self.clickSwitchAction), forControlEvents: .ValueChanged)
+        switchContainer.addSubview(switchBtn)
+        let leftBarItem = UIBarButtonItem.init(customView: switchContainer)
+        
+        let fixedSpaceBarItem = UIBarButtonItem.init(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+        fixedSpaceBarItem.width = -14;
+        
+        self.navigationItem.rightBarButtonItems = [fixedSpaceBarItem, leftBarItem, rightBarItem]
     }
     
     private func configBarTitleView() -> Void {

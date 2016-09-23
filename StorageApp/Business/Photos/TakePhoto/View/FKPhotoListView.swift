@@ -14,7 +14,7 @@ class FKPhotoListView: UIView {
 
     var maxCount: Int = 0 {
         didSet {
-            self.refreshIndexLabel()
+            self.refreshTipLabel()
         }
     }
     
@@ -34,7 +34,7 @@ class FKPhotoListView: UIView {
     func reloadData(images: [UIImage]?, scrollToLast: Bool) -> Void {
         self.images = images
         self.collectionView.reloadData()
-        self.refreshIndexLabel()
+        self.refreshTipLabel()
         
         if scrollToLast && self.images != nil {
             let lastIndex = NSIndexPath.init(forRow: self.images!.count - 1, inSection: 0)
@@ -42,25 +42,39 @@ class FKPhotoListView: UIView {
         }
     }
     
-    private func refreshIndexLabel() {
+    private func refreshTipLabel() {
         var imageCount = 0
         if self.images != nil {
             imageCount = (self.images?.count)!
         }
         
-        let indexStr = String.init(format: "%ld/%ld", imageCount, self.maxCount)
-        self.indexLabel.text = indexStr
+        self.tipIconImg.hidden = (imageCount > 0)
+        self.tipLabel.hidden = (imageCount > 0)
+        
+        let idxString = String.init(format: "%ld/%ld", imageCount, self.maxCount)
+        self.indexLabel.text = idxString
     }
     
     private func addAllSubviews() {
         self.addSubview(self.collectionView)
-        self.addSubview(self.indexLabel)
-        
         self.collectionView.snp_makeConstraints { (make) in
             make.left.top.bottom.equalTo(self)
             make.right.equalTo(self).offset(-50)
         }
         
+        self.addSubview(self.tipIconImg)
+        self.tipIconImg.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(15)
+            make.centerY.equalTo(self)
+        }
+        
+        self.addSubview(self.tipLabel)
+        self.tipLabel.snp_makeConstraints { (make) in
+            make.left.equalTo(self.tipIconImg.snp_right).offset(10)
+            make.centerY.equalTo(self)
+        }
+        
+        self.addSubview(self.indexLabel)
         self.indexLabel.snp_makeConstraints { (make) in
             make.centerY.equalTo(self)
             make.centerX.equalTo(self.snp_right).offset(-25)
@@ -91,11 +105,23 @@ class FKPhotoListView: UIView {
         return collectionView
     }()
     
+    lazy var tipIconImg: UIImageView = {
+        let view = UIImageView.init(image: UIImage.init(named: "takephoto_tip_icon"))
+        return view
+    }()
+    
+    lazy var tipLabel: UILabel = {
+        let label = UILabel.init()
+        label.textColor = UIColor.init(rgb: 0x666666)
+        label.font = UIFont.systemFontOfSize(14)
+        label.text = "图片最多支持拍摄30张"
+        return label
+    }()
+    
     lazy var indexLabel: UILabel = {
-       let label = UILabel.init()
+        let label = UILabel.init()
         label.textColor = UIColor.init(rgb: 0x444444)
         label.font = UIFont.systemFontOfSize(12)
-        label.text = "6/9"
         return label
     }()
 }

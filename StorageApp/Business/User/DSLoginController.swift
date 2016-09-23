@@ -87,6 +87,15 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc private func clickRegisterAction() {
+        var controllers = self.navigationController?.viewControllers
+        if controllers?.count >= 2 {
+            controllers?.removeLast()
+            controllers?.append(DSRegisterController.init())
+            self.navigationController?.setViewControllers(controllers!, animated: true)
+        }
+    }
+    
     // MARK: - loadView
     override func loadView() {
         super.loadView()
@@ -132,6 +141,19 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
             make.top.equalTo(self.loginBtn.snp_bottom)
             make.centerX.equalTo(self.view)
             make.size.equalTo(CGSizeMake(80, 44))
+        }
+        
+        self.view.addSubview(self.registerTipLabel)
+        self.registerTipLabel.snp_makeConstraints { (make) in
+            make.bottom.equalTo(self.view).offset(-36)
+            make.centerX.equalTo(self.view).offset(-14)
+        }
+        
+        self.view.addSubview(self.registerBtn)
+        self.registerBtn.snp_makeConstraints { (make) in
+            make.centerY.equalTo(self.registerTipLabel)
+            make.left.equalTo(self.registerTipLabel.snp_right).offset(-3)
+            make.size.equalTo(CGSizeMake(44, 44))
         }
     }
     
@@ -187,6 +209,24 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
         button.titleLabel?.font = UIFont.systemFontOfSize(14)
         button.setTitleColor(UIColor.init(rgb: 0x666666), forState: .Normal)
         button.addTarget(self, action: #selector(self.clickFindPwdAction), forControlEvents: .TouchUpInside)
+        return button
+    }()
+    
+    lazy var registerTipLabel: UILabel = {
+        let label = UILabel.init()
+        label.text = "还没有扫一扫账号，点此去"
+        label.textColor = UIColor.init(rgb: 0x333333)
+        label.font = UIFont.systemFontOfSize(14)
+        label.textAlignment = .Center
+        return label
+    }()
+    
+    lazy var registerBtn: UIButton = {
+        let button = UIButton(type: UIButtonType.Custom)
+        button.setTitle("注册>", forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont.systemFontOfSize(14)
+        button.setTitleColor(UIColor.init(rgb: 0x1fbad6), forState: .Normal)
+        button.addTarget(self, action: #selector(self.clickRegisterAction), forControlEvents: .TouchUpInside)
         return button
     }()
 }

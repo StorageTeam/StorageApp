@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class DSRegisterController: DSLoginController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +19,8 @@ class DSRegisterController: DSLoginController {
         self.titleLabel.text = "请输入注册邮箱地址"
         self.loginBtn.setTitle("注册", forState: UIControlState.Normal)
         self.findPwdBtn.hidden = true
+        self.registerTipLabel.hidden = true
+        self.registerBtn.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,7 +29,7 @@ class DSRegisterController: DSLoginController {
     }
     
     override func clickLoginAction() {
-        print("DSRegisterController")
+        
     }
 
     /*

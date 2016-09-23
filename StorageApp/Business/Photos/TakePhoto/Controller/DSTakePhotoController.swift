@@ -61,23 +61,30 @@ class DSTakePhotoController: DSBaseViewController {
         self.view.layer.addSublayer(self.backLayer)
         
         self.view.addSubview(self.topView)
-        self.view.addSubview(self.photoListView)
-        self.view.addSubview(self.actionView)
         
         self.topView.snp_makeConstraints { (make) in
             make.top.left.right.equalTo(self.view)
             make.height.equalTo(topHeight)
         }
         
+        self.view.addSubview(self.actionView)
+        self.actionView.snp_makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.height.equalTo(actionViewH)
+        }
+        
+        self.view.addSubview(self.photoListView)
         self.photoListView.snp_makeConstraints { (make) in
             make.left.right.equalTo(self.view)
             make.bottom.equalTo(self.actionView.snp_top)
             make.height.equalTo(90)
         }
         
-        self.actionView.snp_makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(actionViewH)
+        self.view.addSubview(self.stepTipLabel)
+        self.stepTipLabel.snp_makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.bottom.equalTo(self.photoListView.snp_top)
+            make.height.equalTo(30)
         }
     }
     
@@ -251,7 +258,6 @@ class DSTakePhotoController: DSBaseViewController {
     }()
     
     lazy var actionView: FKTakePhotoActionView = {
-        
         let view = FKTakePhotoActionView.init()
         view.takePhotoBtn.addTarget(self, action: #selector(self.clickTakePhoto), forControlEvents: .TouchUpInside)
         view.cancelBtn.addTarget(self, action: #selector(self.clickCancelBtn), forControlEvents: .TouchUpInside)
@@ -264,6 +270,14 @@ class DSTakePhotoController: DSBaseViewController {
        let view = FKTakePhotoTopView.init()
         view.titleLabel.text = "DSU93U02U3"
         return view
+    }()
+    
+    lazy var stepTipLabel: UILabel = {
+        let label = UILabel.init()
+        label.textColor = UIColor.init(rgb: 0xffffff)
+        label.backgroundColor = UIColor.init(rgb: 0x1fbad6)
+        label.font = UIFont.systemFontOfSize(13)
+        return label
     }()
     
     lazy var photoListView: FKPhotoListView = {

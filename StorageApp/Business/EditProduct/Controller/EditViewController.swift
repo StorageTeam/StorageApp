@@ -47,9 +47,19 @@ class EditViewController: DSBaseViewController, DSDataCenterDelegate{
         self.init(editType: kEditType.kEditTypeAdd, productID: nil)
         self.viewModel.sourceItem = source
         if images != nil {
-            self.addImags(images!, isProduct: true)
+            self.addImages(images!, isProduct: true)
         }
-        
+    }
+    
+    convenience init(source: EditSourceItem, productImages: [UIImage]?, priceImages: [UIImage]?) {
+        self.init(editType: kEditType.kEditTypeAdd, productID: nil)
+        self.viewModel.sourceItem = source
+        if productImages != nil {
+            self.addImages(productImages!, isProduct: true)
+        }
+        if priceImages != nil {
+            self.addImages(priceImages!, isProduct: false)
+        }
     }
     
     deinit {
@@ -427,7 +437,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
             
             let takePhoto = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (images:[UIImage]) in
                 
-                weakSelf?.addImags(images, isProduct: isProduct)
+                weakSelf?.addImages(images, isProduct: isProduct)
                 weakSelf?.navigationController?.popViewControllerAnimated(true)
                 
                 }, cancel: nil)
@@ -446,7 +456,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         }
     }
     
-    private func addImags(images: [UIImage], isProduct: Bool) {
+    private func addImages(images: [UIImage], isProduct: Bool) {
         
         var targetImageItems: [DSEditImgItem] = []
         for singleImg in images {

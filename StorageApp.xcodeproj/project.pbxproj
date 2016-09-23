@@ -698,8 +698,8 @@
 		044D654F1D478D0C0061597F /* selectPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				047754881D4A05000045F548 /* Cell */,
 				0477548A1D4A05000045F548 /* Controller */,
+				047754881D4A05000045F548 /* Cell */,
 			);
 			path = selectPhoto;
 			sourceTree = "<group>";

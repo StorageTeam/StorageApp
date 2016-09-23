@@ -69,8 +69,8 @@ class FKScanController: DSBaseViewController, DSDataCenterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
-        self.setup()
         self.navigationItem.title = "扫码"
+        self.setup()
     }
     
     // MARK: - DSDataCenterDelegate

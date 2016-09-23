@@ -43,5 +43,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>&quot;扫一扫需要使用相机&quot;</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>&quot;扫一扫需要使用相册&quot;</string>
 </dict>
 </plist>
