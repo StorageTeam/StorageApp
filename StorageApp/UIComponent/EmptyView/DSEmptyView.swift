@@ -1,14 +1,15 @@
 //
-//  DSBuildingImgView.swift
+//  DSEmptyView.swift
 //  StorageApp
 //
-//  Created by ascii on 16/7/28.
+//  Created by ascii on 16/9/23.
 //  Copyright © 2016年 DSB. All rights reserved.
 //
 
 import UIKit
 
-class DSBuildingImgView: UIView {
+class DSEmptyView: UIView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -20,7 +21,7 @@ class DSBuildingImgView: UIView {
         
         self.addSubview(self.tipLabel)
         self.tipLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.buildingImgView.snp_bottom).offset(25)
+            make.top.equalTo(self.buildingImgView.snp_bottom).offset(11)
             make.centerX.equalTo(self)
         }
     }
@@ -32,17 +33,18 @@ class DSBuildingImgView: UIView {
     
     lazy var buildingImgView: UIImageView = {
         let imgView = UIImageView()
-        imgView.image = UIImage.init(named: "building_img_icon")
+        imgView.image = UIImage.init(named: "buy_mission_empty_icon")
         return imgView
     }()
     
     lazy var tipLabel: UILabel = {
         let label = UILabel.init()
-        label.textColor = UIColor.init(rgb: 0x444444)
-        label.font = UIFont.systemFontOfSize(15)
+        label.textColor = UIColor.init(rgb: 0x666666)
+        label.font = UIFont.systemFontOfSize(14)
         label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0
-        label.text = "功能正在建设中\n敬请期待~"
         return label
     }()
+
+
 }

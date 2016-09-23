@@ -37,13 +37,15 @@ class DSCurrentShopView: UIView {
     // MARK: - Layout
     
     func addAllSubviews() -> Void {
-        self.addSubview(self.shopBgView)
-        self.shopBgView.snp_makeConstraints { (make) in
-            make.edges.equalTo(self)
+        self.addSubview(self.locationIcon)
+        self.locationIcon.snp_makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.bottom.equalTo(self.snp_centerY).offset(-27)
+            make.size.equalTo(CGSizeMake(32, 46))
         }
         
-        self.addSubview(self.greenLine)
-        self.greenLine.snp_makeConstraints { (make) in
+        self.addSubview(self.seperatorLine)
+        self.seperatorLine.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
             make.right.equalTo(self).offset(-20)
             make.height.equalTo(DSConst.pixelHeight)
@@ -54,13 +56,13 @@ class DSCurrentShopView: UIView {
         self.shopLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(30)
             make.right.equalTo(self).offset(-30)
-            make.bottom.equalTo(self.greenLine.snp_top).offset(-5)
+            make.bottom.equalTo(self.seperatorLine.snp_top).offset(-5)
         }
         
         self.addSubview(self.changeShopLabel)
         self.changeShopLabel.snp_makeConstraints { (make) in
             make.centerX.equalTo(self).offset(-10)
-            make.top.equalTo(self.greenLine.snp_bottom).offset(5)
+            make.top.equalTo(self.seperatorLine.snp_bottom).offset(5)
         }
         
         self.addSubview(self.downArrowView)
@@ -84,21 +86,21 @@ class DSCurrentShopView: UIView {
     
     // MARK: - Property
     
-    lazy var shopBgView: UIImageView = {
+    lazy var locationIcon: UIImageView = {
         var view = UIImageView.init()
-        view.image = UIImage.init(named: "locationBgView")
+        view.image = UIImage.init(named: "main_location_icon")
         return view
     }()
     
-    lazy var greenLine: UIView = {
+    lazy var seperatorLine: UIView = {
         var view = UIView.init()
-        view.backgroundColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 1)
+        view.backgroundColor = UIColor.init(rgb: 0xe5e5e5)
         return view
     }()
     
     lazy var shopLabel: UILabel = {
         let label = UILabel.init()
-        label.textColor = UIColor(red: 31.0/255.0, green: 186.0/255.0, blue: 214.0/255.0, alpha: 1)
+        label.textColor = UIColor.init(rgb: 0x1fbad6)
         label.font = UIFont.systemFontOfSize(15)
         label.numberOfLines = 0
         label.textAlignment = NSTextAlignment.Center
@@ -122,7 +124,7 @@ class DSCurrentShopView: UIView {
     
     lazy var actionButton: UIButton = {
         var button = UIButton.init(type: UIButtonType.Custom)
-        button.addTarget(self, action: #selector(clickButtonAction), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(self.clickButtonAction), forControlEvents: .TouchUpInside)
         return button
     }()
 }

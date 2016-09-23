@@ -10,33 +10,47 @@ import UIKit
 import DGElasticPullToRefresh
 
 class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSDataCenterDelegate, UIGestureRecognizerDelegate {
+    var naviController : UINavigationController?
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.naviController = nil
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAllSubviews()
         self.configNavItem()
         self.addRefresh()
-        self.reqDataList()
+        self.requestDataList()
+        
+        if self.naviController == nil {
+            self.naviController = self.navigationController
+        }
     }
 
     func addAllSubviews() {
         self.view.addSubview(self.tableView)
-        self.view.addSubview(self.choseShopView)
-        self.view.addSubview(self.shopListView)
-        
-        self.choseShopView.snp_makeConstraints { (make) in
-            make.left.top.right.equalTo(self.view)
-            make.height.equalTo(45)
-        }
-        
         self.tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.choseShopView.snp_bottom)
-            make.left.right.bottom.equalTo(self.view)
+            make.edges.equalTo(self.view)
         }
         
-        self.shopListView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_bottom)
-            make.size.equalTo(CGSizeMake(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds) - 64))
+        self.view.addSubview(self.deliverButton)
+        self.deliverButton.snp_makeConstraints { (make) in
+            make.left.equalTo(self.view).offset(24)
+            make.bottom.equalTo(self.view).offset(-20)
+            make.size.equalTo(CGSizeMake(60, 60))
+        }
+        self.deliverButton.layer.cornerRadius = 30
+        
+        self.view.addSubview(self.emptyView)
+        self.emptyView.snp_makeConstraints { (make) in
+            make.edges.equalTo(self.view)
         }
     }
     
@@ -52,7 +66,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     }
     
     func pullRequestCurrentPage(isPullDown: Bool) -> Void {
-        self.reqDataList()
+        self.requestDataList()
     }
     
     deinit {
@@ -60,7 +74,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     }
     
     //MARK: - Request
-    func reqDataList() {
+    func requestDataList() {
         DSMissionServe.reqMissionList(2000, delegate: self)
     }
     
@@ -73,11 +87,13 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         
         if header.code == DSResponseCode.Normal {
             if identify == 2000 {
-                self.viewModel.shopId = nil
-                self.choseShopView.titleLabel.text = "全部"
+//                self.viewModel.shopId = nil
+//                self.choseShopView.titleLabel.text = "全部"
                 self.viewModel.orginDataArray = DSMissionServe.parserMissionList(response)
-                self.viewModel.shopArray = DSMissionServe.filterShopListWith(self.viewModel.orginDataArray!)
+//                self.viewModel.shopArray = DSMissionServe.filterShopListWith(self.viewModel.orginDataArray!)
                 self.tableView.reloadData()
+                
+                self.emptyView.hidden = (self.viewModel.orginDataArray?.count != 0)
             }
         }
     }
@@ -119,7 +135,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
                                           forControlEvents: .TouchUpInside)
             }
             return cell!
-        } else if (indexPath.row == 0 && missionItem != nil){
+        } else if (indexPath.row == 0 && missionItem != nil) {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(DSBuyLocationCell)) as? DSBuyLocationCell
             if (cell != nil) {
                 cell?.titleLabel.text = missionItem?.shopName
@@ -139,11 +155,11 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10.0
+        return CGFloat.min
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.min
+        return 10.0
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -153,15 +169,12 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     func configNavItem() {
         
         self.navigationItem.title = "采购任务"
-        
-        let leftItem = UIBarButtonItem.init(image: UIImage.init(named: ""), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.clickBack))
-        self.navigationItem.leftBarButtonItem = leftItem
     }
     
     //MARK: action
     
     func clickBack() {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.naviController?.popViewControllerAnimated(true)
     }
     
     func clickBuy(sender: UIButton) -> Void {
@@ -187,26 +200,24 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         self.choseShopView.titleLabel.text = shopName
         self.hideshopListView(nil)
     }
-    //MARK: gesture delegate
-//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        let location = gestureRecognizer.locationInView(self.tableView)
-//        let indexpath = self.tableView.indexPathForRowAtPoint(location)
-//        if indexpath != nil {
-//            return false
-//        }
-//        
-//    }
+    
+    func clickDeliverButtonAction(sender: UIButton) {
+        let controller = DSDeliverMissionController.init()
+        controller.hidesBottomBarWhenPushed = true
+        self.naviController?.pushViewController(controller, animated: true)
+    }
+    
     //MARK: - method
     
     func pushBuyingController(missionItem: DSMissionItem) {
         
         weak var weakSelf = self
         let controller = DSBuyingController.init(missionItem: missionItem) { (finish) in
-            weakSelf?.navigationController?.popViewControllerAnimated(true)
+            weakSelf?.naviController?.popViewControllerAnimated(true)
             weakSelf?.showHUD()
-            weakSelf?.reqDataList()
+            weakSelf?.requestDataList()
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.naviController?.pushViewController(controller, animated: true)
     }
     
     func hideshopListView(completion: ((Bool) -> Void)?) -> Void {
@@ -240,9 +251,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     
     lazy var choseShopView: DSBuySelectShopView = {
         let view = DSBuySelectShopView()
-        view.actionBtn.addTarget(self,
-                                 action: #selector(self.clickSelectShop),
-                                 forControlEvents: .TouchUpInside)
+        view.actionBtn.addTarget(self, action: #selector(self.clickSelectShop), forControlEvents: .TouchUpInside)
         return view
     }()
     
@@ -251,6 +260,22 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         view.backgroundColor = UIColor.init(white: 0, alpha: 0.2)
         view.listHeaderView.actionButton.addTarget(self, action: #selector(clickHideShopListButton), forControlEvents: .TouchUpInside)
         return view
+    }()
+    
+    lazy var emptyView: DSEmptyView = {
+        let view = DSEmptyView.init()
+        view.hidden = true
+        view.backgroundColor = UIColor.whiteColor()
+        return view
+    }()
+    
+    lazy var deliverButton: UIButton = {
+        var button = UIButton.init(type: UIButtonType.Custom)
+        button.titleLabel?.font = UIFont.systemFontOfSize(12)
+        button.setTitle("前往发货", forState: .Normal)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.69)
+        button.addTarget(self, action: #selector(self.clickDeliverButtonAction), forControlEvents: .TouchUpInside)
+        return button
     }()
     
     lazy var viewModel: DSMissionViewModel = {

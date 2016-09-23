@@ -16,7 +16,7 @@ class DSNavigationController: UINavigationController, SlideMenuDelegate, UIAlert
 
         // Do any additional setup after loading the view.
         
-        let controller = DSShopViewController.init()
+        let controller = DSMainViewController.init()
         self.viewControllers = [controller]
         
         self.slideMenu.delegate   = self
@@ -52,7 +52,7 @@ class DSNavigationController: UINavigationController, SlideMenuDelegate, UIAlert
             break
         case .MenuProductAdd:
             self.hideSlideMenu({ (done) in
-                let controller = DSShopViewController.init()
+                let controller = DSMainViewController.init()
                 wkSelf!.viewControllers = [controller]
             })
             break
@@ -100,7 +100,7 @@ class DSNavigationController: UINavigationController, SlideMenuDelegate, UIAlert
             case DSNavigationController.ALERT_VIEW_SHOW_SLIDE_MENU:
                 if buttonIndex == 1 {
                     DSAccount.logout()
-                    let controller = DSShopViewController.init()
+                    let controller = DSMainViewController.init()
                     self.viewControllers = [controller]
                     self.presentStartController()
                 }
