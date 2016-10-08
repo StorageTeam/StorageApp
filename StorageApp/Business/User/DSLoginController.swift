@@ -69,9 +69,9 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     }
     
     // MARK: - Actions
-    @objc func clickLoginAction() {
-        let email      = self.emailTextField.textField.text
-        let password    = self.passwordTextField.textField.text
+    @objc func clickSubmitAction() {
+        let email = self.emailTextField.textField.text
+        let password = self.passwordTextField.textField.text
         
         if email?.characters.count > 0 && password?.characters.count > 0 {
             DSUserService.requestLogin(DSLoginController.DS_LOGIN_REQUEST_IDENTIFY,
@@ -102,12 +102,12 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     override func loadView() {
         super.loadView()
         
-//        self.view.addSubview(self.popBackBtn)
-//        self.popBackBtn.snp_makeConstraints { (make) in
-//            make.top.equalTo(self.view).offset(20)
-//            make.left.equalTo(self.view).offset(12)
-//            make.size.equalTo(CGSizeMake(44, 44))
-//        }
+        self.view.addSubview(self.popBackBtn)
+        self.popBackBtn.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view).offset(20)
+            make.left.equalTo(self.view).offset(12)
+            make.size.equalTo(CGSizeMake(44, 44))
+        }
         
         self.view.addSubview(self.titleLabel)
         self.titleLabel.snp_makeConstraints { (make) in
@@ -138,25 +138,25 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
             make.height.equalTo(45)
         }
         
-//        self.view.addSubview(self.findPwdBtn)
-//        self.findPwdBtn.snp_makeConstraints { (make) in
-//            make.top.equalTo(self.loginBtn.snp_bottom)
-//            make.centerX.equalTo(self.view)
-//            make.size.equalTo(CGSizeMake(80, 44))
-//        }
-//        
-//        self.view.addSubview(self.registerTipLabel)
-//        self.registerTipLabel.snp_makeConstraints { (make) in
-//            make.bottom.equalTo(self.view).offset(-36)
-//            make.centerX.equalTo(self.view).offset(-14)
-//        }
-//        
-//        self.view.addSubview(self.registerBtn)
-//        self.registerBtn.snp_makeConstraints { (make) in
-//            make.centerY.equalTo(self.registerTipLabel)
-//            make.left.equalTo(self.registerTipLabel.snp_right).offset(-3)
-//            make.size.equalTo(CGSizeMake(44, 44))
-//        }
+        self.view.addSubview(self.findPwdBtn)
+        self.findPwdBtn.snp_makeConstraints { (make) in
+            make.top.equalTo(self.loginBtn.snp_bottom)
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSizeMake(80, 44))
+        }
+        
+        self.view.addSubview(self.registerTipLabel)
+        self.registerTipLabel.snp_makeConstraints { (make) in
+            make.bottom.equalTo(self.view).offset(-36)
+            make.centerX.equalTo(self.view).offset(-14)
+        }
+        
+        self.view.addSubview(self.registerBtn)
+        self.registerBtn.snp_makeConstraints { (make) in
+            make.centerY.equalTo(self.registerTipLabel)
+            make.left.equalTo(self.registerTipLabel.snp_right).offset(-3)
+            make.size.equalTo(CGSizeMake(44, 44))
+        }
     }
     
     // MARK: - Property
@@ -188,7 +188,7 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     }()
     
     lazy var passwordTextField: DSUserTextField = {
-        let passwordTextField = DSUserTextField(title: "密码", placeholder: "密码为6-16位字母或数字", secure: true)
+        let passwordTextField = DSUserTextField(title: "密码", placeholder: "密码为6-16位且包含数字和字母组合", secure: true)
         passwordTextField.textField.delegate = self;
         passwordTextField.textField.returnKeyType = .Done
         passwordTextField.textField.keyboardType = .NumbersAndPunctuation
@@ -201,13 +201,13 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
         button.setTitle("登录", forState: UIControlState.Normal)
         button.backgroundColor = UIColor.init(rgb: 0x1fbad6)
         button.titleLabel?.font = UIFont.systemFontOfSize(15)
-        button.addTarget(self, action: #selector(self.clickLoginAction), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(self.clickSubmitAction), forControlEvents: .TouchUpInside)
         return button
     }()
     
     lazy var findPwdBtn: UIButton = {
         let button = UIButton(type: UIButtonType.Custom)
-        button.setTitle("找回密码?", forState: UIControlState.Normal)
+        button.setTitle("忘记密码?", forState: UIControlState.Normal)
         button.titleLabel?.font = UIFont.systemFontOfSize(14)
         button.setTitleColor(UIColor.init(rgb: 0x666666), forState: .Normal)
         button.addTarget(self, action: #selector(self.clickFindPwdAction), forControlEvents: .TouchUpInside)

@@ -41,8 +41,6 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         
         self.view.backgroundColor = UIColor.init(rgb: 0xffffff)
         self.buyMissionController.naviController = self.navigationController
-        
-        self.requestReceiveOrderStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,24 +48,29 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         
         self.configBarTitleView()
         
-        self.repeatsRequestPurchaseRecords()
-        if DSAccount.isLogin() && self.viewModel.isEmpty() {
-            self.requestShopList()
-        }
+        self.requestReceiveOrderStatus()
+        self.requestPurchaseRecords()
+        self.requestShopList()
     }
     
     // MARK: - Request
     
     func requestReceiveOrderStatus() -> Void {
-        DSMainService.requestReceiveOrderStatus(DSMainViewController.RECEIVE_ORDER_STATUS_REQUEST, delegate: self)
+        if DSAccount.isLogin() {
+            DSMainService.requestReceiveOrderStatus(DSMainViewController.RECEIVE_ORDER_STATUS_REQUEST, delegate: self)
+        }
     }
     
-    func repeatsRequestPurchaseRecords() -> Void {
-        DSMainService.requestPurchaseRecords(DSMainViewController.PURCHASE_RECORDS_REQUEST, delegate: self)
+    func requestPurchaseRecords() -> Void {
+        if DSAccount.isLogin() {
+            DSMainService.requestPurchaseRecords(DSMainViewController.PURCHASE_RECORDS_REQUEST, delegate: self)
+        }
     }
     
     func requestShopList() -> Void {
-        DSMainService.requestShopList(DSMainViewController.SHOP_LIST_REQUEST, delegate: self)
+        if DSAccount.isLogin() && self.viewModel.isEmpty() {
+            DSMainService.requestShopList(DSMainViewController.SHOP_LIST_REQUEST, delegate: self)
+        }
     }
     
     // MARK: - DSDataCenterDelegate
@@ -247,7 +250,7 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         } else {
             self.purchaseRecordsRequestTimer = NSTimer.scheduledTimerWithTimeInterval(DSMainViewController.NOTIFICATION_REFRESH_INTERVAL,
                                                                                       target: self,
-                                                                                      selector: #selector(self.repeatsRequestPurchaseRecords),
+                                                                                      selector: #selector(self.requestPurchaseRecords),
                                                                                       userInfo: nil,
                                                                                       repeats: false)
         }

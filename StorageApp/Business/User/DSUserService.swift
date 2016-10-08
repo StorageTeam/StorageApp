@@ -25,4 +25,29 @@ class DSUserService: NSObject {
                               para: ["data_json" : para],
                               userInfo: nil)
     }
+    
+    class func requestRegister(identify: Int, delegate: DSDataCenterDelegate, email: String, password: String) -> Void {
+        var para                    = [String : String]()
+        para["email"]               = email
+        para["password"]            = password
+        
+        DSDataCenter.Request(identify,
+                             delegate: delegate,
+                             path: "/link-site/web/crm_user/register_shipoffline_user.json",
+                             para: ["data_json" : para],
+                             userInfo: nil)
+    }
+    
+    class func requestFindPWD(identify: Int, delegate: DSDataCenterDelegate, email: String, password: String, confirmPwd: String) -> Void {
+        var para                    = [String : String]()
+        para["email"]               = email
+        para["new_password"]        = password
+        para["confirm_password"]    = confirmPwd
+        
+        DSDataCenter.Request(identify,
+                             delegate: delegate,
+                             path: "/link-site/web/crm_user/reset_user_password.json",
+                             para: ["data_json" : para],
+                             userInfo: nil)
+    }
 }

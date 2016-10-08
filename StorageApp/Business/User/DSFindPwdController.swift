@@ -8,7 +8,14 @@
 
 import UIKit
 
-class DSFindPwdController: DSBaseViewController, UITextFieldDelegate {
+let DSRegisterErrorDomain = "DSRegisterErrorDomain"
+enum RegisterErrorCode : Int {
+    case EmailInvalid = -100
+    case PasswordInvalid = -101
+}
+
+class DSFindPwdController: DSBaseViewController, UITextFieldDelegate, DSDataCenterDelegate {
+    private static let FIND_PWD_REQUEST: Int = 1
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -38,6 +45,21 @@ class DSFindPwdController: DSBaseViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - DSDataCenterDelegate
+    func networkDidResponseSuccess(identify: Int, header: DSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
+        if header.code == DSResponseCode.Normal {
+            if identify == DSFindPwdController.FIND_PWD_REQUEST {
+                self.showText("找回密码成功，请重新登录")
+                self.replaceWithLoginController()
+            }
+        } else {
+            super.showText(header.msg)
+        }
+    }
+    
+    func networkDidResponseError(identify: Int, header: DSResponseHeader?, error: String?, userInfo: [String : AnyObject]?) {
+        super.showText(error)
+    }
 
     /*
     // MARK: - Navigation
@@ -67,7 +89,45 @@ class DSFindPwdController: DSBaseViewController, UITextFieldDelegate {
     }
     
     @objc private func clickSubmitBtnAction() {
+        let email = self.emailTextField.textField.text
+        let pwd = self.pwdTextField.textField.text
+        let confirmPwd = self.confirmPwdTextField.textField.text
         
+        do {
+            try self.checkValidPara(email as NSString?, pwd: pwd as NSString?, confirmPwd: confirmPwd as NSString?)
+            
+            DSUserService.requestFindPWD(DSFindPwdController.FIND_PWD_REQUEST,
+                                         delegate: self,
+                                         email: email!,
+                                         password: pwd!,
+                                         confirmPwd: confirmPwd!)
+        } catch let error as NSError {
+            self.showText(error.localizedFailureReason)
+        }
+    }
+    
+    func checkValidPara(email: NSString?, pwd: NSString?, confirmPwd: NSString?) throws {
+        if email?.length == 0 {
+            throw NSError(domain: DSRegisterErrorDomain, code: RegisterErrorCode.EmailInvalid.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: "请输入邮箱地址"])
+        }
+        if pwd?.length == 0 {
+            throw NSError(domain: DSRegisterErrorDomain, code: RegisterErrorCode.PasswordInvalid.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: "请输入新密码"])
+        }
+        if confirmPwd?.length == 0 {
+            throw NSError(domain: DSRegisterErrorDomain, code: RegisterErrorCode.PasswordInvalid.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: "请输入确认密码"])
+        }
+        if pwd?.isEqualToString(confirmPwd as! String) == false {
+            throw NSError(domain: DSRegisterErrorDomain, code: RegisterErrorCode.PasswordInvalid.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: "两次输入密码不一致"])
+        }
+    }
+    
+    private func replaceWithLoginController() {
+        var controllers = self.navigationController?.viewControllers
+        if controllers?.count >= 2 {
+            controllers?.removeLast()
+            controllers?.append(DSLoginController.init())
+            self.navigationController?.setViewControllers(controllers!, animated: false)
+        }
     }
     
     // MARK: - loadView
@@ -119,7 +179,7 @@ class DSFindPwdController: DSBaseViewController, UITextFieldDelegate {
     }()
     
     lazy var pwdTextField: DSUserTextField = {
-        let pwdTextField = DSUserTextField(placeholder: "设置新密码(密码为6-16位字母或数字)", secure: true)
+        let pwdTextField = DSUserTextField(placeholder: "设置新密码(密码为6-16位且包含数字和字母组合)", secure: true)
         pwdTextField.textField.delegate = self;
         pwdTextField.textField.returnKeyType = .Done
         pwdTextField.textField.keyboardType = .NumbersAndPunctuation
