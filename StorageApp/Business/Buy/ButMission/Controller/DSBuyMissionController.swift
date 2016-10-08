@@ -11,11 +11,13 @@ import DGElasticPullToRefresh
 
 class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITableViewDataSource, DSDataCenterDelegate, UIGestureRecognizerDelegate {
     var naviController : UINavigationController?
+    var isReceiveOrderOn : Bool!
     
     init() {
         super.init(nibName: nil, bundle: nil)
         
         self.naviController = nil
+        self.isReceiveOrderOn = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,7 +50,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         }
         self.deliverButton.layer.cornerRadius = 30
         
-        self.view.addSubview(self.emptyView)
+        self.tableView.addSubview(self.emptyView)
         self.emptyView.snp_makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
@@ -61,8 +63,6 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
             self?.pullRequestCurrentPage(true)
             }, loadingView: loadingView)
         self.tableView.dg_setPullToRefreshFillColor(UIColor(red: 57/255.0, green: 67/255.0, blue: 89/255.0, alpha: 1.0))
-//        self.tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
-        
     }
     
     func pullRequestCurrentPage(isPullDown: Bool) -> Void {
@@ -87,13 +87,9 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         
         if header.code == DSResponseCode.Normal {
             if identify == 2000 {
-//                self.viewModel.shopId = nil
-//                self.choseShopView.titleLabel.text = "全部"
                 self.viewModel.orginDataArray = DSMissionServe.parserMissionList(response)
-//                self.viewModel.shopArray = DSMissionServe.filterShopListWith(self.viewModel.orginDataArray!)
+                self.refreshEmptyView(self.isReceiveOrderOn)
                 self.tableView.reloadData()
-                
-                self.emptyView.hidden = (self.viewModel.orginDataArray?.count != 0)
             }
         }
     }
@@ -169,6 +165,22 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     func configNavItem() {
         
         self.navigationItem.title = "采购任务"
+    }
+    
+    //MARK: Interface
+    
+    func refreshEmptyView(isReceiveOrder: Bool) -> Void {
+        self.emptyView.hidden = true
+        
+        if self.viewModel.orginDataArray?.count == 0 {
+            self.emptyView.hidden = false
+            self.emptyView.tipLabel.text = "您没有采购任务哦~\n可尝试下拉刷新试试看"
+        }
+        
+        if isReceiveOrder == false {
+            self.emptyView.hidden = false
+            self.emptyView.tipLabel.text = "您没有采购任务哦~\n可点击右上角\"接单\"按钮开启接单模式"
+        }
     }
     
     //MARK: action
@@ -265,6 +277,7 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     lazy var emptyView: DSEmptyView = {
         let view = DSEmptyView.init()
         view.hidden = true
+        view.userInteractionEnabled = false
         view.backgroundColor = UIColor.whiteColor()
         return view
     }()

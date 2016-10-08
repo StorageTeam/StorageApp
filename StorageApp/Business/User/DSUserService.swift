@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 class DSUserService: NSObject {
-    class func requestLogin(identify: Int, delegate: DSDataCenterDelegate, mobile: String, password: String) -> Void {
+    class func requestLogin(identify: Int, delegate: DSDataCenterDelegate, email: String, password: String) -> Void {
         let did = UIDevice.currentDevice().identifierForVendor?.UUIDString ?? ""
         
         var para                    = [String : String]()
-        para["mobile"]              = mobile
+        para["email"]               = email
         para["password"]            = password
         para["d_id"]                = did
         para["authorize_login_sys"] = "4"

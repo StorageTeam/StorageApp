@@ -35,7 +35,7 @@ class DSBaseViewController: UIViewController {
     }
     
     func presentStartController() -> Void {
-        let controller = DSStartController()
+        let controller = DSLoginController()
         let naviController = UINavigationController.init(rootViewController: controller)
         
         self.navigationController?.presentViewController(naviController, animated: true, completion: {});

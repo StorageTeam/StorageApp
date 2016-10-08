@@ -219,9 +219,9 @@
 		CE4B2DE41D94C9F50070C8AA /* DSCurrentShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD31D94C9F50070C8AA /* DSCurrentShopView.swift */; };
 		CE4B2DE51D94C9F50070C8AA /* DSCurrentShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD31D94C9F50070C8AA /* DSCurrentShopView.swift */; };
 		CE4B2DE61D94C9F50070C8AA /* DSCurrentShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD31D94C9F50070C8AA /* DSCurrentShopView.swift */; };
-		CE4B2DE71D94C9F50070C8AA /* DSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSShopService.swift */; };
-		CE4B2DE81D94C9F50070C8AA /* DSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSShopService.swift */; };
-		CE4B2DE91D94C9F50070C8AA /* DSShopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSShopService.swift */; };
+		CE4B2DE71D94C9F50070C8AA /* DSMainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSMainService.swift */; };
+		CE4B2DE81D94C9F50070C8AA /* DSMainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSMainService.swift */; };
+		CE4B2DE91D94C9F50070C8AA /* DSMainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD41D94C9F50070C8AA /* DSMainService.swift */; };
 		CE4B2DEA1D94C9F50070C8AA /* DSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD51D94C9F50070C8AA /* DSMainViewController.swift */; };
 		CE4B2DEB1D94C9F50070C8AA /* DSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD51D94C9F50070C8AA /* DSMainViewController.swift */; };
 		CE4B2DEC1D94C9F50070C8AA /* DSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B2DD51D94C9F50070C8AA /* DSMainViewController.swift */; };
@@ -407,7 +407,7 @@
 		CE4B2DC21D94C9E00070C8AA /* DSSlideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSSlideMenu.swift; sourceTree = "<group>"; };
 		CE4B2DD11D94C9F50070C8AA /* DSNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSNotificationView.swift; sourceTree = "<group>"; };
 		CE4B2DD31D94C9F50070C8AA /* DSCurrentShopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSCurrentShopView.swift; sourceTree = "<group>"; };
-		CE4B2DD41D94C9F50070C8AA /* DSShopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSShopService.swift; sourceTree = "<group>"; };
+		CE4B2DD41D94C9F50070C8AA /* DSMainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSMainService.swift; sourceTree = "<group>"; };
 		CE4B2DD51D94C9F50070C8AA /* DSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSMainViewController.swift; sourceTree = "<group>"; };
 		CE4B2DD71D94C9F50070C8AA /* DSShopListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSShopListCell.swift; sourceTree = "<group>"; };
 		CE4B2DD81D94C9F50070C8AA /* DSShopListHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSShopListHeaderView.swift; sourceTree = "<group>"; };
@@ -1100,7 +1100,7 @@
 			children = (
 				CE4B2DD51D94C9F50070C8AA /* DSMainViewController.swift */,
 				CE4B2DD31D94C9F50070C8AA /* DSCurrentShopView.swift */,
-				CE4B2DD41D94C9F50070C8AA /* DSShopService.swift */,
+				CE4B2DD41D94C9F50070C8AA /* DSMainService.swift */,
 				CE4B2DD01D94C9F50070C8AA /* Banner */,
 				CE4B2DD61D94C9F50070C8AA /* List */,
 				CE4B2DDA1D94C9F50070C8AA /* Model */,
@@ -1605,7 +1605,7 @@
 				CE4B2DC31D94C9E00070C8AA /* DSNavigationController.swift in Sources */,
 				0435D7ED1D24B03D008BBFEF /* FKEditSaveCell.swift in Sources */,
 				041976721D728EA8001CCBB8 /* DSBuyMissionCell.swift in Sources */,
-				CE4B2DE71D94C9F50070C8AA /* DSShopService.swift in Sources */,
+				CE4B2DE71D94C9F50070C8AA /* DSMainService.swift in Sources */,
 				CE95501C1D72E1CA0085FFCC /* DSDeliverViewModel.swift in Sources */,
 				CED7E5541D4B385A0063A423 /* DSScanService.swift in Sources */,
 				CE4B2DAF1D93C75E0070C8AA /* DSUserTextField.swift in Sources */,
@@ -1720,7 +1720,7 @@
 				CEF0CAF61D1D31CA003C5357 /* DSDictionary+Extension.swift in Sources */,
 				CE4B2DA21D9387C70070C8AA /* DSStartController.swift in Sources */,
 				044D65571D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
-				CE4B2DE81D94C9F50070C8AA /* DSShopService.swift in Sources */,
+				CE4B2DE81D94C9F50070C8AA /* DSMainService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1824,7 +1824,7 @@
 				CEF0CAF71D1D31CA003C5357 /* DSDictionary+Extension.swift in Sources */,
 				CE4B2DA31D9387C70070C8AA /* DSStartController.swift in Sources */,
 				044D65581D4848340061597F /* FKTakePhotoActionView.swift in Sources */,
-				CE4B2DE91D94C9F50070C8AA /* DSShopService.swift in Sources */,
+				CE4B2DE91D94C9F50070C8AA /* DSMainService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

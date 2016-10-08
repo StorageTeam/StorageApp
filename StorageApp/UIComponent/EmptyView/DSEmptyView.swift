@@ -15,7 +15,7 @@ class DSEmptyView: UIView {
         
         self.addSubview(self.buildingImgView)
         self.buildingImgView.snp_makeConstraints { (make) in
-            make.top.equalTo(self).offset(35)
+            make.top.equalTo(self).offset(100)
             make.centerX.equalTo(self)
         }
         

@@ -9,15 +9,17 @@
 import Foundation
 
 class DSShopViewModel: NSObject {
-    var shopArray: [DSShopModel]!
+    var shopListArray: [DSShopModel]!
+    var purchaseRecordArray: [String]?
     
     override init() {
         super.init()
-        self.shopArray = [DSShopModel]()
+        self.shopListArray = [DSShopModel]()
+        self.purchaseRecordArray = nil
     }
     
     func getSelShopName() -> String? {
-        for model in self.shopArray {
+        for model in self.shopListArray {
             if model.isSelected == true {
                 return model.name
             }
@@ -26,7 +28,7 @@ class DSShopViewModel: NSObject {
     }
     
     func getSelShopID() -> String? {
-        for model in self.shopArray {
+        for model in self.shopListArray {
             if model.isSelected == true {
                 return String.init(model.itemID)
             }
@@ -34,14 +36,22 @@ class DSShopViewModel: NSObject {
         return nil
     }
     
+    func popFirstPurchaseRecord() -> String? {
+        if let value = self.purchaseRecordArray?.first {
+            self.purchaseRecordArray?.removeFirst()
+            return value
+        }
+        return nil
+    }
+    
     func isEmpty() -> Bool {
-        if self.shopArray.count == 0 {
+        if self.shopListArray.count == 0 {
             return true
         }
         return false
     }
     
     func clearData() -> Void {
-        self.shopArray = [DSShopModel]()
+        self.shopListArray = [DSShopModel]()
     }
 }

@@ -9,48 +9,86 @@
 import UIKit
 
 class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCenterDelegate {
-    private static let SHOPLIST_REQUEST : Int          = 0
+    private static let SHOP_LIST_REQUEST: Int = 1
+    private static let RECEIVE_ORDER_STATUS_REQUEST: Int = 2
+    private static let PURCHASE_RECORDS_REQUEST: Int = 3
+    
+    private static let NOTIFICATION_REFRESH_INTERVAL: Double = 10.0
+    
+    private var purchaseRecordsRequestTimer: NSTimer?
+    private var purchaseRecordsDisplayTimer: NSTimer?
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        
+        self.purchaseRecordsRequestTimer = nil
+        self.purchaseRecordsDisplayTimer = nil
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        self.purchaseRecordsRequestTimer?.invalidate()
+        self.purchaseRecordsDisplayTimer?.invalidate()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.configRightNaviBarItem()
+        
         self.view.backgroundColor = UIColor.init(rgb: 0xffffff)
         self.buyMissionController.naviController = self.navigationController
+        
+        self.requestReceiveOrderStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         self.configBarTitleView()
-        self.configRightNaviBarItem()
         
+        self.repeatsRequestPurchaseRecords()
         if DSAccount.isLogin() && self.viewModel.isEmpty() {
-            DSShopService.requestList(DSMainViewController.SHOPLIST_REQUEST, delegate: self)
+            self.requestShopList()
         }
+    }
+    
+    // MARK: - Request
+    
+    func requestReceiveOrderStatus() -> Void {
+        DSMainService.requestReceiveOrderStatus(DSMainViewController.RECEIVE_ORDER_STATUS_REQUEST, delegate: self)
+    }
+    
+    func repeatsRequestPurchaseRecords() -> Void {
+        DSMainService.requestPurchaseRecords(DSMainViewController.PURCHASE_RECORDS_REQUEST, delegate: self)
+    }
+    
+    func requestShopList() -> Void {
+        DSMainService.requestShopList(DSMainViewController.SHOP_LIST_REQUEST, delegate: self)
     }
     
     // MARK: - DSDataCenterDelegate
     func networkDidResponseSuccess(identify: Int, header: DSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSResponseCode.Normal {
-            if identify == DSMainViewController.SHOPLIST_REQUEST {
-                let items = DSShopService.parseList(response)
+            if identify == DSMainViewController.SHOP_LIST_REQUEST {
+                let items = DSMainService.parseShopList(response)
                 
                 switch identify {
-                case DSMainViewController.SHOPLIST_REQUEST:
-                    self.viewModel.shopArray = items
+                case DSMainViewController.SHOP_LIST_REQUEST:
+                    self.viewModel.shopListArray = items
                     self.curShopView.setShopName(self.viewModel.getSelShopName())
                     break
                 default:
                     break
                 }
+            } else if (identify == DSMainViewController.RECEIVE_ORDER_STATUS_REQUEST) {
+                self.setReceiveOrderStatus(DSMainService.parseOrderStatus(response))
+            } else if (identify == DSMainViewController.PURCHASE_RECORDS_REQUEST) {
+                self.viewModel.purchaseRecordArray = DSMainService.parsePurchaseRecords(response)
+                self.displayPurchaseRecord()
             }
         } else if header.code == DSResponseCode.AccessError {
             self.presentStartController()
@@ -66,7 +104,7 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     // MARK: - CurrentShopDelegate
     
     func didClickChangeShop(curShop: String?) {
-        self.shopListView.setDataSource(self.viewModel.shopArray)
+        self.shopListView.setDataSource(self.viewModel.shopListArray)
         self.showshopListView()
     }
     
@@ -131,45 +169,43 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     
     func clickHideShopListButton(sender: UIButton) -> Void {
         if let itemID = self.viewModel.getSelShopID() {
-            DSShopService.modifyDefaultShop(-1, shopID: itemID, delegate: self)
+            DSMainService.modifyDefaultShop(-1, shopID: itemID, delegate: self)
         }
         self.curShopView.setShopName(self.viewModel.getSelShopName())
         
         self.hideshopListView(nil)
     }
     
-    func clickSwitchAction(sender: AnyObject) {
-        // switch view show
-        if(self.segmentControl.selectedSegmentIndex == 0) {
-            self.buyMissionController.view.hidden       = true
-        } else if(self.segmentControl.selectedSegmentIndex == 1) {
-            self.buyMissionController.view.hidden       = false
-        }
+    func clickSwitchAction(sender: UISwitch) {
+        DSMainService.modifyReceiveOrder(0, isReceive: sender.on, delegate: self);
+        self.setReceiveOrderStatus(sender.on)
     }
     
     // MARK: - Method
     
     private func configRightNaviBarItem() -> Void {
-        let leftLabel = UILabel.init()
-        leftLabel.text = "不接单"
-        leftLabel.frame = CGRectMake(0, 0, 46, CGRectGetHeight((self.navigationController?.navigationBar.frame)!))
-        leftLabel.textAlignment = .Right
-        leftLabel.font = UIFont.systemFontOfSize(14)
-        leftLabel.textColor = UIColor.init(rgb: 0x1fbad6)
-        let rightBarItem = UIBarButtonItem.init(customView: leftLabel)
+        let rightBarItem = UIBarButtonItem.init(customView: self.statusLabel)
         
         let switchContainer = UIView.init(frame: CGRectMake(0, 0, 44, CGRectGetHeight((self.navigationController?.navigationBar.frame)!)))
-        let switchBtn = UISwitch.init()
-        switchBtn.transform = CGAffineTransformMakeScale(0.75, 0.75)
-        switchBtn.center = CGPointMake(switchContainer.bounds.size.width/2, switchContainer.bounds.size.height/2)
-        switchBtn.addTarget(self, action: #selector(self.clickSwitchAction), forControlEvents: .ValueChanged)
-        switchContainer.addSubview(switchBtn)
+        self.statusSwitch.center = CGPointMake(switchContainer.bounds.size.width/2, switchContainer.bounds.size.height/2)
+        switchContainer.addSubview(self.statusSwitch)
         let leftBarItem = UIBarButtonItem.init(customView: switchContainer)
         
         let fixedSpaceBarItem = UIBarButtonItem.init(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
         fixedSpaceBarItem.width = -14;
         
         self.navigationItem.rightBarButtonItems = [fixedSpaceBarItem, leftBarItem, rightBarItem]
+    }
+    
+    private func setReceiveOrderStatus(isOn: Bool) {
+        if isOn {
+            self.statusSwitch.on = true
+            self.statusLabel.text = "接单"
+        } else {
+            self.statusSwitch.on = false
+            self.statusLabel.text = "不接单"
+        }
+        self.buyMissionController.refreshEmptyView(isOn)
     }
     
     private func configBarTitleView() -> Void {
@@ -199,6 +235,23 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         }
     }
     
+    func displayPurchaseRecord() -> Void {
+        if let record = self.viewModel.popFirstPurchaseRecord() {
+            self.notificationView.textLabel.text = record
+            
+            self.purchaseRecordsDisplayTimer = NSTimer.scheduledTimerWithTimeInterval(DSMainViewController.NOTIFICATION_REFRESH_INTERVAL,
+                                                                                      target: self,
+                                                                                      selector: #selector(self.displayPurchaseRecord),
+                                                                                      userInfo: nil,
+                                                                                      repeats: false)
+        } else {
+            self.purchaseRecordsRequestTimer = NSTimer.scheduledTimerWithTimeInterval(DSMainViewController.NOTIFICATION_REFRESH_INTERVAL,
+                                                                                      target: self,
+                                                                                      selector: #selector(self.repeatsRequestPurchaseRecords),
+                                                                                      userInfo: nil,
+                                                                                      repeats: false)
+        }
+    }
     
     // MARK: - loadView
     
@@ -290,10 +343,27 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         return control
     }()
     
+    lazy var statusLabel: UILabel = {
+        let label = UILabel.init()
+        label.text = "不接单"
+        label.frame = CGRectMake(0, 0, 46, CGRectGetHeight((self.navigationController?.navigationBar.frame)!))
+        label.textAlignment = .Right
+        label.font = UIFont.systemFontOfSize(14)
+        label.textColor = UIColor.init(rgb: 0x1fbad6)
+        return label
+    }()
+    
+    lazy var statusSwitch: UISwitch = {
+        let switchBtn = UISwitch.init()
+        switchBtn.transform = CGAffineTransformMakeScale(0.75, 0.75)
+        switchBtn.addTarget(self, action: #selector(self.clickSwitchAction), forControlEvents: .ValueChanged)
+        return switchBtn
+    }()
+    
     lazy var notificationView: DSNotificationView = {
         let view = DSNotificationView.init()
         view.backgroundColor = UIColor.whiteColor()
-        view.textLabel.text = "first***nk完成了Mentholatumn的采购任务"
+        view.textLabel.text = "正在向服务器请求数据..."
         return view
     }()
     

@@ -152,7 +152,7 @@ class DSNavigationController: UINavigationController, SlideMenuDelegate, UIAlert
     }
     
     func presentStartController() -> Void {
-        let controller = DSStartController()
+        let controller = DSLoginController()
         let naviController = UINavigationController.init(rootViewController: controller)
         
         self.presentViewController(naviController, animated: true, completion: {});
