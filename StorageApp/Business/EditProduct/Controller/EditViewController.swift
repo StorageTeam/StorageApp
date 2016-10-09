@@ -125,6 +125,13 @@ class EditViewController: DSBaseViewController, DSDataCenterDelegate{
         
         self.showHUD()
         
+        if let addressCell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as? FKEditTitleCell {
+            self.viewModel.sourceItem.address = addressCell.textField.text
+        }
+        if let upcCell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 1)) as? FKEditTitleCell {
+            self.viewModel.sourceItem.upc = upcCell.textField.text
+        }
+        
         if let para = self.viewModel.getSavePara() {
             
             if self.viewModel.editType == kEditType.kEditTypeAdd {
@@ -318,8 +325,7 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource{
             cell = UITableViewCell.init(style: .Default, reuseIdentifier: nil)
         }
         
-        
-       if let picCell = cell as? FKEditPicCell {
+        if let picCell = cell as? FKEditPicCell {
             picCell.delegate = self
             picCell.tag = indexPath.row - 2
         }else if let saveCell = cell as? FKEditSaveCell {
@@ -476,7 +482,7 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
         self.tableView.reloadData()
     }
     
-    private func addImagAsset(assets: [PHAsset], isProduct: Bool) {
+    func addImagAsset(assets: [PHAsset], isProduct: Bool) {
 
         let size = CGSizeMake(CGFloat(DSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSConst.UPLOAD_PHOTO_LENGTH))
         let option = PHImageRequestOptions.init()

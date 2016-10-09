@@ -70,6 +70,11 @@ class FKScanController: DSBaseViewController, DSDataCenterDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
         self.navigationItem.title = "扫码"
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         self.setup()
     }
     
@@ -118,7 +123,7 @@ class FKScanController: DSBaseViewController, DSDataCenterDelegate {
         case .Authorized:
             self.setupScan()
         case .Restricted, .Denied:
-            print("访问受限制")
+            self.showText("访问受限制")
         case .NotDetermined:
             
             weak var weakSelf = self
@@ -126,22 +131,24 @@ class FKScanController: DSBaseViewController, DSDataCenterDelegate {
                 if res == true {
                     weakSelf?.setupScan()
                 }else{
-                    print("用户拒绝")
+                    self.showText("用户拒绝")
                 }
             })
         }
     }
     
     func setupScan() {
-        
-        let length : CGFloat = 260.0
-        let x : CGFloat = (CGRectGetWidth(self.view.frame) - length) / 2.0
-        let y : CGFloat = (CGRectGetHeight(self.view.frame) - 64 - length) / 2.0
-        self.scanRect = CGRectMake(x, y, length, length)
-        
-        self.sessionAddInput()
-        self.sessionAddOutput()
-        self.session.startRunning()
+        weak var wkSelf = self
+        dispatch_async(dispatch_get_main_queue()) {
+            let length : CGFloat = 260.0
+            let x : CGFloat = (CGRectGetWidth(self.view.frame) - length) / 2.0
+            let y : CGFloat = (CGRectGetHeight(self.view.frame) - 64 - length) / 2.0
+            wkSelf!.scanRect = CGRectMake(x, y, length, length)
+            
+            wkSelf!.sessionAddInput()
+            wkSelf!.sessionAddOutput()
+            wkSelf!.session.startRunning()
+        }
     }
     
     func sessionAddInput() {
@@ -166,7 +173,7 @@ class FKScanController: DSBaseViewController, DSDataCenterDelegate {
         
         let preViewLayer = AVCaptureVideoPreviewLayer.init(session: self.session)
         preViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        preViewLayer.frame = self.view.frame
+        preViewLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))
         self.view.layer.insertSublayer(preViewLayer, atIndex: 0)
         
         weak var weakSelf = self

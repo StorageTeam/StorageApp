@@ -39,12 +39,11 @@ class DSSelectImgController: DSBaseViewController {
         super.viewDidLoad()
         self.addAllSubviews()
         self.configNavItem()
-        self.fetchAllPhoto()
+        self.checkAuthority()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.checkAuthority()
     }
     
     deinit {
@@ -66,17 +65,19 @@ class DSSelectImgController: DSBaseViewController {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .NotDetermined:
-            
             weak var weakSelf = self
             PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) in
                 if status == .Authorized {
                     weakSelf?.fetchAllPhoto()
                 }
             })
+            break
+        case .Authorized:
+            self.fetchAllPhoto()
+            break
         case .Denied, .Restricted:
             let alert = UIAlertView.init(title: nil, message: "无法使用相机胶卷，请前往设置打开", delegate: nil, cancelButtonTitle: "确认")
             alert.show()
-        default:
             break
         }
     }
@@ -139,7 +140,11 @@ class DSSelectImgController: DSBaseViewController {
         let option = PHFetchOptions.init()
         option.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: true)]
         self.fetchRes = PHAsset.fetchAssetsWithOptions(option)
-        self.collectionView.reloadData()
+        
+        weak var wkSelf = self
+        dispatch_async(dispatch_get_main_queue()) {
+            wkSelf?.collectionView.reloadData()
+        }
     }
     
     private func getFetchItemAtIndexpath(indexPath: NSIndexPath) -> PHAsset? {

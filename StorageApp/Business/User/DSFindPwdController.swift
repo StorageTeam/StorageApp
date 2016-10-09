@@ -126,7 +126,7 @@ class DSFindPwdController: DSBaseViewController, UITextFieldDelegate, DSDataCent
         if controllers?.count >= 2 {
             controllers?.removeLast()
             controllers?.append(DSLoginController.init())
-            self.navigationController?.setViewControllers(controllers!, animated: false)
+            self.navigationController?.setViewControllers(controllers!, animated: true)
         }
     }
     

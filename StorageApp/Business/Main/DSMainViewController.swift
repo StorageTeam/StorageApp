@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCenterDelegate {
     private static let SHOP_LIST_REQUEST: Int = 1
@@ -108,7 +109,7 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     
     func didClickChangeShop(curShop: String?) {
         self.shopListView.setDataSource(self.viewModel.shopListArray)
-        self.showshopListView()
+        self.showShopListView()
     }
     
     // MARK: - Action
@@ -137,6 +138,23 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         })
         scanController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(scanController, animated: true)
+    }
+    
+    func clickSelectImgButton(sender: UIButton) {
+        weak var wkSelf = self
+        let selectPic = DSSelectImgController.init(selectDone: { (assets:[PHAsset]) in
+            let item = EditSourceItem.init()
+            item.shopId     = self.viewModel.getSelShopID()
+            item.address    = self.viewModel.getSelShopName()
+            
+            let editController = EditViewController.init(source: item, images: nil)
+            editController.addImagAsset(assets, isProduct: true)
+            editController.hidesBottomBarWhenPushed = true
+            
+            wkSelf?.replaceLastController(editController)
+        })
+        selectPic.maxImgCount = 30
+        self.navigationController?.pushViewController(selectPic, animated: true)
     }
     
     func pushProductEditController(qrCode: String, productImages: [UIImage]?, priceImages: [UIImage]?) {
@@ -221,7 +239,7 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         }
     }
     
-    private func showshopListView() -> Void {
+    private func showShopListView() -> Void {
         UIView.animateWithDuration(0.3) {
             self.shopListView.frame = self.view.bounds
         }
@@ -419,6 +437,7 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.init(rgb: 0x1fbad6).CGColor
         button.setImage(UIImage.init(named: "photo_collect_icon"), forState: .Normal)
+        button.addTarget(self, action: #selector(self.clickSelectImgButton), forControlEvents: .TouchUpInside)
         return button
     }()
     
