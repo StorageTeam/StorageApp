@@ -10,8 +10,8 @@ import UIKit
 import Photos
 
 class DSSelectImgController: DSBaseViewController {
-
     var maxImgCount: Int = 30
+    var naviItemTitle: String?
     
     var fetchRes : PHFetchResult?
     var itemSize : CGSize {
@@ -35,8 +35,16 @@ class DSSelectImgController: DSBaseViewController {
         self.selectDone = selectDone
     }
     
+    convenience init(naviItemTitle: String, selectDone: (([PHAsset]) -> Void)?) {
+        self.init()
+        
+        self.naviItemTitle = naviItemTitle
+        self.selectDone = selectDone
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.addAllSubviews()
         self.configNavItem()
         self.checkAuthority()
@@ -44,6 +52,12 @@ class DSSelectImgController: DSBaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let title = self.naviItemTitle {
+            self.navigationItem.title = self.naviItemTitle
+        } else {
+            self.navigationItem.title = "选择照片"
+        }
     }
     
     deinit {
@@ -54,7 +68,6 @@ class DSSelectImgController: DSBaseViewController {
     }
 
     private func addAllSubviews() {
-        self.title = "select photo"
         self.view.addSubview(self.collectionView)
         self.collectionView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsZero)

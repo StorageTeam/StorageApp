@@ -58,15 +58,9 @@ class DSStartController: DSBaseViewController {
             make.edges.equalTo(self.view)
         }
         
-        self.view.addSubview(self.logoLabel)
-        self.logoLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view).offset(109)
-            make.centerX.equalTo(self.view)
-        }
-        
-        self.view.addSubview(self.titleLabel)
-        self.titleLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.logoLabel.snp_bottom).offset(12)
+        self.view.addSubview(self.logoImgView)
+        self.logoImgView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view).offset(108)
             make.centerX.equalTo(self.view)
         }
         
@@ -89,13 +83,10 @@ class DSStartController: DSBaseViewController {
     
     // MARK: - Property
     
-    lazy var logoLabel: UILabel = {
-        let label = UILabel.init()
-        label.text = "FIRST LINK"
-        label.textColor = UIColor.init(rgb: 0xffffff)
-        label.font = UIFont.boldSystemFontOfSize(30)
-        label.textAlignment = .Center
-        return label
+    lazy var logoImgView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = UIImage.init(named: "AppLoginLogoIcon")
+        return imgView
     }()
     
     lazy var titleLabel: UILabel = {

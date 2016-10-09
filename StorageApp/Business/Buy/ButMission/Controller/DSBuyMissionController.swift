@@ -170,16 +170,27 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
     //MARK: Interface
     
     func refreshEmptyView(isReceiveOrder: Bool) -> Void {
+        self.isReceiveOrderOn = isReceiveOrder
         self.emptyView.hidden = true
         
+        var tipText: String? = nil
         if self.viewModel.orginDataArray?.count == 0 {
             self.emptyView.hidden = false
-            self.emptyView.tipLabel.text = "您没有采购任务哦~\n可尝试下拉刷新试试看"
+            tipText = "您没有采购任务哦~\n可尝试下拉刷新试试看"
         }
-        
         if isReceiveOrder == false {
             self.emptyView.hidden = false
-            self.emptyView.tipLabel.text = "您没有采购任务哦~\n可点击右上角\"接单\"按钮开启接单模式"
+            tipText = "您没有采购任务哦~\n可点击右上角\"接单\"按钮开启接单模式"
+        }
+        
+        if let text = tipText {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 8
+            paragraphStyle.alignment = .Center
+            
+            let attrText = NSMutableAttributedString(string: text)
+            attrText.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrText.length))
+            self.emptyView.tipLabel.attributedText = attrText
         }
     }
     

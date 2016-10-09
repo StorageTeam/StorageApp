@@ -217,7 +217,7 @@ class DSLoginController: DSBaseViewController, UITextFieldDelegate, DSDataCenter
     lazy var registerTipLabel: UILabel = {
         let label = UILabel.init()
         label.text = "还没有扫一扫账号，点此去"
-        label.textColor = UIColor.init(rgb: 0x333333)
+        label.textColor = UIColor.init(rgb: 0x666666)
         label.font = UIFont.systemFontOfSize(14)
         label.textAlignment = .Center
         return label

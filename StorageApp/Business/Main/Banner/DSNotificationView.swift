@@ -48,7 +48,7 @@ class DSNotificationView: UIView {
     
     lazy var textLabel: UILabel = {
         let label = UILabel.init()
-        label.textColor = UIColor.init(rgb: 0x333333)
+        label.textColor = UIColor.init(rgb: 0x666666)
         label.font = UIFont.systemFontOfSize(13)
         label.numberOfLines = 2
         return label

@@ -109,7 +109,7 @@ class DSCurrentShopView: UIView {
     
     lazy var changeShopLabel: UILabel = {
         let label = UILabel.init()
-        label.textColor = UIColor.init(rgb: 0x333333)
+        label.textColor = UIColor.init(rgb: 0x666666)
         label.font = UIFont.systemFontOfSize(15)
         label.text = "选择商品采购店铺"
         label.textAlignment = NSTextAlignment.Center

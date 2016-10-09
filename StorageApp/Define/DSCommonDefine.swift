@@ -21,6 +21,10 @@ class DSConst: NSObject {
         return Double(fabs((UIScreen.mainScreen().bounds.size.width - 320.0))) < DBL_EPSILON
     }
     
+    class func IS_Screen_375() -> Bool {
+        return Double(fabs((UIScreen.mainScreen().bounds.size.width - 375.0))) < DBL_EPSILON
+    }
+    
     class func IS_iPhone4() -> Bool {
         return Double(fabs((UIScreen.mainScreen().bounds.size.height - 480.0))) < DBL_EPSILON
     }
