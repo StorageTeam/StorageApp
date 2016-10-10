@@ -39,6 +39,13 @@ class FKEditTitleCell: UITableViewCell, UITextFieldDelegate {
             make.top.bottom.equalTo(self.contentView)
             make.centerY.equalTo(self.contentView)
         }
+        
+        self.contentView.addSubview(self.choicePhotoButton)
+        self.choicePhotoButton.snp_makeConstraints { (make) in
+            make.right.equalTo(self.contentView).offset(-16)
+            make.centerY.equalTo(self.contentView)
+            make.size.equalTo(CGSizeMake(36, 36))
+        }
     }
 
     // MARK: - Property
@@ -59,7 +66,17 @@ class FKEditTitleCell: UITableViewCell, UITextFieldDelegate {
         textField.returnKeyType = UIReturnKeyType.Done
         textField.keyboardType = .NumbersAndPunctuation
         textField.delegate = self
+        textField.userInteractionEnabled = false
         return textField
+    }()
+    
+    lazy var choicePhotoButton: UIButton = {
+        var button = UIButton.init(type: UIButtonType.Custom)
+        button.layer.cornerRadius = 18
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.init(rgb: 0x1fbad6).CGColor
+        button.setImage(UIImage.init(named: "photo_collect_icon"), forState: .Normal)
+        return button
     }()
     
     override func fk_configWith(viewModel: AnyObject, indexPath: NSIndexPath) {
@@ -68,9 +85,11 @@ class FKEditTitleCell: UITableViewCell, UITextFieldDelegate {
             if cellType == kEditCellType.kEditCellTypeAddress {
                 self.textField.text = editModel.sourceItem.address
                 self.textField.placeholder = nil
+                self.choicePhotoButton.hidden = true
             } else if cellType == kEditCellType.kEditCellTypeUPC {
                 self.textField.text = editModel.sourceItem.upc
-                self.textField.placeholder = "请输入UPC"
+                self.textField.placeholder = "请选择照片扫描UPC"
+                self.choicePhotoButton.hidden = false
             }
         }
     }

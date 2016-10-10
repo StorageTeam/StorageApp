@@ -15,6 +15,7 @@ target 'StorageApp' do
     pod 'ReachabilitySwift'
     pod 'DGElasticPullToRefresh'
     pod 'PKHUD'
+    pod 'ZBarSDK'
 
 end
 
@@ -27,6 +28,7 @@ target 'StorageAppTests' do
     pod 'ReachabilitySwift'
     pod 'DGElasticPullToRefresh'
     pod 'PKHUD'
+    pod 'ZBarSDK'
 
 end
 
@@ -39,6 +41,7 @@ target 'StorageAppUITests' do
     pod 'ReachabilitySwift'
     pod 'DGElasticPullToRefresh'
     pod 'PKHUD'
+    pod 'ZBarSDK'
 
 end
 

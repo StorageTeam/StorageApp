@@ -115,6 +115,11 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     // MARK: - Action
     
     func clickScanCollectButton(sender: UIButton) {
+        guard self.viewModel.getSelShopID() != nil else {
+            self.showText("请选择采购店铺")
+            return
+        }
+        
         weak var wkSelf = self
         let scanController = FKScanController.init(supplierID: self.viewModel.getSelShopID(), finish: { (qrCode) in
             let takeProductPhotoController = DSTakePhotoController.init(title: "拍照", takeDonePicture: { (productImages:[UIImage]) in
@@ -141,6 +146,11 @@ class DSMainViewController: DSBaseViewController, CurrentShopDelegate, DSDataCen
     }
     
     func clickSelectImgButton(sender: UIButton) {
+        guard self.viewModel.getSelShopID() != nil else {
+            self.showText("请选择采购店铺")
+            return
+        }
+        
         weak var wkSelf = self
         let selectProductPicCon = DSSelectImgController.init(naviItemTitle: "第1步:请选择商品照片", selectDone: { (prodAssets:[PHAsset]) in
             let selectPricePicCon = DSSelectImgController.init(naviItemTitle: "第2步:请选择价签照片", selectDone: { (priceAssets:[PHAsset]) in

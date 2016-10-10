@@ -59,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ZBarSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -67,17 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>138B78D326060BFB3497D122082E750A</key>
+		<key>2C2B1953A91633859BF7AD238FF567A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2DEE5C7F035CC2D4A6DD787F1A60DDB7</key>
+		<key>37876B23D72C9CE5AE5588C44E43A246</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7334E562A310CC374361DAA9D75190E0</key>
+		<key>4202AA255AF83FC4EAAB81F41D96F9AC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5AD3F1EE9C6353FCC78A41301F955BDE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60D7976507EE21E5C415E5D056E5213B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,22 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7DDF79495F24B309AF089ACC99FC1151</key>
+		<key>80272A911AB07A598D92A5FC061A6DDF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A579449E8D2FD9D47A9A1D096AA73425</key>
+		<key>B241B08370B983DE0C0F54454AA0499D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3F4985150BB5C2221495E69E5F69F1B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BF60D87E39157164F05FDEDC56A9BD0B</key>
+		<key>C136921141CF0EC03C93C5F018095E49</key>
 		<dict>
 			<key>primary</key>
 			<true/>

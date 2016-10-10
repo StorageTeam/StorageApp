@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 import Photos
-
+import ZBarSDK
 
 class EditViewController: DSBaseViewController, DSDataCenterDelegate{
 
@@ -18,6 +18,7 @@ class EditViewController: DSBaseViewController, DSDataCenterDelegate{
     private let CREATE_PRO_REQ = 1002
     private let EDIT_SAVE__REQ = 1003
     private let UPLOAD_IMG_REQ = 1004
+    private let UPC_VALID_REQUEST = 1005
     
     private let IMG_UPLOAD_INDEX_KEY = "IMG_UPLOAD_INDEX_KEY"
     private let IMG_UPLOAD_IS_PRODUCT_KEY = "IMG_UPLOAD_IS_PRODUCT_KEY"
@@ -184,8 +185,19 @@ class EditViewController: DSBaseViewController, DSDataCenterDelegate{
                 self.hidHud(false)
                 self.showText("修改保存成功")
                 self.clickBackAction()
+                
+            } else if identify == UPC_VALID_REQUEST {
+                if let exist = response["data"]?["result"] as? Int {
+                    if exist == 1 {
+                        self.showText("该商品已经存在，请勿重复扫描")
+                    } else {
+                        if let info = userInfo {
+                            self.viewModel.sourceItem.upc = info["upc"] as? String
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
             }
-            
         } else {
             self.showText(header.msg)
         }
@@ -325,10 +337,12 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource{
             cell = UITableViewCell.init(style: .Default, reuseIdentifier: nil)
         }
         
-        if let picCell = cell as? FKEditPicCell {
+        if let upcCell = cell as? FKEditTitleCell {
+            upcCell.choicePhotoButton.addTarget(self, action: #selector(self.clickChoiceUPCImg), forControlEvents: .TouchUpInside)
+        } else if let picCell = cell as? FKEditPicCell {
             picCell.delegate = self
             picCell.tag = indexPath.row - 2
-        }else if let saveCell = cell as? FKEditSaveCell {
+        } else if let saveCell = cell as? FKEditSaveCell {
             saveCell.saveBtn.addTarget(self, action: #selector(self.clickSaveBtn), forControlEvents: .TouchUpInside)
         }
         
@@ -380,7 +394,52 @@ extension EditViewController : UITableViewDelegate, UITableViewDataSource{
 
 extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDelegate{
     
-    func clickAddImg(picCell: FKEditPicCell){
+    func clickChoiceUPCImg() {
+        let selectProductPicCon = DSSelectImgController.init(naviItemTitle: "第1步:请选择商品照片", selectDone: { (assets:[PHAsset]) in
+            let size = CGSizeMake(CGFloat(DSConst.UPLOAD_PHOTO_LENGTH), CGFloat(DSConst.UPLOAD_PHOTO_LENGTH))
+            let option = PHImageRequestOptions.init()
+            option.deliveryMode = .HighQualityFormat
+            
+            weak var wkSelf = self
+            if let assetItem = assets.first {
+                self.cacheManger.requestImageForAsset(assetItem, targetSize: size, contentMode: .AspectFit, options: option, resultHandler: { (resImg: UIImage?, info:[NSObject : AnyObject]?) in
+                    wkSelf?.navigationController?.popToViewController(wkSelf!, animated: true)
+                    
+                    if let image = resImg {
+                        let cgImage: CGImage? = image.CGImage
+                        
+                        let barImage = ZBarImage.init(CGImage: cgImage)
+                        let scanner = ZBarImageScanner.init()
+                        scanner.setSymbology(ZBAR_UPCE, config: ZBAR_CFG_Y_DENSITY, to: 0)
+                        let code = scanner.scanImage(barImage)
+                        if (code > 0) {
+                            let results = scanner.results
+                            for symbol in results {
+                                if let st = symbol as? ZBarSymbol {
+                                    if let upc = st.data as NSString? {
+                                        if upc.length > 0 {
+                                            DSScanService.requestUPCExist(self.UPC_VALID_REQUEST
+                                                , delegate: wkSelf!
+                                                , upc: upc as String
+                                                , supplierID: self.viewModel.sourceItem.shopId!
+                                                , userInfo: ["upc" : upc as String])
+                                            break
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            wkSelf?.showText("扫描UPC失败，请重新选择照片")
+                        }
+                    }
+                })
+            }
+        })
+        selectProductPicCon.maxImgCount = 1
+        self.navigationController?.pushViewController(selectProductPicCon, animated: true)
+    }
+    
+    func clickAddImg(picCell: FKEditPicCell) {
         if let indexPath = self.tableView.indexPathForCell(picCell) {
             let cellType = self.viewModel.cellTypeForIndexPath(indexPath)
             var isProduct = true
@@ -463,7 +522,6 @@ extension EditViewController: FKEditPicCellDelegate, UINavigationControllerDeleg
     }
     
     private func addImages(images: [UIImage], isProduct: Bool) {
-        
         var targetImageItems: [DSEditImgItem] = []
         for singleImg in images {
             

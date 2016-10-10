@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class DSNetwork: NSObject {
-    static let errorMSG: String = "server data error!"
+    static let errorMSG: String = "服务器出错了～"
     
     class func Request(identify : Int,
                        delegate : DSDataCenterDelegate,

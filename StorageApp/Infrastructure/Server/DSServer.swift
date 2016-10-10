@@ -10,8 +10,8 @@ import Foundation
 
 class DSServer: NSObject {
     class func apiServer() -> String {
-        return "http://10.1.10.1"
-//        return "http://112.124.40.161"
+//        return "http://10.1.10.1"
+        return "http://112.124.40.161"
 //        return "http://api.fine3q.com"
     }
 }
