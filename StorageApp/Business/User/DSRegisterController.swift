@@ -10,8 +10,8 @@ import UIKit
 import Foundation
 
 class DSRegisterController: DSLoginController {
-    
     private static let DS_REGISTER_REQUEST_IDENTIFY: Int = 1
+    private static let DS_REGISTER_LOGIN_REQUEST_IDENTIFY: Int = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +35,17 @@ class DSRegisterController: DSLoginController {
     override func networkDidResponseSuccess(identify: Int, header: DSResponseHeader, response: [String : AnyObject], userInfo: [String : AnyObject]?) {
         if header.code == DSResponseCode.Normal {
             if identify == DSRegisterController.DS_REGISTER_REQUEST_IDENTIFY {
-                self.showText("注册成功，请登录")
-                self.replaceWithLoginController()
+                if let email = self.emailTextField.textField.text {
+                    if let password = self.passwordTextField.textField.text {
+                        DSUserService.requestLogin(DSRegisterController.DS_REGISTER_LOGIN_REQUEST_IDENTIFY,
+                                                   delegate: self,
+                                                   email: email,
+                                                   password: password)
+                    }
+                }
+            } else if identify == DSRegisterController.DS_REGISTER_LOGIN_REQUEST_IDENTIFY {
+                DSAccount.saveAccount(response["data"]?["user"])
+                self.dismissViewControllerAnimated(true, completion: {})
             }
         } else {
             super.showText(header.msg)
@@ -61,15 +70,6 @@ class DSRegisterController: DSLoginController {
         }
     }
     
-    private func replaceWithLoginController() {
-        var controllers = self.navigationController?.viewControllers
-        if controllers?.count >= 2 {
-            controllers?.removeLast()
-            controllers?.append(DSLoginController.init())
-            self.navigationController?.setViewControllers(controllers!, animated: true)
-        }
-    }
-
     /*
     // MARK: - Navigation
 

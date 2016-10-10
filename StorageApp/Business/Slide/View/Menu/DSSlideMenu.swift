@@ -146,17 +146,17 @@ class DSSlideMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         }
         
         if roleType.isDeliverAble() {
-            titles.append("采购任务")
-            events.append(SlideMenuEvent.MenuBuyTask)
-            imageNames.append("menu_buy_icon")
+//            titles.append("采购任务")
+//            events.append(SlideMenuEvent.MenuBuyTask)
+//            imageNames.append("menu_buy_icon")
             
             titles.append("采购记录")
             events.append(SlideMenuEvent.MenuBuyRecord)
             imageNames.append("menu_buy_record")
             
-            titles.append("发货任务")
-            events.append(SlideMenuEvent.MenuDeliverTask)
-            imageNames.append("menu_deliver_icon")
+//            titles.append("发货任务")
+//            events.append(SlideMenuEvent.MenuDeliverTask)
+//            imageNames.append("menu_deliver_icon")
             
             titles.append("发货记录")
             events.append(SlideMenuEvent.MenuDeliverRecord)

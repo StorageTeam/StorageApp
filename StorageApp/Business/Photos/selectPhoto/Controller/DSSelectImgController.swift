@@ -54,7 +54,7 @@ class DSSelectImgController: DSBaseViewController {
         super.viewWillAppear(animated)
         
         if let title = self.naviItemTitle {
-            self.navigationItem.title = self.naviItemTitle
+            self.navigationItem.title = title
         } else {
             self.navigationItem.title = "选择照片"
         }
@@ -151,7 +151,7 @@ class DSSelectImgController: DSBaseViewController {
     
     private func fetchAllPhoto() {
         let option = PHFetchOptions.init()
-        option.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: true)]
+        option.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
         self.fetchRes = PHAsset.fetchAssetsWithOptions(option)
         
         weak var wkSelf = self
