@@ -99,9 +99,10 @@ class DSBuyMissionController: DSBaseViewController, UITableViewDelegate, UITable
         self.hidHud(false)
         self.tableView.dg_stopLoading()
         
-        if let errorString = error {
-            self.showText(errorString)
-        }
+//        if let errorString = error {
+//            self.showText(errorString)
+//        }
+        self.refreshEmptyView(self.isReceiveOrderOn)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
